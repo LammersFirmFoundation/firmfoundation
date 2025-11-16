@@ -16,24 +16,24 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AuthProvider>
+    <AuthProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/listings" element={<ListingsPage />} />
             <Route path="/property/:id" element={<PropertyDetail />} />
             <Route path="/tenant-portal" element={<TenantPortal />} />
             <Route path="/auth" element={<Auth />} />
-            <Route path="/admin/onboarding" element={<AdminOnboarding />} />
+            <Route path="/admin/onboard-client" element={<AdminOnboarding />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </AuthProvider>
-      </BrowserRouter>
-    </TooltipProvider>
+        </BrowserRouter>
+      </TooltipProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );
 
