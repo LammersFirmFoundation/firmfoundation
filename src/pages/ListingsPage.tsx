@@ -5,6 +5,12 @@ import PropertyCard from "@/components/PropertyCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
+import belleHall1 from "@/assets/properties/belle-hall-1.jpg";
+import belleHall2 from "@/assets/properties/belle-hall-2.jpg";
+import dunesWest1 from "@/assets/properties/dunes-west-1.jpg";
+import parkWest1 from "@/assets/properties/park-west-1.jpg";
+import parkWest2 from "@/assets/properties/park-west-2.jpg";
+import shemCreek1 from "@/assets/properties/shem-creek-1.jpg";
 
 const PROPERTIES = [
   {
@@ -16,6 +22,7 @@ const PROPERTIES = [
     sqft: 1850,
     rent: 2400,
     available: "Now",
+    imageUrl: belleHall2,
   },
   {
     id: 2,
@@ -26,6 +33,7 @@ const PROPERTIES = [
     sqft: 2600,
     rent: 3200,
     available: "Dec 1",
+    imageUrl: dunesWest1,
   },
   {
     id: 3,
@@ -36,6 +44,7 @@ const PROPERTIES = [
     sqft: 1950,
     rent: 3800,
     available: "Now",
+    imageUrl: shemCreek1,
   },
   {
     id: 4,
@@ -46,6 +55,7 @@ const PROPERTIES = [
     sqft: 2200,
     rent: 2700,
     available: "Jan 15",
+    imageUrl: parkWest1,
   },
   {
     id: 5,
@@ -56,6 +66,7 @@ const PROPERTIES = [
     sqft: 3200,
     rent: 4200,
     available: "Now",
+    imageUrl: belleHall1,
   },
   {
     id: 6,
@@ -66,6 +77,7 @@ const PROPERTIES = [
     sqft: 1400,
     rent: 1900,
     available: "Dec 15",
+    imageUrl: parkWest2,
   },
 ];
 

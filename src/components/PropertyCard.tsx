@@ -12,14 +12,18 @@ interface PropertyCardProps {
   sqft: number;
   rent: number;
   available: string;
-  imageUrl?: string;
+  imageUrl: string;
 }
 
-const PropertyCard = ({ id, title, neighborhood, bedrooms, bathrooms, sqft, rent, available }: PropertyCardProps) => {
+const PropertyCard = ({ id, title, neighborhood, bedrooms, bathrooms, sqft, rent, available, imageUrl }: PropertyCardProps) => {
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-      <div className="h-64 bg-muted flex items-center justify-center">
-        <span className="text-muted-foreground">Property Image</span>
+    <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300 group border-2 hover:border-primary">
+      <div className="h-64 overflow-hidden relative">
+        <img 
+          src={imageUrl} 
+          alt={title} 
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+        />
       </div>
       <CardContent className="p-6">
         <h3 className="font-bold text-xl mb-2">{title}</h3>
