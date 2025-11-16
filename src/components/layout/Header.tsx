@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png";
-import { Menu } from "lucide-react";
+import { Menu, LogOut } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, isAdmin, signOut } = useAuth();
 
   return (
     <header className="bg-background/95 backdrop-blur-sm border-b border-border/50 sticky top-0 z-50">
@@ -30,9 +32,26 @@ const Header = () => {
             <Link to="/tenant-portal" className="text-foreground hover:text-primary transition-colors font-medium">
               Client Portal
             </Link>
-            <Button asChild size="lg" className="ml-4">
-              <a href="tel:4194198082">Get a Quote</a>
-            </Button>
+            {isAdmin && (
+              <Link to="/admin/onboarding" className="text-foreground hover:text-primary transition-colors font-medium">
+                Onboard Client
+              </Link>
+            )}
+            {user ? (
+              <Button variant="outline" onClick={signOut} className="ml-4">
+                <LogOut className="mr-2 h-4 w-4" />
+                Sign Out
+              </Button>
+            ) : (
+              <>
+                <Button asChild variant="outline" className="ml-4">
+                  <Link to="/auth">Admin Login</Link>
+                </Button>
+                <Button asChild size="lg">
+                  <a href="tel:4194198082">Get a Quote</a>
+                </Button>
+              </>
+            )}
           </nav>
 
           {/* Mobile Menu Button */}
@@ -57,9 +76,26 @@ const Header = () => {
             <Link to="/tenant-portal" className="text-foreground hover:text-primary transition-colors py-2">
               Client Portal
             </Link>
-            <Button asChild className="w-full">
-              <a href="tel:4194198082">Get a Quote</a>
-            </Button>
+            {isAdmin && (
+              <Link to="/admin/onboarding" className="text-foreground hover:text-primary transition-colors py-2">
+                Onboard Client
+              </Link>
+            )}
+            {user ? (
+              <Button variant="outline" onClick={signOut} className="w-full">
+                <LogOut className="mr-2 h-4 w-4" />
+                Sign Out
+              </Button>
+            ) : (
+              <>
+                <Button asChild variant="outline" className="w-full mb-2">
+                  <Link to="/auth">Admin Login</Link>
+                </Button>
+                <Button asChild className="w-full">
+                  <a href="tel:4194198082">Get a Quote</a>
+                </Button>
+              </>
+            )}
           </nav>
         )}
       </div>
