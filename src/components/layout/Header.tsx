@@ -33,7 +33,7 @@ const Header = () => {
               Client Portal
             </Link>
             {isAdmin && (
-              <Link to="/admin/onboarding" className="text-foreground hover:text-primary transition-colors font-medium">
+              <Link to="/admin/onboard-client" className="text-foreground hover:text-primary transition-colors font-medium">
                 Onboard Client
               </Link>
             )}
@@ -77,7 +77,7 @@ const Header = () => {
               Client Portal
             </Link>
             {isAdmin && (
-              <Link to="/admin/onboarding" className="text-foreground hover:text-primary transition-colors py-2">
+              <Link to="/admin/onboard-client" className="text-foreground hover:text-primary transition-colors py-2">
                 Onboard Client
               </Link>
             )}
