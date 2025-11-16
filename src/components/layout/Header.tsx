@@ -24,9 +24,9 @@ const Header = () => {
             <Link to="/" className="text-foreground hover:text-primary transition-colors font-medium">
               Home
             </Link>
-            <Link to="/listings" className="text-foreground hover:text-primary transition-colors font-medium">
-              Available Homes
-            </Link>
+            <a href="/#services" className="text-foreground hover:text-primary transition-colors font-medium">
+              Services
+            </a>
             <Link to="/tenant-portal" className="text-foreground hover:text-primary transition-colors font-medium">
               Tenant Portal
             </Link>
@@ -34,7 +34,7 @@ const Header = () => {
               Owner Portal
             </Link>
             <Button asChild size="lg" className="ml-4">
-              <Link to="/listings">Browse Homes</Link>
+              <a href="tel:4194198082">Get a Quote</a>
             </Button>
           </nav>
 
@@ -54,9 +54,9 @@ const Header = () => {
             <Link to="/" className="text-foreground hover:text-primary transition-colors py-2">
               Home
             </Link>
-            <Link to="/listings" className="text-foreground hover:text-primary transition-colors py-2">
-              Available Homes
-            </Link>
+            <a href="/#services" className="text-foreground hover:text-primary transition-colors py-2">
+              Services
+            </a>
             <Link to="/tenant-portal" className="text-foreground hover:text-primary transition-colors py-2">
               Tenant Portal
             </Link>
@@ -64,7 +64,7 @@ const Header = () => {
               Owner Portal
             </Link>
             <Button asChild className="w-full">
-              <Link to="/listings">Browse Homes</Link>
+              <a href="tel:4194198082">Get a Quote</a>
             </Button>
           </nav>
         )}
