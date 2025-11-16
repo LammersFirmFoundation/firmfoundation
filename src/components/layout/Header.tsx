@@ -30,9 +30,6 @@ const Header = () => {
             <Link to="/tenant-portal" className="text-foreground hover:text-primary transition-colors font-medium">
               Client Portal
             </Link>
-            <Link to="/owner-portal" className="text-foreground hover:text-primary transition-colors font-medium">
-              Owner Portal
-            </Link>
             <Button asChild size="lg" className="ml-4">
               <a href="tel:4194198082">Get a Quote</a>
             </Button>
@@ -59,9 +56,6 @@ const Header = () => {
             </a>
             <Link to="/tenant-portal" className="text-foreground hover:text-primary transition-colors py-2">
               Client Portal
-            </Link>
-            <Link to="/owner-portal" className="text-foreground hover:text-primary transition-colors py-2">
-              Owner Portal
             </Link>
             <Button asChild className="w-full">
               <a href="tel:4194198082">Get a Quote</a>

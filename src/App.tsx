@@ -7,7 +7,6 @@ import LandingPage from "./pages/LandingPage";
 import ListingsPage from "./pages/ListingsPage";
 import PropertyDetail from "./pages/PropertyDetail";
 import TenantPortal from "./pages/TenantPortal";
-import OwnerPortal from "./pages/OwnerPortal";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,7 +22,6 @@ const App = () => (
           <Route path="/listings" element={<ListingsPage />} />
           <Route path="/property/:id" element={<PropertyDetail />} />
           <Route path="/tenant-portal" element={<TenantPortal />} />
-          <Route path="/owner-portal" element={<OwnerPortal />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
