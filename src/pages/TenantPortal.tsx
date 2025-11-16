@@ -19,7 +19,7 @@ const TenantPortal = () => {
         <main className="flex-1 flex items-center justify-center px-4 py-12">
           <Card className="w-full max-w-md">
             <CardHeader>
-              <CardTitle className="text-2xl text-center">Tenant Portal Login</CardTitle>
+              <CardTitle className="text-2xl text-center">Client Portal Login</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
@@ -51,7 +51,7 @@ const TenantPortal = () => {
       <main className="flex-1">
         <section className="bg-muted/30 py-8 px-4">
           <div className="container mx-auto">
-            <h1 className="text-3xl md:text-4xl font-bold">Tenant Portal</h1>
+            <h1 className="text-3xl md:text-4xl font-bold">Client Portal</h1>
             <p className="text-muted-foreground mt-2">Welcome back, John Doe</p>
           </div>
         </section>

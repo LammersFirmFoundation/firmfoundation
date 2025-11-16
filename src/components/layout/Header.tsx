@@ -28,7 +28,7 @@ const Header = () => {
               Services
             </a>
             <Link to="/tenant-portal" className="text-foreground hover:text-primary transition-colors font-medium">
-              Tenant Portal
+              Client Portal
             </Link>
             <Link to="/owner-portal" className="text-foreground hover:text-primary transition-colors font-medium">
               Owner Portal
@@ -58,7 +58,7 @@ const Header = () => {
               Services
             </a>
             <Link to="/tenant-portal" className="text-foreground hover:text-primary transition-colors py-2">
-              Tenant Portal
+              Client Portal
             </Link>
             <Link to="/owner-portal" className="text-foreground hover:text-primary transition-colors py-2">
               Owner Portal
