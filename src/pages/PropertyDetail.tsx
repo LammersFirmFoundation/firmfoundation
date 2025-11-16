@@ -4,6 +4,9 @@ import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Bed, Bath, Home, MapPin, Calendar, CheckCircle } from "lucide-react";
+import belleHall2 from "@/assets/properties/belle-hall-2.jpg";
+import dunesWest1 from "@/assets/properties/dunes-west-1.jpg";
+import shemCreek1 from "@/assets/properties/shem-creek-1.jpg";
 
 const PROPERTY_DETAILS = {
   1: {
@@ -27,6 +30,7 @@ const PROPERTY_DETAILS = {
       "Pet-friendly"
     ],
     virtualTour: "https://example.com/virtual-tour",
+    imageUrl: belleHall2,
   },
   2: {
     title: "Dunes West Family Home",
@@ -49,6 +53,7 @@ const PROPERTY_DETAILS = {
       "Excellent schools"
     ],
     virtualTour: "https://example.com/virtual-tour",
+    imageUrl: dunesWest1,
   },
   3: {
     title: "Waterfront Shem Creek Gem",
@@ -71,6 +76,7 @@ const PROPERTY_DETAILS = {
       "Coastal living at its best"
     ],
     virtualTour: "https://example.com/virtual-tour",
+    imageUrl: shemCreek1,
   },
 };
 
@@ -105,13 +111,21 @@ const PropertyDetail = () => {
         <section className="bg-muted">
           <div className="container mx-auto px-4 py-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="h-96 bg-muted-foreground/10 rounded-lg flex items-center justify-center">
-                <span className="text-muted-foreground">Main Image</span>
+              <div className="h-96 rounded-lg overflow-hidden">
+                <img 
+                  src={property.imageUrl} 
+                  alt={property.title} 
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="h-44 bg-muted-foreground/10 rounded-lg flex items-center justify-center">
-                    <span className="text-muted-foreground text-sm">Image {i}</span>
+                  <div key={i} className="h-44 bg-muted-foreground/10 rounded-lg flex items-center justify-center overflow-hidden">
+                    <img 
+                      src={property.imageUrl} 
+                      alt={`${property.title} view ${i}`} 
+                      className="w-full h-full object-cover opacity-70"
+                    />
                   </div>
                 ))}
               </div>

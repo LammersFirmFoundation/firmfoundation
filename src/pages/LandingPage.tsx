@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import { Home, Shield, Users, TrendingUp } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import belleHall1 from "@/assets/properties/belle-hall-1.jpg";
+import dunesWest1 from "@/assets/properties/dunes-west-1.jpg";
+import parkWest1 from "@/assets/properties/park-west-1.jpg";
+import shemCreek1 from "@/assets/properties/shem-creek-1.jpg";
 
 const LandingPage = () => {
   return (
@@ -92,14 +96,22 @@ const LandingPage = () => {
               Explore Mount Pleasant's most sought-after communities
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {["Belle Hall", "Dunes West", "Park West", "Shem Creek"].map((neighborhood) => (
-                <Card key={neighborhood} className="overflow-hidden hover:shadow-2xl transition-all duration-300 group border-2 hover:border-primary">
-                  <div className="h-64 bg-gradient-to-br from-primary/10 to-muted flex items-center justify-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors"></div>
-                    <span className="text-muted-foreground relative z-10">Image</span>
+              {[
+                { name: "Belle Hall", image: belleHall1 },
+                { name: "Dunes West", image: dunesWest1 },
+                { name: "Park West", image: parkWest1 },
+                { name: "Shem Creek", image: shemCreek1 }
+              ].map((neighborhood) => (
+                <Card key={neighborhood.name} className="overflow-hidden hover:shadow-2xl transition-all duration-300 group border-2 hover:border-primary">
+                  <div className="h-64 relative overflow-hidden">
+                    <img 
+                      src={neighborhood.image} 
+                      alt={neighborhood.name} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
                   </div>
                   <CardContent className="pt-6 pb-8">
-                    <h3 className="font-bold text-2xl mb-3">{neighborhood}</h3>
+                    <h3 className="font-bold text-2xl mb-3">{neighborhood.name}</h3>
                     <p className="text-muted-foreground leading-relaxed">
                       Discover beautiful homes in this premier Mount Pleasant community
                     </p>
