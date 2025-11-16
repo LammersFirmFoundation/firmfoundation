@@ -8,32 +8,32 @@ const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-background border-b border-border sticky top-0 z-50">
-      <div className="container mx-auto px-4 py-4">
+    <header className="bg-background/95 backdrop-blur-sm border-b border-border/50 sticky top-0 z-50">
+      <div className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="Firm Foundation Property Management" className="h-12 w-auto" />
+          <Link to="/" className="flex items-center gap-3 group">
+            <img src={logo} alt="Firm Foundation Property Management" className="h-14 w-auto transition-transform group-hover:scale-105" />
             <div className="hidden sm:block">
-              <div className="text-xl font-bold text-foreground">FIRM FOUNDATION</div>
-              <div className="text-sm text-muted-foreground">Property Management</div>
+              <div className="text-xl font-bold text-foreground font-serif tracking-wide">FIRM FOUNDATION</div>
+              <div className="text-sm text-muted-foreground font-sans">Property Management</div>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
-            <Link to="/" className="text-foreground hover:text-primary transition-colors">
+          <nav className="hidden md:flex items-center gap-8">
+            <Link to="/" className="text-foreground hover:text-primary transition-colors font-medium">
               Home
             </Link>
-            <Link to="/listings" className="text-foreground hover:text-primary transition-colors">
+            <Link to="/listings" className="text-foreground hover:text-primary transition-colors font-medium">
               Available Homes
             </Link>
-            <Link to="/tenant-portal" className="text-foreground hover:text-primary transition-colors">
+            <Link to="/tenant-portal" className="text-foreground hover:text-primary transition-colors font-medium">
               Tenant Portal
             </Link>
-            <Link to="/owner-portal" className="text-foreground hover:text-primary transition-colors">
+            <Link to="/owner-portal" className="text-foreground hover:text-primary transition-colors font-medium">
               Owner Portal
             </Link>
-            <Button asChild>
+            <Button asChild size="lg" className="ml-4">
               <Link to="/listings">Browse Homes</Link>
             </Button>
           </nav>
