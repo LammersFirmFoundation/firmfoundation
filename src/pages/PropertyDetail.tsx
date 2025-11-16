@@ -208,7 +208,10 @@ const PropertyDetail = () => {
                     <div className="border-t border-border pt-6">
                       <h3 className="font-semibold mb-3">Contact Agent</h3>
                       <p className="text-sm text-muted-foreground mb-2">
-                        Phone: (843) 555-0123
+                        Josiah Lammers
+                      </p>
+                      <p className="text-sm text-muted-foreground mb-2">
+                        Phone: (419) 419-8082
                       </p>
                       <p className="text-sm text-muted-foreground">
                         Email: info@firmfoundationpm.com
