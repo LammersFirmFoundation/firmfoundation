@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { Home, Shield, Users, TrendingUp } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { ChatBot } from "@/components/ChatBot";
 import belleHall1 from "@/assets/properties/belle-hall-1.jpg";
 import belleHall2 from "@/assets/properties/belle-hall-2.jpg";
 import dunesWest1 from "@/assets/properties/dunes-west-1.jpg";
@@ -15,7 +14,6 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <ChatBot />
       
       <main className="flex-1">
         {/* Hero Section */}
