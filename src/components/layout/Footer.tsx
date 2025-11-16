@@ -9,14 +9,14 @@ const Footer = () => {
           <div>
             <img src={logo} alt="Firm Foundation" className="h-16 w-auto mb-4" />
             <p className="text-muted-foreground">
-              Premier property management in Mount Pleasant, South Carolina. Serving Belle Hall, Dunes West, Park West, and Shem Creek waterfront communities.
+              Professional property maintenance in Mount Pleasant, South Carolina. Specializing in pressure washing, landscaping, and window washing for residential properties.
             </p>
           </div>
 
           <div>
             <h3 className="font-semibold text-foreground mb-4">Quick Links</h3>
             <ul className="space-y-2 text-muted-foreground">
-              <li><a href="/listings" className="hover:text-primary transition-colors">Available Homes</a></li>
+              <li><a href="/#services" className="hover:text-primary transition-colors">Our Services</a></li>
               <li><a href="/tenant-portal" className="hover:text-primary transition-colors">Tenant Portal</a></li>
               <li><a href="/owner-portal" className="hover:text-primary transition-colors">Owner Portal</a></li>
             </ul>

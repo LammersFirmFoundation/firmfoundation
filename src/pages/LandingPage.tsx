@@ -5,6 +5,7 @@ import { Home, Shield, Users, TrendingUp } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import belleHall1 from "@/assets/properties/belle-hall-1.jpg";
+import belleHall2 from "@/assets/properties/belle-hall-2.jpg";
 import dunesWest1 from "@/assets/properties/dunes-west-1.jpg";
 import parkWest1 from "@/assets/properties/park-west-1.jpg";
 import shemCreek1 from "@/assets/properties/shem-creek-1.jpg";
@@ -20,65 +21,139 @@ const LandingPage = () => {
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptMCAzNmMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptLTE4LTE4YzMuMzE0IDAgNiAyLjY4NiA2IDZzLTIuNjg2IDYtNiA2LTYtMi42ODYtNi02IDIuNjg2LTYgNi02eiIgc3Ryb2tlPSJyZ2JhKDI5LCA3OCwgMjE2LCAwLjA1KSIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9nPjwvc3ZnPg==')] opacity-40"></div>
           <div className="container mx-auto text-center max-w-5xl relative z-10">
             <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-8 leading-tight tracking-tight">
-              Charleston's Premier
+              Mount Pleasant's Premier
               <br />
-              <span className="text-primary">Property Management</span>
+              <span className="text-primary">Property Maintenance Experts</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-              Discover upscale rental homes in Belle Hall, Dunes West, Park West, and Shem Creek waterfront communities
+              Professional pressure washing, landscaping, and window washing services for residential properties in Belle Hall, Dunes West, Park West, and Shem Creek
             </p>
-            <Button asChild size="lg" className="text-lg px-12 py-6 h-auto">
-              <Link to="/listings">Browse Available Homes</Link>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild size="lg" className="text-lg px-12 py-6 h-auto">
+                <a href="tel:4194198082">Get a Free Quote</a>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="text-lg px-12 py-6 h-auto">
+                <a href="#services">Our Services</a>
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* Services Section */}
+        <section id="services" className="py-24 px-4">
+          <div className="container mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-6">
+              Our Maintenance Services
+            </h2>
+            <p className="text-center text-muted-foreground text-lg mb-16 max-w-2xl mx-auto">
+              Professional property maintenance for Mount Pleasant's finest homes
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl">
+                <CardContent className="pt-8 pb-6">
+                  <div className="h-48 mb-6 rounded-lg overflow-hidden">
+                    <img 
+                      src={belleHall1} 
+                      alt="Pressure washing service" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <h3 className="font-bold text-2xl mb-4">Pressure Washing</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    Professional pressure washing for driveways, sidewalks, siding, decks, and patios. We restore your property's curb appeal with safe, effective cleaning techniques.
+                  </p>
+                  <ul className="text-muted-foreground text-sm space-y-2">
+                    <li>• Driveway & walkway cleaning</li>
+                    <li>• House washing & siding</li>
+                    <li>• Deck & patio restoration</li>
+                    <li>• Fence cleaning</li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl">
+                <CardContent className="pt-8 pb-6">
+                  <div className="h-48 mb-6 rounded-lg overflow-hidden">
+                    <img 
+                      src={parkWest1} 
+                      alt="Landscaping service" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <h3 className="font-bold text-2xl mb-4">Landscaping</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    Complete landscaping services to keep your property looking pristine year-round. From routine maintenance to seasonal enhancements.
+                  </p>
+                  <ul className="text-muted-foreground text-sm space-y-2">
+                    <li>• Weekly lawn maintenance</li>
+                    <li>• Mulching & edging</li>
+                    <li>• Seasonal planting</li>
+                    <li>• Irrigation management</li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl">
+                <CardContent className="pt-8 pb-6">
+                  <div className="h-48 mb-6 rounded-lg overflow-hidden">
+                    <img 
+                      src={belleHall2} 
+                      alt="Window washing service" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <h3 className="font-bold text-2xl mb-4">Window Washing</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    Crystal-clear windows inside and out. We provide streak-free cleaning for all your residential windows, including hard-to-reach areas.
+                  </p>
+                  <ul className="text-muted-foreground text-sm space-y-2">
+                    <li>• Interior & exterior cleaning</li>
+                    <li>• Screen cleaning & repair</li>
+                    <li>• Track & sill detailing</li>
+                    <li>• High window access</li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </section>
 
         {/* Why Choose Us */}
-        <section className="py-24 px-4">
+        <section className="py-24 px-4 bg-muted/20">
           <div className="container mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-6">
               Why Choose Firm Foundation
             </h2>
             <p className="text-center text-muted-foreground text-lg mb-16 max-w-2xl mx-auto">
-              Excellence in residential property management and maintenance
+              Trusted by homeowners and property managers throughout Mount Pleasant
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl">
-                <CardContent className="pt-8 pb-6 text-center">
-                  <Home className="h-16 w-16 text-primary mx-auto mb-6" />
-                  <h3 className="font-bold text-xl mb-3">Quality Homes</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Single-family homes and townhouses in Mount Pleasant's finest neighborhoods
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              <Card className="border-2 hover:border-primary transition-all duration-300">
                 <CardContent className="pt-8 pb-6 text-center">
                   <Shield className="h-16 w-16 text-primary mx-auto mb-6" />
-                  <h3 className="font-bold text-xl mb-3">Reliable Service</h3>
+                  <h3 className="font-bold text-xl mb-3">Professional & Reliable</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    24/7 maintenance support and responsive management team
+                    Licensed, insured, and committed to delivering exceptional service on every project
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl">
+              <Card className="border-2 hover:border-primary transition-all duration-300">
                 <CardContent className="pt-8 pb-6 text-center">
                   <Users className="h-16 w-16 text-primary mx-auto mb-6" />
-                  <h3 className="font-bold text-xl mb-3">Tenant Portal</h3>
+                  <h3 className="font-bold text-xl mb-3">Local Expertise</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    Easy online rent payments, maintenance requests, and document access
+                    Deep knowledge of Mount Pleasant properties and coastal maintenance needs
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl">
+              <Card className="border-2 hover:border-primary transition-all duration-300">
                 <CardContent className="pt-8 pb-6 text-center">
                   <TrendingUp className="h-16 w-16 text-primary mx-auto mb-6" />
-                  <h3 className="font-bold text-xl mb-3">Owner Transparency</h3>
+                  <h3 className="font-bold text-xl mb-3">Quality Results</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    Detailed reporting, performance tracking, and seamless communication
+                    Meticulous attention to detail and commitment to exceeding expectations
                   </p>
                 </CardContent>
               </Card>
@@ -86,14 +161,14 @@ const LandingPage = () => {
           </div>
         </section>
 
-        {/* Neighborhoods */}
-        <section className="py-24 px-4 bg-muted/20">
+        {/* Service Areas */}
+        <section className="py-24 px-4">
           <div className="container mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-6">
-              Featured Neighborhoods
+              Areas We Serve
             </h2>
             <p className="text-center text-muted-foreground text-lg mb-16 max-w-2xl mx-auto">
-              Explore Mount Pleasant's most sought-after communities
+              Proudly serving Mount Pleasant's premier neighborhoods
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
@@ -170,14 +245,19 @@ const LandingPage = () => {
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptMCAzNmMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptLTE4LTE4YzMuMzE0IDAgNiAyLjY4NiA2IDZzLTIuNjg2IDYtNiA2LTYtMi42ODYtNi02IDIuNjg2LTYgNi02eiIgc3Ryb2tlPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMSkiIHN0cm9rZS13aWR0aD0iMiIvPjwvZz48L3N2Zz4=')] opacity-20"></div>
           <div className="container mx-auto text-center max-w-4xl relative z-10">
             <h2 className="text-4xl md:text-5xl font-bold mb-8">
-              Ready to Find Your Perfect Home?
+              Ready to Transform Your Property?
             </h2>
             <p className="text-xl mb-12 opacity-95 leading-relaxed max-w-2xl mx-auto">
-              Explore our available properties in Mount Pleasant's most desirable neighborhoods
+              Contact Josiah Lammers today for a free consultation and quote
             </p>
-            <Button asChild size="lg" variant="secondary" className="text-lg px-12 py-6 h-auto shadow-xl hover:shadow-2xl transition-shadow">
-              <Link to="/listings">View Available Homes</Link>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild size="lg" variant="secondary" className="text-lg px-12 py-6 h-auto shadow-xl hover:shadow-2xl transition-shadow">
+                <a href="tel:4194198082">Call (419) 419-8082</a>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="text-lg px-12 py-6 h-auto border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+                <a href="mailto:info@firmfoundationpm.com">Email Us</a>
+              </Button>
+            </div>
           </div>
         </section>
       </main>
