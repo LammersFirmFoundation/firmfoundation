@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { AuthProvider } from "@/hooks/useAuth";
 import LandingPage from "./pages/LandingPage";
+import ServicesPage from "./pages/ServicesPage";
 import ListingsPage from "./pages/ListingsPage";
 import PropertyDetail from "./pages/PropertyDetail";
 import ContactUs from "./pages/ContactUs";
@@ -26,6 +27,7 @@ const App = () => (
             <Sonner />
             <Routes>
               <Route path="/" element={<LandingPage />} />
+              <Route path="/services" element={<ServicesPage />} />
               <Route path="/listings" element={<ListingsPage />} />
               <Route path="/property/:id" element={<PropertyDetail />} />
               <Route path="/contact" element={<ContactUs />} />

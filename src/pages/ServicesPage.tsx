@@ -1,53 +1,34 @@
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "react-router-dom";
-import { Home, Shield, Users, TrendingUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import belleHall1 from "@/assets/properties/belle-hall-1.jpg";
 import belleHall2 from "@/assets/properties/belle-hall-2.jpg";
-import dunesWest1 from "@/assets/properties/dunes-west-1.jpg";
 import parkWest1 from "@/assets/properties/park-west-1.jpg";
-import rivertowne1 from "@/assets/properties/rivertowne-1.jpg";
+import { Shield, Users, TrendingUp } from "lucide-react";
 
-const LandingPage = () => {
+const ServicesPage = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-primary/5 via-background to-background py-32 px-4 overflow-hidden">
+        <section className="relative bg-gradient-to-br from-primary/5 via-background to-background py-24 px-4 overflow-hidden">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptMCAzNmMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptLTE4LTE4YzMuMzE0IDAgNiAyLjY4NiA2IDZzLTIuNjg2IDYtNiA2LTYtMi42ODYtNi02IDIuNjg2LTYgNi02eiIgc3Ryb2tlPSJyZ2JhKDI5LCA3OCwgMjE2LCAwLjA1KSIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9nPjwvc3ZnPg==')] opacity-40"></div>
-          <div className="container mx-auto text-center max-w-5xl relative z-10">
-            <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-8 leading-tight tracking-tight">
-              Mount Pleasant's Premier
-              <br />
-              <span className="text-primary">Property Maintenance Experts</span>
+          <div className="container mx-auto text-center max-w-4xl relative z-10">
+            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight tracking-tight">
+              Our <span className="text-primary">Maintenance Services</span>
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-              Professional pressure washing, landscaping, and window washing services for residential properties in Belle Hall, Dunes West, Park West, and Rivertowne
+            <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
+              Professional property maintenance for Mount Pleasant's finest homes
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="text-lg px-12 py-6 h-auto">
-                <a href="tel:4194198082">Get a Free Quote</a>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="text-lg px-12 py-6 h-auto">
-                <Link to="/services">Our Services</Link>
-              </Button>
-            </div>
           </div>
         </section>
 
         {/* Services Section */}
-        <section id="services" className="py-24 px-4">
+        <section className="py-24 px-4">
           <div className="container mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-6">
-              Our Maintenance Services
-            </h2>
-            <p className="text-center text-muted-foreground text-lg mb-16 max-w-2xl mx-auto">
-              Professional property maintenance for Mount Pleasant's finest homes
-            </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
               <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl">
                 <CardContent className="pt-8 pb-6">
@@ -153,84 +134,8 @@ const LandingPage = () => {
                   <TrendingUp className="h-16 w-16 text-primary mx-auto mb-6" />
                   <h3 className="font-bold text-xl mb-3">Quality Results</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    Meticulous attention to detail and commitment to exceeding expectations
+                    We take pride in our work and guarantee satisfaction with every service
                   </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
-
-        {/* Service Areas */}
-        <section className="py-24 px-4">
-          <div className="container mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-6">
-              Areas We Serve
-            </h2>
-            <p className="text-center text-muted-foreground text-lg mb-16 max-w-2xl mx-auto">
-              Proudly serving Mount Pleasant's premier neighborhoods
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[
-                { name: "Belle Hall", image: belleHall1 },
-                { name: "Dunes West", image: dunesWest1 },
-                { name: "Park West", image: parkWest1 },
-                { name: "Rivertowne", image: rivertowne1 }
-              ].map((neighborhood) => (
-                <Card key={neighborhood.name} className="overflow-hidden hover:shadow-2xl transition-all duration-300 group border-2 hover:border-primary">
-                  <div className="h-64 relative overflow-hidden">
-                    <img 
-                      src={neighborhood.image} 
-                      alt={neighborhood.name} 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                  </div>
-                  <CardContent className="pt-6 pb-8">
-                    <h3 className="font-bold text-2xl">{neighborhood.name}</h3>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Testimonials */}
-        <section className="py-24 px-4">
-          <div className="container mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-6">
-              What Our Clients Say
-            </h2>
-            <p className="text-center text-muted-foreground text-lg mb-16 max-w-2xl mx-auto">
-              Trusted by homeowners and renters throughout Mount Pleasant
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              <Card className="border-2 hover:shadow-xl transition-shadow">
-                <CardContent className="pt-8 pb-6">
-                  <p className="text-muted-foreground italic mb-6 text-lg leading-relaxed">
-                    "Firm Foundation made finding our dream home in Belle Hall so easy. The tenant portal is incredibly convenient!"
-                  </p>
-                  <p className="font-bold text-foreground">- Sarah M.</p>
-                  <p className="text-sm text-muted-foreground">Tenant</p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 hover:shadow-xl transition-shadow">
-                <CardContent className="pt-8 pb-6">
-                  <p className="text-muted-foreground italic mb-6 text-lg leading-relaxed">
-                    "As a property owner, I appreciate the transparent reporting and professional service. Highly recommend!"
-                  </p>
-                  <p className="font-bold text-foreground">- John D.</p>
-                  <p className="text-sm text-muted-foreground">Property Owner</p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 hover:shadow-xl transition-shadow">
-                <CardContent className="pt-8 pb-6">
-                  <p className="text-muted-foreground italic mb-6 text-lg leading-relaxed">
-                    "Responsive maintenance team and beautiful properties. We love our Rivertowne townhouse!"
-                  </p>
-                  <p className="font-bold text-foreground">- Emily R.</p>
-                  <p className="text-sm text-muted-foreground">Tenant</p>
                 </CardContent>
               </Card>
             </div>
@@ -238,30 +143,29 @@ const LandingPage = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-24 px-4 bg-primary text-primary-foreground relative overflow-hidden">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptMCAzNmMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptLTE4LTE4YzMuMzE0IDAgNiAyLjY4NiA2IDZzLTIuNjg2IDYtNiA2LTYtMi42ODYtNi02IDIuNjg2LTYgNi02eiIgc3Ryb2tlPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMSkiIHN0cm9rZS13aWR0aD0iMiIvPjwvZz48L3N2Zz4=')] opacity-20"></div>
-          <div className="container mx-auto text-center max-w-4xl relative z-10">
-            <h2 className="text-4xl md:text-5xl font-bold mb-8">
-              Ready to Transform Your Property?
+        <section className="py-24 px-4 bg-primary/5">
+          <div className="container mx-auto text-center max-w-4xl">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+              Ready to Get Started?
             </h2>
-            <p className="text-xl mb-12 opacity-95 leading-relaxed max-w-2xl mx-auto">
-              Contact Josiah Lammers today for a free consultation and quote
+            <p className="text-xl text-muted-foreground mb-8">
+              Contact us today for a free quote on any of our services
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" variant="secondary" className="text-lg px-12 py-6 h-auto shadow-xl hover:shadow-2xl transition-shadow">
+              <Button asChild size="lg" className="text-lg px-12 py-6 h-auto">
                 <a href="tel:4194198082">Call (419) 419-8082</a>
               </Button>
-              <Button asChild size="lg" variant="outline" className="text-lg px-12 py-6 h-auto border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                <a href="mailto:info@firmfoundationpm.com">Email Us</a>
+              <Button asChild size="lg" variant="outline" className="text-lg px-12 py-6 h-auto">
+                <a href="/contact">Contact Us</a>
               </Button>
             </div>
           </div>
         </section>
       </main>
-
+      
       <Footer />
     </div>
   );
 };
 
-export default LandingPage;
+export default ServicesPage;
