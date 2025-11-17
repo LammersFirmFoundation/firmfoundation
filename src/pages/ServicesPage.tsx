@@ -98,11 +98,12 @@ const ServicesPage = () => {
               {/* Window Washing */}
               <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl overflow-hidden">
                 <div className="grid md:grid-cols-2 gap-0">
-                  <div className="h-64 md:h-auto">
+                  <div className="h-64 md:h-auto overflow-hidden bg-muted">
                     <img 
                       src={windowWashing} 
                       alt="Professional window cleaning service on residential property" 
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-center"
+                      style={{ imageRendering: 'auto' }}
                     />
                   </div>
                   <CardContent className="pt-8 pb-8 px-8">
