@@ -10,6 +10,7 @@ import ServicesPage from "./pages/ServicesPage";
 import ListingsPage from "./pages/ListingsPage";
 import PropertyDetail from "./pages/PropertyDetail";
 import ContactUs from "./pages/ContactUs";
+import Reviews from "./pages/Reviews";
 import Auth from "./pages/Auth";
 import AdminOnboarding from "./pages/AdminOnboarding";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -31,6 +32,7 @@ const App = () => (
               <Route path="/listings" element={<ListingsPage />} />
               <Route path="/property/:id" element={<PropertyDetail />} />
               <Route path="/contact" element={<ContactUs />} />
+              <Route path="/reviews" element={<Reviews />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="/admin/onboard-client" element={<AdminOnboarding />} />
