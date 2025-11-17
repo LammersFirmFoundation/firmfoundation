@@ -28,72 +28,105 @@ const ServicesPage = () => {
 
         {/* Services Section */}
         <section className="py-24 px-4">
-          <div className="container mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl">
-                <CardContent className="pt-8 pb-6">
-                  <div className="h-48 mb-6 rounded-lg overflow-hidden">
+          <div className="container mx-auto max-w-6xl">
+            <div className="space-y-16">
+              {/* Pressure Washing */}
+              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl overflow-hidden">
+                <div className="grid md:grid-cols-2 gap-0">
+                  <div className="h-64 md:h-auto">
                     <img 
                       src={belleHall1} 
                       alt="Pressure washing service" 
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <h3 className="font-bold text-2xl mb-4">Pressure Washing</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    Professional pressure washing for driveways, sidewalks, siding, decks, and patios. We restore your property's curb appeal with safe, effective cleaning techniques.
-                  </p>
-                  <ul className="text-muted-foreground text-sm space-y-2">
-                    <li>• Driveway & walkway cleaning</li>
-                    <li>• House washing & siding</li>
-                    <li>• Deck & patio restoration</li>
-                    <li>• Fence cleaning</li>
-                  </ul>
-                </CardContent>
+                  <CardContent className="pt-8 pb-8 px-8">
+                    <h3 className="font-bold text-3xl mb-4 text-primary">Pressure Washing</h3>
+                    <p className="text-muted-foreground leading-relaxed mb-6">
+                      Transform your property's appearance with our professional pressure washing services. Using state-of-the-art equipment and eco-friendly cleaning solutions, we safely remove years of dirt, grime, mold, and mildew from all exterior surfaces. Our technicians are trained to adjust pressure levels based on surface type, ensuring effective cleaning without damage to your property.
+                    </p>
+                    <p className="text-muted-foreground leading-relaxed mb-6">
+                      Whether it's your driveway showing oil stains, siding covered in algae, or a deck that's lost its luster, our pressure washing service restores surfaces to their original beauty. We understand the unique challenges of coastal properties in Mount Pleasant and use techniques specifically designed to combat salt air, humidity, and the growth it causes.
+                    </p>
+                    <div className="space-y-4">
+                      <h4 className="font-semibold text-lg text-foreground">What We Clean:</h4>
+                      <ul className="text-muted-foreground space-y-2">
+                        <li>• <span className="font-medium text-foreground">Driveways & Walkways:</span> Remove oil stains, tire marks, and embedded dirt</li>
+                        <li>• <span className="font-medium text-foreground">House Washing & Siding:</span> Gentle soft-washing for vinyl, brick, stucco, and wood</li>
+                        <li>• <span className="font-medium text-foreground">Decks & Patios:</span> Restore wood and composite materials to like-new condition</li>
+                        <li>• <span className="font-medium text-foreground">Fences:</span> Brighten and preserve wood, vinyl, and metal fencing</li>
+                        <li>• <span className="font-medium text-foreground">Pool Areas:</span> Clean concrete, pavers, and surrounding surfaces</li>
+                        <li>• <span className="font-medium text-foreground">Gutters & Downspouts:</span> Remove exterior buildup and staining</li>
+                      </ul>
+                    </div>
+                  </CardContent>
+                </div>
               </Card>
 
-              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl">
-                <CardContent className="pt-8 pb-6">
-                  <div className="h-48 mb-6 rounded-lg overflow-hidden">
+              {/* Landscaping */}
+              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl overflow-hidden">
+                <div className="grid md:grid-cols-2 gap-0">
+                  <div className="h-64 md:h-auto md:order-2">
                     <img 
                       src={parkWest1} 
                       alt="Landscaping service" 
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <h3 className="font-bold text-2xl mb-4">Landscaping</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    Complete landscaping services to keep your property looking pristine year-round. From routine maintenance to seasonal enhancements.
-                  </p>
-                  <ul className="text-muted-foreground text-sm space-y-2">
-                    <li>• Weekly lawn maintenance</li>
-                    <li>• Mulching & edging</li>
-                    <li>• Seasonal planting</li>
-                    <li>• Irrigation management</li>
-                  </ul>
-                </CardContent>
+                  <CardContent className="pt-8 pb-8 px-8 md:order-1">
+                    <h3 className="font-bold text-3xl mb-4 text-primary">Landscaping</h3>
+                    <p className="text-muted-foreground leading-relaxed mb-6">
+                      Maintain a pristine outdoor environment year-round with our comprehensive landscaping services. We go beyond basic lawn care to create and preserve beautiful outdoor spaces that enhance your property's value and curb appeal. Our team understands the unique growing conditions of the Lowcountry and selects plants and maintenance schedules optimized for our climate.
+                    </p>
+                    <p className="text-muted-foreground leading-relaxed mb-6">
+                      From weekly maintenance to seasonal transformations, we handle all aspects of landscape care. Our services are customizable to meet your specific needs and budget, whether you need basic lawn maintenance or a complete landscape management solution. We pride ourselves on attention to detail and consistent, reliable service.
+                    </p>
+                    <div className="space-y-4">
+                      <h4 className="font-semibold text-lg text-foreground">Services Include:</h4>
+                      <ul className="text-muted-foreground space-y-2">
+                        <li>• <span className="font-medium text-foreground">Weekly Lawn Maintenance:</span> Mowing, edging, trimming, and blowing</li>
+                        <li>• <span className="font-medium text-foreground">Mulching & Bed Maintenance:</span> Fresh mulch installation, bed edging, and weed control</li>
+                        <li>• <span className="font-medium text-foreground">Seasonal Planting:</span> Color rotation, annual installation, and design consultation</li>
+                        <li>• <span className="font-medium text-foreground">Irrigation Management:</span> System checks, adjustments, and minor repairs</li>
+                        <li>• <span className="font-medium text-foreground">Shrub & Tree Care:</span> Pruning, shaping, and health monitoring</li>
+                        <li>• <span className="font-medium text-foreground">Debris Removal:</span> Leaf cleanup, branch removal, and storm cleanup</li>
+                      </ul>
+                    </div>
+                  </CardContent>
+                </div>
               </Card>
 
-              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl">
-                <CardContent className="pt-8 pb-6">
-                  <div className="h-48 mb-6 rounded-lg overflow-hidden">
+              {/* Window Washing */}
+              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl overflow-hidden">
+                <div className="grid md:grid-cols-2 gap-0">
+                  <div className="h-64 md:h-auto">
                     <img 
                       src={belleHall2} 
                       alt="Window washing service" 
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <h3 className="font-bold text-2xl mb-4">Window Washing</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    Crystal-clear windows inside and out. We provide streak-free cleaning for all your residential windows, including hard-to-reach areas.
-                  </p>
-                  <ul className="text-muted-foreground text-sm space-y-2">
-                    <li>• Interior & exterior cleaning</li>
-                    <li>• Screen cleaning & repair</li>
-                    <li>• Track & sill detailing</li>
-                    <li>• High window access</li>
-                  </ul>
-                </CardContent>
+                  <CardContent className="pt-8 pb-8 px-8">
+                    <h3 className="font-bold text-3xl mb-4 text-primary">Window Washing</h3>
+                    <p className="text-muted-foreground leading-relaxed mb-6">
+                      Experience crystal-clear views with our professional window washing services. Clean windows do more than just look good—they allow more natural light into your home and can extend the life of your windows by preventing buildup of corrosive materials. We use professional-grade equipment and solutions to deliver streak-free, spotless results every time.
+                    </p>
+                    <p className="text-muted-foreground leading-relaxed mb-6">
+                      Our window cleaning process is thorough and efficient. We clean both interior and exterior surfaces, pay special attention to frames and sills, and ensure screens are cleaned or replaced as needed. Whether you have standard windows or hard-to-reach specialty windows, our trained technicians have the tools and expertise to safely access and clean every window in your home.
+                    </p>
+                    <div className="space-y-4">
+                      <h4 className="font-semibold text-lg text-foreground">Comprehensive Service:</h4>
+                      <ul className="text-muted-foreground space-y-2">
+                        <li>• <span className="font-medium text-foreground">Interior & Exterior Cleaning:</span> Both sides cleaned to perfection</li>
+                        <li>• <span className="font-medium text-foreground">Screen Cleaning & Repair:</span> Screens cleaned, repaired, or replaced</li>
+                        <li>• <span className="font-medium text-foreground">Track & Sill Detailing:</span> Remove buildup from frames and tracks</li>
+                        <li>• <span className="font-medium text-foreground">High Window Access:</span> Safe cleaning of second and third-story windows</li>
+                        <li>• <span className="font-medium text-foreground">Hard Water Stain Removal:</span> Treatment for mineral deposits and staining</li>
+                        <li>• <span className="font-medium text-foreground">Sliding Door Cleaning:</span> Complete cleaning of glass doors and tracks</li>
+                      </ul>
+                    </div>
+                  </CardContent>
+                </div>
               </Card>
             </div>
           </div>
