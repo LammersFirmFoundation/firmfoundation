@@ -30,7 +30,7 @@ const Header = () => {
               Services
             </a>
             <Link to="/contact" className="text-foreground hover:text-primary transition-colors font-medium">
-              Contact
+              Connect
             </Link>
             {isAdmin && (
               <>
@@ -79,7 +79,7 @@ const Header = () => {
               Services
             </a>
             <Link to="/contact" className="text-foreground hover:text-primary transition-colors py-2">
-              Contact
+              Connect
             </Link>
             {isAdmin && (
               <>
