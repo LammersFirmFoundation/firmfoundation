@@ -29,6 +29,9 @@ const Header = () => {
             <a href="/#services" className="text-foreground hover:text-primary transition-colors font-medium">
               Services
             </a>
+            <Link to="/contact" className="text-foreground hover:text-primary transition-colors font-medium">
+              Contact
+            </Link>
             {isAdmin && (
               <>
                 <Link to="/admin/dashboard" className="text-foreground hover:text-primary transition-colors font-medium">
@@ -75,6 +78,9 @@ const Header = () => {
             <a href="/#services" className="text-foreground hover:text-primary transition-colors py-2">
               Services
             </a>
+            <Link to="/contact" className="text-foreground hover:text-primary transition-colors py-2">
+              Contact
+            </Link>
             {isAdmin && (
               <>
                 <Link to="/admin/dashboard" className="text-foreground hover:text-primary transition-colors py-2">
