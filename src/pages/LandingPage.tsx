@@ -30,7 +30,7 @@ const LandingPage = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="text-lg px-12 py-6 h-auto">
-                <a href="tel:4194198082">Get a Free Quote</a>
+                <Link to="/contact">Get a Free Quote</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="text-lg px-12 py-6 h-auto">
                 <Link to="/services">Our Services</Link>
