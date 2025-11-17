@@ -33,9 +33,14 @@ const Header = () => {
               Client Portal
             </Link>
             {isAdmin && (
-              <Link to="/admin/onboard-client" className="text-foreground hover:text-primary transition-colors font-medium">
-                Onboard Client
-              </Link>
+              <>
+                <Link to="/admin/dashboard" className="text-foreground hover:text-primary transition-colors font-medium">
+                  Dashboard
+                </Link>
+                <Link to="/admin/onboard-client" className="text-foreground hover:text-primary transition-colors font-medium">
+                  Onboard Client
+                </Link>
+              </>
             )}
             {user ? (
               <Button variant="outline" onClick={signOut} className="ml-4">
@@ -77,9 +82,14 @@ const Header = () => {
               Client Portal
             </Link>
             {isAdmin && (
-              <Link to="/admin/onboard-client" className="text-foreground hover:text-primary transition-colors py-2">
-                Onboard Client
-              </Link>
+              <>
+                <Link to="/admin/dashboard" className="text-foreground hover:text-primary transition-colors py-2">
+                  Dashboard
+                </Link>
+                <Link to="/admin/onboard-client" className="text-foreground hover:text-primary transition-colors py-2">
+                  Onboard Client
+                </Link>
+              </>
             )}
             {user ? (
               <Button variant="outline" onClick={signOut} className="w-full">
