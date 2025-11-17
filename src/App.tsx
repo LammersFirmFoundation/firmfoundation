@@ -11,6 +11,7 @@ import PropertyDetail from "./pages/PropertyDetail";
 import TenantPortal from "./pages/TenantPortal";
 import Auth from "./pages/Auth";
 import AdminOnboarding from "./pages/AdminOnboarding";
+import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
               <Route path="/property/:id" element={<PropertyDetail />} />
               <Route path="/tenant-portal" element={<TenantPortal />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="/admin/onboard-client" element={<AdminOnboarding />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
