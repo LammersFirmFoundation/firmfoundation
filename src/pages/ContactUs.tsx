@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Form,
   FormControl,
@@ -44,9 +45,19 @@ const ContactUs = () => {
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
     
-    // Simulate form submission
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const { error } = await supabase
+        .from('contact_submissions')
+        .insert([
+          {
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            message: data.message,
+          }
+        ]);
+
+      if (error) throw error;
       
       toast({
         title: "Message sent!",
@@ -55,6 +66,7 @@ const ContactUs = () => {
       
       form.reset();
     } catch (error) {
+      console.error('Error submitting contact form:', error);
       toast({
         title: "Error",
         description: "Something went wrong. Please try again.",
