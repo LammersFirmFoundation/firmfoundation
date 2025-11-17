@@ -2,10 +2,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import belleHall1 from "@/assets/properties/belle-hall-1.jpg";
-import belleHall2 from "@/assets/properties/belle-hall-2.jpg";
-import parkWest1 from "@/assets/properties/park-west-1.jpg";
-import { Shield, Users, TrendingUp } from "lucide-react";
+import pressureWashing from "@/assets/services/pressure-washing.jpg";
+import landscaping from "@/assets/services/landscaping.jpg";
+import windowWashing from "@/assets/services/window-washing.jpg";
 
 const ServicesPage = () => {
   return (
@@ -35,8 +34,8 @@ const ServicesPage = () => {
                 <div className="grid md:grid-cols-2 gap-0">
                   <div className="h-64 md:h-auto">
                     <img 
-                      src={belleHall1} 
-                      alt="Pressure washing service" 
+                      src={pressureWashing} 
+                      alt="Professional pressure washing service on residential driveway" 
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -68,8 +67,8 @@ const ServicesPage = () => {
                 <div className="grid md:grid-cols-2 gap-0">
                   <div className="h-64 md:h-auto md:order-2">
                     <img 
-                      src={parkWest1} 
-                      alt="Landscaping service" 
+                      src={landscaping} 
+                      alt="Professional landscaping and lawn maintenance service" 
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -101,8 +100,8 @@ const ServicesPage = () => {
                 <div className="grid md:grid-cols-2 gap-0">
                   <div className="h-64 md:h-auto">
                     <img 
-                      src={belleHall2} 
-                      alt="Window washing service" 
+                      src={windowWashing} 
+                      alt="Professional window cleaning service on residential property" 
                       className="w-full h-full object-cover"
                     />
                   </div>
