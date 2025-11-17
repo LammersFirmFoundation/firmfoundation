@@ -8,7 +8,7 @@ import belleHall1 from "@/assets/properties/belle-hall-1.jpg";
 import belleHall2 from "@/assets/properties/belle-hall-2.jpg";
 import dunesWest1 from "@/assets/properties/dunes-west-1.jpg";
 import parkWest1 from "@/assets/properties/park-west-1.jpg";
-import shemCreek1 from "@/assets/properties/shem-creek-1.jpg";
+import rivertowne1 from "@/assets/properties/rivertowne-1.jpg";
 
 const LandingPage = () => {
   return (
@@ -26,7 +26,7 @@ const LandingPage = () => {
               <span className="text-primary">Property Maintenance Experts</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-              Professional pressure washing, landscaping, and window washing services for residential properties in Belle Hall, Dunes West, Park West, and Shem Creek
+              Professional pressure washing, landscaping, and window washing services for residential properties in Belle Hall, Dunes West, Park West, and Rivertowne
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="text-lg px-12 py-6 h-auto">
@@ -175,7 +175,7 @@ const LandingPage = () => {
                 { name: "Belle Hall", image: belleHall1 },
                 { name: "Dunes West", image: dunesWest1 },
                 { name: "Park West", image: parkWest1 },
-                { name: "Shem Creek", image: shemCreek1 }
+                { name: "Rivertowne", image: rivertowne1 }
               ].map((neighborhood) => (
                 <Card key={neighborhood.name} className="overflow-hidden hover:shadow-2xl transition-all duration-300 group border-2 hover:border-primary">
                   <div className="h-64 relative overflow-hidden">
@@ -230,7 +230,7 @@ const LandingPage = () => {
               <Card className="border-2 hover:shadow-xl transition-shadow">
                 <CardContent className="pt-8 pb-6">
                   <p className="text-muted-foreground italic mb-6 text-lg leading-relaxed">
-                    "Responsive maintenance team and beautiful properties. We love our Shem Creek townhouse!"
+                    "Responsive maintenance team and beautiful properties. We love our Rivertowne townhouse!"
                   </p>
                   <p className="font-bold text-foreground">- Emily R.</p>
                   <p className="text-sm text-muted-foreground">Tenant</p>
