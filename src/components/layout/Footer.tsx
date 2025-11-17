@@ -27,15 +27,15 @@ const Footer = () => {
             <ul className="space-y-3 text-muted-foreground">
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4" />
-                <span>(419) 419-8082</span>
+                <a href="tel:4194198082" className="hover:text-primary transition-colors">(419) 419-8082</a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4" />
-                <span>bbtsurf@gmail.com</span>
+                <a href="mailto:bbtsurf@gmail.com" className="hover:text-primary transition-colors">bbtsurf@gmail.com</a>
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="h-4 w-4" />
-                <span>Mount Pleasant, SC 29464</span>
+                <a href="https://maps.google.com/?q=Mount+Pleasant,+SC+29464" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Mount Pleasant, SC 29464</a>
               </li>
             </ul>
           </div>
