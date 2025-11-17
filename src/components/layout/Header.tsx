@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png";
-import { Menu, LogOut } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { user, isAdmin, signOut } = useAuth();
+  const { user, isAdmin } = useAuth();
 
   return (
     <header className="bg-background/95 backdrop-blur-sm border-b border-border/50 sticky top-0 z-50">
@@ -45,12 +45,7 @@ const Header = () => {
                 </Link>
               </>
             )}
-            {user ? (
-              <Button variant="outline" onClick={signOut} className="ml-4">
-                <LogOut className="mr-2 h-4 w-4" />
-                Sign Out
-              </Button>
-            ) : (
+            {!user && (
               <>
                 <Button asChild variant="outline" className="ml-4">
                   <Link to="/auth">Admin Login</Link>
@@ -97,12 +92,7 @@ const Header = () => {
                 </Link>
               </>
             )}
-            {user ? (
-              <Button variant="outline" onClick={signOut} className="w-full">
-                <LogOut className="mr-2 h-4 w-4" />
-                Sign Out
-              </Button>
-            ) : (
+            {!user && (
               <>
                 <Button asChild variant="outline" className="w-full mb-2">
                   <Link to="/auth">Admin Login</Link>
