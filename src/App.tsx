@@ -8,7 +8,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import LandingPage from "./pages/LandingPage";
 import ListingsPage from "./pages/ListingsPage";
 import PropertyDetail from "./pages/PropertyDetail";
-import TenantPortal from "./pages/TenantPortal";
+
 import Auth from "./pages/Auth";
 import AdminOnboarding from "./pages/AdminOnboarding";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -28,7 +28,7 @@ const App = () => (
               <Route path="/" element={<LandingPage />} />
               <Route path="/listings" element={<ListingsPage />} />
               <Route path="/property/:id" element={<PropertyDetail />} />
-              <Route path="/tenant-portal" element={<TenantPortal />} />
+              
               <Route path="/auth" element={<Auth />} />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="/admin/onboard-client" element={<AdminOnboarding />} />
