@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { FileText, CreditCard, Wrench, Download } from "lucide-react";
+import { FileText, CreditCard, Wrench } from "lucide-react";
 
 const TenantPortal = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -59,15 +59,14 @@ const TenantPortal = () => {
         <section className="py-12 px-4">
           <div className="container mx-auto max-w-6xl">
             <Tabs defaultValue="overview" className="space-y-8">
-              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
+              <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="overview">Overview</TabsTrigger>
                 <TabsTrigger value="rent">Rent Payment</TabsTrigger>
                 <TabsTrigger value="maintenance">Maintenance</TabsTrigger>
-                <TabsTrigger value="documents">Documents</TabsTrigger>
               </TabsList>
 
               <TabsContent value="overview" className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <Card>
                     <CardContent className="pt-6">
                       <FileText className="h-8 w-8 text-primary mb-3" />
@@ -95,14 +94,6 @@ const TenantPortal = () => {
                     </CardContent>
                   </Card>
 
-                  <Card>
-                    <CardContent className="pt-6">
-                      <Download className="h-8 w-8 text-primary mb-3" />
-                      <h3 className="font-semibold mb-1">Documents</h3>
-                      <p className="text-2xl font-bold">5</p>
-                      <p className="text-sm text-muted-foreground">Available</p>
-                    </CardContent>
-                  </Card>
                 </div>
 
                 <Card>
@@ -210,35 +201,6 @@ const TenantPortal = () => {
                 </div>
               </TabsContent>
 
-              <TabsContent value="documents">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Your Documents</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      {[
-                        "Lease Agreement - 2024-2025",
-                        "Move-In Inspection Report",
-                        "Community Rules & Guidelines",
-                        "Parking Information",
-                        "Emergency Contacts",
-                      ].map((doc, i) => (
-                        <div key={i} className="flex items-center justify-between py-3 border-b border-border">
-                          <div className="flex items-center gap-3">
-                            <FileText className="h-5 w-5 text-primary" />
-                            <span>{doc}</span>
-                          </div>
-                          <Button variant="outline" size="sm">
-                            <Download className="h-4 w-4 mr-2" />
-                            Download
-                          </Button>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
             </Tabs>
           </div>
         </section>
