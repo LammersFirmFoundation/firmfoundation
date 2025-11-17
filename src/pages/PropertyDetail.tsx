@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Bed, Bath, Home, MapPin, Calendar, CheckCircle } from "lucide-react";
 import belleHall2 from "@/assets/properties/belle-hall-2.jpg";
 import dunesWest1 from "@/assets/properties/dunes-west-1.jpg";
-import shemCreek1 from "@/assets/properties/shem-creek-1.jpg";
+import rivertowne1 from "@/assets/properties/rivertowne-1.jpg";
 
 const PROPERTY_DETAILS = {
   1: {
@@ -56,15 +56,15 @@ const PROPERTY_DETAILS = {
     imageUrl: dunesWest1,
   },
   3: {
-    title: "Waterfront Shem Creek Gem",
-    neighborhood: "Shem Creek",
-    address: "789 Shem Creek Dr, Mount Pleasant, SC 29464",
+    title: "Waterfront Rivertowne Gem",
+    neighborhood: "Rivertowne",
+    address: "789 Rivertowne Dr, Mount Pleasant, SC 29464",
     bedrooms: 3,
     bathrooms: 2,
     sqft: 1950,
     rent: 3800,
     available: "Now",
-    description: "Rare waterfront property on Shem Creek with stunning views and access to kayaking, paddleboarding, and world-class seafood restaurants. This charming home features a large deck, open concept living, and coastal finishes throughout.",
+    description: "Rare waterfront property in Rivertowne with stunning views and access to kayaking, paddleboarding, and world-class seafood restaurants. This charming home features a large deck, open concept living, and coastal finishes throughout.",
     amenities: [
       "Waterfront location",
       "Large deck with creek views",
@@ -76,7 +76,7 @@ const PROPERTY_DETAILS = {
       "Coastal living at its best"
     ],
     virtualTour: "https://example.com/virtual-tour",
-    imageUrl: shemCreek1,
+    imageUrl: rivertowne1,
   },
 };
 

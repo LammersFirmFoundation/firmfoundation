@@ -10,7 +10,7 @@ import belleHall2 from "@/assets/properties/belle-hall-2.jpg";
 import dunesWest1 from "@/assets/properties/dunes-west-1.jpg";
 import parkWest1 from "@/assets/properties/park-west-1.jpg";
 import parkWest2 from "@/assets/properties/park-west-2.jpg";
-import shemCreek1 from "@/assets/properties/shem-creek-1.jpg";
+import rivertowne1 from "@/assets/properties/rivertowne-1.jpg";
 
 const PROPERTIES = [
   {
@@ -37,14 +37,14 @@ const PROPERTIES = [
   },
   {
     id: 3,
-    title: "Waterfront Shem Creek Gem",
-    neighborhood: "Shem Creek",
+    title: "Waterfront Rivertowne Gem",
+    neighborhood: "Rivertowne",
     bedrooms: 3,
     bathrooms: 2,
     sqft: 1950,
     rent: 3800,
     available: "Now",
-    imageUrl: shemCreek1,
+    imageUrl: rivertowne1,
   },
   {
     id: 4,
@@ -131,7 +131,7 @@ const ListingsPage = () => {
                           <SelectItem value="Belle Hall">Belle Hall</SelectItem>
                           <SelectItem value="Dunes West">Dunes West</SelectItem>
                           <SelectItem value="Park West">Park West</SelectItem>
-                          <SelectItem value="Shem Creek">Shem Creek</SelectItem>
+                          <SelectItem value="Rivertowne">Rivertowne</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
