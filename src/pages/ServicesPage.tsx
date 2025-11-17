@@ -132,49 +132,6 @@ const ServicesPage = () => {
           </div>
         </section>
 
-        {/* Why Choose Us */}
-        <section className="py-24 px-4 bg-muted/20">
-          <div className="container mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-6">
-              Why Choose Firm Foundation
-            </h2>
-            <p className="text-center text-muted-foreground text-lg mb-16 max-w-2xl mx-auto">
-              Trusted by homeowners and property managers throughout Mount Pleasant
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              <Card className="border-2 hover:border-primary transition-all duration-300">
-                <CardContent className="pt-8 pb-6 text-center">
-                  <Shield className="h-16 w-16 text-primary mx-auto mb-6" />
-                  <h3 className="font-bold text-xl mb-3">Professional & Reliable</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Licensed, insured, and committed to delivering exceptional service on every project
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 hover:border-primary transition-all duration-300">
-                <CardContent className="pt-8 pb-6 text-center">
-                  <Users className="h-16 w-16 text-primary mx-auto mb-6" />
-                  <h3 className="font-bold text-xl mb-3">Local Expertise</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Deep knowledge of Mount Pleasant properties and coastal maintenance needs
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 hover:border-primary transition-all duration-300">
-                <CardContent className="pt-8 pb-6 text-center">
-                  <TrendingUp className="h-16 w-16 text-primary mx-auto mb-6" />
-                  <h3 className="font-bold text-xl mb-3">Quality Results</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    We take pride in our work and guarantee satisfaction with every service
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
-
         {/* CTA Section */}
         <section className="py-24 px-4 bg-primary/5">
           <div className="container mx-auto text-center max-w-4xl">
