@@ -53,7 +53,7 @@ const Header = () => {
                   <Link to="/auth">Admin Login</Link>
                 </Button>
                 <Button asChild size="lg">
-                  <a href="tel:4194198082">Get a Quote</a>
+                  <Link to="/contact">Get a Quote</Link>
                 </Button>
               </>
             )}
@@ -102,7 +102,7 @@ const Header = () => {
                   <Link to="/auth">Admin Login</Link>
                 </Button>
                 <Button asChild className="w-full">
-                  <a href="tel:4194198082">Get a Quote</a>
+                  <Link to="/contact">Get a Quote</Link>
                 </Button>
               </>
             )}
