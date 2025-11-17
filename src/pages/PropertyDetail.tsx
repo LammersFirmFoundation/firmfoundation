@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Bed, Bath, Home, MapPin, Calendar, CheckCircle } from "lucide-react";
 import belleHall2 from "@/assets/properties/belle-hall-2.jpg";
 import dunesWest1 from "@/assets/properties/dunes-west-1.jpg";
-import rivertowne1 from "@/assets/properties/park-west-2.jpg";
+import rivertowne1 from "@/assets/properties/rivertowne-1.jpg";
 
 const PROPERTY_DETAILS = {
   1: {

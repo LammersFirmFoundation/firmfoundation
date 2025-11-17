@@ -10,7 +10,7 @@ import belleHall2 from "@/assets/properties/belle-hall-2.jpg";
 import dunesWest1 from "@/assets/properties/dunes-west-1.jpg";
 import parkWest1 from "@/assets/properties/park-west-1.jpg";
 import parkWest2 from "@/assets/properties/park-west-2.jpg";
-import rivertowne1 from "@/assets/properties/park-west-2.jpg";
+import rivertowne1 from "@/assets/properties/rivertowne-1.jpg";
 
 const PROPERTIES = [
   {
