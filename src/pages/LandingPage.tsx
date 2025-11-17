@@ -186,10 +186,7 @@ const LandingPage = () => {
                     />
                   </div>
                   <CardContent className="pt-6 pb-8">
-                    <h3 className="font-bold text-2xl mb-3">{neighborhood.name}</h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      Discover beautiful homes in this premier Mount Pleasant community
-                    </p>
+                    <h3 className="font-bold text-2xl">{neighborhood.name}</h3>
                   </CardContent>
                 </Card>
               ))}
