@@ -1,0 +1,13 @@
+-- Fix function search_path security issue
+-- Add search_path to update_updated_at_column function
+CREATE OR REPLACE FUNCTION public.update_updated_at_column()
+RETURNS trigger
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $function$
+begin
+  new.updated_at = now();
+  return new;
+end;
+$function$;
