@@ -46,14 +46,9 @@ const Header = () => {
               </>
             )}
             {!user && (
-              <>
-                <Button asChild variant="outline" className="ml-4">
-                  <Link to="/auth">Admin Login</Link>
-                </Button>
-                <Button asChild size="lg">
-                  <Link to="/contact">Get a Quote</Link>
-                </Button>
-              </>
+              <Button asChild size="lg">
+                <Link to="/contact">Get a Quote</Link>
+              </Button>
             )}
           </nav>
 
@@ -93,14 +88,9 @@ const Header = () => {
               </>
             )}
             {!user && (
-              <>
-                <Button asChild variant="outline" className="w-full mb-2">
-                  <Link to="/auth">Admin Login</Link>
-                </Button>
-                <Button asChild className="w-full">
-                  <Link to="/contact">Get a Quote</Link>
-                </Button>
-              </>
+              <Button asChild className="w-full">
+                <Link to="/contact">Get a Quote</Link>
+              </Button>
             )}
           </nav>
         )}
