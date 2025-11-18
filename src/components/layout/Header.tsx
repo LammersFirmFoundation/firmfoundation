@@ -4,6 +4,7 @@ import logo from "@/assets/logo.png";
 import { Menu } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -35,9 +36,25 @@ const Header = () => {
             <Link to="/contact" className="text-foreground hover:text-primary transition-colors font-medium">
               Contact
             </Link>
-            {!user && (
-              <Button asChild size="lg">
-                <Link to="/contact">Get a Quote</Link>
+            {!user ? (
+              <>
+                <Button asChild variant="outline" size="lg">
+                  <Link to="/auth">Sign In</Link>
+                </Button>
+                <Button asChild size="lg">
+                  <Link to="/contact">Get a Quote</Link>
+                </Button>
+              </>
+            ) : (
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={async () => {
+                  await supabase.auth.signOut();
+                  window.location.href = "/";
+                }}
+              >
+                Sign Out
               </Button>
             )}
           </nav>
@@ -67,9 +84,25 @@ const Header = () => {
             <Link to="/contact" className="text-foreground hover:text-primary transition-colors py-2">
               Contact
             </Link>
-            {!user && (
-              <Button asChild className="w-full">
-                <Link to="/contact">Get a Quote</Link>
+            {!user ? (
+              <>
+                <Button asChild variant="outline" className="w-full">
+                  <Link to="/auth">Sign In</Link>
+                </Button>
+                <Button asChild className="w-full">
+                  <Link to="/contact">Get a Quote</Link>
+                </Button>
+              </>
+            ) : (
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={async () => {
+                  await supabase.auth.signOut();
+                  window.location.href = "/";
+                }}
+              >
+                Sign Out
               </Button>
             )}
           </nav>
