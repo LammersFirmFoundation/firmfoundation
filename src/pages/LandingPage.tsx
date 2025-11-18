@@ -207,30 +207,30 @@ const LandingPage = () => {
               <Card className="border-2 hover:shadow-xl transition-shadow">
                 <CardContent className="pt-8 pb-6">
                   <p className="text-muted-foreground italic mb-6 text-lg leading-relaxed">
-                    "Firm Foundation made finding our dream home in Belle Hall so easy. The tenant portal is incredibly convenient!"
+                    "Firm Foundation transformed our home's exterior with their pressure washing service. It looks brand new again!"
                   </p>
                   <p className="font-bold text-foreground">- Sarah M.</p>
-                  <p className="text-sm text-muted-foreground">Tenant</p>
+                  <p className="text-sm text-muted-foreground">Belle Hall Homeowner</p>
                 </CardContent>
               </Card>
 
               <Card className="border-2 hover:shadow-xl transition-shadow">
                 <CardContent className="pt-8 pb-6">
                   <p className="text-muted-foreground italic mb-6 text-lg leading-relaxed">
-                    "As a property owner, I appreciate the transparent reporting and professional service. Highly recommend!"
+                    "Outstanding landscaping service! Our yard has never looked better. The team is consistent and detail-oriented."
                   </p>
                   <p className="font-bold text-foreground">- John D.</p>
-                  <p className="text-sm text-muted-foreground">Property Owner</p>
+                  <p className="text-sm text-muted-foreground">Dunes West Homeowner</p>
                 </CardContent>
               </Card>
 
               <Card className="border-2 hover:shadow-xl transition-shadow">
                 <CardContent className="pt-8 pb-6">
                   <p className="text-muted-foreground italic mb-6 text-lg leading-relaxed">
-                    "Responsive maintenance team and beautiful properties. We love our Rivertowne townhouse!"
+                    "Professional window washing service. They got our windows so clean I thought they were open! Highly recommend!"
                   </p>
                   <p className="font-bold text-foreground">- Emily R.</p>
-                  <p className="text-sm text-muted-foreground">Tenant</p>
+                  <p className="text-sm text-muted-foreground">Rivertowne Homeowner</p>
                 </CardContent>
               </Card>
             </div>
