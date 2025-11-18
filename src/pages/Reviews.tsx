@@ -85,7 +85,30 @@ const Reviews = () => {
         {/* Reviews Grid */}
         <section className="py-24 px-4 bg-muted/20">
           <div className="container mx-auto max-w-6xl">
-            
+            <div className="grid md:grid-cols-2 gap-8">
+              {reviews.slice(0, 4).map((review, index) => (
+                <Card key={index} className="bg-card hover:shadow-lg transition-shadow duration-300">
+                  <CardContent className="p-8">
+                    <div className="flex items-center gap-1 mb-4">
+                      {[...Array(review.rating)].map((_, i) => (
+                        <Star key={i} className="h-5 w-5 fill-primary text-primary" />
+                      ))}
+                    </div>
+                    <p className="text-foreground mb-6 leading-relaxed italic">"{review.review}"</p>
+                    <div className="flex items-center justify-between pt-4 border-t border-border">
+                      <div>
+                        <p className="font-semibold text-foreground">{review.name}</p>
+                        <p className="text-sm text-muted-foreground">{review.location}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm font-medium text-primary">{review.service}</p>
+                        <p className="text-sm text-muted-foreground">{review.date}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
         </section>
 
