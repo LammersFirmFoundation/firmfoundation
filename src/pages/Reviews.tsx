@@ -18,7 +18,7 @@ const Reviews = () => {
     review: "Outstanding landscaping service! Our yard has never looked better. They're consistent, detail-oriented, and really care about the quality of their work. The weekly maintenance keeps everything pristine, and their seasonal planting suggestions have been excellent.",
     service: "Landscaping"
   }, {
-    name: "Ben T",
+    name: "Ben Thompson",
     location: "Park West",
     rating: 5,
     date: "January 2024",
