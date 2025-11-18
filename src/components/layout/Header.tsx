@@ -7,7 +7,7 @@ import { useAuth } from "@/hooks/useAuth";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { user, isAdmin } = useAuth();
+  const { user } = useAuth();
 
   return (
     <header className="bg-background/95 backdrop-blur-sm border-b border-border/50 sticky top-0 z-50">
@@ -35,16 +35,6 @@ const Header = () => {
             <Link to="/contact" className="text-foreground hover:text-primary transition-colors font-medium">
               Contact
             </Link>
-            {isAdmin && (
-              <>
-                <Link to="/admin/dashboard" className="text-foreground hover:text-primary transition-colors font-medium">
-                  Dashboard
-                </Link>
-                <Link to="/admin/onboard-client" className="text-foreground hover:text-primary transition-colors font-medium">
-                  Onboard Client
-                </Link>
-              </>
-            )}
             {!user && (
               <Button asChild size="lg">
                 <Link to="/contact">Get a Quote</Link>
@@ -77,16 +67,6 @@ const Header = () => {
             <Link to="/contact" className="text-foreground hover:text-primary transition-colors py-2">
               Contact
             </Link>
-            {isAdmin && (
-              <>
-                <Link to="/admin/dashboard" className="text-foreground hover:text-primary transition-colors py-2">
-                  Dashboard
-                </Link>
-                <Link to="/admin/onboard-client" className="text-foreground hover:text-primary transition-colors py-2">
-                  Onboard Client
-                </Link>
-              </>
-            )}
             {!user && (
               <Button asChild className="w-full">
                 <Link to="/contact">Get a Quote</Link>
