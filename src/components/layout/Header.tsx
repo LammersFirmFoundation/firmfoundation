@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png";
 import { Menu } from "lucide-react";
@@ -6,6 +6,13 @@ import { useState } from "react";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleNavClick = (path: string) => {
+    navigate(path);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setMobileMenuOpen(false);
+  };
 
   return (
     <header className="bg-background/95 backdrop-blur-sm border-b border-border/50 sticky top-0 z-50">
@@ -21,20 +28,20 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            <Link to="/" className="text-foreground hover:text-primary transition-colors font-medium">
+            <button onClick={() => handleNavClick("/")} className="text-foreground hover:text-primary transition-colors font-medium">
               Home
-            </Link>
-            <Link to="/services" className="text-foreground hover:text-primary transition-colors font-medium">
+            </button>
+            <button onClick={() => handleNavClick("/services")} className="text-foreground hover:text-primary transition-colors font-medium">
               Services
-            </Link>
-            <Link to="/reviews" className="text-foreground hover:text-primary transition-colors font-medium">
+            </button>
+            <button onClick={() => handleNavClick("/reviews")} className="text-foreground hover:text-primary transition-colors font-medium">
               Reviews
-            </Link>
-            <Link to="/contact" className="text-foreground hover:text-primary transition-colors font-medium">
+            </button>
+            <button onClick={() => handleNavClick("/contact")} className="text-foreground hover:text-primary transition-colors font-medium">
               Contact
-            </Link>
-            <Button asChild size="lg">
-              <Link to="/contact">Get a Quote</Link>
+            </button>
+            <Button size="lg" onClick={() => handleNavClick("/contact")}>
+              Get a Quote
             </Button>
           </nav>
 
@@ -51,20 +58,20 @@ const Header = () => {
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <nav className="md:hidden mt-4 pb-4 flex flex-col gap-3">
-            <Link to="/" className="text-foreground hover:text-primary transition-colors py-2">
+            <button onClick={() => handleNavClick("/")} className="text-foreground hover:text-primary transition-colors py-2 text-left">
               Home
-            </Link>
-            <Link to="/services" className="text-foreground hover:text-primary transition-colors py-2">
+            </button>
+            <button onClick={() => handleNavClick("/services")} className="text-foreground hover:text-primary transition-colors py-2 text-left">
               Services
-            </Link>
-            <Link to="/reviews" className="text-foreground hover:text-primary transition-colors py-2">
+            </button>
+            <button onClick={() => handleNavClick("/reviews")} className="text-foreground hover:text-primary transition-colors py-2 text-left">
               Reviews
-            </Link>
-            <Link to="/contact" className="text-foreground hover:text-primary transition-colors py-2">
+            </button>
+            <button onClick={() => handleNavClick("/contact")} className="text-foreground hover:text-primary transition-colors py-2 text-left">
               Contact
-            </Link>
-            <Button asChild className="w-full">
-              <Link to="/contact">Get a Quote</Link>
+            </button>
+            <Button className="w-full" onClick={() => handleNavClick("/contact")}>
+              Get a Quote
             </Button>
           </nav>
         )}
