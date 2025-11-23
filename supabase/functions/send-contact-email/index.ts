@@ -62,7 +62,7 @@ const handler = async (req: Request): Promise<Response> => {
       },
       body: JSON.stringify({
         from: "Contact Form <onboarding@resend.dev>",
-        to: ["bbtsurf@gmail.com"],
+        to: ["firmfoundationchs@gmail.com"],
         subject: `New Contact Form Submission from ${safeName}`,
         html: `
           <!DOCTYPE html>
