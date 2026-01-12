@@ -1,7 +1,7 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
+import { Check, Minus } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const plans = [
@@ -47,11 +47,18 @@ const plans = [
   },
 ];
 
-// Features ordered to show progression - basic at top, premium at bottom
+// Features grouped by category for better readability
 const features = [
-  // What you get - clear & simple
   {
     name: "Full property assessment",
+    oneTimeRefresh: true,
+    projectDay: true,
+    bronze: true,
+    silver: true,
+    gold: true,
+  },
+  {
+    name: "Repairs & touch-ups",
     oneTimeRefresh: true,
     projectDay: true,
     bronze: true,
@@ -67,43 +74,11 @@ const features = [
     gold: false,
   },
   {
-    name: "Repairs & touch-ups",
-    oneTimeRefresh: true,
-    projectDay: true,
-    bronze: true,
-    silver: true,
-    gold: true,
-  },
-  {
     name: "Preventative maintenance",
     oneTimeRefresh: false,
     projectDay: false,
     bronze: true,
     silver: true,
-    gold: true,
-  },
-  {
-    name: "1 visit per month",
-    oneTimeRefresh: false,
-    projectDay: false,
-    bronze: true,
-    silver: false,
-    gold: false,
-  },
-  {
-    name: "2 visits per month",
-    oneTimeRefresh: false,
-    projectDay: false,
-    bronze: false,
-    silver: true,
-    gold: false,
-  },
-  {
-    name: "Weekly visits",
-    oneTimeRefresh: false,
-    projectDay: false,
-    bronze: false,
-    silver: false,
     gold: true,
   },
   {
@@ -124,9 +99,19 @@ const features = [
   },
 ];
 
+// Visit frequency as a separate highlighted row
+const visitFrequency = {
+  name: "Visit frequency",
+  oneTimeRefresh: "As needed",
+  projectDay: "1 day",
+  bronze: "1x / month",
+  silver: "2x / month",
+  gold: "Weekly",
+};
+
 const coreServices = [
   "Pressure Washing",
-  "Landscaping & Yard Care",
+  "Landscaping & Yard Care", 
   "Window Washing",
   "Gutter Cleaning",
   "General Repairs",
@@ -138,27 +123,27 @@ const PricingPage = () => {
       <Header />
       
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="py-16 text-center">
+        {/* Hero Section - Reduced padding */}
+        <section className="pt-10 pb-6 text-center">
           <div className="container mx-auto px-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4">
+            <h1 className="text-3xl md:text-4xl font-bold text-primary mb-2">
               Firm Foundation
             </h1>
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-2">
+            <h2 className="text-xl md:text-2xl font-semibold text-foreground mb-1">
               Choose the plan that fits your needs.
             </h2>
-            <p className="text-muted-foreground text-lg mb-8">
+            <p className="text-muted-foreground mb-5">
               Premium home maintenance for the Lowcountry
             </p>
             
-            {/* Services included */}
-            <div className="bg-muted/30 rounded-lg p-6 max-w-2xl mx-auto">
-              <p className="text-sm font-medium text-foreground mb-3">All packages include these core services:</p>
-              <div className="flex flex-wrap justify-center gap-3">
+            {/* Services included - more compact */}
+            <div className="bg-muted/30 rounded-lg py-4 px-5 max-w-2xl mx-auto">
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">All packages include:</p>
+              <div className="flex flex-wrap justify-center gap-2">
                 {coreServices.map((service) => (
                   <span 
                     key={service}
-                    className="bg-background px-3 py-1.5 rounded-full text-sm text-muted-foreground border border-border"
+                    className="bg-background px-2.5 py-1 rounded-full text-sm text-foreground border border-border"
                   >
                     {service}
                   </span>
@@ -169,35 +154,41 @@ const PricingPage = () => {
         </section>
 
         {/* Pricing Table */}
-        <section className="pb-20">
+        <section className="pb-16">
           <div className="container mx-auto px-4 overflow-x-auto">
             <div className="min-w-[900px]">
-              {/* Table Header */}
-              <div className="grid grid-cols-6 border-b-2 border-border">
-                <div className="p-4 text-left font-medium text-foreground">
-                  What's included
+              {/* Category Header Row */}
+              <div className="grid grid-cols-6 mb-1">
+                <div className="p-3"></div>
+                <div className="p-3 text-center col-span-2 bg-muted/50 rounded-t-lg">
+                  <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">One-Time</span>
                 </div>
-                <div className="p-4 text-center col-span-2 bg-muted/40">
-                  <span className="text-muted-foreground font-medium">One-Time Services</span>
-                </div>
-                <div className="p-4 text-center col-span-3 bg-primary/10 border-l-2 border-primary/30">
-                  <span className="text-primary font-semibold">Monthly Maintenance</span>
+                <div className="p-3 text-center col-span-3 bg-primary/15 rounded-t-lg border-x-2 border-t-2 border-primary/20">
+                  <span className="text-sm font-semibold text-primary uppercase tracking-wide">Monthly Plans</span>
                 </div>
               </div>
 
-              {/* Plan Names Row */}
-              <div className="grid grid-cols-6 border-b border-border">
-                <div className="p-4 bg-muted/20"></div>
+              {/* Plan Names & Prices Combined */}
+              <div className="grid grid-cols-6 border-b-2 border-border">
+                <div className="p-4 bg-muted/20 flex items-center">
+                  <span className="font-medium text-foreground">Features</span>
+                </div>
                 {plans.map((plan, idx) => (
                   <div 
                     key={plan.name} 
-                    className={`p-4 text-center font-semibold ${
-                      plan.category === 'monthly' ? 'bg-primary/5' : 'bg-muted/40'
-                    } ${idx === 2 ? 'border-l-2 border-primary/30' : ''} ${
-                      plan.highlighted ? 'text-primary' : 'text-foreground'
-                    }`}
+                    className={`p-4 text-center ${
+                      plan.category === 'monthly' 
+                        ? 'bg-primary/10 border-x border-primary/20' 
+                        : 'bg-muted/50'
+                    } ${plan.highlighted ? 'bg-primary/20' : ''}`}
                   >
-                    {plan.name}
+                    <div className={`font-bold text-lg ${plan.highlighted ? 'text-primary' : 'text-foreground'}`}>
+                      {plan.name}
+                    </div>
+                    <div className={`text-2xl font-bold mt-1 ${plan.highlighted ? 'text-primary' : 'text-foreground'}`}>
+                      {plan.price}
+                    </div>
+                    <div className="text-xs text-muted-foreground">{plan.period}</div>
                   </div>
                 ))}
               </div>
@@ -206,65 +197,81 @@ const PricingPage = () => {
               {features.map((feature, index) => (
                 <div 
                   key={feature.name} 
-                  className={`grid grid-cols-6 border-b border-border ${
-                    index % 2 === 0 ? 'bg-background' : 'bg-muted/10'
+                  className={`grid grid-cols-6 border-b border-border/50 ${
+                    index % 2 === 0 ? 'bg-background' : 'bg-muted/5'
                   }`}
                 >
-                  <div className="p-4 text-left text-foreground">
+                  <div className="p-3 text-left text-foreground text-sm">
                     {feature.name}
                   </div>
-                  <div className={`p-4 flex justify-center items-center ${index % 2 === 0 ? 'bg-muted/20' : 'bg-muted/30'}`}>
-                    {feature.oneTimeRefresh && <Check className="h-5 w-5 text-muted-foreground" />}
+                  <div className={`p-3 flex justify-center items-center ${index % 2 === 0 ? 'bg-muted/20' : 'bg-muted/30'}`}>
+                    {feature.oneTimeRefresh 
+                      ? <Check className="h-5 w-5 text-green-600" strokeWidth={2.5} />
+                      : <Minus className="h-4 w-4 text-muted-foreground/40" />
+                    }
                   </div>
-                  <div className={`p-4 flex justify-center items-center ${index % 2 === 0 ? 'bg-muted/20' : 'bg-muted/30'}`}>
-                    {feature.projectDay && <Check className="h-5 w-5 text-muted-foreground" />}
+                  <div className={`p-3 flex justify-center items-center ${index % 2 === 0 ? 'bg-muted/20' : 'bg-muted/30'}`}>
+                    {feature.projectDay 
+                      ? <Check className="h-5 w-5 text-green-600" strokeWidth={2.5} />
+                      : <Minus className="h-4 w-4 text-muted-foreground/40" />
+                    }
                   </div>
-                  <div className={`p-4 flex justify-center items-center border-l-2 border-primary/30 ${index % 2 === 0 ? 'bg-primary/5' : 'bg-primary/10'}`}>
-                    {feature.bronze && <Check className="h-5 w-5 text-primary" />}
+                  <div className={`p-3 flex justify-center items-center border-x border-primary/20 ${index % 2 === 0 ? 'bg-primary/5' : 'bg-primary/10'}`}>
+                    {feature.bronze 
+                      ? <Check className="h-5 w-5 text-primary" strokeWidth={2.5} />
+                      : <Minus className="h-4 w-4 text-muted-foreground/40" />
+                    }
                   </div>
-                  <div className={`p-4 flex justify-center items-center ${index % 2 === 0 ? 'bg-primary/5' : 'bg-primary/10'}`}>
-                    {feature.silver && <Check className="h-5 w-5 text-primary" />}
+                  <div className={`p-3 flex justify-center items-center ${index % 2 === 0 ? 'bg-primary/5' : 'bg-primary/10'}`}>
+                    {feature.silver 
+                      ? <Check className="h-5 w-5 text-primary" strokeWidth={2.5} />
+                      : <Minus className="h-4 w-4 text-muted-foreground/40" />
+                    }
                   </div>
-                  <div className={`p-4 flex justify-center items-center ${index % 2 === 0 ? 'bg-primary/5' : 'bg-primary/10'}`}>
-                    {feature.gold && <Check className="h-5 w-5 text-primary" />}
+                  <div className={`p-3 flex justify-center items-center border-x border-primary/20 ${index % 2 === 0 ? 'bg-primary/5' : 'bg-primary/10'}`}>
+                    {feature.gold 
+                      ? <Check className="h-5 w-5 text-primary" strokeWidth={2.5} />
+                      : <Minus className="h-4 w-4 text-muted-foreground/40" />
+                    }
                   </div>
                 </div>
               ))}
 
-              {/* Pricing Row */}
-              <div className="grid grid-cols-6 border-b-2 border-border">
-                <div className="p-6 text-left font-medium text-foreground bg-muted/20">
-                  Pricing
+              {/* Visit Frequency Row - Highlighted */}
+              <div className="grid grid-cols-6 border-b-2 border-border bg-muted/30">
+                <div className="p-3 text-left font-medium text-foreground text-sm">
+                  {visitFrequency.name}
                 </div>
-                {plans.map((plan, idx) => (
-                  <div 
-                    key={plan.name} 
-                    className={`p-6 text-center ${
-                      plan.category === 'monthly' ? 'bg-primary/10' : 'bg-muted/40'
-                    } ${idx === 2 ? 'border-l-2 border-primary/30' : ''}`}
-                  >
-                    <span className={`text-2xl font-bold ${plan.highlighted ? 'text-primary' : 'text-foreground'}`}>
-                      {plan.price}
-                    </span>
-                    <span className="text-muted-foreground text-sm block">
-                      {plan.period}
-                    </span>
-                  </div>
-                ))}
+                <div className="p-3 text-center bg-muted/40">
+                  <span className="text-sm font-medium text-muted-foreground">{visitFrequency.oneTimeRefresh}</span>
+                </div>
+                <div className="p-3 text-center bg-muted/40">
+                  <span className="text-sm font-medium text-muted-foreground">{visitFrequency.projectDay}</span>
+                </div>
+                <div className="p-3 text-center bg-primary/15 border-x border-primary/20">
+                  <span className="text-sm font-semibold text-primary">{visitFrequency.bronze}</span>
+                </div>
+                <div className="p-3 text-center bg-primary/15">
+                  <span className="text-sm font-semibold text-primary">{visitFrequency.silver}</span>
+                </div>
+                <div className="p-3 text-center bg-primary/15 border-x border-primary/20">
+                  <span className="text-sm font-semibold text-primary">{visitFrequency.gold}</span>
+                </div>
               </div>
 
               {/* CTA Row */}
-              <div className="grid grid-cols-6 py-6">
-                <div className="p-4"></div>
-                {plans.map((plan, idx) => (
+              <div className="grid grid-cols-6 py-4">
+                <div className="p-3"></div>
+                {plans.map((plan) => (
                   <div 
                     key={plan.name} 
-                    className={`p-4 flex justify-center ${idx === 2 ? 'border-l-2 border-primary/30' : ''}`}
+                    className="p-3 flex justify-center"
                   >
                     <Button 
                       asChild
+                      size="sm"
                       variant={plan.highlighted ? "default" : "outline"}
-                      className={plan.highlighted ? "" : "border-foreground"}
+                      className={plan.highlighted ? "shadow-md" : ""}
                     >
                       <Link to="/contact">{plan.cta}</Link>
                     </Button>
@@ -273,7 +280,7 @@ const PricingPage = () => {
               </div>
 
               {/* Disclaimer */}
-              <div className="text-center text-muted-foreground text-sm mt-8 space-y-1">
+              <div className="text-center text-muted-foreground text-xs mt-4 space-y-0.5">
                 <p>* Materials and supplies billed separately for all services</p>
                 <p className="italic">Visit frequency may vary based on project scope and seasonality</p>
               </div>
