@@ -37,6 +37,9 @@ const Header = () => {
             <button onClick={() => handleNavClick("/reviews")} className="text-foreground hover:text-primary transition-colors font-medium">
               Reviews
             </button>
+            <button onClick={() => handleNavClick("/pricing")} className="text-foreground hover:text-primary transition-colors font-medium">
+              Packages
+            </button>
             <button onClick={() => handleNavClick("/contact")} className="text-foreground hover:text-primary transition-colors font-medium">
               Contact
             </button>
@@ -66,6 +69,9 @@ const Header = () => {
             </button>
             <button onClick={() => handleNavClick("/reviews")} className="text-foreground hover:text-primary transition-colors py-2 text-left">
               Reviews
+            </button>
+            <button onClick={() => handleNavClick("/pricing")} className="text-foreground hover:text-primary transition-colors py-2 text-left">
+              Packages
             </button>
             <button onClick={() => handleNavClick("/contact")} className="text-foreground hover:text-primary transition-colors py-2 text-left">
               Contact
