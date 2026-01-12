@@ -136,13 +136,21 @@ const features = [
     gold: true,
   },
   {
-    name: "Comprehensive property care",
+    name: "Dedicated property manager",
     oneTimeRefresh: false,
     projectDay: false,
     bronze: false,
     silver: false,
     gold: true,
   },
+];
+
+const coreServices = [
+  "Pressure Washing",
+  "Landscaping & Yard Care",
+  "Window Washing",
+  "Gutter Cleaning",
+  "General Repairs",
 ];
 
 const PricingPage = () => {
@@ -160,9 +168,24 @@ const PricingPage = () => {
             <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-2">
               Choose the plan that fits your needs.
             </h2>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-muted-foreground text-lg mb-8">
               Premium home maintenance for the Lowcountry
             </p>
+            
+            {/* Services included */}
+            <div className="bg-muted/30 rounded-lg p-6 max-w-2xl mx-auto">
+              <p className="text-sm font-medium text-foreground mb-3">All packages include these core services:</p>
+              <div className="flex flex-wrap justify-center gap-3">
+                {coreServices.map((service) => (
+                  <span 
+                    key={service}
+                    className="bg-background px-3 py-1.5 rounded-full text-sm text-muted-foreground border border-border"
+                  >
+                    {service}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
