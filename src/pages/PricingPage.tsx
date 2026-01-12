@@ -49,47 +49,26 @@ const plans = [
 
 // Features ordered to show progression - basic at top, premium at bottom
 const features = [
-  // Base service - included in all
+  // What you get - clear & simple
   {
-    name: "Seasonal cleanup or focused reset",
+    name: "Full property assessment",
     oneTimeRefresh: true,
     projectDay: true,
     bronze: true,
     silver: true,
     gold: true,
   },
-  // One-time specific features
   {
-    name: "Full on-site workday (up to 8 hours)",
+    name: "Full workday (up to 8 hours)",
     oneTimeRefresh: false,
     projectDay: true,
     bronze: false,
     silver: false,
     gold: false,
-    oneTimeOnly: true,
   },
   {
-    name: "Materials billed separately",
-    oneTimeRefresh: false,
-    projectDay: true,
-    bronze: false,
-    silver: false,
-    gold: false,
-    oneTimeOnly: true,
-  },
-  {
-    name: "Preferred day pricing available",
-    oneTimeRefresh: false,
-    projectDay: true,
-    bronze: false,
-    silver: false,
-    gold: false,
-    oneTimeOnly: true,
-  },
-  // Monthly maintenance features - stacking up
-  {
-    name: "Repairs & punch-list items",
-    oneTimeRefresh: false,
+    name: "Repairs & touch-ups",
+    oneTimeRefresh: true,
     projectDay: true,
     bronze: true,
     silver: true,
@@ -120,7 +99,7 @@ const features = [
     gold: false,
   },
   {
-    name: "3–4 visits per month",
+    name: "Weekly visits",
     oneTimeRefresh: false,
     projectDay: false,
     bronze: false,
@@ -294,9 +273,10 @@ const PricingPage = () => {
               </div>
 
               {/* Disclaimer */}
-              <p className="text-center text-muted-foreground text-sm italic mt-6">
-                Visit frequency is a general guideline and may vary based on project scope, seasonality, and scheduling needs.
-              </p>
+              <div className="text-center text-muted-foreground text-sm mt-8 space-y-1">
+                <p>* Materials and supplies billed separately for all services</p>
+                <p className="italic">Visit frequency may vary based on project scope and seasonality</p>
+              </div>
             </div>
           </div>
         </section>
