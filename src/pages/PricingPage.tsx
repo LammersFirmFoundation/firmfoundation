@@ -116,17 +116,14 @@ const PricingPage = () => {
       <Header />
       
       <main className="flex-1">
-        {/* Hero Section - Reduced padding */}
+        {/* Hero Section */}
         <section className="pt-10 pb-6 text-center">
           <div className="container mx-auto px-4">
             <h1 className="text-3xl md:text-4xl font-bold text-primary mb-2">
-              Firm Foundation
+              We Handle It, So You Don't Have To
             </h1>
-            <h2 className="text-xl md:text-2xl font-semibold text-foreground mb-1">
-              Choose the plan that fits your needs.
-            </h2>
-            <p className="text-muted-foreground mb-5">
-              Premium home maintenance for the Lowcountry
+            <p className="text-lg text-muted-foreground mb-5 max-w-xl mx-auto">
+              Reliable property care with personal accountability — choose the plan that fits your lifestyle.
             </p>
             
             {/* Services included - more compact */}
@@ -272,11 +269,19 @@ const PricingPage = () => {
                 ))}
               </div>
 
+              {/* What to Expect - Value Statement */}
+              <div className="bg-primary/5 border border-primary/20 rounded-lg p-5 mt-6 max-w-2xl mx-auto">
+                <h3 className="font-semibold text-foreground text-sm mb-2">What to Expect with Monthly Plans</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Every scheduled visit is tailored to your property's needs. We walk your grounds, address what matters most, 
+                  and keep you informed — so you never have to worry about the little things adding up. 
+                  Think of it as having a trusted partner who takes ownership of your home's upkeep.
+                </p>
+              </div>
+
               {/* Disclaimer */}
               <div className="text-center text-muted-foreground text-xs mt-4 space-y-0.5">
-                <p>* Materials and supplies billed separately for all services</p>
-                <p>Each scheduled visit includes a property walk-through and hands-on service time</p>
-                <p className="font-medium text-foreground/70">Multi-day discounts available — contact us for details</p>
+                <p>* Materials and supplies billed separately · Multi-day discounts available</p>
                 <p className="italic">Visit frequency may vary based on project scope and seasonality</p>
               </div>
             </div>
