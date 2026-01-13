@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const plans = [
   {
     name: "Half Day",
-    price: "$299",
+    price: "$349",
     period: "one-time",
     category: "one-time",
     cta: "Book Now",
@@ -15,7 +15,7 @@ const plans = [
   },
   {
     name: "Project Day",
-    price: "$499",
+    price: "$599",
     period: "full day",
     category: "one-time",
     cta: "Book Now",
@@ -91,15 +91,6 @@ const features = [
   },
 ];
 
-// Service duration row - clear without hourly thinking
-const serviceDuration = {
-  name: "Time on-site",
-  halfDay: "Half day",
-  projectDay: "Full day",
-  bronze: "Per visit",
-  silver: "Per visit",
-  gold: "Per visit",
-};
 
 // Visit frequency as a separate highlighted row
 const visitFrequency = {
@@ -193,28 +184,6 @@ const PricingPage = () => {
                     <div className="text-xs text-muted-foreground">{plan.period}</div>
                   </div>
                 ))}
-              </div>
-
-              {/* Service Duration Row - Key differentiator */}
-              <div className="grid grid-cols-6 border-b border-border bg-muted/20">
-                <div className="p-3 text-left font-medium text-foreground text-sm">
-                  {serviceDuration.name}
-                </div>
-                <div className="p-3 text-center bg-muted/30">
-                  <span className="text-sm font-semibold text-foreground">{serviceDuration.halfDay}</span>
-                </div>
-                <div className="p-3 text-center bg-muted/30">
-                  <span className="text-sm font-semibold text-foreground">{serviceDuration.projectDay}</span>
-                </div>
-                <div className="p-3 text-center bg-primary/10 border-x border-primary/20">
-                  <span className="text-sm text-muted-foreground">{serviceDuration.bronze}</span>
-                </div>
-                <div className="p-3 text-center bg-primary/10">
-                  <span className="text-sm text-muted-foreground">{serviceDuration.silver}</span>
-                </div>
-                <div className="p-3 text-center bg-primary/10 border-x border-primary/20">
-                  <span className="text-sm text-muted-foreground">{serviceDuration.gold}</span>
-                </div>
               </div>
 
               {/* Feature Rows */}
