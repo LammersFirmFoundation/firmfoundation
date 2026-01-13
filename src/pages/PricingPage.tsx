@@ -119,10 +119,13 @@ const PricingPage = () => {
         {/* Hero Section */}
         <section className="pt-10 pb-6 text-center">
           <div className="container mx-auto px-4">
-            <h1 className="text-3xl md:text-4xl font-bold text-primary mb-2">
-              We Handle It, So You Don't Have To
+            <h1 className="text-4xl md:text-5xl font-bold text-primary mb-1">
+              Firm Foundation
             </h1>
-            <p className="text-lg text-muted-foreground mb-5 max-w-xl mx-auto">
+            <p className="text-xl md:text-2xl font-medium text-foreground mb-1">
+              We Handle It, So You Don't Have To
+            </p>
+            <p className="text-base text-muted-foreground mb-5 max-w-xl mx-auto">
               Reliable property care with personal accountability — choose the plan that fits your lifestyle.
             </p>
             
