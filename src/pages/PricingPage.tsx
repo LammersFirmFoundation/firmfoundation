@@ -39,8 +39,15 @@ const plans = [
   },
 ];
 
-// Features grouped by category for better readability
+// Features ordered for clear scanning - key differentiator first
 const features = [
+  {
+    name: "Full day on-site",
+    projectDay: true,
+    bronze: false,
+    silver: false,
+    gold: false,
+  },
   {
     name: "Full property assessment",
     projectDay: true,
@@ -54,13 +61,6 @@ const features = [
     bronze: true,
     silver: true,
     gold: true,
-  },
-  {
-    name: "Full workday (up to 8 hours)",
-    projectDay: true,
-    bronze: false,
-    silver: false,
-    gold: false,
   },
   {
     name: "Preventative maintenance",
