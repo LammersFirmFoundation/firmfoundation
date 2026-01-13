@@ -275,6 +275,7 @@ const PricingPage = () => {
               {/* Disclaimer */}
               <div className="text-center text-muted-foreground text-xs mt-4 space-y-0.5">
                 <p>* Materials and supplies billed separately for all services</p>
+                <p>Each scheduled visit includes a property walk-through and hands-on service time</p>
                 <p className="font-medium text-foreground/70">Multi-day discounts available — contact us for details</p>
                 <p className="italic">Visit frequency may vary based on project scope and seasonality</p>
               </div>
