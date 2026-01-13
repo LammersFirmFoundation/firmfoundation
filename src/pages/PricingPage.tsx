@@ -269,21 +269,22 @@ const PricingPage = () => {
                 ))}
               </div>
 
-              {/* What to Expect - Value Statement */}
-              <div className="bg-primary/5 border border-primary/20 rounded-lg p-5 mt-6 max-w-2xl mx-auto">
-                <h3 className="font-semibold text-foreground text-sm mb-2">What to Expect with Monthly Plans</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Every scheduled visit is tailored to your property's needs. We walk your grounds, address what matters most, 
-                  and keep you informed — so you never have to worry about the little things adding up. 
-                  Think of it as having a trusted partner who takes ownership of your home's upkeep.
-                </p>
-              </div>
+            </div>
 
-              {/* Disclaimer */}
-              <div className="text-center text-muted-foreground text-xs mt-4 space-y-0.5">
-                <p>* Materials and supplies billed separately · Multi-day discounts available</p>
-                <p className="italic">Visit frequency may vary based on project scope and seasonality</p>
-              </div>
+            {/* What to Expect - Value Statement */}
+            <div className="bg-primary/5 border border-primary/20 rounded-lg p-5 mt-6 max-w-2xl mx-auto">
+              <h3 className="font-semibold text-foreground text-sm mb-2">What to Expect with Monthly Plans</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Every scheduled visit is tailored to your property's needs. We walk your grounds, address what matters most, 
+                and keep you informed — so you never have to worry about the little things adding up. 
+                Think of it as having a trusted partner who takes ownership of your home's upkeep.
+              </p>
+            </div>
+
+            {/* Disclaimer */}
+            <div className="text-center text-muted-foreground text-xs mt-4 space-y-0.5">
+              <p>* Materials and supplies billed separately · Multi-day discounts available</p>
+              <p className="italic">Visit frequency may vary based on project scope and seasonality</p>
             </div>
           </div>
         </section>
