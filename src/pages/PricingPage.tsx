@@ -6,9 +6,17 @@ import { Link } from "react-router-dom";
 
 const plans = [
   {
+    name: "Half Day",
+    price: "$299",
+    period: "one-time",
+    category: "one-time",
+    cta: "Book Now",
+    highlighted: false,
+  },
+  {
     name: "Project Day",
     price: "$499",
-    period: "per day",
+    period: "full day",
     category: "one-time",
     cta: "Book Now",
     highlighted: false,
@@ -42,14 +50,8 @@ const plans = [
 // Features ordered for clear scanning - key differentiator first
 const features = [
   {
-    name: "Full day on-site",
-    projectDay: true,
-    bronze: false,
-    silver: false,
-    gold: false,
-  },
-  {
     name: "Full property assessment",
+    halfDay: true,
     projectDay: true,
     bronze: true,
     silver: true,
@@ -57,6 +59,7 @@ const features = [
   },
   {
     name: "Repairs & touch-ups",
+    halfDay: true,
     projectDay: true,
     bronze: true,
     silver: true,
@@ -64,6 +67,7 @@ const features = [
   },
   {
     name: "Preventative maintenance",
+    halfDay: false,
     projectDay: false,
     bronze: true,
     silver: true,
@@ -71,6 +75,7 @@ const features = [
   },
   {
     name: "Priority scheduling",
+    halfDay: false,
     projectDay: false,
     bronze: false,
     silver: true,
@@ -78,6 +83,7 @@ const features = [
   },
   {
     name: "Dedicated property manager",
+    halfDay: false,
     projectDay: false,
     bronze: false,
     silver: false,
@@ -85,10 +91,21 @@ const features = [
   },
 ];
 
+// Service duration row - clear without hourly thinking
+const serviceDuration = {
+  name: "Time on-site",
+  halfDay: "Half day",
+  projectDay: "Full day",
+  bronze: "Per visit",
+  silver: "Per visit",
+  gold: "Per visit",
+};
+
 // Visit frequency as a separate highlighted row
 const visitFrequency = {
-  name: "Visit frequency",
-  projectDay: "Per day",
+  name: "Scheduled visits",
+  halfDay: "As needed",
+  projectDay: "As needed",
   bronze: "1x / month",
   silver: "2x / month",
   gold: "Weekly",
@@ -141,11 +158,11 @@ const PricingPage = () => {
         {/* Pricing Table */}
         <section className="pb-16">
           <div className="container mx-auto px-4 overflow-x-auto">
-            <div className="min-w-[800px]">
+            <div className="min-w-[900px]">
               {/* Category Header Row */}
-              <div className="grid grid-cols-5 mb-1">
+              <div className="grid grid-cols-6 mb-1">
                 <div className="p-3"></div>
-                <div className="p-3 text-center bg-muted/50 rounded-t-lg">
+                <div className="p-3 text-center col-span-2 bg-muted/50 rounded-t-lg">
                   <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">One-Time</span>
                 </div>
                 <div className="p-3 text-center col-span-3 bg-primary/15 rounded-t-lg border-x-2 border-t-2 border-primary/20">
@@ -154,7 +171,7 @@ const PricingPage = () => {
               </div>
 
               {/* Plan Names & Prices Combined */}
-              <div className="grid grid-cols-5 border-b-2 border-border">
+              <div className="grid grid-cols-6 border-b-2 border-border">
                 <div className="p-4 bg-muted/20 flex items-center">
                   <span className="font-medium text-foreground">Features</span>
                 </div>
@@ -178,16 +195,44 @@ const PricingPage = () => {
                 ))}
               </div>
 
+              {/* Service Duration Row - Key differentiator */}
+              <div className="grid grid-cols-6 border-b border-border bg-muted/20">
+                <div className="p-3 text-left font-medium text-foreground text-sm">
+                  {serviceDuration.name}
+                </div>
+                <div className="p-3 text-center bg-muted/30">
+                  <span className="text-sm font-semibold text-foreground">{serviceDuration.halfDay}</span>
+                </div>
+                <div className="p-3 text-center bg-muted/30">
+                  <span className="text-sm font-semibold text-foreground">{serviceDuration.projectDay}</span>
+                </div>
+                <div className="p-3 text-center bg-primary/10 border-x border-primary/20">
+                  <span className="text-sm text-muted-foreground">{serviceDuration.bronze}</span>
+                </div>
+                <div className="p-3 text-center bg-primary/10">
+                  <span className="text-sm text-muted-foreground">{serviceDuration.silver}</span>
+                </div>
+                <div className="p-3 text-center bg-primary/10 border-x border-primary/20">
+                  <span className="text-sm text-muted-foreground">{serviceDuration.gold}</span>
+                </div>
+              </div>
+
               {/* Feature Rows */}
               {features.map((feature, index) => (
                 <div 
                   key={feature.name} 
-                  className={`grid grid-cols-5 border-b border-border/50 ${
+                  className={`grid grid-cols-6 border-b border-border/50 ${
                     index % 2 === 0 ? 'bg-background' : 'bg-muted/5'
                   }`}
                 >
                   <div className="p-3 text-left text-foreground text-sm">
                     {feature.name}
+                  </div>
+                  <div className={`p-3 flex justify-center items-center ${index % 2 === 0 ? 'bg-muted/20' : 'bg-muted/30'}`}>
+                    {feature.halfDay 
+                      ? <Check className="h-5 w-5 text-green-600" strokeWidth={2.5} />
+                      : <Minus className="h-4 w-4 text-muted-foreground/40" />
+                    }
                   </div>
                   <div className={`p-3 flex justify-center items-center ${index % 2 === 0 ? 'bg-muted/20' : 'bg-muted/30'}`}>
                     {feature.projectDay 
@@ -217,12 +262,15 @@ const PricingPage = () => {
               ))}
 
               {/* Visit Frequency Row - Highlighted */}
-              <div className="grid grid-cols-5 border-b-2 border-border bg-muted/30">
+              <div className="grid grid-cols-6 border-b-2 border-border bg-muted/30">
                 <div className="p-3 text-left font-medium text-foreground text-sm">
                   {visitFrequency.name}
                 </div>
                 <div className="p-3 text-center bg-muted/40">
-                  <span className="text-sm font-medium text-muted-foreground">{visitFrequency.projectDay}</span>
+                  <span className="text-sm text-muted-foreground">{visitFrequency.halfDay}</span>
+                </div>
+                <div className="p-3 text-center bg-muted/40">
+                  <span className="text-sm text-muted-foreground">{visitFrequency.projectDay}</span>
                 </div>
                 <div className="p-3 text-center bg-primary/15 border-x border-primary/20">
                   <span className="text-sm font-semibold text-primary">{visitFrequency.bronze}</span>
@@ -236,7 +284,7 @@ const PricingPage = () => {
               </div>
 
               {/* CTA Row */}
-              <div className="grid grid-cols-5 py-4">
+              <div className="grid grid-cols-6 py-4">
                 <div className="p-3"></div>
                 {plans.map((plan) => (
                   <div 
