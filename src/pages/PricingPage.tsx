@@ -6,16 +6,8 @@ import { Link } from "react-router-dom";
 
 const plans = [
   {
-    name: "One-Time Refresh",
-    price: "$499",
-    period: "one-time",
-    category: "one-time",
-    cta: "Book Now",
-    highlighted: false,
-  },
-  {
     name: "Project Day",
-    price: "$600",
+    price: "$499",
     period: "per day",
     category: "one-time",
     cta: "Book Now",
@@ -51,7 +43,6 @@ const plans = [
 const features = [
   {
     name: "Full property assessment",
-    oneTimeRefresh: true,
     projectDay: true,
     bronze: true,
     silver: true,
@@ -59,7 +50,6 @@ const features = [
   },
   {
     name: "Repairs & touch-ups",
-    oneTimeRefresh: true,
     projectDay: true,
     bronze: true,
     silver: true,
@@ -67,7 +57,6 @@ const features = [
   },
   {
     name: "Full workday (up to 8 hours)",
-    oneTimeRefresh: false,
     projectDay: true,
     bronze: false,
     silver: false,
@@ -75,7 +64,6 @@ const features = [
   },
   {
     name: "Preventative maintenance",
-    oneTimeRefresh: false,
     projectDay: false,
     bronze: true,
     silver: true,
@@ -83,7 +71,6 @@ const features = [
   },
   {
     name: "Priority scheduling",
-    oneTimeRefresh: false,
     projectDay: false,
     bronze: false,
     silver: true,
@@ -91,7 +78,6 @@ const features = [
   },
   {
     name: "Dedicated property manager",
-    oneTimeRefresh: false,
     projectDay: false,
     bronze: false,
     silver: false,
@@ -102,8 +88,7 @@ const features = [
 // Visit frequency as a separate highlighted row
 const visitFrequency = {
   name: "Visit frequency",
-  oneTimeRefresh: "As needed",
-  projectDay: "1 day",
+  projectDay: "Per day",
   bronze: "1x / month",
   silver: "2x / month",
   gold: "Weekly",
@@ -156,11 +141,11 @@ const PricingPage = () => {
         {/* Pricing Table */}
         <section className="pb-16">
           <div className="container mx-auto px-4 overflow-x-auto">
-            <div className="min-w-[900px]">
+            <div className="min-w-[800px]">
               {/* Category Header Row */}
-              <div className="grid grid-cols-6 mb-1">
+              <div className="grid grid-cols-5 mb-1">
                 <div className="p-3"></div>
-                <div className="p-3 text-center col-span-2 bg-muted/50 rounded-t-lg">
+                <div className="p-3 text-center bg-muted/50 rounded-t-lg">
                   <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">One-Time</span>
                 </div>
                 <div className="p-3 text-center col-span-3 bg-primary/15 rounded-t-lg border-x-2 border-t-2 border-primary/20">
@@ -169,7 +154,7 @@ const PricingPage = () => {
               </div>
 
               {/* Plan Names & Prices Combined */}
-              <div className="grid grid-cols-6 border-b-2 border-border">
+              <div className="grid grid-cols-5 border-b-2 border-border">
                 <div className="p-4 bg-muted/20 flex items-center">
                   <span className="font-medium text-foreground">Features</span>
                 </div>
@@ -197,18 +182,12 @@ const PricingPage = () => {
               {features.map((feature, index) => (
                 <div 
                   key={feature.name} 
-                  className={`grid grid-cols-6 border-b border-border/50 ${
+                  className={`grid grid-cols-5 border-b border-border/50 ${
                     index % 2 === 0 ? 'bg-background' : 'bg-muted/5'
                   }`}
                 >
                   <div className="p-3 text-left text-foreground text-sm">
                     {feature.name}
-                  </div>
-                  <div className={`p-3 flex justify-center items-center ${index % 2 === 0 ? 'bg-muted/20' : 'bg-muted/30'}`}>
-                    {feature.oneTimeRefresh 
-                      ? <Check className="h-5 w-5 text-green-600" strokeWidth={2.5} />
-                      : <Minus className="h-4 w-4 text-muted-foreground/40" />
-                    }
                   </div>
                   <div className={`p-3 flex justify-center items-center ${index % 2 === 0 ? 'bg-muted/20' : 'bg-muted/30'}`}>
                     {feature.projectDay 
@@ -238,12 +217,9 @@ const PricingPage = () => {
               ))}
 
               {/* Visit Frequency Row - Highlighted */}
-              <div className="grid grid-cols-6 border-b-2 border-border bg-muted/30">
+              <div className="grid grid-cols-5 border-b-2 border-border bg-muted/30">
                 <div className="p-3 text-left font-medium text-foreground text-sm">
                   {visitFrequency.name}
-                </div>
-                <div className="p-3 text-center bg-muted/40">
-                  <span className="text-sm font-medium text-muted-foreground">{visitFrequency.oneTimeRefresh}</span>
                 </div>
                 <div className="p-3 text-center bg-muted/40">
                   <span className="text-sm font-medium text-muted-foreground">{visitFrequency.projectDay}</span>
@@ -260,7 +236,7 @@ const PricingPage = () => {
               </div>
 
               {/* CTA Row */}
-              <div className="grid grid-cols-6 py-4">
+              <div className="grid grid-cols-5 py-4">
                 <div className="p-3"></div>
                 {plans.map((plan) => (
                   <div 
@@ -282,6 +258,7 @@ const PricingPage = () => {
               {/* Disclaimer */}
               <div className="text-center text-muted-foreground text-xs mt-4 space-y-0.5">
                 <p>* Materials and supplies billed separately for all services</p>
+                <p className="font-medium text-foreground/70">Multi-day discounts available — contact us for details</p>
                 <p className="italic">Visit frequency may vary based on project scope and seasonality</p>
               </div>
             </div>
