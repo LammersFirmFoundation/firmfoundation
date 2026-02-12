@@ -6,6 +6,9 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import belleHall1 from "@/assets/properties/belle-hall-1.jpg";
 import carpentry from "@/assets/services/carpentry.jpg";
+import pressureWashing from "@/assets/services/pressure-washing.jpg";
+import landscaping from "@/assets/services/landscaping.jpg";
+import windowWashing from "@/assets/services/window-washing.jpg";
 import belleHall2 from "@/assets/properties/belle-hall-2.jpg";
 import dunesWest1 from "@/assets/properties/dunes-west-1.jpg";
 import parkWest1 from "@/assets/properties/park-west-1.jpg";
@@ -55,8 +58,8 @@ const LandingPage = () => {
                 <CardContent className="pt-8 pb-6">
                   <div className="h-48 mb-6 rounded-lg overflow-hidden">
                     <img 
-                      src={belleHall1} 
-                      alt="Pressure washing service" 
+                      src={pressureWashing} 
+                      alt="Pressure washing service"
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -77,8 +80,8 @@ const LandingPage = () => {
                 <CardContent className="pt-8 pb-6">
                   <div className="h-48 mb-6 rounded-lg overflow-hidden">
                     <img 
-                      src={parkWest1} 
-                      alt="Landscaping service" 
+                      src={landscaping} 
+                      alt="Landscaping service"
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -99,8 +102,8 @@ const LandingPage = () => {
                 <CardContent className="pt-8 pb-6">
                   <div className="h-48 mb-6 rounded-lg overflow-hidden">
                     <img 
-                      src={belleHall2} 
-                      alt="Window washing service" 
+                      src={windowWashing} 
+                      alt="Window washing service"
                       className="w-full h-full object-cover"
                     />
                   </div>
