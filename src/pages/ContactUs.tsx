@@ -126,7 +126,7 @@ const ContactUs = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Email</h3>
-                      <p className="text-muted-foreground">firmfoundationchs@gmail.com</p>
+                      <p className="text-muted-foreground">ffirmfoundationsc@gmail.com</p>
                     </div>
                   </div>
 
@@ -136,7 +136,7 @@ const ContactUs = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Phone</h3>
-                      <p className="text-muted-foreground">(843) 555-0123</p>
+                      <p className="text-muted-foreground">(419) 419-8082</p>
                     </div>
                   </div>
 
@@ -196,7 +196,7 @@ const ContactUs = () => {
                         <FormItem>
                           <FormLabel>Phone (Optional)</FormLabel>
                           <FormControl>
-                            <Input type="tel" placeholder="(843) 555-0123" {...field} />
+                            <Input type="tel" placeholder="(419) 419-8082" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>

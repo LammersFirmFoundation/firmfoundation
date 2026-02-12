@@ -254,7 +254,7 @@ const LandingPage = () => {
                 <a href="tel:4194198082">Call (419) 419-8082</a>
               </Button>
               <Button asChild size="lg" variant="outline" className="text-lg px-12 py-6 h-auto border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                <a href="mailto:firmfoundationchs@gmail.com">Email Us</a>
+                <a href="mailto:ffirmfoundationsc@gmail.com">Email Us</a>
               </Button>
             </div>
           </div>
