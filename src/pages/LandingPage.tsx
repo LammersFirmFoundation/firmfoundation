@@ -9,12 +9,11 @@ import carpentry from "@/assets/services/carpentry.jpg";
 import pressureWashing from "@/assets/services/pressure-washing.jpg";
 import landscaping from "@/assets/services/landscaping.jpg";
 import windowWashing from "@/assets/services/window-washing.jpg";
-import belleHall2 from "@/assets/properties/belle-hall-2.jpg";
-import dunesWest1 from "@/assets/properties/dunes-west-1.jpg";
-import parkWest1 from "@/assets/properties/park-west-1.jpg";
-import parkWest2 from "@/assets/properties/park-west-2.jpg";
-import rivertowne1 from "@/assets/properties/rivertowne-1.jpg";
-import isleOfPalms1 from "@/assets/properties/isle-of-palms-1.jpg";
+import mountPleasantMap from "@/assets/maps/mount-pleasant-map.jpg";
+import isleOfPalmsMap from "@/assets/maps/isle-of-palms-map.jpg";
+import sullivansIslandMap from "@/assets/maps/sullivans-island-map.jpg";
+import dunesWestMap from "@/assets/maps/dunes-west-map.jpg";
+import parkWestMap from "@/assets/maps/park-west-map.jpg";
 
 const LandingPage = () => {
   return (
@@ -200,11 +199,11 @@ const LandingPage = () => {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
               {[
-                { name: "Mount Pleasant", image: belleHall1 },
-                { name: "Isle of Palms", image: isleOfPalms1 },
-                { name: "Sullivan's Island", image: rivertowne1 },
-                { name: "Dunes West", image: dunesWest1 },
-                { name: "Park West", image: parkWest2 }
+                { name: "Mount Pleasant", image: mountPleasantMap },
+                { name: "Isle of Palms", image: isleOfPalmsMap },
+                { name: "Sullivan's Island", image: sullivansIslandMap },
+                { name: "Dunes West", image: dunesWestMap },
+                { name: "Park West", image: parkWestMap }
               ].map((neighborhood) => (
                 <Card key={neighborhood.name} className="overflow-hidden hover:shadow-2xl transition-all duration-300 group border-2 hover:border-primary">
                   <div className="h-64 relative overflow-hidden">
@@ -214,9 +213,6 @@ const LandingPage = () => {
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
-                  <CardContent className="pt-6 pb-8">
-                    <h3 className="font-bold text-2xl">{neighborhood.name}</h3>
-                  </CardContent>
                 </Card>
               ))}
             </div>
