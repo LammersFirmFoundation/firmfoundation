@@ -212,6 +212,11 @@ const LandingPage = () => {
                       alt={neighborhood.name} 
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <h3 className="text-2xl md:text-3xl font-bold tracking-wide" style={{ color: '#0a1f3d', textShadow: '0 1px 3px rgba(255,255,255,0.3)' }}>
+                        {neighborhood.name}
+                      </h3>
+                    </div>
                   </div>
                 </Card>
               ))}
