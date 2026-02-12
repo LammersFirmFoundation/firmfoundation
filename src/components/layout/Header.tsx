@@ -19,7 +19,7 @@ const Header = () => {
       <div className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3 group">
-            <img src={logo} alt="Firm Foundation Property Management" className="h-14 w-auto transition-transform group-hover:scale-105" />
+            <img src={logo} alt="Firm Foundation Property Management" className="h-20 w-auto transition-transform group-hover:scale-105" />
             <div className="hidden sm:block">
               <div className="text-xl font-bold text-foreground font-serif tracking-wide">FIRM FOUNDATION</div>
               <div className="text-sm text-muted-foreground font-sans">Property Management</div>
