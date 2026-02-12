@@ -23,7 +23,7 @@ const LandingPage = () => {
             <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-8 leading-tight tracking-tight">
               Mount Pleasant's Premier
               <br />
-              <span className="text-primary">Property Maintenance Experts</span>
+              <span className="text-primary">Project Management Experts</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
               Professional pressure washing, landscaping, and window washing services for residential properties in Mount Pleasant, Isle of Palms, Sullivan's Island, Dunes West, and Park West
