@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import pressureWashing from "@/assets/services/pressure-washing.jpg";
 import landscaping from "@/assets/services/landscaping.jpg";
 import windowWashing from "@/assets/services/window-washing.jpg";
+import carpentry from "@/assets/services/carpentry.jpg";
 
 const ServicesPage = () => {
   return (
@@ -123,6 +124,39 @@ const ServicesPage = () => {
                         <li>• <span className="font-medium text-foreground">High Window Access:</span> Safe cleaning of second and third-story windows</li>
                         <li>• <span className="font-medium text-foreground">Hard Water Stain Removal:</span> Treatment for mineral deposits and staining</li>
                         <li>• <span className="font-medium text-foreground">Sliding Door Cleaning:</span> Complete cleaning of glass doors and tracks</li>
+                      </ul>
+                    </div>
+                  </CardContent>
+                </div>
+              </Card>
+
+              {/* Carpentry */}
+              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl overflow-hidden">
+                <div className="grid md:grid-cols-2 gap-0">
+                  <div className="h-64 md:h-auto md:order-2">
+                    <img 
+                      src={carpentry} 
+                      alt="Professional carpentry and deck repair service" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <CardContent className="pt-8 pb-8 px-8 md:order-1">
+                    <h3 className="font-bold text-3xl mb-4 text-primary">Carpentry</h3>
+                    <p className="text-muted-foreground leading-relaxed mb-6">
+                      Keep your outdoor structures safe, functional, and beautiful with our professional carpentry services. From worn deck boards to leaning fence posts, we handle the repairs and small builds that protect your investment and enhance your property's appearance.
+                    </p>
+                    <p className="text-muted-foreground leading-relaxed mb-6">
+                      Our skilled carpenters work with a variety of wood and composite materials, ensuring quality craftsmanship that stands up to the Lowcountry climate. Whether it's a quick fix or a full restoration, we approach every project with the same attention to detail and commitment to lasting results.
+                    </p>
+                    <div className="space-y-4">
+                      <h4 className="font-semibold text-lg text-foreground">What We Handle:</h4>
+                      <ul className="text-muted-foreground space-y-2">
+                        <li>• <span className="font-medium text-foreground">Deck Repair & Restoration:</span> Replace damaged boards, reinforce framing, and refinish surfaces</li>
+                        <li>• <span className="font-medium text-foreground">Fence Repair & Replacement:</span> Fix leaning posts, replace broken pickets, and install new sections</li>
+                        <li>• <span className="font-medium text-foreground">Railing & Step Repairs:</span> Tighten, rebuild, or replace railings and stairs for safety</li>
+                        <li>• <span className="font-medium text-foreground">Pergolas & Arbors:</span> Build or repair outdoor shade structures</li>
+                        <li>• <span className="font-medium text-foreground">Gate Repair & Installation:</span> Fix sagging gates or install new ones</li>
+                        <li>• <span className="font-medium text-foreground">Custom Outdoor Builds:</span> Small-scale custom woodwork tailored to your property</li>
                       </ul>
                     </div>
                   </CardContent>
