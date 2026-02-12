@@ -200,9 +200,9 @@ const LandingPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
               {[
                 { name: "Mount Pleasant", image: belleHall1 },
-                { name: "Isle of Palms", image: dunesWest1 },
+                { name: "Isle of Palms", image: parkWest1 },
                 { name: "Sullivan's Island", image: rivertowne1 },
-                { name: "Dunes West", image: parkWest1 },
+                { name: "Dunes West", image: dunesWest1 },
                 { name: "Park West", image: parkWest2 }
               ].map((neighborhood) => (
                 <Card key={neighborhood.name} className="overflow-hidden hover:shadow-2xl transition-all duration-300 group border-2 hover:border-primary">
