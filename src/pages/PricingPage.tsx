@@ -108,6 +108,7 @@ const coreServices = [
   "Window Washing",
   "Gutter Cleaning",
   "General Repairs",
+  "Carpentry & Deck/Fence Repair",
 ];
 
 const PricingPage = () => {

@@ -5,6 +5,7 @@ import { Home, Shield, Users, TrendingUp } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import belleHall1 from "@/assets/properties/belle-hall-1.jpg";
+import carpentry from "@/assets/services/carpentry.jpg";
 import belleHall2 from "@/assets/properties/belle-hall-2.jpg";
 import dunesWest1 from "@/assets/properties/dunes-west-1.jpg";
 import parkWest1 from "@/assets/properties/park-west-1.jpg";
@@ -49,7 +50,7 @@ const LandingPage = () => {
             <p className="text-center text-muted-foreground text-lg mb-16 max-w-2xl mx-auto">
               Professional property maintenance for Mount Pleasant's finest homes
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
               <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl">
                 <CardContent className="pt-8 pb-6">
                   <div className="h-48 mb-6 rounded-lg overflow-hidden">
@@ -112,6 +113,28 @@ const LandingPage = () => {
                     <li>• Screen cleaning & repair</li>
                     <li>• Track & sill detailing</li>
                     <li>• High window access</li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl">
+                <CardContent className="pt-8 pb-6">
+                  <div className="h-48 mb-6 rounded-lg overflow-hidden">
+                    <img 
+                      src={carpentry} 
+                      alt="Carpentry service" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <h3 className="font-bold text-2xl mb-4">Carpentry</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    Skilled carpentry for deck repairs, fence fixes, and small woodworking projects. We keep your outdoor structures safe and looking great.
+                  </p>
+                  <ul className="text-muted-foreground text-sm space-y-2">
+                    <li>• Deck repair & restoration</li>
+                    <li>• Fence repair & replacement</li>
+                    <li>• Railing & step fixes</li>
+                    <li>• Custom outdoor builds</li>
                   </ul>
                 </CardContent>
               </Card>
