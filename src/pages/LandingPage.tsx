@@ -14,6 +14,7 @@ import dunesWest1 from "@/assets/properties/dunes-west-1.jpg";
 import parkWest1 from "@/assets/properties/park-west-1.jpg";
 import parkWest2 from "@/assets/properties/park-west-2.jpg";
 import rivertowne1 from "@/assets/properties/rivertowne-1.jpg";
+import isleOfPalms1 from "@/assets/properties/isle-of-palms-1.jpg";
 
 const LandingPage = () => {
   return (
@@ -200,7 +201,7 @@ const LandingPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
               {[
                 { name: "Mount Pleasant", image: belleHall1 },
-                { name: "Isle of Palms", image: dunesWest1 },
+                { name: "Isle of Palms", image: isleOfPalms1 },
                 { name: "Sullivan's Island", image: rivertowne1 },
                 { name: "Dunes West", image: dunesWest1 },
                 { name: "Park West", image: parkWest2 }
