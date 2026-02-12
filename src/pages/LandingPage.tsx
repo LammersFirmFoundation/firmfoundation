@@ -26,7 +26,7 @@ const LandingPage = () => {
               <span className="text-primary">Property Maintenance Experts</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-              Professional pressure washing, landscaping, and window washing services for residential properties in Belle Hall, Dunes West, Park West, and Rivertowne
+              Professional pressure washing, landscaping, and window washing services for residential properties in Mount Pleasant, Isle of Palms, Sullivan's Island, Dunes West, and Park West
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="text-lg px-12 py-6 h-auto">
@@ -168,14 +168,15 @@ const LandingPage = () => {
               Areas We Serve
             </h2>
             <p className="text-center text-muted-foreground text-lg mb-16 max-w-2xl mx-auto">
-              Proudly serving Mount Pleasant's premier neighborhoods
+              Proudly serving the greater Mount Pleasant area and surrounding islands
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
               {[
-                { name: "Belle Hall", image: belleHall1 },
-                { name: "Dunes West", image: dunesWest1 },
-                { name: "Park West", image: parkWest1 },
-                { name: "Rivertowne", image: rivertowne1 }
+                { name: "Mount Pleasant", image: belleHall1 },
+                { name: "Isle of Palms", image: dunesWest1 },
+                { name: "Sullivan's Island", image: rivertowne1 },
+                { name: "Dunes West", image: parkWest1 },
+                { name: "Park West", image: parkWest1 }
               ].map((neighborhood) => (
                 <Card key={neighborhood.name} className="overflow-hidden hover:shadow-2xl transition-all duration-300 group border-2 hover:border-primary">
                   <div className="h-64 relative overflow-hidden">
@@ -210,7 +211,7 @@ const LandingPage = () => {
                     "Firm Foundation transformed our home's exterior with their pressure washing service. It looks brand new again!"
                   </p>
                   <p className="font-bold text-foreground">- Sarah M.</p>
-                  <p className="text-sm text-muted-foreground">Belle Hall Homeowner</p>
+                  <p className="text-sm text-muted-foreground">Mount Pleasant Homeowner</p>
                 </CardContent>
               </Card>
 
@@ -220,7 +221,7 @@ const LandingPage = () => {
                     "Outstanding landscaping service! Our yard has never looked better. The team is consistent and detail-oriented."
                   </p>
                   <p className="font-bold text-foreground">- John D.</p>
-                  <p className="text-sm text-muted-foreground">Dunes West Homeowner</p>
+                  <p className="text-sm text-muted-foreground">Isle of Palms Homeowner</p>
                 </CardContent>
               </Card>
 
@@ -230,7 +231,7 @@ const LandingPage = () => {
                     "Professional window washing service. They got our windows so clean I thought they were open! Highly recommend!"
                   </p>
                   <p className="font-bold text-foreground">- Emily R.</p>
-                  <p className="text-sm text-muted-foreground">Rivertowne Homeowner</p>
+                  <p className="text-sm text-muted-foreground">Sullivan's Island Homeowner</p>
                 </CardContent>
               </Card>
             </div>

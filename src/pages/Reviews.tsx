@@ -5,14 +5,14 @@ import Footer from "@/components/layout/Footer";
 const Reviews = () => {
   const reviews = [{
     name: "Sarah Johnson",
-    location: "Belle Hall",
+    location: "Mount Pleasant",
     rating: 5,
     date: "March 2024",
     review: "Firm Foundation has been maintaining our property for over a year now. Their pressure washing service transformed our driveway and house exterior - it looks brand new! The team is always professional, punctual, and thorough. Highly recommend!",
     service: "Pressure Washing"
   }, {
     name: "Michael Chen",
-    location: "Dunes West",
+    location: "Isle of Palms",
     rating: 5,
     date: "February 2024",
     review: "Outstanding landscaping service! Our yard has never looked better. They're consistent, detail-oriented, and really care about the quality of their work. The weekly maintenance keeps everything pristine, and their seasonal planting suggestions have been excellent.",
@@ -26,14 +26,14 @@ const Reviews = () => {
     service: "Window Washing"
   }, {
     name: "David Thompson",
-    location: "Rivertowne",
+    location: "Sullivan's Island",
     rating: 5,
     date: "March 2024",
     review: "We've tried several property maintenance companies in Mount Pleasant, and Firm Foundation is by far the best. They're reliable, fairly priced, and do excellent work. The difference in our curb appeal since hiring them has been remarkable.",
     service: "Full Service Package"
   }, {
     name: "Lisa Anderson",
-    location: "Belle Hall",
+    location: "Mount Pleasant",
     rating: 5,
     date: "February 2024",
     review: "Professional and trustworthy team. They handle our landscaping and pressure washing needs, and we couldn't be happier. Great communication, always on time, and the results speak for themselves. Our HOA even complimented our property's appearance!",
@@ -54,7 +54,7 @@ const Reviews = () => {
     service: "Landscaping"
   }, {
     name: "James Mitchell",
-    location: "Rivertowne",
+    location: "Park West",
     rating: 5,
     date: "February 2024",
     review: "Best property maintenance decision we've made. From the initial consultation to ongoing service, everything has been smooth and professional. They understand the unique needs of coastal properties and deliver consistently excellent results.",
