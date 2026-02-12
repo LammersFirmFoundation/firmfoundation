@@ -200,7 +200,7 @@ const LandingPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
               {[
                 { name: "Mount Pleasant", image: belleHall1 },
-                { name: "Isle of Palms", image: parkWest1 },
+                { name: "Isle of Palms", image: dunesWest1 },
                 { name: "Sullivan's Island", image: rivertowne1 },
                 { name: "Dunes West", image: dunesWest1 },
                 { name: "Park West", image: parkWest2 }
