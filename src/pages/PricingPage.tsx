@@ -3,6 +3,7 @@ import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Check, Minus } from "lucide-react";
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 
 const plans = [
   {
@@ -117,6 +118,11 @@ const PricingPage = () => {
       <Header />
       
       <main className="flex-1">
+        <SEO
+          title="Pricing & Packages"
+          description="Affordable property maintenance plans starting at $349. One-time and monthly packages for pressure washing, landscaping, and more in Mount Pleasant, SC."
+          canonical="/pricing"
+        />
         {/* Hero Section */}
         <section className="pt-10 pb-6 text-center">
           <div className="container mx-auto px-4">

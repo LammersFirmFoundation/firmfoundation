@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Form,
@@ -98,6 +99,11 @@ const ContactUs = () => {
       <Header />
       
       <main className="flex-1">
+        <SEO
+          title="Contact Us – Free Quote"
+          description="Contact Firm Foundation for a free property maintenance quote in Mount Pleasant, SC. Call (419) 419-8082 or send us a message."
+          canonical="/contact"
+        />
         {/* Hero Section */}
         <section className="bg-primary text-primary-foreground py-20">
           <div className="container mx-auto px-4">

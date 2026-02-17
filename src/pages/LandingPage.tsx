@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Home, Shield, Users, TrendingUp } from "lucide-react";
+import SEO from "@/components/SEO";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import belleHall1 from "@/assets/properties/belle-hall-1.jpg";
@@ -20,6 +21,47 @@ const LandingPage = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       
+      <SEO
+        title="Firm Foundation Property Maintenance | Mount Pleasant, SC"
+        description="Professional pressure washing, landscaping, window washing, and carpentry in Mount Pleasant, Isle of Palms, Sullivan's Island, Dunes West, and Park West."
+        canonical="/"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "name": "Firm Foundation Property Maintenance",
+          "description": "Professional property maintenance in Mount Pleasant, SC. Expert pressure washing, landscaping, window washing, and carpentry for residential properties.",
+          "telephone": "(419) 419-8082",
+          "email": "ffirmfoundationsc@gmail.com",
+          "url": "https://firmfoundation.lovable.app",
+          "areaServed": [
+            { "@type": "City", "name": "Mount Pleasant", "addressRegion": "SC" },
+            { "@type": "City", "name": "Isle of Palms", "addressRegion": "SC" },
+            { "@type": "City", "name": "Sullivan's Island", "addressRegion": "SC" }
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Mount Pleasant",
+            "addressRegion": "SC",
+            "postalCode": "29464",
+            "addressCountry": "US"
+          },
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Property Maintenance Services",
+            "itemListElement": [
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pressure Washing" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Landscaping" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Window Washing" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Carpentry" } }
+            ]
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5.0",
+            "reviewCount": "8"
+          }
+        }}
+      />
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-primary/5 via-background to-background py-32 px-4 overflow-hidden">
