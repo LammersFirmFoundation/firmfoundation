@@ -1,111 +1,103 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import Section from "@/components/layout/Section";
+import FadeInView from "@/components/animations/FadeInView";
+import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerContainer";
 import { Button } from "@/components/ui/button";
 import { Check, Minus } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
+import { cn } from "@/lib/utils";
 
 const plans = [
   {
     name: "Half Day",
     price: "$349",
     period: "one-time",
-    category: "one-time",
     cta: "Book Now",
     highlighted: false,
+    features: {
+      assessment: true,
+      repairs: true,
+      preventative: false,
+      priority: false,
+      dedicated: false,
+    },
+    visits: "As needed",
   },
   {
     name: "Project Day",
     price: "$599",
     period: "full day",
-    category: "one-time",
     cta: "Book Now",
     highlighted: false,
+    features: {
+      assessment: true,
+      repairs: true,
+      preventative: false,
+      priority: false,
+      dedicated: false,
+    },
+    visits: "As needed",
   },
   {
     name: "Bronze",
     price: "$349",
     period: "/month",
-    category: "monthly",
     cta: "Get Started",
     highlighted: false,
+    features: {
+      assessment: true,
+      repairs: true,
+      preventative: true,
+      priority: false,
+      dedicated: false,
+    },
+    visits: "1x / month",
   },
   {
     name: "Silver",
     price: "$599",
     period: "/month",
-    category: "monthly",
     cta: "Get Started",
     highlighted: true,
+    features: {
+      assessment: true,
+      repairs: true,
+      preventative: true,
+      priority: true,
+      dedicated: false,
+    },
+    visits: "2x / month",
   },
   {
     name: "Gold",
     price: "$999",
     period: "/month",
-    category: "monthly",
     cta: "Get Started",
     highlighted: false,
+    features: {
+      assessment: true,
+      repairs: true,
+      preventative: true,
+      priority: true,
+      dedicated: true,
+    },
+    visits: "Weekly",
   },
 ];
 
-// Features ordered for clear scanning - key differentiator first
-const features = [
-  {
-    name: "Full property assessment",
-    halfDay: true,
-    projectDay: true,
-    bronze: true,
-    silver: true,
-    gold: true,
-  },
-  {
-    name: "Repairs & touch-ups",
-    halfDay: true,
-    projectDay: true,
-    bronze: true,
-    silver: true,
-    gold: true,
-  },
-  {
-    name: "Preventative maintenance",
-    halfDay: false,
-    projectDay: false,
-    bronze: true,
-    silver: true,
-    gold: true,
-  },
-  {
-    name: "Priority scheduling",
-    halfDay: false,
-    projectDay: false,
-    bronze: false,
-    silver: true,
-    gold: true,
-  },
-  {
-    name: "Dedicated property manager",
-    halfDay: false,
-    projectDay: false,
-    bronze: false,
-    silver: false,
-    gold: true,
-  },
+const featureLabels = [
+  { key: "assessment", label: "Full property assessment" },
+  { key: "repairs", label: "Repairs & touch-ups" },
+  { key: "preventative", label: "Preventative maintenance" },
+  { key: "priority", label: "Priority scheduling" },
+  { key: "dedicated", label: "Dedicated property manager" },
 ];
-
-
-// Visit frequency as a separate highlighted row
-const visitFrequency = {
-  name: "Scheduled visits",
-  halfDay: "As needed",
-  projectDay: "As needed",
-  bronze: "1x / month",
-  silver: "2x / month",
-  gold: "Weekly",
-};
 
 const coreServices = [
   "Pressure Washing",
-  "Landscaping & Yard Care", 
+  "Landscaping & Yard Care",
   "Window Washing",
   "Gutter Cleaning",
   "General Repairs",
@@ -114,190 +106,149 @@ const coreServices = [
 
 const PricingPage = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col">
       <Header />
-      
-      <main className="flex-1">
+
+      <main className="flex-1 pt-[72px]">
         <SEO
           title="Pricing & Packages"
           description="Affordable property maintenance plans starting at $349. One-time and monthly packages for pressure washing, landscaping, and more in Mount Pleasant, SC."
           canonical="/pricing"
         />
-        {/* Hero Section */}
-        <section className="pt-10 pb-6 text-center">
-          <div className="container mx-auto px-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-primary mb-1">
-              Firm Foundation
-            </h1>
-            <p className="text-xl md:text-2xl font-medium text-foreground mb-1">
-              We Handle It, So You Don't Have To
-            </p>
-            <p className="text-base text-muted-foreground mb-5 max-w-xl mx-auto">
-              Reliable property care with personal accountability — choose the plan that fits your lifestyle.
-            </p>
-            
-            {/* Services included - more compact */}
-            <div className="bg-muted/30 rounded-lg py-4 px-5 max-w-2xl mx-auto">
-              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">All packages include:</p>
-              <div className="flex flex-wrap justify-center gap-2">
+
+        {/* Page Header */}
+        <section className="py-20 md:py-28 px-4">
+          <div className="container mx-auto max-w-content text-center">
+            <FadeInView>
+              <h1 className="text-hero md:text-display font-bold text-foreground tracking-tight font-heading mb-2">
+                Pricing & Packages
+              </h1>
+              <p className="text-lg md:text-xl text-muted-foreground mb-2">
+                We Handle It, So You Don't Have To
+              </p>
+              <p className="text-muted-foreground max-w-xl mx-auto">
+                Reliable property care with personal accountability — choose the
+                plan that fits your lifestyle.
+              </p>
+            </FadeInView>
+
+            {/* Core services strip */}
+            <FadeInView delay={0.2}>
+              <div className="mt-8 flex flex-wrap justify-center gap-2">
                 {coreServices.map((service) => (
-                  <span 
+                  <span
                     key={service}
-                    className="bg-background px-2.5 py-1 rounded-full text-sm text-foreground border border-border"
+                    className="bg-muted px-3 py-1.5 rounded-full text-sm text-foreground border border-border"
                   >
                     {service}
                   </span>
                 ))}
               </div>
-            </div>
+            </FadeInView>
           </div>
         </section>
 
-        {/* Pricing Table */}
-        <section className="pb-16">
-          <div className="container mx-auto px-4 overflow-x-auto">
-            <div className="min-w-[900px]">
-              {/* Category Header Row */}
-              <div className="grid grid-cols-6 mb-1">
-                <div className="p-3"></div>
-                <div className="p-3 text-center col-span-2 bg-muted/50 rounded-t-lg">
-                  <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">One-Time</span>
-                </div>
-                <div className="p-3 text-center col-span-3 bg-primary/15 rounded-t-lg border-x-2 border-t-2 border-primary/20">
-                  <span className="text-sm font-semibold text-primary uppercase tracking-wide">Monthly Plans</span>
-                </div>
-              </div>
-
-              {/* Plan Names & Prices Combined */}
-              <div className="grid grid-cols-6 border-b-2 border-border">
-                <div className="p-4 bg-muted/20 flex items-center">
-                  <span className="font-medium text-foreground">Features</span>
-                </div>
-                {plans.map((plan, idx) => (
-                  <div 
-                    key={plan.name} 
-                    className={`p-4 text-center ${
-                      plan.category === 'monthly' 
-                        ? 'bg-primary/10 border-x border-primary/20' 
-                        : 'bg-muted/50'
-                    } ${plan.highlighted ? 'bg-primary/20' : ''}`}
-                  >
-                    <div className={`font-bold text-lg ${plan.highlighted ? 'text-primary' : 'text-foreground'}`}>
-                      {plan.name}
+        {/* Pricing Cards */}
+        <Section>
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+            {plans.map((plan) => (
+              <StaggerItem key={plan.name}>
+                <div
+                  className={cn(
+                    "rounded-xl border p-6 h-full flex flex-col transition-all",
+                    plan.highlighted
+                      ? "ring-2 ring-primary scale-[1.03] shadow-lg bg-background relative"
+                      : "bg-background hover:shadow-md border-border"
+                  )}
+                >
+                  {plan.highlighted && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full">
+                      Most Popular
                     </div>
-                    <div className={`text-2xl font-bold mt-1 ${plan.highlighted ? 'text-primary' : 'text-foreground'}`}>
+                  )}
+                  <div className="text-center mb-6">
+                    <h3
+                      className={cn(
+                        "font-bold text-lg font-heading",
+                        plan.highlighted ? "text-primary" : "text-foreground"
+                      )}
+                    >
+                      {plan.name}
+                    </h3>
+                    <div className="text-3xl font-bold text-foreground mt-2">
                       {plan.price}
                     </div>
-                    <div className="text-xs text-muted-foreground">{plan.period}</div>
+                    <div className="text-sm text-muted-foreground">
+                      {plan.period}
+                    </div>
                   </div>
-                ))}
-              </div>
 
-              {/* Feature Rows */}
-              {features.map((feature, index) => (
-                <div 
-                  key={feature.name} 
-                  className={`grid grid-cols-6 border-b border-border/50 ${
-                    index % 2 === 0 ? 'bg-background' : 'bg-muted/5'
-                  }`}
-                >
-                  <div className="p-3 text-left text-foreground text-sm">
-                    {feature.name}
+                  <div className="text-center text-sm font-medium text-primary mb-4 pb-4 border-b border-border">
+                    {plan.visits}
                   </div>
-                  <div className={`p-3 flex justify-center items-center ${index % 2 === 0 ? 'bg-muted/20' : 'bg-muted/30'}`}>
-                    {feature.halfDay 
-                      ? <Check className="h-5 w-5 text-green-600" strokeWidth={2.5} />
-                      : <Minus className="h-4 w-4 text-muted-foreground/40" />
-                    }
-                  </div>
-                  <div className={`p-3 flex justify-center items-center ${index % 2 === 0 ? 'bg-muted/20' : 'bg-muted/30'}`}>
-                    {feature.projectDay 
-                      ? <Check className="h-5 w-5 text-green-600" strokeWidth={2.5} />
-                      : <Minus className="h-4 w-4 text-muted-foreground/40" />
-                    }
-                  </div>
-                  <div className={`p-3 flex justify-center items-center border-x border-primary/20 ${index % 2 === 0 ? 'bg-primary/5' : 'bg-primary/10'}`}>
-                    {feature.bronze 
-                      ? <Check className="h-5 w-5 text-primary" strokeWidth={2.5} />
-                      : <Minus className="h-4 w-4 text-muted-foreground/40" />
-                    }
-                  </div>
-                  <div className={`p-3 flex justify-center items-center ${index % 2 === 0 ? 'bg-primary/5' : 'bg-primary/10'}`}>
-                    {feature.silver 
-                      ? <Check className="h-5 w-5 text-primary" strokeWidth={2.5} />
-                      : <Minus className="h-4 w-4 text-muted-foreground/40" />
-                    }
-                  </div>
-                  <div className={`p-3 flex justify-center items-center border-x border-primary/20 ${index % 2 === 0 ? 'bg-primary/5' : 'bg-primary/10'}`}>
-                    {feature.gold 
-                      ? <Check className="h-5 w-5 text-primary" strokeWidth={2.5} />
-                      : <Minus className="h-4 w-4 text-muted-foreground/40" />
-                    }
-                  </div>
-                </div>
-              ))}
 
-              {/* Visit Frequency Row - Highlighted */}
-              <div className="grid grid-cols-6 border-b-2 border-border bg-muted/30">
-                <div className="p-3 text-left font-medium text-foreground text-sm">
-                  {visitFrequency.name}
-                </div>
-                <div className="p-3 text-center bg-muted/40">
-                  <span className="text-sm text-muted-foreground">{visitFrequency.halfDay}</span>
-                </div>
-                <div className="p-3 text-center bg-muted/40">
-                  <span className="text-sm text-muted-foreground">{visitFrequency.projectDay}</span>
-                </div>
-                <div className="p-3 text-center bg-primary/15 border-x border-primary/20">
-                  <span className="text-sm font-semibold text-primary">{visitFrequency.bronze}</span>
-                </div>
-                <div className="p-3 text-center bg-primary/15">
-                  <span className="text-sm font-semibold text-primary">{visitFrequency.silver}</span>
-                </div>
-                <div className="p-3 text-center bg-primary/15 border-x border-primary/20">
-                  <span className="text-sm font-semibold text-primary">{visitFrequency.gold}</span>
-                </div>
-              </div>
+                  <ul className="space-y-3 mb-6 flex-1">
+                    {featureLabels.map((feature) => {
+                      const has =
+                        plan.features[
+                          feature.key as keyof typeof plan.features
+                        ];
+                      return (
+                        <li
+                          key={feature.key}
+                          className="flex items-center gap-2 text-sm"
+                        >
+                          {has ? (
+                            <Check className="h-4 w-4 text-primary flex-shrink-0" />
+                          ) : (
+                            <Minus className="h-4 w-4 text-muted-foreground/40 flex-shrink-0" />
+                          )}
+                          <span
+                            className={
+                              has ? "text-foreground" : "text-muted-foreground/60"
+                            }
+                          >
+                            {feature.label}
+                          </span>
+                        </li>
+                      );
+                    })}
+                  </ul>
 
-              {/* CTA Row */}
-              <div className="grid grid-cols-6 py-4">
-                <div className="p-3"></div>
-                {plans.map((plan) => (
-                  <div 
-                    key={plan.name} 
-                    className="p-3 flex justify-center"
+                  <Button
+                    asChild
+                    variant={plan.highlighted ? "default" : "outline"}
+                    className={cn("w-full", plan.highlighted && "shadow-md")}
                   >
-                    <Button 
-                      asChild
-                      size="sm"
-                      variant={plan.highlighted ? "default" : "outline"}
-                      className={plan.highlighted ? "shadow-md" : ""}
-                    >
-                      <Link to="/contact">{plan.cta}</Link>
-                    </Button>
-                  </div>
-                ))}
-              </div>
+                    <Link to="/contact">{plan.cta}</Link>
+                  </Button>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
 
-            </div>
-
-            {/* What to Expect - Value Statement */}
-            <div className="bg-primary/5 border border-primary/20 rounded-lg p-5 mt-6 max-w-2xl mx-auto">
-              <h3 className="font-semibold text-foreground text-sm mb-2">What to Expect with Monthly Plans</h3>
+          {/* Value statement */}
+          <FadeInView delay={0.3}>
+            <div className="border border-border rounded-lg p-6 mt-12 max-w-2xl mx-auto">
+              <h3 className="font-semibold text-foreground text-sm mb-2 font-heading">
+                What to Expect with Monthly Plans
+              </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Every scheduled visit is tailored to your property's needs. We walk your grounds, address what matters most, 
-                and keep you informed — so you never have to worry about the little things adding up. 
-                Think of it as having a trusted partner who takes ownership of your home's upkeep.
+                Every scheduled visit is tailored to your property's needs. We
+                walk your grounds, address what matters most, and keep you
+                informed — so you never have to worry about the little things
+                adding up.
               </p>
             </div>
+          </FadeInView>
 
-            {/* Disclaimer */}
-            <div className="text-center text-muted-foreground text-xs mt-4 space-y-0.5">
-              <p>* Materials and supplies billed separately · Multi-day discounts available</p>
-              <p className="italic">Visit frequency may vary based on project scope and seasonality</p>
-            </div>
+          <div className="text-center text-muted-foreground text-xs mt-6 space-y-0.5">
+            <p>* Materials and supplies billed separately &middot; Multi-day discounts available</p>
+            <p className="italic">
+              Visit frequency may vary based on project scope and seasonality
+            </p>
           </div>
-        </section>
+        </Section>
       </main>
 
       <Footer />

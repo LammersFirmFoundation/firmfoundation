@@ -1,26 +1,94 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { Home, Shield, Users, TrendingUp } from "lucide-react";
+import { Star, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 import SEO from "@/components/SEO";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import belleHall1 from "@/assets/properties/belle-hall-1.jpg";
-import carpentry from "@/assets/services/carpentry.jpg";
+import Section from "@/components/layout/Section";
+import SectionHeader from "@/components/layout/SectionHeader";
+import FadeInView from "@/components/animations/FadeInView";
+import ServiceAreaMap from "@/components/ServiceAreaMap";
+
 import pressureWashing from "@/assets/services/pressure-washing.jpg";
 import landscaping from "@/assets/services/landscaping.jpg";
 import windowWashing from "@/assets/services/window-washing.jpg";
-import mountPleasantMap from "@/assets/maps/mount-pleasant-map.jpg";
-import isleOfPalmsMap from "@/assets/maps/isle-of-palms-map.jpg";
-import sullivansIslandMap from "@/assets/maps/sullivans-island-map.jpg";
-import dunesWestMap from "@/assets/maps/dunes-west-map.jpg";
-import parkWestMap from "@/assets/maps/park-west-map.jpg";
+import carpentry from "@/assets/services/carpentry.jpg";
+
+const stats = [
+  { label: "5.0 Rating", value: "5.0" },
+  { label: "100+ Properties", value: "100+" },
+  { label: "4 Core Services", value: "4" },
+  { label: "Lowcountry's Best", value: "#1" },
+];
+
+const services = [
+  {
+    title: "Pressure Washing",
+    description:
+      "Transform your property's exterior with professional pressure washing. We safely remove years of dirt, grime, and mildew from driveways, siding, decks, and patios using state-of-the-art equipment.",
+    image: pressureWashing,
+    alt: "Professional pressure washing service",
+  },
+  {
+    title: "Landscaping",
+    description:
+      "Maintain a pristine outdoor environment year-round. From weekly lawn care to seasonal plantings, we create and preserve beautiful outdoor spaces tailored to the Lowcountry climate.",
+    image: landscaping,
+    alt: "Professional landscaping service",
+  },
+  {
+    title: "Window Washing",
+    description:
+      "Experience crystal-clear views with our professional window washing. We clean interior and exterior surfaces, frames, and screens — delivering streak-free, spotless results every time.",
+    image: windowWashing,
+    alt: "Professional window washing service",
+  },
+  {
+    title: "Carpentry",
+    description:
+      "Keep outdoor structures safe and beautiful with skilled carpentry. We handle deck repairs, fence fixes, railing restoration, and custom outdoor builds with lasting craftsmanship.",
+    image: carpentry,
+    alt: "Professional carpentry service",
+  },
+];
+
+const testimonials = [
+  {
+    quote:
+      "Firm Foundation transformed our home's exterior with their pressure washing service. It looks brand new again! The team is always professional, punctual, and thorough.",
+    name: "Sarah M.",
+    location: "Mount Pleasant Homeowner",
+  },
+  {
+    quote:
+      "Outstanding landscaping service! Our yard has never looked better. They're consistent, detail-oriented, and really care about the quality of their work.",
+    name: "John D.",
+    location: "Isle of Palms Homeowner",
+  },
+  {
+    quote:
+      "Professional window washing service. They got our windows so clean I thought they were open! Very reasonable pricing and the crew was respectful of our property.",
+    name: "Emily R.",
+    location: "Sullivan's Island Homeowner",
+  },
+];
 
 const LandingPage = () => {
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
-      
+      <Header transparent />
+
       <SEO
         title="Firm Foundation Property Maintenance | Mount Pleasant, SC"
         description="Professional pressure washing, landscaping, window washing, and carpentry in Mount Pleasant, Isle of Palms, Sullivan's Island, Dunes West, and Park West."
@@ -28,307 +96,328 @@ const LandingPage = () => {
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
-          "name": "Firm Foundation Property Maintenance",
-          "description": "Professional property maintenance in Mount Pleasant, SC. Expert pressure washing, landscaping, window washing, and carpentry for residential properties.",
-          "telephone": "(419) 419-8082",
-          "email": "ffirmfoundationsc@gmail.com",
-          "url": "https://firmfoundation.lovable.app",
-          "areaServed": [
-            { "@type": "City", "name": "Mount Pleasant", "addressRegion": "SC" },
-            { "@type": "City", "name": "Isle of Palms", "addressRegion": "SC" },
-            { "@type": "City", "name": "Sullivan's Island", "addressRegion": "SC" }
+          name: "Firm Foundation Property Maintenance",
+          description:
+            "Professional property maintenance in Mount Pleasant, SC. Expert pressure washing, landscaping, window washing, and carpentry for residential properties.",
+          telephone: "(419) 419-8082",
+          email: "ffirmfoundationsc@gmail.com",
+          url: typeof window !== "undefined" ? window.location.origin : "",
+          areaServed: [
+            {
+              "@type": "City",
+              name: "Mount Pleasant",
+              addressRegion: "SC",
+            },
+            {
+              "@type": "City",
+              name: "Isle of Palms",
+              addressRegion: "SC",
+            },
+            {
+              "@type": "City",
+              name: "Sullivan's Island",
+              addressRegion: "SC",
+            },
           ],
-          "address": {
+          address: {
             "@type": "PostalAddress",
-            "addressLocality": "Mount Pleasant",
-            "addressRegion": "SC",
-            "postalCode": "29464",
-            "addressCountry": "US"
+            addressLocality: "Mount Pleasant",
+            addressRegion: "SC",
+            postalCode: "29464",
+            addressCountry: "US",
           },
-          "hasOfferCatalog": {
+          hasOfferCatalog: {
             "@type": "OfferCatalog",
-            "name": "Property Maintenance Services",
-            "itemListElement": [
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pressure Washing" } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Landscaping" } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Window Washing" } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Carpentry" } }
-            ]
+            name: "Property Maintenance Services",
+            itemListElement: [
+              {
+                "@type": "Offer",
+                itemOffered: {
+                  "@type": "Service",
+                  name: "Pressure Washing",
+                },
+              },
+              {
+                "@type": "Offer",
+                itemOffered: {
+                  "@type": "Service",
+                  name: "Landscaping",
+                },
+              },
+              {
+                "@type": "Offer",
+                itemOffered: {
+                  "@type": "Service",
+                  name: "Window Washing",
+                },
+              },
+              {
+                "@type": "Offer",
+                itemOffered: {
+                  "@type": "Service",
+                  name: "Carpentry",
+                },
+              },
+            ],
           },
-          "aggregateRating": {
+          aggregateRating: {
             "@type": "AggregateRating",
-            "ratingValue": "5.0",
-            "reviewCount": "8"
-          }
+            ratingValue: "5.0",
+            reviewCount: "8",
+          },
         }}
       />
+
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-primary/5 via-background to-background py-32 px-4 overflow-hidden">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptMCAzNmMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptLTE4LTE4YzMuMzE0IDAgNiAyLjY4NiA2IDZzLTIuNjg2IDYtNiA2LTYtMi42ODYtNi02IDIuNjg2LTYgNi02eiIgc3Ryb2tlPSJyZ2JhKDI5LCA3OCwgMjE2LCAwLjA1KSIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9nPjwvc3ZnPg==')] opacity-40"></div>
-          <div className="container mx-auto text-center max-w-5xl relative z-10">
-            <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-8 leading-tight tracking-tight">
+        {/* Full-Screen Video Hero */}
+        <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+          {/* Video / Poster Background */}
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster={pressureWashing}
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="/hero-video.mp4" type="video/mp4" />
+          </video>
+          {/* Dark overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+
+          <div className="relative z-10 container mx-auto px-4 text-center max-w-4xl">
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-4xl sm:text-5xl md:text-display font-bold text-white mb-6 leading-tight tracking-tight font-heading drop-shadow-lg"
+            >
               Mount Pleasant's Premier
               <br />
-              <span className="text-primary">Project Management Experts</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-              Professional pressure washing, landscaping, and window washing services for residential properties in Mount Pleasant, Isle of Palms, Sullivan's Island, Dunes West, and Park West
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="text-lg px-12 py-6 h-auto">
+              Property Maintenance
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md"
+            >
+              Professional pressure washing, landscaping, window washing, and
+              carpentry for the Lowcountry's finest homes
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
+              <Button
+                asChild
+                size="lg"
+                className="bg-white text-foreground hover:bg-white/90 text-lg px-10 py-6 h-auto"
+              >
                 <Link to="/contact">Get a Free Quote</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="text-lg px-12 py-6 h-auto">
+              <Button
+                asChild
+                size="lg"
+                className="bg-transparent border-2 border-white text-white hover:bg-white/10 text-lg px-10 py-6 h-auto"
+              >
                 <Link to="/services">Our Services</Link>
               </Button>
-            </div>
+            </motion.div>
           </div>
+
+          {/* Scroll indicator */}
+          <motion.div
+            className="absolute bottom-8 left-1/2 -translate-x-1/2"
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <ChevronDown className="h-8 w-8 text-white/60" />
+          </motion.div>
         </section>
 
-        {/* Services Section */}
-        <section id="services" className="py-24 px-4">
-          <div className="container mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-6">
-              Our Maintenance Services
-            </h2>
-            <p className="text-center text-muted-foreground text-lg mb-16 max-w-2xl mx-auto">
-              Professional property maintenance for Mount Pleasant's finest homes
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl">
-                <CardContent className="pt-8 pb-6">
-                  <div className="h-48 mb-6 rounded-lg overflow-hidden">
-                    <img 
-                      src={pressureWashing} 
-                      alt="Pressure washing service"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <h3 className="font-bold text-2xl mb-4">Pressure Washing</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    Professional pressure washing for driveways, sidewalks, siding, decks, and patios. We restore your property's curb appeal with safe, effective cleaning techniques.
-                  </p>
-                  <ul className="text-muted-foreground text-sm space-y-2">
-                    <li>• Driveway & walkway cleaning</li>
-                    <li>• House washing & siding</li>
-                    <li>• Deck & patio restoration</li>
-                    <li>• Fence cleaning</li>
-                  </ul>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl">
-                <CardContent className="pt-8 pb-6">
-                  <div className="h-48 mb-6 rounded-lg overflow-hidden">
-                    <img 
-                      src={landscaping} 
-                      alt="Landscaping service"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <h3 className="font-bold text-2xl mb-4">Landscaping</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    Complete landscaping services to keep your property looking pristine year-round. From routine maintenance to seasonal enhancements.
-                  </p>
-                  <ul className="text-muted-foreground text-sm space-y-2">
-                    <li>• Weekly lawn maintenance</li>
-                    <li>• Mulching & edging</li>
-                    <li>• Seasonal planting</li>
-                    <li>• Irrigation management</li>
-                  </ul>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl">
-                <CardContent className="pt-8 pb-6">
-                  <div className="h-48 mb-6 rounded-lg overflow-hidden">
-                    <img 
-                      src={windowWashing} 
-                      alt="Window washing service"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <h3 className="font-bold text-2xl mb-4">Window Washing</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    Crystal-clear windows inside and out. We provide streak-free cleaning for all your residential windows, including hard-to-reach areas.
-                  </p>
-                  <ul className="text-muted-foreground text-sm space-y-2">
-                    <li>• Interior & exterior cleaning</li>
-                    <li>• Screen cleaning & repair</li>
-                    <li>• Track & sill detailing</li>
-                    <li>• High window access</li>
-                  </ul>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl">
-                <CardContent className="pt-8 pb-6">
-                  <div className="h-48 mb-6 rounded-lg overflow-hidden">
-                    <img 
-                      src={carpentry} 
-                      alt="Carpentry service" 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <h3 className="font-bold text-2xl mb-4">Carpentry</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    Skilled carpentry for deck repairs, fence fixes, and small woodworking projects. We keep your outdoor structures safe and looking great.
-                  </p>
-                  <ul className="text-muted-foreground text-sm space-y-2">
-                    <li>• Deck repair & restoration</li>
-                    <li>• Fence repair & replacement</li>
-                    <li>• Railing & step fixes</li>
-                    <li>• Custom outdoor builds</li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
-
-        {/* Why Choose Us */}
-        <section className="py-24 px-4 bg-muted/20">
-          <div className="container mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-6">
-              Why Choose Firm Foundation
-            </h2>
-            <p className="text-center text-muted-foreground text-lg mb-16 max-w-2xl mx-auto">
-              Trusted by homeowners and property managers throughout Mount Pleasant
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              <Card className="border-2 hover:border-primary transition-all duration-300">
-                <CardContent className="pt-8 pb-6 text-center">
-                  <Shield className="h-16 w-16 text-primary mx-auto mb-6" />
-                  <h3 className="font-bold text-xl mb-3">Professional & Reliable</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Licensed, insured, and committed to delivering exceptional service on every project
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 hover:border-primary transition-all duration-300">
-                <CardContent className="pt-8 pb-6 text-center">
-                  <Users className="h-16 w-16 text-primary mx-auto mb-6" />
-                  <h3 className="font-bold text-xl mb-3">Local Expertise</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Deep knowledge of Mount Pleasant properties and coastal maintenance needs
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 hover:border-primary transition-all duration-300">
-                <CardContent className="pt-8 pb-6 text-center">
-                  <TrendingUp className="h-16 w-16 text-primary mx-auto mb-6" />
-                  <h3 className="font-bold text-xl mb-3">Quality Results</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Meticulous attention to detail and commitment to exceeding expectations
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
-
-        {/* Service Areas */}
-        <section className="py-24 px-4">
-          <div className="container mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-6">
-              Areas We Serve
-            </h2>
-            <p className="text-center text-muted-foreground text-lg mb-16 max-w-2xl mx-auto">
-              Proudly serving the greater Mount Pleasant area and surrounding islands
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-              {[
-                { name: "Mount Pleasant", image: mountPleasantMap },
-                { name: "Isle of Palms", image: isleOfPalmsMap },
-                { name: "Sullivan's Island", image: sullivansIslandMap },
-                { name: "Dunes West", image: dunesWestMap },
-                { name: "Park West", image: parkWestMap }
-              ].map((neighborhood) => (
-                <Card key={neighborhood.name} className="overflow-hidden hover:shadow-2xl transition-all duration-300 group border-2 hover:border-primary">
-                  <div className="h-64 relative overflow-hidden">
-                    <img 
-                      src={neighborhood.image} 
-                      alt={neighborhood.name} 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <h3 className="text-2xl md:text-3xl font-bold tracking-wide" style={{ color: '#0a1f3d', textShadow: '0 1px 3px rgba(255,255,255,0.3)' }}>
-                        {neighborhood.name}
-                      </h3>
+        {/* Value Proposition Strip */}
+        <section className="border-b border-border bg-background">
+          <div className="container mx-auto px-4 py-8">
+            <div className="flex flex-wrap justify-center gap-8 md:gap-16">
+              {stats.map((stat) => (
+                <FadeInView key={stat.label}>
+                  <div className="text-center">
+                    <div className="text-2xl md:text-3xl font-bold text-foreground font-heading">
+                      {stat.value}
+                    </div>
+                    <div className="text-sm text-muted-foreground mt-1">
+                      {stat.label}
                     </div>
                   </div>
-                </Card>
+                </FadeInView>
               ))}
             </div>
           </div>
         </section>
 
+        {/* Services Overview — Alternating Layout */}
+        <Section>
+          <SectionHeader
+            title="Our Services"
+            subtitle="Professional property maintenance for Mount Pleasant's finest homes"
+          />
+
+          <div className="space-y-24">
+            {services.map((service, index) => {
+              const imageLeft = index % 2 === 0;
+              return (
+                <div
+                  key={service.title}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center"
+                >
+                  <FadeInView
+                    direction={imageLeft ? "left" : "right"}
+                    className={imageLeft ? "" : "md:order-2"}
+                  >
+                    <div className="aspect-[4/3] rounded-lg overflow-hidden">
+                      <img
+                        src={service.image}
+                        alt={service.alt}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </FadeInView>
+                  <FadeInView
+                    direction={imageLeft ? "right" : "left"}
+                    delay={0.15}
+                    className={imageLeft ? "" : "md:order-1"}
+                  >
+                    <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-heading">
+                      {service.title}
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed text-lg mb-6">
+                      {service.description}
+                    </p>
+                    <Link
+                      to="/services"
+                      className="text-primary font-medium hover:underline"
+                    >
+                      Learn more &rarr;
+                    </Link>
+                  </FadeInView>
+                </div>
+              );
+            })}
+          </div>
+        </Section>
+
         {/* Testimonials */}
-        <section className="py-24 px-4">
-          <div className="container mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-6">
-              What Our Clients Say
-            </h2>
-            <p className="text-center text-muted-foreground text-lg mb-16 max-w-2xl mx-auto">
-              Trusted by homeowners and renters throughout Mount Pleasant
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              <Card className="border-2 hover:shadow-xl transition-shadow">
-                <CardContent className="pt-8 pb-6">
-                  <p className="text-muted-foreground italic mb-6 text-lg leading-relaxed">
-                    "Firm Foundation transformed our home's exterior with their pressure washing service. It looks brand new again!"
-                  </p>
-                  <p className="font-bold text-foreground">- Sarah M.</p>
-                  <p className="text-sm text-muted-foreground">Mount Pleasant Homeowner</p>
-                </CardContent>
-              </Card>
+        <Section variant="muted">
+          <SectionHeader
+            title="What Our Clients Say"
+            subtitle="Trusted by homeowners throughout Mount Pleasant"
+          />
 
-              <Card className="border-2 hover:shadow-xl transition-shadow">
-                <CardContent className="pt-8 pb-6">
-                  <p className="text-muted-foreground italic mb-6 text-lg leading-relaxed">
-                    "Outstanding landscaping service! Our yard has never looked better. The team is consistent and detail-oriented."
-                  </p>
-                  <p className="font-bold text-foreground">- John D.</p>
-                  <p className="text-sm text-muted-foreground">Isle of Palms Homeowner</p>
-                </CardContent>
-              </Card>
+          <div className="max-w-3xl mx-auto text-center min-h-[220px] relative">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTestimonial}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="text-6xl text-primary/20 font-heading leading-none mb-4">
+                  &ldquo;
+                </div>
+                <p className="text-xl md:text-2xl text-foreground leading-relaxed italic mb-8">
+                  {testimonials[activeTestimonial].quote}
+                </p>
+                <p className="font-bold text-foreground">
+                  {testimonials[activeTestimonial].name}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  {testimonials[activeTestimonial].location}
+                </p>
+              </motion.div>
+            </AnimatePresence>
 
-              <Card className="border-2 hover:shadow-xl transition-shadow">
-                <CardContent className="pt-8 pb-6">
-                  <p className="text-muted-foreground italic mb-6 text-lg leading-relaxed">
-                    "Professional window washing service. They got our windows so clean I thought they were open! Highly recommend!"
-                  </p>
-                  <p className="font-bold text-foreground">- Emily R.</p>
-                  <p className="text-sm text-muted-foreground">Sullivan's Island Homeowner</p>
-                </CardContent>
-              </Card>
+            {/* Dots */}
+            <div className="flex justify-center gap-2 mt-8">
+              {testimonials.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveTestimonial(i)}
+                  className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                    i === activeTestimonial
+                      ? "bg-primary"
+                      : "bg-border hover:bg-muted-foreground/40"
+                  }`}
+                  aria-label={`Go to testimonial ${i + 1}`}
+                />
+              ))}
             </div>
           </div>
-        </section>
+
+          {/* Trust indicators */}
+          <FadeInView delay={0.2}>
+            <div className="flex flex-wrap items-center justify-center gap-6 mt-12 pt-8 border-t border-border">
+              <div className="flex items-center gap-1" role="img" aria-label="5 out of 5 stars">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className="h-5 w-5 fill-primary text-primary"
+                    aria-hidden="true"
+                  />
+                ))}
+              </div>
+              <span className="text-muted-foreground text-sm">
+                5.0 average from 8 verified reviews
+              </span>
+            </div>
+          </FadeInView>
+        </Section>
+
+        {/* Service Areas */}
+        <Section variant="dark" className="bg-gradient-to-b from-[hsl(220,20%,10%)] to-[hsl(210,50%,22%)]">
+          <SectionHeader
+            title="Areas We Serve"
+            subtitle="Proudly serving the greater Mount Pleasant area and surrounding islands"
+            dark
+          />
+
+          <FadeInView>
+            <ServiceAreaMap />
+          </FadeInView>
+        </Section>
 
         {/* CTA Section */}
-        <section className="py-24 px-4 bg-primary text-primary-foreground relative overflow-hidden">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptMCAzNmMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptLTE4LTE4YzMuMzE0IDAgNiAyLjY4NiA2IDZzLTIuNjg2IDYtNiA2LTYtMi42ODYtNi02IDIuNjg2LTYgNi02eiIgc3Ryb2tlPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMSkiIHN0cm9rZS13aWR0aD0iMiIvPjwvZz48L3N2Zz4=')] opacity-20"></div>
-          <div className="container mx-auto text-center max-w-4xl relative z-10">
-            <h2 className="text-4xl md:text-5xl font-bold mb-8">
-              Ready to Transform Your Property?
+        <Section variant="dark" className="text-center bg-gradient-to-b from-[hsl(210,50%,22%)] to-[hsl(220,20%,10%)]">
+          <FadeInView>
+            <h2 className="text-hero md:text-display font-bold text-background mb-6 font-heading leading-tight">
+              Ready to Transform
+              <br />
+              Your Property?
             </h2>
-            <p className="text-xl mb-12 opacity-95 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-xl text-background/70 mb-10 max-w-2xl mx-auto leading-relaxed">
               Contact Josiah Lammers today for a free consultation and quote
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" variant="secondary" className="text-lg px-12 py-6 h-auto shadow-xl hover:shadow-2xl transition-shadow">
+              <Button
+                asChild
+                size="lg"
+                className="bg-background text-foreground hover:bg-background/90 text-lg px-10 py-6 h-auto"
+              >
                 <a href="tel:4194198082">Call (419) 419-8082</a>
               </Button>
-              <Button asChild size="lg" variant="outline" className="text-lg px-12 py-6 h-auto border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                <a href="mailto:ffirmfoundationsc@gmail.com">Email Us</a>
+              <Button
+                asChild
+                size="lg"
+                className="bg-transparent border-2 border-background/40 text-background hover:bg-background/10 text-lg px-10 py-6 h-auto"
+              >
+                <Link to="/contact">Send a Message</Link>
               </Button>
             </div>
-          </div>
-        </section>
+          </FadeInView>
+        </Section>
       </main>
 
       <Footer />

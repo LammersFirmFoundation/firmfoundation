@@ -7,8 +7,6 @@ import { ThemeProvider } from "next-themes";
 import { HelmetProvider } from "react-helmet-async";
 import LandingPage from "./pages/LandingPage";
 import ServicesPage from "./pages/ServicesPage";
-import ListingsPage from "./pages/ListingsPage";
-import PropertyDetail from "./pages/PropertyDetail";
 import ContactUs from "./pages/ContactUs";
 import Reviews from "./pages/Reviews";
 import PricingPage from "./pages/PricingPage";
@@ -19,7 +17,7 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <HelmetProvider>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
         <BrowserRouter>
           <TooltipProvider>
             <Toaster />
@@ -27,8 +25,6 @@ const App = () => (
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/services" element={<ServicesPage />} />
-              <Route path="/listings" element={<ListingsPage />} />
-              <Route path="/property/:id" element={<PropertyDetail />} />
               <Route path="/contact" element={<ContactUs />} />
               <Route path="/reviews" element={<Reviews />} />
               <Route path="/pricing" element={<PricingPage />} />

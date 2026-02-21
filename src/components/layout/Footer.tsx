@@ -1,48 +1,146 @@
-import { Mail, Phone, MapPin } from "lucide-react";
-import logo from "@/assets/logo.png";
+import { Link } from "react-router-dom";
+import { Mail, Phone, MapPin, Instagram } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-muted border-t border-border mt-auto">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="bg-foreground text-background mt-auto">
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+          {/* Brand */}
           <div>
-            <img src={logo} alt="Firm Foundation" className="h-16 w-auto mb-4" />
-            <p className="text-muted-foreground">
-              Professional property maintenance in Mount Pleasant, South Carolina. Specializing in pressure washing, landscaping, and window washing for residential properties.
+            <h3 className="text-xl font-bold font-heading mb-3">
+              Firm Foundation
+            </h3>
+            <p className="text-background/60 leading-relaxed text-sm">
+              Professional property maintenance for Charleston's Lowcountry.
+              Trusted by homeowners and property managers throughout Mount
+              Pleasant.
             </p>
           </div>
 
+          {/* Services */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Quick Links</h3>
-            <ul className="space-y-2 text-muted-foreground">
-              <li><a href="/services" className="hover:text-primary transition-colors">Our Services</a></li>
-              <li><a href="/reviews" className="hover:text-primary transition-colors">Reviews</a></li>
-              <li><a href="/contact" className="hover:text-primary transition-colors">Contact Us</a></li>
+            <h4 className="font-semibold mb-4 text-background/90">Services</h4>
+            <ul className="space-y-2 text-background/60 text-sm">
+              <li>
+                <Link
+                  to="/services"
+                  className="hover:text-background transition-colors"
+                >
+                  Pressure Washing
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/services"
+                  className="hover:text-background transition-colors"
+                >
+                  Landscaping
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/services"
+                  className="hover:text-background transition-colors"
+                >
+                  Window Washing
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/services"
+                  className="hover:text-background transition-colors"
+                >
+                  Carpentry
+                </Link>
+              </li>
             </ul>
           </div>
 
+          {/* Company */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Contact Us</h3>
-            <ul className="space-y-3 text-muted-foreground">
+            <h4 className="font-semibold mb-4 text-background/90">Company</h4>
+            <ul className="space-y-2 text-background/60 text-sm">
+              <li>
+                <Link
+                  to="/reviews"
+                  className="hover:text-background transition-colors"
+                >
+                  Reviews
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/pricing"
+                  className="hover:text-background transition-colors"
+                >
+                  Packages
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/contact"
+                  className="hover:text-background transition-colors"
+                >
+                  Contact Us
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Service Areas & Contact */}
+          <div>
+            <h4 className="font-semibold mb-4 text-background/90">
+              Service Areas
+            </h4>
+            <ul className="space-y-1 text-background/60 text-sm mb-6">
+              <li>Mount Pleasant</li>
+              <li>Isle of Palms</li>
+              <li>Sullivan's Island</li>
+              <li>Dunes West</li>
+              <li>Park West</li>
+            </ul>
+            <ul className="space-y-2 text-background/60 text-sm">
               <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4" />
-                <a href="tel:4194198082" className="hover:text-primary transition-colors">(419) 419-8082</a>
+                <Phone className="h-4 w-4 flex-shrink-0" />
+                <a
+                  href="tel:4194198082"
+                  className="hover:text-background transition-colors"
+                >
+                  (419) 419-8082
+                </a>
               </li>
               <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4" />
-                <a href="mailto:ffirmfoundationsc@gmail.com" className="hover:text-primary transition-colors">ffirmfoundationsc@gmail.com</a>
+                <Mail className="h-4 w-4 flex-shrink-0" />
+                <a
+                  href="mailto:ffirmfoundationsc@gmail.com"
+                  className="hover:text-background transition-colors"
+                >
+                  ffirmfoundationsc@gmail.com
+                </a>
               </li>
               <li className="flex items-center gap-2">
-                <MapPin className="h-4 w-4" />
-                <a href="https://maps.google.com/?q=Mount+Pleasant,+SC+29464" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Mount Pleasant, SC 29464</a>
+                <MapPin className="h-4 w-4 flex-shrink-0" />
+                <span>Mount Pleasant, SC 29464</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-border mt-8 pt-8 text-center text-muted-foreground text-sm">
-          <p>&copy; {new Date().getFullYear()} Firm Foundation Property Management. All rights reserved.</p>
+        <div className="border-t border-background/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-background/40 text-sm">
+          <p>
+            &copy; {new Date().getFullYear()} Firm Foundation Property
+            Management. All rights reserved.
+          </p>
+          <a
+            href="https://instagram.com/firmfoundation_sc"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 hover:text-background/60 transition-colors"
+          >
+            <Instagram className="h-5 w-5" />
+            <span>Follow us on Instagram</span>
+          </a>
         </div>
       </div>
     </footer>

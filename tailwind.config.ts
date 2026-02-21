@@ -14,8 +14,20 @@ export default {
     },
     extend: {
       fontFamily: {
-        'sans': ['Open Sans', 'sans-serif'],
-        'heading': ['Roboto', 'sans-serif'],
+        'sans': ['Inter', 'sans-serif'],
+        'heading': ['Playfair Display', 'serif'],
+      },
+      fontSize: {
+        'display': ['4.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        'hero': ['3.5rem', { lineHeight: '1.15', letterSpacing: '-0.02em' }],
+      },
+      spacing: {
+        'section': '8rem',
+        'section-sm': '5rem',
+      },
+      maxWidth: {
+        'content': '1200px',
+        'narrow': '800px',
       },
       colors: {
         border: "hsl(var(--border))",

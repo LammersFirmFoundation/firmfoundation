@@ -9,6 +9,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import Section from "@/components/layout/Section";
+import FadeInView from "@/components/animations/FadeInView";
 import SEO from "@/components/SEO";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -21,10 +23,26 @@ import {
 } from "@/components/ui/form";
 
 const contactSchema = z.object({
-  name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
-  email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
-  phone: z.string().trim().max(20, "Phone must be less than 20 characters").optional(),
-  message: z.string().trim().min(1, "Message is required").max(1000, "Message must be less than 1000 characters"),
+  name: z
+    .string()
+    .trim()
+    .min(1, "Name is required")
+    .max(100, "Name must be less than 100 characters"),
+  email: z
+    .string()
+    .trim()
+    .email("Invalid email address")
+    .max(255, "Email must be less than 255 characters"),
+  phone: z
+    .string()
+    .trim()
+    .max(20, "Phone must be less than 20 characters")
+    .optional(),
+  message: z
+    .string()
+    .trim()
+    .min(1, "Message is required")
+    .max(1000, "Message must be less than 1000 characters"),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -45,45 +63,45 @@ const ContactUs = () => {
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
-    
+
     try {
-      // Save to database
       const { error: dbError } = await supabase
-        .from('contact_submissions')
+        .from("contact_submissions")
         .insert([
           {
             name: data.name,
             email: data.email,
             phone: data.phone,
             message: data.message,
-          }
+          },
         ]);
 
       if (dbError) throw dbError;
 
-      // Send email notification
-      const { error: emailError } = await supabase.functions.invoke('send-contact-email', {
-        body: {
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          message: data.message,
+      const { error: emailError } = await supabase.functions.invoke(
+        "send-contact-email",
+        {
+          body: {
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            message: data.message,
+          },
         }
-      });
+      );
 
       if (emailError) {
-        console.error('Error sending email:', emailError);
-        // Don't throw - form was still saved successfully
+        console.error("Error sending email:", emailError);
       }
-      
+
       toast({
         title: "Message sent!",
         description: "We'll get back to you as soon as possible.",
       });
-      
+
       form.reset();
     } catch (error) {
-      console.error('Error submitting contact form:', error);
+      console.error("Error submitting contact form:", error);
       toast({
         title: "Error",
         description: "Something went wrong. Please try again.",
@@ -95,78 +113,108 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col">
       <Header />
-      
-      <main className="flex-1">
+
+      <main className="flex-1 pt-[72px]">
         <SEO
           title="Contact Us – Free Quote"
           description="Contact Firm Foundation for a free property maintenance quote in Mount Pleasant, SC. Call (419) 419-8082 or send us a message."
           canonical="/contact"
         />
-        {/* Hero Section */}
-        <section className="bg-primary text-primary-foreground py-20">
-          <div className="container mx-auto px-4">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">Contact Us</h1>
-            <p className="text-xl text-center max-w-2xl mx-auto opacity-90">
-              Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
-            </p>
+
+        {/* Page Header */}
+        <section className="py-20 md:py-28 px-4">
+          <div className="container mx-auto max-w-content text-center">
+            <FadeInView>
+              <h1 className="text-hero md:text-display font-bold text-foreground tracking-tight font-heading mb-4">
+                Contact Us
+              </h1>
+              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Have questions? We'd love to hear from you. Send us a message
+                and we'll respond as soon as possible.
+              </p>
+            </FadeInView>
           </div>
         </section>
 
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-              {/* Contact Information */}
-              <div>
-                <h2 className="text-3xl font-bold mb-6 text-foreground">Get in Touch</h2>
-                <p className="text-muted-foreground mb-8">
-                  Whether you're looking for property management services or have questions about our offerings, 
-                  we're here to help.
-                </p>
+        <Section>
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16 max-w-5xl mx-auto">
+            {/* Contact Information */}
+            <FadeInView direction="left">
+              <h2 className="text-3xl font-bold mb-6 text-foreground font-heading">
+                Get in Touch
+              </h2>
+              <p className="text-muted-foreground mb-10 leading-relaxed">
+                Whether you're looking for property maintenance services or have
+                questions about our offerings, we're here to help.
+              </p>
 
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="bg-primary/10 p-3 rounded-lg">
-                      <Mail className="w-6 h-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-foreground mb-1">Email</h3>
-                      <p className="text-muted-foreground">ffirmfoundationsc@gmail.com</p>
-                    </div>
+              <div className="space-y-8">
+                <div className="flex items-start gap-5">
+                  <div className="bg-primary/10 p-4 rounded-lg">
+                    <Mail className="w-6 h-6 text-primary" />
                   </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="bg-primary/10 p-3 rounded-lg">
-                      <Phone className="w-6 h-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-foreground mb-1">Phone</h3>
-                      <p className="text-muted-foreground">(419) 419-8082</p>
-                    </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground mb-1">
+                      Email
+                    </h3>
+                    <a
+                      href="mailto:ffirmfoundationsc@gmail.com"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      ffirmfoundationsc@gmail.com
+                    </a>
                   </div>
+                </div>
 
-                  <div className="flex items-start gap-4">
-                    <div className="bg-primary/10 p-3 rounded-lg">
-                      <MapPin className="w-6 h-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-foreground mb-1">Office</h3>
-                      <p className="text-muted-foreground">
-                        Charleston, SC<br />
-                        Mount Pleasant Area
-                      </p>
-                    </div>
+                <div className="flex items-start gap-5">
+                  <div className="bg-primary/10 p-4 rounded-lg">
+                    <Phone className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground mb-1">
+                      Phone
+                    </h3>
+                    <a
+                      href="tel:4194198082"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      (419) 419-8082
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-5">
+                  <div className="bg-primary/10 p-4 rounded-lg">
+                    <MapPin className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground mb-1">
+                      Office
+                    </h3>
+                    <p className="text-muted-foreground">
+                      Charleston, SC
+                      <br />
+                      Mount Pleasant Area
+                    </p>
                   </div>
                 </div>
               </div>
+            </FadeInView>
 
-              {/* Contact Form */}
-              <div className="bg-card p-8 rounded-lg border shadow-sm">
-                <h2 className="text-2xl font-bold mb-6 text-card-foreground">Send us a Message</h2>
-                
+            {/* Contact Form */}
+            <FadeInView direction="right" delay={0.15}>
+              <div className="bg-card p-8 md:p-10 rounded-xl border border-border shadow-sm">
+                <h2 className="text-2xl font-bold mb-8 text-card-foreground font-heading">
+                  Send us a Message
+                </h2>
+
                 <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-6"
+                  >
                     <FormField
                       control={form.control}
                       name="name"
@@ -174,7 +222,11 @@ const ContactUs = () => {
                         <FormItem>
                           <FormLabel>Name</FormLabel>
                           <FormControl>
-                            <Input placeholder="Your name" {...field} />
+                            <Input
+                              placeholder="Your name"
+                              className="h-12"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -188,7 +240,12 @@ const ContactUs = () => {
                         <FormItem>
                           <FormLabel>Email</FormLabel>
                           <FormControl>
-                            <Input type="email" placeholder="your@email.com" {...field} />
+                            <Input
+                              type="email"
+                              placeholder="your@email.com"
+                              className="h-12"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -202,7 +259,12 @@ const ContactUs = () => {
                         <FormItem>
                           <FormLabel>Phone (Optional)</FormLabel>
                           <FormControl>
-                            <Input type="tel" placeholder="(419) 419-8082" {...field} />
+                            <Input
+                              type="tel"
+                              placeholder="(419) 419-8082"
+                              className="h-12"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -216,10 +278,10 @@ const ContactUs = () => {
                         <FormItem>
                           <FormLabel>Message</FormLabel>
                           <FormControl>
-                            <Textarea 
-                              placeholder="How can we help you?" 
-                              className="min-h-[150px]"
-                              {...field} 
+                            <Textarea
+                              placeholder="How can we help you?"
+                              className="min-h-[160px]"
+                              {...field}
                             />
                           </FormControl>
                           <FormMessage />
@@ -227,15 +289,19 @@ const ContactUs = () => {
                       )}
                     />
 
-                    <Button type="submit" className="w-full" disabled={isSubmitting}>
+                    <Button
+                      type="submit"
+                      className="w-full h-12"
+                      disabled={isSubmitting}
+                    >
                       {isSubmitting ? "Sending..." : "Send Message"}
                     </Button>
                   </form>
                 </Form>
               </div>
-            </div>
+            </FadeInView>
           </div>
-        </section>
+        </Section>
       </main>
 
       <Footer />

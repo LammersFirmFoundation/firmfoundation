@@ -8,7 +8,7 @@ interface SEOProps {
   jsonLd?: object;
 }
 
-const SITE_URL = "https://firmfoundation.lovable.app";
+const SITE_URL = typeof window !== "undefined" ? window.location.origin : "";
 const SITE_NAME = "Firm Foundation Property Maintenance";
 
 const SEO = ({ title, description, canonical, type = "website", jsonLd }: SEOProps) => {
