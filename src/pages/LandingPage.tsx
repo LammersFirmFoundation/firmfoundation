@@ -204,7 +204,7 @@ const LandingPage = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-4xl sm:text-5xl md:text-display font-bold text-white mb-6 leading-tight tracking-tight font-heading drop-shadow-lg"
+              className="text-3xl sm:text-5xl md:text-display font-bold text-white mb-4 md:mb-6 leading-tight tracking-tight font-heading drop-shadow-lg"
             >
               Mount Pleasant's Premier
               <br />
@@ -214,7 +214,7 @@ const LandingPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md"
+              className="text-base md:text-xl text-white/90 mb-6 md:mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md"
             >
               Professional pressure washing, landscaping, window washing, and
               carpentry for the Lowcountry's finest homes
@@ -223,19 +223,19 @@ const LandingPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.7 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center"
             >
               <Button
                 asChild
                 size="lg"
-                className="bg-white text-foreground hover:bg-white/90 text-lg px-10 py-6 h-auto"
+                className="bg-white text-foreground hover:bg-white/90 text-base md:text-lg px-8 md:px-10 py-4 md:py-6 h-auto"
               >
                 <Link to="/contact">Get a Free Quote</Link>
               </Button>
               <Button
                 asChild
                 size="lg"
-                className="bg-transparent border-2 border-white text-white hover:bg-white/10 text-lg px-10 py-6 h-auto"
+                className="bg-transparent border-2 border-white text-white hover:bg-white/10 text-base md:text-lg px-8 md:px-10 py-4 md:py-6 h-auto"
               >
                 <Link to="/services">Our Services</Link>
               </Button>
@@ -244,7 +244,7 @@ const LandingPage = () => {
 
           {/* Scroll indicator */}
           <motion.div
-            className="absolute bottom-8 left-1/2 -translate-x-1/2"
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block"
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
