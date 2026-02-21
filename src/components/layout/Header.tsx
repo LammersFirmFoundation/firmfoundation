@@ -22,8 +22,6 @@ const navLinks = [
   { label: "Contact", path: "/contact" },
 ];
 
-const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
-
 const Header = ({ transparent = false }: HeaderProps) => {
   const [scrolled, setScrolled] = useState(false);
 
@@ -78,7 +76,6 @@ const Header = ({ transparent = false }: HeaderProps) => {
               <Link
                 key={link.path}
                 to={link.path}
-                onClick={scrollToTop}
                 className={`relative font-medium transition-colors py-1 ${
                   isTransparent
                     ? "text-white/90 hover:text-white"
@@ -97,7 +94,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                   : ""
               }
             >
-              <Link to="/contact" onClick={scrollToTop}>
+              <Link to="/contact">
                 Get a Quote
               </Link>
             </Button>
@@ -120,7 +117,6 @@ const Header = ({ transparent = false }: HeaderProps) => {
                   <SheetClose key={link.path} asChild>
                     <Link
                       to={link.path}
-                      onClick={scrollToTop}
                       className="text-left text-xl font-medium text-foreground hover:text-primary transition-colors"
                     >
                       {link.label}
@@ -129,7 +125,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                 ))}
                 <SheetClose asChild>
                   <Button asChild className="w-full mt-4" size="lg">
-                    <Link to="/contact" onClick={scrollToTop}>
+                    <Link to="/contact">
                       Get a Quote
                     </Link>
                   </Button>
