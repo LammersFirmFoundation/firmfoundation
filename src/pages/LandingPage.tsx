@@ -199,7 +199,7 @@ const LandingPage = () => {
           {/* Dark overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
 
-          <div className="relative z-10 container mx-auto px-4 text-center max-w-4xl">
+          <div className="relative z-10 container mx-auto px-4 pt-20 md:pt-0 text-center max-w-4xl">
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
