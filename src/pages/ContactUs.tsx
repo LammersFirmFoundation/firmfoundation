@@ -12,7 +12,6 @@ import Footer from "@/components/layout/Footer";
 import Section from "@/components/layout/Section";
 import FadeInView from "@/components/animations/FadeInView";
 import SEO from "@/components/SEO";
-import { supabase } from "@/integrations/supabase/client";
 import {
   Form,
   FormControl,
@@ -65,34 +64,13 @@ const ContactUs = () => {
     setIsSubmitting(true);
 
     try {
-      const { error: dbError } = await supabase
-        .from("contact_submissions")
-        .insert([
-          {
-            name: data.name,
-            email: data.email,
-            phone: data.phone,
-            message: data.message,
-          },
-        ]);
+      const response = await fetch("https://formspree.io/f/xlgwpbnn", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
-      if (dbError) throw dbError;
-
-      const { error: emailError } = await supabase.functions.invoke(
-        "send-contact-email",
-        {
-          body: {
-            name: data.name,
-            email: data.email,
-            phone: data.phone,
-            message: data.message,
-          },
-        }
-      );
-
-      if (emailError) {
-        console.error("Error sending email:", emailError);
-      }
+      if (!response.ok) throw new Error("Form submission failed");
 
       toast({
         title: "Message sent!",
