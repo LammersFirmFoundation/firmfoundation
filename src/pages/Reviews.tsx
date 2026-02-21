@@ -91,6 +91,39 @@ const Reviews = () => {
           title="Client Reviews – 5-Star Rated"
           description="Read reviews from satisfied homeowners in Mount Pleasant, Isle of Palms, and Sullivan's Island. 5.0 average rating for property maintenance services."
           canonical="/reviews"
+          keywords="property maintenance reviews, Mount Pleasant SC reviews, pressure washing reviews, landscaping reviews, 5-star rated"
+          jsonLd={{
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            name: "Firm Foundation Property Maintenance",
+            url: "https://firmfoundationsc.com",
+            telephone: "(419) 419-8082",
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: "Mount Pleasant",
+              addressRegion: "SC",
+              postalCode: "29464",
+              addressCountry: "US",
+            },
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: "5.0",
+              bestRating: "5",
+              worstRating: "1",
+              reviewCount: String(reviews.length),
+            },
+            review: reviews.map((r) => ({
+              "@type": "Review",
+              author: { "@type": "Person", name: r.name },
+              datePublished: r.date,
+              reviewBody: r.review,
+              reviewRating: {
+                "@type": "Rating",
+                ratingValue: String(r.rating),
+                bestRating: "5",
+              },
+            })),
+          }}
         />
 
         {/* Page Header */}

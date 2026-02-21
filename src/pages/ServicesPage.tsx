@@ -93,6 +93,33 @@ const ServicesPage = () => {
           title="Services – Pressure Washing, Landscaping & More"
           description="Professional pressure washing, landscaping, window washing, and carpentry services in Mount Pleasant, SC. Free quotes available."
           canonical="/services"
+          keywords="pressure washing Mount Pleasant, landscaping Mount Pleasant SC, window washing, carpentry, property maintenance services"
+          jsonLd={{
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            itemListElement: services.map((service, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              item: {
+                "@type": "Service",
+                name: service.title,
+                description: service.description1,
+                provider: {
+                  "@type": "LocalBusiness",
+                  name: "Firm Foundation Property Maintenance",
+                  telephone: "(419) 419-8082",
+                  url: "https://firmfoundationsc.com",
+                },
+                areaServed: [
+                  { "@type": "City", name: "Mount Pleasant", addressRegion: "SC" },
+                  { "@type": "City", name: "Isle of Palms", addressRegion: "SC" },
+                  { "@type": "City", name: "Sullivan's Island", addressRegion: "SC" },
+                  { "@type": "City", name: "Dunes West", addressRegion: "SC" },
+                  { "@type": "City", name: "Park West", addressRegion: "SC" },
+                ],
+              },
+            })),
+          }}
         />
 
         {/* Page Header */}
@@ -127,6 +154,7 @@ const ServicesPage = () => {
                       <img
                         src={service.image}
                         alt={service.alt}
+                        loading="lazy"
                         className="w-full h-full object-cover"
                       />
                     </div>

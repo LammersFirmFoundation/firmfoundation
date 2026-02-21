@@ -114,6 +114,34 @@ const PricingPage = () => {
           title="Pricing & Packages"
           description="Affordable property maintenance plans starting at $349. One-time and monthly packages for pressure washing, landscaping, and more in Mount Pleasant, SC."
           canonical="/pricing"
+          keywords="property maintenance pricing, Mount Pleasant SC, pressure washing cost, landscaping packages, affordable property care"
+          jsonLd={{
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: "Property Maintenance Packages",
+            provider: {
+              "@type": "LocalBusiness",
+              name: "Firm Foundation Property Maintenance",
+              telephone: "(419) 419-8082",
+              url: "https://firmfoundationsc.com",
+            },
+            areaServed: {
+              "@type": "City",
+              name: "Mount Pleasant",
+              addressRegion: "SC",
+            },
+            hasOfferCatalog: {
+              "@type": "OfferCatalog",
+              name: "Maintenance Plans",
+              itemListElement: plans.map((plan) => ({
+                "@type": "Offer",
+                name: plan.name,
+                price: plan.price.replace("$", ""),
+                priceCurrency: "USD",
+                description: `${plan.name} plan — ${plan.visits} visits, ${plan.period}`,
+              })),
+            },
+          }}
         />
 
         {/* Page Header */}
@@ -167,14 +195,14 @@ const PricingPage = () => {
                     </div>
                   )}
                   <div className="text-center mb-6">
-                    <h3
+                    <h2
                       className={cn(
                         "font-bold text-lg font-heading",
                         plan.highlighted ? "text-primary" : "text-foreground"
                       )}
                     >
                       {plan.name}
-                    </h3>
+                    </h2>
                     <div className="text-3xl font-bold text-foreground mt-2">
                       {plan.price}
                     </div>

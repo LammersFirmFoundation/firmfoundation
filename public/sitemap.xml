@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://firmfoundation.lovable.app/</loc>
+    <loc>https://firmfoundationsc.com/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://firmfoundation.lovable.app/services</loc>
+    <loc>https://firmfoundationsc.com/services</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://firmfoundation.lovable.app/pricing</loc>
+    <loc>https://firmfoundationsc.com/pricing</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://firmfoundation.lovable.app/reviews</loc>
+    <loc>https://firmfoundationsc.com/reviews</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://firmfoundation.lovable.app/contact</loc>
+    <loc>https://firmfoundationsc.com/contact</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

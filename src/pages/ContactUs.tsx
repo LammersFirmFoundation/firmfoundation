@@ -99,6 +99,35 @@ const ContactUs = () => {
           title="Contact Us – Free Quote"
           description="Contact Firm Foundation for a free property maintenance quote in Mount Pleasant, SC. Call (419) 419-8082 or send us a message."
           canonical="/contact"
+          keywords="contact property maintenance, free quote Mount Pleasant SC, pressure washing quote, landscaping estimate"
+          jsonLd={{
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            name: "Contact Firm Foundation Property Maintenance",
+            url: "https://firmfoundationsc.com/contact",
+            mainEntity: {
+              "@type": "LocalBusiness",
+              name: "Firm Foundation Property Maintenance",
+              telephone: "(419) 419-8082",
+              email: "ffirmfoundationsc@gmail.com",
+              url: "https://firmfoundationsc.com",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Mount Pleasant",
+                addressRegion: "SC",
+                postalCode: "29464",
+                addressCountry: "US",
+              },
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: "(419) 419-8082",
+                contactType: "customer service",
+                email: "ffirmfoundationsc@gmail.com",
+                areaServed: "Mount Pleasant, SC",
+                availableLanguage: "English",
+              },
+            },
+          }}
         />
 
         {/* Page Header */}

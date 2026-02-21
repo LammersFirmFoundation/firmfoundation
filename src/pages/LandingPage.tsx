@@ -93,15 +93,19 @@ const LandingPage = () => {
         title="Firm Foundation Property Maintenance | Mount Pleasant, SC"
         description="Professional pressure washing, landscaping, window washing, and carpentry in Mount Pleasant, Isle of Palms, Sullivan's Island, Dunes West, and Park West."
         canonical="/"
+        keywords="property maintenance Mount Pleasant SC, pressure washing, landscaping, window washing, carpentry, Lowcountry"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
           name: "Firm Foundation Property Maintenance",
           description:
             "Professional property maintenance in Mount Pleasant, SC. Expert pressure washing, landscaping, window washing, and carpentry for residential properties.",
+          image: "https://firmfoundationsc.com/og-image.jpg",
           telephone: "(419) 419-8082",
           email: "ffirmfoundationsc@gmail.com",
-          url: typeof window !== "undefined" ? window.location.origin : "",
+          url: "https://firmfoundationsc.com",
+          priceRange: "$$",
+          sameAs: ["https://instagram.com/firmfoundation_sc"],
           areaServed: [
             {
               "@type": "City",
@@ -116,6 +120,16 @@ const LandingPage = () => {
             {
               "@type": "City",
               name: "Sullivan's Island",
+              addressRegion: "SC",
+            },
+            {
+              "@type": "City",
+              name: "Dunes West",
+              addressRegion: "SC",
+            },
+            {
+              "@type": "City",
+              name: "Park West",
               addressRegion: "SC",
             },
           ],
@@ -281,6 +295,7 @@ const LandingPage = () => {
                       <img
                         src={service.image}
                         alt={service.alt}
+                        loading="lazy"
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -290,9 +305,9 @@ const LandingPage = () => {
                     delay={0.15}
                     className={imageLeft ? "" : "md:order-1"}
                   >
-                    <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-heading">
+                    <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-heading">
                       {service.title}
-                    </h3>
+                    </h2>
                     <p className="text-muted-foreground leading-relaxed text-lg mb-6">
                       {service.description}
                     </p>

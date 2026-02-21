@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://firmfoundation.lovable.app/sitemap.xml
+Sitemap: https://firmfoundationsc.com/sitemap.xml
