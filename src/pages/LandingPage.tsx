@@ -184,7 +184,7 @@ const LandingPage = () => {
 
       <main className="flex-1">
         {/* Full-Screen Video Hero */}
-        <section className="relative h-[75vh] md:h-screen min-h-[500px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
+        <section className="relative h-[60vh] md:h-screen min-h-[400px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
           {/* Video / Poster Background */}
           <video
             autoPlay
