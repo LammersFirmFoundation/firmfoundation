@@ -12,9 +12,8 @@ const Footer = () => {
               Firm Foundation
             </h3>
             <p className="text-background/60 leading-relaxed text-sm">
-              Professional property maintenance for Charleston's Lowcountry.
-              Trusted by homeowners and property managers throughout Mount
-              Pleasant.
+              Professional property services for Charleston's Lowcountry.
+              Trusted by homeowners throughout Mount Pleasant.
             </p>
           </div>
 
@@ -27,7 +26,7 @@ const Footer = () => {
                   to="/services"
                   className="hover:text-background transition-colors"
                 >
-                  Pressure Washing
+                  Hardscapes
                 </Link>
               </li>
               <li>
@@ -43,7 +42,7 @@ const Footer = () => {
                   to="/services"
                   className="hover:text-background transition-colors"
                 >
-                  Window Washing
+                  Exterior Cleaning
                 </Link>
               </li>
               <li>
@@ -51,7 +50,7 @@ const Footer = () => {
                   to="/services"
                   className="hover:text-background transition-colors"
                 >
-                  Carpentry
+                  Custom Projects
                 </Link>
               </li>
             </ul>
@@ -67,14 +66,6 @@ const Footer = () => {
                   className="hover:text-background transition-colors"
                 >
                   Reviews
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/pricing"
-                  className="hover:text-background transition-colors"
-                >
-                  Packages
                 </Link>
               </li>
               <li>
@@ -104,19 +95,19 @@ const Footer = () => {
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 flex-shrink-0" />
                 <a
-                  href="tel:4194198082"
+                  href="tel:8439985593"
                   className="hover:text-background transition-colors"
                 >
-                  (419) 419-8082
+                  (843) 998-5593
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 flex-shrink-0" />
                 <a
-                  href="mailto:ffirmfoundationsc@gmail.com"
+                  href="mailto:josiahlammers1@gmail.com"
                   className="hover:text-background transition-colors"
                 >
-                  ffirmfoundationsc@gmail.com
+                  josiahlammers1@gmail.com
                 </a>
               </li>
               <li className="flex items-center gap-2">
@@ -130,7 +121,7 @@ const Footer = () => {
         <div className="border-t border-background/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-background/40 text-sm">
           <p>
             &copy; {new Date().getFullYear()} Firm Foundation Property
-            Management. All rights reserved.
+            Services. All rights reserved.
           </p>
           <a
             href="https://instagram.com/firmfoundation_sc"

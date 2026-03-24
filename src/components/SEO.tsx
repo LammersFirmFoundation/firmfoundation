@@ -12,7 +12,7 @@ interface SEOProps {
 }
 
 const SITE_URL = "https://firmfoundationsc.com";
-const SITE_NAME = "Firm Foundation Property Maintenance";
+const SITE_NAME = "Firm Foundation Property Services";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.jpg`;
 
 const SEO = ({

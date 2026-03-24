@@ -89,15 +89,15 @@ const Reviews = () => {
       <main className="flex-1 pt-[72px]">
         <SEO
           title="Client Reviews – 5-Star Rated"
-          description="Read reviews from satisfied homeowners in Mount Pleasant, Isle of Palms, and Sullivan's Island. 5.0 average rating for property maintenance services."
+          description="Read reviews from satisfied homeowners in Mount Pleasant, Isle of Palms, and Sullivan's Island. 5.0 average rating for property services."
           canonical="/reviews"
-          keywords="property maintenance reviews, Mount Pleasant SC reviews, pressure washing reviews, landscaping reviews, 5-star rated"
+          keywords="property services reviews, Mount Pleasant SC reviews, hardscapes reviews, landscaping reviews, 5-star rated"
           jsonLd={{
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
-            name: "Firm Foundation Property Maintenance",
+            name: "Firm Foundation Property Services",
             url: "https://firmfoundationsc.com",
-            telephone: "(419) 419-8082",
+            telephone: "(843) 998-5593",
             address: {
               "@type": "PostalAddress",
               addressLocality: "Mount Pleasant",
@@ -192,10 +192,10 @@ const Reviews = () => {
               Join our growing list of satisfied clients in Mount Pleasant
             </p>
             <a
-              href="tel:4194198082"
+              href="tel:8439985593"
               className="inline-flex items-center justify-center rounded-md font-medium bg-background text-foreground hover:bg-background/90 h-auto px-10 py-4 text-lg transition-colors"
             >
-              Call (419) 419-8082
+              Call (843) 998-5593
             </a>
           </FadeInView>
         </Section>

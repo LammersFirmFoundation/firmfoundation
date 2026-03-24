@@ -97,19 +97,19 @@ const ContactUs = () => {
       <main className="flex-1 pt-[72px]">
         <SEO
           title="Contact Us – Free Quote"
-          description="Contact Firm Foundation for a free property maintenance quote in Mount Pleasant, SC. Call (419) 419-8082 or send us a message."
+          description="Contact Firm Foundation for a free property services quote in Mount Pleasant, SC. Call (843) 998-5593 or send us a message."
           canonical="/contact"
-          keywords="contact property maintenance, free quote Mount Pleasant SC, pressure washing quote, landscaping estimate"
+          keywords="contact property services, free quote Mount Pleasant SC, hardscapes quote, landscaping estimate"
           jsonLd={{
             "@context": "https://schema.org",
             "@type": "ContactPage",
-            name: "Contact Firm Foundation Property Maintenance",
+            name: "Contact Firm Foundation Property Services",
             url: "https://firmfoundationsc.com/contact",
             mainEntity: {
               "@type": "LocalBusiness",
-              name: "Firm Foundation Property Maintenance",
-              telephone: "(419) 419-8082",
-              email: "ffirmfoundationsc@gmail.com",
+              name: "Firm Foundation Property Services",
+              telephone: "(843) 998-5593",
+              email: "josiahlammers1@gmail.com",
               url: "https://firmfoundationsc.com",
               address: {
                 "@type": "PostalAddress",
@@ -120,9 +120,9 @@ const ContactUs = () => {
               },
               contactPoint: {
                 "@type": "ContactPoint",
-                telephone: "(419) 419-8082",
+                telephone: "(843) 998-5593",
                 contactType: "customer service",
-                email: "ffirmfoundationsc@gmail.com",
+                email: "josiahlammers1@gmail.com",
                 areaServed: "Mount Pleasant, SC",
                 availableLanguage: "English",
               },
@@ -153,7 +153,7 @@ const ContactUs = () => {
                 Get in Touch
               </h2>
               <p className="text-muted-foreground mb-10 leading-relaxed">
-                Whether you're looking for property maintenance services or have
+                Whether you're looking for property services services or have
                 questions about our offerings, we're here to help.
               </p>
 
@@ -167,10 +167,10 @@ const ContactUs = () => {
                       Email
                     </h3>
                     <a
-                      href="mailto:ffirmfoundationsc@gmail.com"
+                      href="mailto:josiahlammers1@gmail.com"
                       className="text-muted-foreground hover:text-primary transition-colors"
                     >
-                      ffirmfoundationsc@gmail.com
+                      josiahlammers1@gmail.com
                     </a>
                   </div>
                 </div>
@@ -184,10 +184,10 @@ const ContactUs = () => {
                       Phone
                     </h3>
                     <a
-                      href="tel:4194198082"
+                      href="tel:8439985593"
                       className="text-muted-foreground hover:text-primary transition-colors"
                     >
-                      (419) 419-8082
+                      (843) 998-5593
                     </a>
                   </div>
                 </div>
@@ -268,7 +268,7 @@ const ContactUs = () => {
                           <FormControl>
                             <Input
                               type="tel"
-                              placeholder="(419) 419-8082"
+                              placeholder="(843) 998-5593"
                               className="h-12"
                               {...field}
                             />

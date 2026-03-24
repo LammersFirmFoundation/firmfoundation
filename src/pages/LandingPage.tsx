@@ -11,9 +11,9 @@ import SectionHeader from "@/components/layout/SectionHeader";
 import FadeInView from "@/components/animations/FadeInView";
 import ServiceAreaMap from "@/components/ServiceAreaMap";
 
-import pressureWashing from "@/assets/services/pressure-washing.jpg";
+import hardscapes from "@/assets/services/hardscapes.jpg";
 import landscaping from "@/assets/services/landscaping.jpg";
-import windowWashing from "@/assets/services/window-washing.jpg";
+import pressureWashing from "@/assets/services/pressure-washing.jpg";
 import carpentry from "@/assets/services/carpentry.jpg";
 
 const stats = [
@@ -25,32 +25,32 @@ const stats = [
 
 const services = [
   {
-    title: "Pressure Washing",
+    title: "Hardscapes",
     description:
-      "Transform your property's exterior with professional pressure washing. We safely remove years of dirt, grime, and mildew from driveways, siding, decks, and patios using state-of-the-art equipment.",
-    image: pressureWashing,
-    alt: "Professional pressure washing service",
+      "From patios and walkways to retaining walls and outdoor living spaces, we deliver durable, beautifully crafted hardscape installations designed to enhance your property.",
+    image: hardscapes,
+    alt: "Professional hardscape installation",
   },
   {
     title: "Landscaping",
     description:
-      "Maintain a pristine outdoor environment year-round. From weekly lawn care to seasonal plantings, we create and preserve beautiful outdoor spaces tailored to the Lowcountry climate.",
+      "Create and preserve beautiful outdoor spaces tailored to the Lowcountry climate. From seasonal plantings to full bed maintenance, we keep your property looking its best.",
     image: landscaping,
     alt: "Professional landscaping service",
   },
   {
-    title: "Window Washing",
+    title: "Exterior Cleaning",
     description:
-      "Experience crystal-clear views with our professional window washing. We clean interior and exterior surfaces, frames, and screens — delivering streak-free, spotless results every time.",
-    image: windowWashing,
-    alt: "Professional window washing service",
+      "Restore your property's exterior with professional pressure washing, soft washing, and exterior window cleaning. We safely remove dirt, grime, and mildew from all outdoor surfaces.",
+    image: pressureWashing,
+    alt: "Professional exterior cleaning service",
   },
   {
-    title: "Carpentry",
+    title: "Custom Projects",
     description:
-      "Keep outdoor structures safe and beautiful with skilled carpentry. We handle deck repairs, fence fixes, railing restoration, and custom outdoor builds with lasting craftsmanship.",
+      "From deck repairs and fence work to pergolas and custom outdoor builds, we handle projects that protect your investment with quality craftsmanship.",
     image: carpentry,
-    alt: "Professional carpentry service",
+    alt: "Custom outdoor project service",
   },
 ];
 
@@ -90,19 +90,19 @@ const LandingPage = () => {
       <Header transparent />
 
       <SEO
-        title="Firm Foundation Property Maintenance | Mount Pleasant, SC"
-        description="Professional pressure washing, landscaping, window washing, and carpentry in Mount Pleasant, Isle of Palms, Sullivan's Island, Dunes West, and Park West."
+        title="Firm Foundation Property Services | Mount Pleasant, SC"
+        description="Professional hardscapes, landscaping, exterior cleaning, and custom projects in Mount Pleasant, Isle of Palms, Sullivan's Island, Dunes West, and Park West."
         canonical="/"
-        keywords="property maintenance Mount Pleasant SC, pressure washing, landscaping, window washing, carpentry, Lowcountry"
+        keywords="property services Mount Pleasant SC, hardscapes, landscaping, exterior cleaning, custom projects, Lowcountry"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
-          name: "Firm Foundation Property Maintenance",
+          name: "Firm Foundation Property Services",
           description:
-            "Professional property maintenance in Mount Pleasant, SC. Expert pressure washing, landscaping, window washing, and carpentry for residential properties.",
+            "Professional property services in Mount Pleasant, SC. Expert hardscapes, landscaping, exterior cleaning, and custom projects for residential properties.",
           image: "https://firmfoundationsc.com/og-image.jpg",
-          telephone: "(419) 419-8082",
-          email: "ffirmfoundationsc@gmail.com",
+          telephone: "(843) 998-5593",
+          email: "josiahlammers1@gmail.com",
           url: "https://firmfoundationsc.com",
           priceRange: "$$",
           sameAs: ["https://instagram.com/firmfoundation_sc"],
@@ -142,13 +142,13 @@ const LandingPage = () => {
           },
           hasOfferCatalog: {
             "@type": "OfferCatalog",
-            name: "Property Maintenance Services",
+            name: "Property Services",
             itemListElement: [
               {
                 "@type": "Offer",
                 itemOffered: {
                   "@type": "Service",
-                  name: "Pressure Washing",
+                  name: "Hardscapes",
                 },
               },
               {
@@ -162,14 +162,14 @@ const LandingPage = () => {
                 "@type": "Offer",
                 itemOffered: {
                   "@type": "Service",
-                  name: "Window Washing",
+                  name: "Exterior Cleaning",
                 },
               },
               {
                 "@type": "Offer",
                 itemOffered: {
                   "@type": "Service",
-                  name: "Carpentry",
+                  name: "Custom Projects",
                 },
               },
             ],
@@ -208,7 +208,7 @@ const LandingPage = () => {
             >
               Mount Pleasant's Premier
               <br />
-              Property Maintenance
+              Property Services
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -216,8 +216,8 @@ const LandingPage = () => {
               transition={{ duration: 0.8, delay: 0.5 }}
               className="text-base md:text-xl text-white/90 mb-6 md:mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md"
             >
-              Professional pressure washing, landscaping, window washing, and
-              carpentry for the Lowcountry's finest homes
+              Professional hardscapes, landscaping, exterior cleaning, and
+              custom projects for the Lowcountry's finest homes
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -276,7 +276,7 @@ const LandingPage = () => {
         <Section>
           <SectionHeader
             title="Our Services"
-            subtitle="Professional property maintenance for Mount Pleasant's finest homes"
+            subtitle="Professional property services for Mount Pleasant's finest homes"
           />
 
           <div className="space-y-24">
@@ -421,7 +421,7 @@ const LandingPage = () => {
                 size="lg"
                 className="bg-background text-foreground hover:bg-background/90 text-lg px-10 py-6 h-auto"
               >
-                <a href="tel:4194198082">Call (419) 419-8082</a>
+                <a href="tel:8439985593">Call (843) 998-5593</a>
               </Button>
               <Button
                 asChild

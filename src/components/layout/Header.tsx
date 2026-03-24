@@ -18,7 +18,6 @@ const navLinks = [
   { label: "Home", path: "/" },
   { label: "Services", path: "/services" },
   { label: "Reviews", path: "/reviews" },
-  { label: "Packages", path: "/pricing" },
   { label: "Contact", path: "/contact" },
 ];
 
@@ -47,7 +46,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
           <Link to="/" className="flex items-center gap-3 group">
             <img
               src={logo}
-              alt="Firm Foundation Property Management"
+              alt="Firm Foundation Property Services"
               className={`h-10 w-auto transition-all group-hover:scale-105 ${
                 isTransparent ? "brightness-0 invert" : "brightness-0"
               }`}
@@ -65,7 +64,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                   isTransparent ? "text-white/70" : "text-muted-foreground"
                 }`}
               >
-                Property Management
+                Property Services
               </div>
             </div>
           </Link>

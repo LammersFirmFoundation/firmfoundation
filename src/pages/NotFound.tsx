@@ -13,7 +13,7 @@ const NotFound = () => {
     <div className="flex min-h-screen items-center justify-center bg-muted">
       <SEO
         title="Page Not Found"
-        description="The page you're looking for doesn't exist. Return to Firm Foundation Property Maintenance for pressure washing, landscaping, and more in Mount Pleasant, SC."
+        description="The page you're looking for doesn't exist. Return to Firm Foundation Property Services for hardscapes, landscaping, exterior cleaning, and more in Mount Pleasant, SC."
         noindex
       />
       <div className="text-center">

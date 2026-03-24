@@ -96,12 +96,10 @@ const featureLabels = [
 ];
 
 const coreServices = [
-  "Pressure Washing",
-  "Landscaping & Yard Care",
-  "Window Washing",
-  "Gutter Cleaning",
-  "General Repairs",
-  "Carpentry & Deck/Fence Repair",
+  "Hardscapes",
+  "Landscaping",
+  "Exterior Cleaning",
+  "Custom Projects",
 ];
 
 const PricingPage = () => {
@@ -112,17 +110,17 @@ const PricingPage = () => {
       <main className="flex-1 pt-[72px]">
         <SEO
           title="Pricing & Packages"
-          description="Affordable property maintenance plans starting at $349. One-time and monthly packages for pressure washing, landscaping, and more in Mount Pleasant, SC."
+          description="Affordable property services plans starting at $349. One-time and monthly packages for hardscapes, landscaping, and more in Mount Pleasant, SC."
           canonical="/pricing"
-          keywords="property maintenance pricing, Mount Pleasant SC, pressure washing cost, landscaping packages, affordable property care"
+          keywords="property services pricing, Mount Pleasant SC, hardscapes cost, landscaping packages, affordable property care"
           jsonLd={{
             "@context": "https://schema.org",
             "@type": "Service",
-            name: "Property Maintenance Packages",
+            name: "Property Services Packages",
             provider: {
               "@type": "LocalBusiness",
-              name: "Firm Foundation Property Maintenance",
-              telephone: "(419) 419-8082",
+              name: "Firm Foundation Property Services",
+              telephone: "(843) 998-5593",
               url: "https://firmfoundationsc.com",
             },
             areaServed: {
