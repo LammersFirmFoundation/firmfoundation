@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Star, ChevronDown } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Star, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import SEO from "@/components/SEO";
 import Header from "@/components/layout/Header";
@@ -10,6 +10,12 @@ import Section from "@/components/layout/Section";
 import SectionHeader from "@/components/layout/SectionHeader";
 import FadeInView from "@/components/animations/FadeInView";
 import ServiceAreaMap from "@/components/ServiceAreaMap";
+import { useReviews } from "@/lib/useReviews";
+import ReviewImages from "@/components/ReviewImages";
+import { ExternalLink } from "lucide-react";
+
+const GOOGLE_REVIEWS_URL =
+  "https://search.google.com/local/reviews?placeid=ChIJ5eaJLR-TCSgRcovM30Gs8yw";
 
 import hardscapes from "@/assets/services/hardscapes.jpg";
 import landscaping from "@/assets/services/landscaping.jpg";
@@ -54,36 +60,33 @@ const services = [
   },
 ];
 
-const testimonials = [
-  {
-    quote:
-      "Firm Foundation transformed our home's exterior with their pressure washing service. It looks brand new again! The team is always professional, punctual, and thorough.",
-    name: "Sarah M.",
-    location: "Mount Pleasant Homeowner",
-  },
-  {
-    quote:
-      "Outstanding landscaping service! Our yard has never looked better. They're consistent, detail-oriented, and really care about the quality of their work.",
-    name: "John D.",
-    location: "Isle of Palms Homeowner",
-  },
-  {
-    quote:
-      "Professional window washing service. They got our windows so clean I thought they were open! Very reasonable pricing and the crew was respectful of our property.",
-    name: "Emily R.",
-    location: "Sullivan's Island Homeowner",
-  },
-];
-
 const LandingPage = () => {
+  const { reviews, aggregateRating, totalReviewCount } = useReviews();
+
+  const testimonials = reviews.slice(0, 5).map((r) => ({
+    quote: r.review,
+    name: r.name,
+    location: r.location || "Verified Google Review",
+    avatarUrl: r.avatarUrl,
+    images: r.images ?? [],
+    sourceUrl: r.sourceUrl,
+  }));
+
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
+    if (testimonials.length <= 1 || paused) return;
     const interval = setInterval(() => {
       setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, []);
+  }, [testimonials.length, paused]);
+
+  const goPrev = () =>
+    setActiveTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  const goNext = () =>
+    setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -176,8 +179,8 @@ const LandingPage = () => {
           },
           aggregateRating: {
             "@type": "AggregateRating",
-            ratingValue: "5.0",
-            reviewCount: "8",
+            ratingValue: aggregateRating.toFixed(1),
+            reviewCount: String(totalReviewCount),
           },
         }}
       />
@@ -191,6 +194,7 @@ const LandingPage = () => {
             muted
             loop
             playsInline
+            preload="auto"
             poster={pressureWashing}
             className="absolute inset-0 w-full h-full object-cover"
           >
@@ -200,31 +204,16 @@ const LandingPage = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
 
           <div className="relative z-10 container mx-auto px-4 pt-20 md:pt-0 text-center max-w-4xl">
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-3xl sm:text-5xl md:text-display font-bold text-white mb-4 md:mb-6 leading-tight tracking-tight font-heading drop-shadow-lg"
-            >
+            <h1 className="text-3xl sm:text-5xl md:text-display font-bold text-white mb-4 md:mb-6 leading-tight tracking-tight font-heading drop-shadow-lg">
               Mount Pleasant's Premier
               <br />
               Property Services
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-base md:text-xl text-white/90 mb-6 md:mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md"
-            >
+            </h1>
+            <p className="text-base md:text-xl text-white/90 mb-6 md:mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md">
               Professional hardscapes, landscaping, exterior cleaning, and
               custom projects for the Lowcountry's finest homes
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center"
-            >
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <Button
                 asChild
                 size="lg"
@@ -239,7 +228,7 @@ const LandingPage = () => {
               >
                 <Link to="/services">Our Services</Link>
               </Button>
-            </motion.div>
+            </div>
           </div>
 
           {/* Scroll indicator */}
@@ -331,32 +320,86 @@ const LandingPage = () => {
             subtitle="Trusted by homeowners throughout Mount Pleasant"
           />
 
-          <div className="max-w-3xl mx-auto text-center min-h-[220px] relative">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTestimonial}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="text-6xl text-primary/20 font-heading leading-none mb-4">
-                  &ldquo;
-                </div>
-                <p className="text-xl md:text-2xl text-foreground leading-relaxed italic mb-8">
-                  {testimonials[activeTestimonial].quote}
-                </p>
-                <p className="font-bold text-foreground">
-                  {testimonials[activeTestimonial].name}
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  {testimonials[activeTestimonial].location}
-                </p>
-              </motion.div>
-            </AnimatePresence>
+          <div
+            className="max-w-3xl mx-auto text-center relative"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+          >
+            {testimonials.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  onClick={goPrev}
+                  aria-label="Previous review"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-6 z-10 h-10 w-10 rounded-full bg-background border border-border shadow-sm hover:bg-muted flex items-center justify-center transition-colors"
+                >
+                  <ChevronLeft className="h-5 w-5 text-foreground" />
+                </button>
+                <button
+                  type="button"
+                  onClick={goNext}
+                  aria-label="Next review"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-6 z-10 h-10 w-10 rounded-full bg-background border border-border shadow-sm hover:bg-muted flex items-center justify-center transition-colors"
+                >
+                  <ChevronRight className="h-5 w-5 text-foreground" />
+                </button>
+              </>
+            )}
+            <div className="grid px-4">
+              {testimonials.map((t, i) => {
+                const isActive = i === activeTestimonial % testimonials.length;
+                return (
+                  <div
+                    key={i}
+                    aria-hidden={!isActive}
+                    className={`[grid-column:1] [grid-row:1] flex flex-col items-center justify-start transition-opacity duration-700 ease-in-out ${
+                      isActive ? "opacity-100" : "opacity-0 pointer-events-none"
+                    }`}
+                  >
+                    <div className="text-6xl text-primary/20 font-heading leading-none mb-4">
+                      &ldquo;
+                    </div>
+                    <p className="text-lg md:text-xl text-foreground leading-relaxed italic mb-6">
+                      {t.quote}
+                    </p>
+                    {t.images.length > 0 && (
+                      <ReviewImages
+                        images={t.images}
+                        alt={`Photo from ${t.name}'s review`}
+                        variant="row"
+                        max={3}
+                        className="mb-6"
+                        onOpenChange={setPaused}
+                      />
+                    )}
+                    <div className="flex flex-col items-center gap-2">
+                      {t.avatarUrl && (
+                        <img
+                          src={t.avatarUrl}
+                          alt=""
+                          loading="lazy"
+                          className="h-12 w-12 rounded-full object-cover"
+                          referrerPolicy="no-referrer"
+                        />
+                      )}
+                      <p className="font-bold text-foreground">{t.name}</p>
+                      <p className="text-sm text-muted-foreground">{t.location}</p>
+                      <a
+                        href={t.sourceUrl ?? GOOGLE_REVIEWS_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-1 inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        View on Google <ExternalLink className="h-3 w-3" />
+                      </a>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
 
             {/* Dots */}
-            <div className="flex justify-center gap-2 mt-8">
+            <div className="flex justify-center gap-2 mt-6">
               {testimonials.map((_, i) => (
                 <button
                   key={i}
@@ -385,7 +428,7 @@ const LandingPage = () => {
                 ))}
               </div>
               <span className="text-muted-foreground text-sm">
-                5.0 average from 8 verified reviews
+                {aggregateRating.toFixed(1)} average from {totalReviewCount} verified reviews
               </span>
             </div>
           </FadeInView>
