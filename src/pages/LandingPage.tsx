@@ -13,6 +13,7 @@ import ServiceAreaMap from "@/components/ServiceAreaMap";
 import { useReviews } from "@/lib/useReviews";
 import ReviewImages from "@/components/ReviewImages";
 import { ExternalLink } from "lucide-react";
+import GoogleIcon from "@/components/icons/GoogleIcon";
 
 const GOOGLE_REVIEWS_URL =
   "https://search.google.com/local/reviews?placeid=ChIJ5eaJLR-TCSgRcovM30Gs8yw";
@@ -245,18 +246,41 @@ const LandingPage = () => {
         <section className="border-b border-border bg-background">
           <div className="container mx-auto px-4 py-8">
             <div className="flex flex-wrap justify-center gap-8 md:gap-16">
-              {stats.map((stat) => (
-                <FadeInView key={stat.label}>
+              {stats.map((stat) => {
+                const isRating = stat.label === "5.0 Rating";
+                const content = (
                   <div className="text-center">
                     <div className="text-2xl md:text-3xl font-bold text-foreground font-heading">
                       {stat.value}
                     </div>
-                    <div className="text-sm text-muted-foreground mt-1">
+                    <div className="text-sm text-muted-foreground mt-1 inline-flex items-center gap-1.5">
+                      {isRating && <GoogleIcon className="h-3.5 w-3.5" />}
                       {stat.label}
                     </div>
                   </div>
-                </FadeInView>
-              ))}
+                );
+                return (
+                  <FadeInView key={stat.label}>
+                    {isRating ? (
+                      <a
+                        href="#reviews"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          document
+                            .getElementById("reviews")
+                            ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }}
+                        aria-label="Scroll to reviews"
+                        className="block rounded-md transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                      >
+                        {content}
+                      </a>
+                    ) : (
+                      content
+                    )}
+                  </FadeInView>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -314,7 +338,7 @@ const LandingPage = () => {
         </Section>
 
         {/* Testimonials */}
-        <Section variant="muted">
+        <Section variant="muted" id="reviews" className="scroll-mt-24">
           <SectionHeader
             title="What Our Clients Say"
             subtitle="Trusted by homeowners throughout Mount Pleasant"
@@ -383,7 +407,10 @@ const LandingPage = () => {
                         />
                       )}
                       <p className="font-bold text-foreground">{t.name}</p>
-                      <p className="text-sm text-muted-foreground">{t.location}</p>
+                      <p className="text-sm text-muted-foreground inline-flex items-center gap-1.5">
+                        <GoogleIcon className="h-3.5 w-3.5" />
+                        {t.location}
+                      </p>
                       <a
                         href={t.sourceUrl ?? GOOGLE_REVIEWS_URL}
                         target="_blank"
@@ -427,8 +454,9 @@ const LandingPage = () => {
                   />
                 ))}
               </div>
-              <span className="text-muted-foreground text-sm">
-                {aggregateRating.toFixed(1)} average from {totalReviewCount} verified reviews
+              <span className="text-muted-foreground text-sm inline-flex items-center gap-1.5">
+                <GoogleIcon className="h-4 w-4" />
+                {aggregateRating.toFixed(1)} average from {totalReviewCount} verified Google reviews
               </span>
             </div>
           </FadeInView>
