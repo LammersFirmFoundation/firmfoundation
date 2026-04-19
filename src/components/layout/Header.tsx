@@ -43,24 +43,24 @@ const Header = ({ transparent = false }: HeaderProps) => {
     >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3 group">
+          <Link to="/" className="flex items-center gap-2 sm:gap-3 group">
             <img
               src={logo}
               alt="Firm Foundation Property Services"
-              className={`h-10 w-auto transition-all group-hover:scale-105 ${
+              className={`h-9 sm:h-10 w-auto transition-all group-hover:scale-105 ${
                 isTransparent ? "brightness-0 invert" : "brightness-0"
               }`}
             />
-            <div className="hidden sm:block">
+            <div className="leading-tight">
               <div
-                className={`text-lg font-bold tracking-wide font-heading ${
+                className={`text-base sm:text-lg font-bold tracking-wide font-heading ${
                   isTransparent ? "text-white" : "text-foreground"
                 }`}
               >
                 FIRM FOUNDATION
               </div>
               <div
-                className={`text-xs ${
+                className={`text-[10px] sm:text-xs tracking-wide ${
                   isTransparent ? "text-white/70" : "text-muted-foreground"
                 }`}
               >
