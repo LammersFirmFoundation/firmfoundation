@@ -22,9 +22,6 @@ import hardscapes from "@/assets/services/hardscapes.jpg";
 import landscaping from "@/assets/services/landscaping.jpg";
 import pressureWashing from "@/assets/services/pressure-washing.jpg";
 import carpentry from "@/assets/services/carpentry.jpg";
-import emmaPortrait from "@/assets/team/emma-3.jpg";
-import emmaSecondary1 from "@/assets/team/emma-1.jpg";
-import emmaSecondary2 from "@/assets/team/emma-2.jpg";
 
 const stats = [
   { label: "5.0 Rating", value: "5.0" },
@@ -340,70 +337,8 @@ const LandingPage = () => {
           </div>
         </Section>
 
-        {/* About — Meet Emma */}
-        <Section variant="muted" id="about" className="scroll-mt-24">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
-            <FadeInView direction="left">
-              <div className="aspect-[4/5] rounded-lg overflow-hidden shadow-lg max-w-md mx-auto md:mx-0">
-                <img
-                  src={emmaPortrait}
-                  alt="Emma Fredenburg, the heart behind Firm Foundation"
-                  loading="lazy"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </FadeInView>
-            <FadeInView direction="right" delay={0.15}>
-              <p className="text-sm font-semibold tracking-widest uppercase text-primary mb-3">
-                Meet Emma
-              </p>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-5 font-heading">
-                The heart behind Firm Foundation
-              </h2>
-              <div className="space-y-4 text-muted-foreground leading-relaxed text-lg">
-                <p>
-                  Emma Fredenburg grew up in the Lowcountry and built Firm
-                  Foundation around a simple idea: take care of people&rsquo;s
-                  homes the way she&rsquo;d want her own taken care of.
-                </p>
-                <p>
-                  A student at the College of Charleston and a longtime member
-                  of the Seacoast church family, Emma brings a steady,
-                  detail-driven approach to every property she serves &mdash;
-                  whether it&rsquo;s a weekly landscape rhythm, a freshly
-                  pressure-washed driveway, or a custom outdoor build.
-                </p>
-                <p>
-                  Faith, family, and a love for Mount Pleasant shape how she
-                  works. The result is a small, trusted team homeowners across
-                  the Lowcountry actually look forward to having on the
-                  property.
-                </p>
-              </div>
-              <div className="mt-8 grid grid-cols-2 gap-4 max-w-sm">
-                <div className="aspect-[3/4] rounded-md overflow-hidden">
-                  <img
-                    src={emmaSecondary1}
-                    alt="Emma in downtown Charleston"
-                    loading="lazy"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="aspect-[3/4] rounded-md overflow-hidden">
-                  <img
-                    src={emmaSecondary2}
-                    alt="Emma at the College of Charleston"
-                    loading="lazy"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-            </FadeInView>
-          </div>
-        </Section>
-
         {/* Testimonials */}
-        <Section variant="default" id="reviews" className="scroll-mt-24">
+        <Section variant="muted" id="reviews" className="scroll-mt-24">
           <SectionHeader
             title="What Our Clients Say"
             subtitle="Trusted by homeowners throughout Mount Pleasant"
