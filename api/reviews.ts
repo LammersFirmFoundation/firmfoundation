@@ -18,10 +18,15 @@ type ApifyReview = {
   stars?: number;
   publishedAtDate?: string;
   publishAt?: string;
+  // The flat reviews actor carries the place these belong to on each item,
+  // which lets us reject reviews scraped for a different business.
+  title?: string;
+  url?: string;
 };
 
 type ApifyDatasetItem = {
   title?: string;
+  url?: string;
   totalScore?: number;
   reviewsCount?: number;
   reviews?: ApifyReview[];
@@ -54,7 +59,21 @@ const formatDate = (iso?: string): string => {
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const token = process.env.APIFY_TOKEN;
+  // Data source, in priority order:
+  //   1. APIFY_RUN_ID  – an exact run, so we read precisely the scrape we want.
+  //   2. APIFY_TASK_ID – a per-business task; its "runs/last" is scoped to that
+  //      business only.
+  //   3. actor "runs/last" – whatever ran most recently across the whole
+  //      account/actor. This is the fragile default that once made this site
+  //      show another business's reviews, so we only fall back to it.
+  // Defaults to the "firm-foundation-reviews" task, whose every run scrapes
+  // only Firm Foundation's place — so its latest run is always the right data.
+  const runId = process.env.APIFY_RUN_ID;
+  const taskId = process.env.APIFY_TASK_ID ?? "JKIP67d4omFdYH0Qp";
   const actorId = process.env.APIFY_ACTOR_ID ?? "compass~Google-Maps-Reviews-Scraper";
+  // Safety net: only ever surface reviews for Firm Foundation's Google place,
+  // so a run that scraped another business can never leak onto this site.
+  const placeId = process.env.APIFY_PLACE_ID ?? "ChIJ5eaJLR-TCSgRcovM30Gs8yw";
 
   if (!token) {
     res.status(500).json({ error: "APIFY_TOKEN not configured" });
@@ -62,7 +81,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const url = `https://api.apify.com/v2/acts/${actorId}/runs/last/dataset/items?token=${token}&status=SUCCEEDED&clean=true`;
+    const base = runId
+      ? `https://api.apify.com/v2/actor-runs/${runId}/dataset/items`
+      : taskId
+        ? `https://api.apify.com/v2/actor-tasks/${taskId}/runs/last/dataset/items`
+        : `https://api.apify.com/v2/acts/${actorId}/runs/last/dataset/items`;
+    // status=SUCCEEDED only applies to the "runs/last" endpoints; harmless on a
+    // pinned run.
+    const url = `${base}?token=${token}&status=SUCCEEDED&clean=true`;
     const apifyRes = await fetch(url);
 
     if (!apifyRes.ok) {
@@ -79,13 +105,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     let aggregateRating: number | null = null;
     let totalReviewCount: number | null = null;
 
+    const isOurPlace = (placeUrl?: string): boolean =>
+      !placeId || (placeUrl ?? "").includes(placeId);
+
     if (items.length > 0 && "reviews" in items[0] && Array.isArray((items[0] as ApifyDatasetItem).reviews)) {
-      const place = items[0] as ApifyDatasetItem;
-      rawReviews = place.reviews ?? [];
-      aggregateRating = typeof place.totalScore === "number" ? place.totalScore : null;
-      totalReviewCount = typeof place.reviewsCount === "number" ? place.reviewsCount : null;
+      // Place-shaped items: keep only the place matching our place_id.
+      const places = (items as ApifyDatasetItem[]).filter((p) => isOurPlace(p.url));
+      const place = places[0];
+      rawReviews = place?.reviews ?? [];
+      aggregateRating = typeof place?.totalScore === "number" ? place.totalScore : null;
+      totalReviewCount = typeof place?.reviewsCount === "number" ? place.reviewsCount : null;
     } else {
-      rawReviews = items as ApifyReview[];
+      rawReviews = (items as ApifyReview[]).filter((r) => isOurPlace(r.url));
       totalReviewCount = rawReviews.length;
       if (rawReviews.length > 0) {
         const sum = rawReviews.reduce((acc, r) => acc + (r.stars ?? 0), 0);
