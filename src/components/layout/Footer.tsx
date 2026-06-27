@@ -124,7 +124,7 @@ const Footer = () => {
             Services. All rights reserved.
           </p>
           <a
-            href="https://instagram.com/firmfoundation_sc"
+            href="https://www.instagram.com/firmfoundationsc"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 hover:text-background/60 transition-colors"

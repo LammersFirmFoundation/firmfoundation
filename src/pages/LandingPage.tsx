@@ -120,7 +120,7 @@ const LandingPage = () => {
           email: "josiahlammers1@gmail.com",
           url: "https://firmfoundationsc.com",
           priceRange: "$$",
-          sameAs: ["https://instagram.com/firmfoundation_sc"],
+          sameAs: ["https://www.instagram.com/firmfoundationsc"],
           areaServed: [
             {
               "@type": "City",
