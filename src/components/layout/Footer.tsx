@@ -42,7 +42,7 @@ const Footer = () => {
                   to="/services"
                   className="hover:text-background transition-colors"
                 >
-                  Exterior Cleaning
+                  Tree Services
                 </Link>
               </li>
               <li>

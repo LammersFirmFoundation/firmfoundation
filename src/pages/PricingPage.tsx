@@ -98,7 +98,7 @@ const featureLabels = [
 const coreServices = [
   "Hardscapes",
   "Landscaping",
-  "Exterior Cleaning",
+  "Tree Services",
   "Custom Projects",
 ];
 

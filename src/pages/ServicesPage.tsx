@@ -8,7 +8,7 @@ import FadeInView from "@/components/animations/FadeInView";
 import SEO from "@/components/SEO";
 import hardscapes from "@/assets/services/hardscapes.jpg";
 import landscaping from "@/assets/services/landscaping.jpg";
-import pressureWashing from "@/assets/services/pressure-washing.jpg";
+import treeServices from "@/assets/services/tree-services.jpg";
 import carpentry from "@/assets/services/carpentry.jpg";
 
 const services = [
@@ -45,20 +45,19 @@ const services = [
     ],
   },
   {
-    title: "Exterior Cleaning",
-    image: pressureWashing,
-    alt: "Professional exterior cleaning and pressure washing service",
+    title: "Tree Services",
+    image: treeServices,
+    alt: "Professional arborist trimming a live oak tree",
     description1:
-      "Restore your property's exterior with professional pressure washing, soft washing, and window cleaning. We safely remove dirt, grime, mold, and mildew from all outdoor surfaces.",
+      "Keep your trees healthy, safe, and beautiful with professional tree care tailored to the Lowcountry's live oaks, palms, and coastal canopy. From routine pruning to full removals, our team works safely and cleans up thoroughly.",
     description2:
-      "From driveways and siding to exterior windows, our cleaning services bring every surface back to life.",
+      "Storm season is a reality on the coast — we help you stay ahead of it with proactive trimming, hazard removal, and hurricane preparation that protects your home and property.",
     items: [
-      { label: "Driveways & Walkways", detail: "Remove oil stains, tire marks, and embedded dirt" },
-      { label: "House Washing & Siding", detail: "Gentle soft-washing for vinyl, brick, stucco, and wood" },
-      { label: "Decks & Patios", detail: "Restore wood and composite materials to like-new condition" },
-      { label: "Exterior Window Washing", detail: "Streak-free cleaning for all exterior windows" },
-      { label: "Gutter Cleaning", detail: "Clear gutters and downspouts to prevent water damage" },
-      { label: "Soft Washing", detail: "Low-pressure cleaning for delicate surfaces and roofing" },
+      { label: "Tree Trimming & Pruning", detail: "Shaping, deadwood removal, and canopy thinning for healthy growth" },
+      { label: "Tree Removal", detail: "Safe removal of hazardous, damaged, or unwanted trees" },
+      { label: "Stump Grinding", detail: "Grind down stumps to reclaim your yard and prevent regrowth" },
+      { label: "Storm & Hurricane Prep", detail: "Proactive trimming and hazard reduction ahead of storm season" },
+      { label: "Limb & Debris Cleanup", detail: "Fallen branch removal and full cleanup after every job" },
     ],
   },
   {
@@ -86,10 +85,10 @@ const ServicesPage = () => {
 
       <main className="flex-1 pt-[72px]">
         <SEO
-          title="Services – Hardscapes, Landscaping, Exterior Cleaning & More"
-          description="Professional hardscapes, landscaping, exterior cleaning, and custom project services in Mount Pleasant, SC. Free quotes available."
+          title="Services – Hardscapes, Landscaping, Tree Services & More"
+          description="Professional hardscapes, landscaping, tree services, and custom project services in Mount Pleasant, SC. Free quotes available."
           canonical="/services"
-          keywords="hardscapes Mount Pleasant, landscaping Mount Pleasant SC, exterior cleaning, custom projects, property services"
+          keywords="hardscapes Mount Pleasant, landscaping Mount Pleasant SC, tree services, tree trimming, tree removal, custom projects, property services"
           jsonLd={{
             "@context": "https://schema.org",
             "@type": "ItemList",

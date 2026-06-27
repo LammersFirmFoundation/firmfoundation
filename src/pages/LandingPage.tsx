@@ -20,7 +20,7 @@ const GOOGLE_REVIEWS_URL =
 
 import hardscapes from "@/assets/services/hardscapes.jpg";
 import landscaping from "@/assets/services/landscaping.jpg";
-import pressureWashing from "@/assets/services/pressure-washing.jpg";
+import treeServices from "@/assets/services/tree-services.jpg";
 import carpentry from "@/assets/services/carpentry.jpg";
 
 const stats = [
@@ -46,11 +46,11 @@ const services = [
     alt: "Professional landscaping service",
   },
   {
-    title: "Exterior Cleaning",
+    title: "Tree Services",
     description:
-      "Restore your property's exterior with professional pressure washing, soft washing, and exterior window cleaning. We safely remove dirt, grime, and mildew from all outdoor surfaces.",
-    image: pressureWashing,
-    alt: "Professional exterior cleaning service",
+      "Keep your trees healthy, safe, and beautiful with professional pruning, removals, and stump grinding. Built for the Lowcountry's live oaks and palms, with proactive storm and hurricane prep.",
+    image: treeServices,
+    alt: "Professional arborist tree trimming service",
   },
   {
     title: "Custom Projects",
@@ -95,15 +95,15 @@ const LandingPage = () => {
 
       <SEO
         title="Firm Foundation Property Services | Mount Pleasant, SC"
-        description="Professional hardscapes, landscaping, exterior cleaning, and custom projects in Mount Pleasant, Isle of Palms, Sullivan's Island, Dunes West, and Park West."
+        description="Professional hardscapes, landscaping, tree services, and custom projects in Mount Pleasant, Isle of Palms, Sullivan's Island, Dunes West, and Park West."
         canonical="/"
-        keywords="property services Mount Pleasant SC, hardscapes, landscaping, exterior cleaning, custom projects, Lowcountry"
+        keywords="property services Mount Pleasant SC, hardscapes, landscaping, tree services, tree removal, custom projects, Lowcountry"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
           name: "Firm Foundation Property Services",
           description:
-            "Professional property services in Mount Pleasant, SC. Expert hardscapes, landscaping, exterior cleaning, and custom projects for residential properties.",
+            "Professional property services in Mount Pleasant, SC. Expert hardscapes, landscaping, tree services, and custom projects for residential properties.",
           image: "https://firmfoundationsc.com/og-image.jpg",
           telephone: "(843) 998-5593",
           email: "josiahlammers1@gmail.com",
@@ -166,7 +166,7 @@ const LandingPage = () => {
                 "@type": "Offer",
                 itemOffered: {
                   "@type": "Service",
-                  name: "Exterior Cleaning",
+                  name: "Tree Services",
                 },
               },
               {
@@ -196,7 +196,7 @@ const LandingPage = () => {
             loop
             playsInline
             preload="auto"
-            poster={pressureWashing}
+            poster={hardscapes}
             className="absolute inset-0 w-full h-full object-cover"
           >
             <source src="/hero-video.mp4" type="video/mp4" />
@@ -211,7 +211,7 @@ const LandingPage = () => {
               Property Services
             </h1>
             <p className="text-base md:text-xl text-white/90 mb-6 md:mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md">
-              Professional hardscapes, landscaping, exterior cleaning, and
+              Professional hardscapes, landscaping, tree services, and
               custom projects for the Lowcountry's finest homes
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
