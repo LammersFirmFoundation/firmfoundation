@@ -2,14 +2,25 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Star, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
+import { ClientOnly } from "vite-react-ssg";
 import SEO from "@/components/SEO";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Section from "@/components/layout/Section";
 import SectionHeader from "@/components/layout/SectionHeader";
 import FadeInView from "@/components/animations/FadeInView";
-import ServiceAreaMap from "@/components/ServiceAreaMap";
+// Leaflet touches `window` at import time, so load the map on the client only.
+// The static fallback keeps the service-area names in the prerendered HTML.
+const ServiceAreaMap = lazy(() => import("@/components/ServiceAreaMap"));
+
+const SERVICE_AREAS = [
+  "Mount Pleasant",
+  "Isle of Palms",
+  "Sullivan's Island",
+  "Dunes West",
+  "Park West",
+];
 import { useReviews } from "@/lib/useReviews";
 import ReviewImages from "@/components/ReviewImages";
 import { ExternalLink } from "lucide-react";
@@ -471,7 +482,32 @@ const LandingPage = () => {
           />
 
           <FadeInView>
-            <ServiceAreaMap />
+            <ClientOnly
+              fallback={
+                <div className="rounded-xl bg-[hsl(220,20%,10%)] p-8 md:p-12 min-h-[350px] md:min-h-[500px] flex flex-col items-center justify-center">
+                  <p className="text-background/70 mb-6 text-center max-w-md">
+                    Proudly serving Mount Pleasant and the surrounding
+                    Lowcountry communities:
+                  </p>
+                  <ul className="flex flex-wrap justify-center gap-3">
+                    {SERVICE_AREAS.map((area) => (
+                      <li
+                        key={area}
+                        className="bg-background/10 border border-background/20 text-background px-4 py-2 rounded-full text-sm"
+                      >
+                        {area}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              }
+            >
+              {() => (
+                <Suspense fallback={null}>
+                  <ServiceAreaMap />
+                </Suspense>
+              )}
+            </ClientOnly>
           </FadeInView>
         </Section>
 

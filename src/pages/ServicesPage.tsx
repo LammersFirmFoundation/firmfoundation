@@ -78,6 +78,29 @@ const services = [
   },
 ];
 
+const faqs = [
+  {
+    question: "What services does Firm Foundation Property Services offer?",
+    answer:
+      "We offer four core services: hardscapes (paver patios, stone walkways, and retaining walls), landscaping and bed maintenance, tree services (trimming, removal, stump grinding, and storm prep), and custom outdoor projects such as decks, fences, and pergolas.",
+  },
+  {
+    question: "What areas do you serve?",
+    answer:
+      "We proudly serve Mount Pleasant, Isle of Palms, Sullivan's Island, Dunes West, and Park West in South Carolina's Lowcountry.",
+  },
+  {
+    question: "Do you handle tree removal and storm preparation?",
+    answer:
+      "Yes. Our tree services include trimming and pruning, tree removal, stump grinding, and proactive storm and hurricane preparation tailored to the Lowcountry's live oaks and palms.",
+  },
+  {
+    question: "How do I get a quote?",
+    answer:
+      "Getting a quote is free. Call us at (843) 998-5593 or send a message through our contact page, and we'll get back to you as soon as possible.",
+  },
+];
+
 const ServicesPage = () => {
   return (
     <div className="min-h-screen flex flex-col">
@@ -89,32 +112,43 @@ const ServicesPage = () => {
           description="Professional hardscapes, landscaping, tree services, and custom project services in Mount Pleasant, SC. Free quotes available."
           canonical="/services"
           keywords="hardscapes Mount Pleasant, landscaping Mount Pleasant SC, tree services, tree trimming, tree removal, custom projects, property services"
-          jsonLd={{
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            itemListElement: services.map((service, index) => ({
-              "@type": "ListItem",
-              position: index + 1,
-              item: {
-                "@type": "Service",
-                name: service.title,
-                description: service.description1,
-                provider: {
-                  "@type": "LocalBusiness",
-                  name: "Firm Foundation Property Services",
-                  telephone: "(843) 998-5593",
-                  url: "https://firmfoundationsc.com",
+          jsonLd={[
+            {
+              "@context": "https://schema.org",
+              "@type": "ItemList",
+              itemListElement: services.map((service, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                item: {
+                  "@type": "Service",
+                  name: service.title,
+                  description: service.description1,
+                  provider: {
+                    "@type": "LocalBusiness",
+                    name: "Firm Foundation Property Services",
+                    telephone: "(843) 998-5593",
+                    url: "https://firmfoundationsc.com",
+                  },
+                  areaServed: [
+                    { "@type": "City", name: "Mount Pleasant", addressRegion: "SC" },
+                    { "@type": "City", name: "Isle of Palms", addressRegion: "SC" },
+                    { "@type": "City", name: "Sullivan's Island", addressRegion: "SC" },
+                    { "@type": "City", name: "Dunes West", addressRegion: "SC" },
+                    { "@type": "City", name: "Park West", addressRegion: "SC" },
+                  ],
                 },
-                areaServed: [
-                  { "@type": "City", name: "Mount Pleasant", addressRegion: "SC" },
-                  { "@type": "City", name: "Isle of Palms", addressRegion: "SC" },
-                  { "@type": "City", name: "Sullivan's Island", addressRegion: "SC" },
-                  { "@type": "City", name: "Dunes West", addressRegion: "SC" },
-                  { "@type": "City", name: "Park West", addressRegion: "SC" },
-                ],
-              },
-            })),
-          }}
+              })),
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: faqs.map((faq) => ({
+                "@type": "Question",
+                name: faq.question,
+                acceptedAnswer: { "@type": "Answer", text: faq.answer },
+              })),
+            },
+          ]}
         />
 
         {/* Page Header */}
@@ -181,6 +215,28 @@ const ServicesPage = () => {
                 </div>
               );
             })}
+          </div>
+        </Section>
+
+        {/* FAQ */}
+        <Section variant="muted">
+          <SectionHeader
+            title="Frequently Asked Questions"
+            subtitle="Quick answers about our services and service area"
+          />
+          <div className="max-w-3xl mx-auto space-y-5">
+            {faqs.map((faq) => (
+              <FadeInView key={faq.question}>
+                <div className="border border-border rounded-lg p-6 bg-background">
+                  <h3 className="font-semibold text-foreground mb-2 font-heading">
+                    {faq.question}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </div>
+              </FadeInView>
+            ))}
           </div>
         </Section>
 

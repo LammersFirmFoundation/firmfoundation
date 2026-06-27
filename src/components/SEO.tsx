@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import { Head } from "vite-react-ssg";
 
 interface SEOProps {
   title: string;
@@ -30,7 +30,7 @@ const SEO = ({
   const ogImage = image || DEFAULT_OG_IMAGE;
 
   return (
-    <Helmet>
+    <Head>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
@@ -58,7 +58,7 @@ const SEO = ({
           {JSON.stringify(jsonLd)}
         </script>
       )}
-    </Helmet>
+    </Head>
   );
 };
 

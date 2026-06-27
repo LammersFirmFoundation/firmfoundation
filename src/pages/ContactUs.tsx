@@ -153,8 +153,8 @@ const ContactUs = () => {
                 Get in Touch
               </h2>
               <p className="text-muted-foreground mb-10 leading-relaxed">
-                Whether you're looking for property services services or have
-                questions about our offerings, we're here to help.
+                Whether you're looking for property services or have questions
+                about our offerings, we're here to help.
               </p>
 
               <div className="space-y-8">
