@@ -97,7 +97,7 @@ const ContactUs = () => {
       <main className="flex-1 pt-[72px]">
         <SEO
           title="Contact Us – Free Quote"
-          description="Contact Firm Foundation for a free property services quote in Mount Pleasant, SC. Call (843) 998-5593 or send us a message."
+          description="Contact Firm Foundation for a free property services quote in Mount Pleasant, Charleston, and the greater Charleston area, SC. Call (843) 998-5593 or send us a message."
           canonical="/contact"
           keywords="contact property services, free quote Mount Pleasant SC, hardscapes quote, landscaping estimate"
           jsonLd={{
@@ -123,7 +123,7 @@ const ContactUs = () => {
                 telephone: "(843) 998-5593",
                 contactType: "customer service",
                 email: "josiahlammers1@gmail.com",
-                areaServed: "Mount Pleasant, SC",
+                areaServed: "Mount Pleasant and the greater Charleston area, SC",
                 availableLanguage: "English",
               },
             },

@@ -86,10 +86,14 @@ const Footer = () => {
             </h4>
             <ul className="space-y-1 text-background/60 text-sm mb-6">
               <li>Mount Pleasant</li>
+              <li>Charleston</li>
+              <li>Daniel Island</li>
               <li>Isle of Palms</li>
               <li>Sullivan's Island</li>
-              <li>Dunes West</li>
-              <li>Park West</li>
+              <li>West Ashley</li>
+              <li>James Island</li>
+              <li>Johns Island</li>
+              <li>Folly Beach</li>
             </ul>
             <ul className="space-y-2 text-background/60 text-sm">
               <li className="flex items-center gap-2">

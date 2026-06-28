@@ -16,8 +16,14 @@ const ServiceAreaMap = lazy(() => import("@/components/ServiceAreaMap"));
 
 const SERVICE_AREAS = [
   "Mount Pleasant",
+  "Charleston",
+  "Daniel Island",
   "Isle of Palms",
   "Sullivan's Island",
+  "West Ashley",
+  "James Island",
+  "Johns Island",
+  "Folly Beach",
   "Dunes West",
   "Park West",
 ];
@@ -106,7 +112,7 @@ const LandingPage = () => {
 
       <SEO
         title="Firm Foundation Property Services | Mount Pleasant, SC"
-        description="Professional hardscapes, landscaping, tree services, and custom projects in Mount Pleasant, Isle of Palms, Sullivan's Island, Dunes West, and Park West."
+        description="Professional hardscapes, landscaping, tree services, and custom projects across Mount Pleasant, Charleston, Daniel Island, and the greater Charleston area of South Carolina."
         canonical="/"
         keywords="property services Mount Pleasant SC, hardscapes, landscaping, tree services, tree removal, custom projects, Lowcountry"
         jsonLd={{
@@ -122,31 +128,17 @@ const LandingPage = () => {
           priceRange: "$$",
           sameAs: ["https://www.instagram.com/firmfoundationsc"],
           areaServed: [
-            {
-              "@type": "City",
-              name: "Mount Pleasant",
-              addressRegion: "SC",
-            },
-            {
-              "@type": "City",
-              name: "Isle of Palms",
-              addressRegion: "SC",
-            },
-            {
-              "@type": "City",
-              name: "Sullivan's Island",
-              addressRegion: "SC",
-            },
-            {
-              "@type": "City",
-              name: "Dunes West",
-              addressRegion: "SC",
-            },
-            {
-              "@type": "City",
-              name: "Park West",
-              addressRegion: "SC",
-            },
+            { "@type": "City", name: "Mount Pleasant", addressRegion: "SC" },
+            { "@type": "City", name: "Charleston", addressRegion: "SC" },
+            { "@type": "City", name: "Daniel Island", addressRegion: "SC" },
+            { "@type": "City", name: "Isle of Palms", addressRegion: "SC" },
+            { "@type": "City", name: "Sullivan's Island", addressRegion: "SC" },
+            { "@type": "City", name: "West Ashley", addressRegion: "SC" },
+            { "@type": "City", name: "James Island", addressRegion: "SC" },
+            { "@type": "City", name: "Johns Island", addressRegion: "SC" },
+            { "@type": "City", name: "Folly Beach", addressRegion: "SC" },
+            { "@type": "City", name: "Dunes West", addressRegion: "SC" },
+            { "@type": "City", name: "Park West", addressRegion: "SC" },
           ],
           address: {
             "@type": "PostalAddress",
@@ -497,7 +489,7 @@ const LandingPage = () => {
         <Section variant="dark" className="bg-gradient-to-b from-[hsl(220,20%,10%)] to-[hsl(210,50%,22%)]">
           <SectionHeader
             title="Areas We Serve"
-            subtitle="Proudly serving the greater Mount Pleasant area and surrounding islands"
+            subtitle="Proudly serving Mount Pleasant, Charleston, and the surrounding Lowcountry"
             dark
           />
 

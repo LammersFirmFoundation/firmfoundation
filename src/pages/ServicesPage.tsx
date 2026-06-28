@@ -87,7 +87,7 @@ const faqs = [
   {
     question: "What areas do you serve?",
     answer:
-      "We proudly serve Mount Pleasant, Isle of Palms, Sullivan's Island, Dunes West, and Park West in South Carolina's Lowcountry.",
+      "We serve the greater Charleston area, including Mount Pleasant, Charleston, Daniel Island, Isle of Palms, Sullivan's Island, West Ashley, James Island, Johns Island, and Folly Beach.",
   },
   {
     question: "Do you handle tree removal and storm preparation?",
@@ -109,7 +109,7 @@ const ServicesPage = () => {
       <main className="flex-1 pt-[72px]">
         <SEO
           title="Services – Hardscapes, Landscaping, Tree Services & More"
-          description="Professional hardscapes, landscaping, tree services, and custom project services in Mount Pleasant, SC. Free quotes available."
+          description="Professional hardscapes, landscaping, tree services, and custom project services across Mount Pleasant, Charleston, and the greater Charleston area, SC. Free quotes available."
           canonical="/services"
           keywords="hardscapes Mount Pleasant, landscaping Mount Pleasant SC, tree services, tree trimming, tree removal, custom projects, property services"
           jsonLd={[
@@ -131,10 +131,14 @@ const ServicesPage = () => {
                   },
                   areaServed: [
                     { "@type": "City", name: "Mount Pleasant", addressRegion: "SC" },
+                    { "@type": "City", name: "Charleston", addressRegion: "SC" },
+                    { "@type": "City", name: "Daniel Island", addressRegion: "SC" },
                     { "@type": "City", name: "Isle of Palms", addressRegion: "SC" },
                     { "@type": "City", name: "Sullivan's Island", addressRegion: "SC" },
-                    { "@type": "City", name: "Dunes West", addressRegion: "SC" },
-                    { "@type": "City", name: "Park West", addressRegion: "SC" },
+                    { "@type": "City", name: "West Ashley", addressRegion: "SC" },
+                    { "@type": "City", name: "James Island", addressRegion: "SC" },
+                    { "@type": "City", name: "Johns Island", addressRegion: "SC" },
+                    { "@type": "City", name: "Folly Beach", addressRegion: "SC" },
                   ],
                 },
               })),

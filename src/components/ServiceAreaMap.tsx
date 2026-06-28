@@ -7,11 +7,15 @@ const serviceAreas: {
   tooltipDir: "top" | "bottom" | "left" | "right";
   tooltipOffset: [number, number];
 }[] = [
-  { name: "Mount Pleasant", coords: [32.7933, -79.8772], tooltipDir: "left", tooltipOffset: [-10, 0] },
+  { name: "Mount Pleasant", coords: [32.7933, -79.8772], tooltipDir: "top", tooltipOffset: [0, -10] },
   { name: "Isle of Palms", coords: [32.7866, -79.7868], tooltipDir: "right", tooltipOffset: [10, 0] },
   { name: "Sullivan's Island", coords: [32.7658, -79.8375], tooltipDir: "bottom", tooltipOffset: [0, 10] },
-  { name: "Dunes West", coords: [32.8971, -79.8122], tooltipDir: "top", tooltipOffset: [0, -10] },
-  { name: "Park West", coords: [32.8848, -79.7839], tooltipDir: "right", tooltipOffset: [10, 0] },
+  { name: "Daniel Island", coords: [32.8590, -79.9020], tooltipDir: "top", tooltipOffset: [0, -10] },
+  { name: "Charleston", coords: [32.7765, -79.9311], tooltipDir: "left", tooltipOffset: [-10, 0] },
+  { name: "West Ashley", coords: [32.7990, -79.9840], tooltipDir: "left", tooltipOffset: [-10, 0] },
+  { name: "James Island", coords: [32.7330, -79.9450], tooltipDir: "bottom", tooltipOffset: [0, 10] },
+  { name: "Johns Island", coords: [32.7000, -80.0300], tooltipDir: "left", tooltipOffset: [-10, 0] },
+  { name: "Folly Beach", coords: [32.6552, -79.9404], tooltipDir: "bottom", tooltipOffset: [0, 10] },
 ];
 
 const markerIcon = L.divIcon({
@@ -41,8 +45,8 @@ const ServiceAreaMap = () => {
       {/* Map */}
       <div className="h-[350px] md:h-[500px]">
         <MapContainer
-          center={[32.835, -79.805]}
-          zoom={11}
+          center={[32.77, -79.90]}
+          zoom={10}
           scrollWheelZoom={false}
           zoomControl={false}
           attributionControl={false}
@@ -53,8 +57,8 @@ const ServiceAreaMap = () => {
             url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
           />
           <Circle
-            center={[32.83, -79.81]}
-            radius={11500}
+            center={[32.77, -79.90]}
+            radius={18000}
             pathOptions={{
               color: "hsl(210,60%,55%)",
               weight: 2,

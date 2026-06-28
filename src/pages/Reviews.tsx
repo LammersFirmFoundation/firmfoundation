@@ -21,7 +21,7 @@ const Reviews = () => {
       <main className="flex-1 pt-[72px]">
         <SEO
           title="Client Reviews – 5-Star Rated"
-          description="Read reviews from satisfied homeowners in Mount Pleasant, Isle of Palms, and Sullivan's Island. 5.0 average rating for property services."
+          description="Read reviews from satisfied homeowners across Mount Pleasant, Charleston, and the greater Charleston area. 5.0 average rating for property services."
           canonical="/reviews"
           keywords="property services reviews, Mount Pleasant SC reviews, hardscapes reviews, landscaping reviews, 5-star rated"
           jsonLd={{
