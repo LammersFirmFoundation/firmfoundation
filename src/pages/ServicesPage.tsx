@@ -159,7 +159,7 @@ const ServicesPage = () => {
                 Our Services
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Professional property services for Mount Pleasant's finest homes
+                Professional property services for homeowners across Mount Pleasant
               </p>
             </FadeInView>
           </div>

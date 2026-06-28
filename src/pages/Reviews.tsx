@@ -147,7 +147,7 @@ const Reviews = () => {
         <Section variant="dark" className="text-center bg-gradient-to-b from-[hsl(210,50%,22%)] to-[hsl(220,20%,10%)]">
           <FadeInView>
             <h2 className="text-hero md:text-display font-bold text-background mb-6 font-heading leading-tight">
-              Ready to Experience Excellence?
+              Ready to Get Started?
             </h2>
             <p className="text-xl text-background/70 mb-10 leading-relaxed max-w-2xl mx-auto">
               Join our growing list of satisfied clients in Mount Pleasant

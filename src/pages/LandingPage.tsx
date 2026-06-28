@@ -34,11 +34,11 @@ import landscaping from "@/assets/services/landscaping.jpg";
 import treeServices from "@/assets/services/tree-services.jpg";
 import carpentry from "@/assets/services/carpentry.jpg";
 
-const stats = [
-  { label: "5.0 Rating", value: "5.0" },
-  { label: "100+ Properties", value: "100+" },
-  { label: "4 Core Services", value: "4" },
-  { label: "Lowcountry's Best", value: "#1" },
+const stats: { value: string; label: string; isRating?: boolean }[] = [
+  { value: "5.0", label: "Google Rating", isRating: true },
+  { value: "100+", label: "Properties Served" },
+  { value: "Free", label: "On-Site Quotes" },
+  { value: "Local", label: "Owned & Operated" },
 ];
 
 const services = [
@@ -217,13 +217,13 @@ const LandingPage = () => {
 
           <div className="relative z-10 container mx-auto px-4 pt-20 md:pt-0 text-center max-w-4xl">
             <h1 className="text-3xl sm:text-5xl md:text-display font-bold text-white mb-4 md:mb-6 leading-tight tracking-tight font-heading drop-shadow-lg">
-              Mount Pleasant's Premier
+              Mount Pleasant's Trusted
               <br />
               Property Services
             </h1>
             <p className="text-base md:text-xl text-white/90 mb-6 md:mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md">
               Professional hardscapes, landscaping, tree services, and
-              custom projects for the Lowcountry's finest homes
+              custom projects for homes across the Lowcountry
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <Button
@@ -258,7 +258,7 @@ const LandingPage = () => {
           <div className="container mx-auto px-4 py-8">
             <div className="flex flex-wrap justify-center gap-8 md:gap-16">
               {stats.map((stat) => {
-                const isRating = stat.label === "5.0 Rating";
+                const isRating = Boolean(stat.isRating);
                 const content = (
                   <div className="text-center">
                     <div className="text-2xl md:text-3xl font-bold text-foreground font-heading">
@@ -300,7 +300,7 @@ const LandingPage = () => {
         <Section>
           <SectionHeader
             title="Our Services"
-            subtitle="Professional property services for Mount Pleasant's finest homes"
+            subtitle="Professional property services for homeowners across Mount Pleasant"
           />
 
           <div className="space-y-24">
