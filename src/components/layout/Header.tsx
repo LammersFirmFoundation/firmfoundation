@@ -7,7 +7,7 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import logo from "@/assets/logo-icon.png";
-import { Menu } from "lucide-react";
+import { Menu, Phone } from "lucide-react";
 import { useState, useEffect } from "react";
 
 interface HeaderProps {
@@ -53,7 +53,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
             />
             <div className="leading-tight">
               <div
-                className={`text-base sm:text-lg font-bold tracking-wide font-heading ${
+                className={`text-base sm:text-lg font-bold tracking-wide font-heading whitespace-nowrap ${
                   isTransparent ? "text-white" : "text-foreground"
                 }`}
               >
@@ -84,6 +84,17 @@ const Header = ({ transparent = false }: HeaderProps) => {
                 {link.label}
               </Link>
             ))}
+            <a
+              href="tel:8439985593"
+              className={`hidden lg:inline-flex items-center gap-2 font-medium transition-colors ${
+                isTransparent
+                  ? "text-white/90 hover:text-white"
+                  : "text-foreground/80 hover:text-foreground"
+              }`}
+            >
+              <Phone className="h-4 w-4" />
+              (843) 998-5593
+            </a>
             <Button
               asChild
               size="sm"
@@ -99,17 +110,29 @@ const Header = ({ transparent = false }: HeaderProps) => {
             </Button>
           </nav>
 
-          {/* Mobile Menu */}
-          <Sheet>
-            <SheetTrigger asChild>
-              <button className="md:hidden" aria-label="Open menu">
-                <Menu
-                  className={`h-6 w-6 ${
-                    isTransparent ? "text-white" : "text-foreground"
-                  }`}
-                />
-              </button>
-            </SheetTrigger>
+          {/* Mobile actions: tap-to-call + menu */}
+          <div className="flex items-center gap-1 md:hidden">
+            <a
+              href="tel:8439985593"
+              aria-label="Call (843) 998-5593"
+              className="p-2"
+            >
+              <Phone
+                className={`h-6 w-6 ${
+                  isTransparent ? "text-white" : "text-foreground"
+                }`}
+              />
+            </a>
+            <Sheet>
+              <SheetTrigger asChild>
+                <button aria-label="Open menu" className="p-2">
+                  <Menu
+                    className={`h-6 w-6 ${
+                      isTransparent ? "text-white" : "text-foreground"
+                    }`}
+                  />
+                </button>
+              </SheetTrigger>
             <SheetContent side="right" className="w-full max-w-sm pt-16">
               <nav className="flex flex-col gap-6">
                 {navLinks.map((link) => (
@@ -131,7 +154,8 @@ const Header = ({ transparent = false }: HeaderProps) => {
                 </SheetClose>
               </nav>
             </SheetContent>
-          </Sheet>
+            </Sheet>
+          </div>
         </div>
       </div>
     </header>

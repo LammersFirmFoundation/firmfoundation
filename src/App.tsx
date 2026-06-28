@@ -6,6 +6,7 @@ import { Outlet } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import type { RouteRecord } from "vite-react-ssg";
 import ScrollToTop from "./components/ScrollToTop";
+import MobileCTABar from "./components/MobileCTABar";
 import LandingPage from "./pages/LandingPage";
 import ServicesPage from "./pages/ServicesPage";
 import ContactUs from "./pages/ContactUs";
@@ -25,6 +26,9 @@ const RootLayout = () => (
         <Sonner />
         <ScrollToTop />
         <Outlet />
+        {/* Spacer so the fixed mobile bar never covers footer content */}
+        <div className="h-14 md:hidden" aria-hidden="true" />
+        <MobileCTABar />
       </TooltipProvider>
     </ThemeProvider>
   </QueryClientProvider>

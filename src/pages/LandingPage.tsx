@@ -241,6 +241,26 @@ const LandingPage = () => {
                 <Link to="/services">Our Services</Link>
               </Button>
             </div>
+
+            <div className="mt-6 flex items-center justify-center gap-2">
+              <div
+                className="flex"
+                role="img"
+                aria-label={`${aggregateRating.toFixed(1)} out of 5 stars`}
+              >
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className="h-4 w-4 fill-white text-white"
+                    aria-hidden="true"
+                  />
+                ))}
+              </div>
+              <span className="text-sm text-white/90 drop-shadow-md inline-flex items-center gap-1.5">
+                <GoogleIcon className="h-3.5 w-3.5" />
+                {aggregateRating.toFixed(1)} from verified Google reviews
+              </span>
+            </div>
           </div>
 
           {/* Scroll indicator */}
