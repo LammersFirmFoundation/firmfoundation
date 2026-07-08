@@ -1,18 +1,20 @@
 import { Star, Quote, ExternalLink } from "lucide-react";
+import { useLoaderData } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Section from "@/components/layout/Section";
 import FadeInView from "@/components/animations/FadeInView";
 import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerContainer";
 import SEO from "@/components/SEO";
-import { useReviews } from "@/lib/useReviews";
+import { useReviews, type ApiResponse } from "@/lib/useReviews";
 import ReviewImages from "@/components/ReviewImages";
 
 const GOOGLE_REVIEWS_URL =
   "https://search.google.com/local/reviews?placeid=ChIJ5eaJLR-TCSgRcovM30Gs8yw";
 
 const Reviews = () => {
-  const { reviews, aggregateRating, totalReviewCount } = useReviews();
+  const loaderData = useLoaderData() as ApiResponse | undefined;
+  const { reviews, aggregateRating, totalReviewCount } = useReviews(loaderData);
 
   return (
     <div className="min-h-screen flex flex-col">

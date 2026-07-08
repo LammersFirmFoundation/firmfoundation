@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { Star, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState, useEffect, lazy, Suspense } from "react";
@@ -27,7 +27,7 @@ const SERVICE_AREAS = [
   "Dunes West",
   "Park West",
 ];
-import { useReviews } from "@/lib/useReviews";
+import { useReviews, type ApiResponse } from "@/lib/useReviews";
 import ReviewImages from "@/components/ReviewImages";
 import { ExternalLink } from "lucide-react";
 import GoogleIcon from "@/components/icons/GoogleIcon";
@@ -79,7 +79,8 @@ const services = [
 ];
 
 const LandingPage = () => {
-  const { reviews, aggregateRating, totalReviewCount } = useReviews();
+  const loaderData = useLoaderData() as ApiResponse | undefined;
+  const { reviews, aggregateRating, totalReviewCount } = useReviews(loaderData);
 
   const testimonials = reviews.slice(0, 5).map((r) => ({
     quote: r.review,
