@@ -108,7 +108,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const isOurPlace = (placeUrl?: string): boolean =>
       !placeId || (placeUrl ?? "").includes(placeId);
 
-    if (items.length > 0 && "reviews" in items[0] && Array.isArray((items[0] as ApifyDatasetItem).reviews)) {
+    const isPlaceShaped =
+      items.length > 0 && "reviews" in items[0] && Array.isArray((items[0] as ApifyDatasetItem).reviews);
+
+    if (isPlaceShaped) {
       // Place-shaped items: keep only the place matching our place_id.
       const places = (items as ApifyDatasetItem[]).filter((p) => isOurPlace(p.url));
       const place = places[0];
@@ -122,6 +125,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         const sum = rawReviews.reduce((acc, r) => acc + (r.stars ?? 0), 0);
         aggregateRating = Math.round((sum / rawReviews.length) * 10) / 10;
       }
+    }
+
+    // TEMPORARY diagnostic: append ?debug=1 to see raw dataset shape without
+    // needing Apify console access. Safe to remove once review-count
+    // investigation is done — adds no fields unless explicitly requested.
+    if (req.query.debug === "1") {
+      res.status(200).json({
+        debug: {
+          rawItemCount: items.length,
+          isPlaceShaped,
+          placeIdUsed: placeId,
+          rawReviewsAfterPlaceFilter: rawReviews.length,
+          sampleRawUrls: (items as (ApifyDatasetItem & ApifyReview)[])
+            .slice(0, 5)
+            .map((i) => ({ url: i.url, title: i.title, reviewerName: i.reviewerName ?? i.name })),
+        },
+      });
+      return;
     }
 
     const reviews: Review[] = rawReviews
