@@ -10,6 +10,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import MobileCTABar from "./components/MobileCTABar";
 import LandingPage from "./pages/LandingPage";
 import ServicesPage from "./pages/ServicesPage";
+import Gallery from "./pages/Gallery";
 import ContactUs from "./pages/ContactUs";
 import Reviews from "./pages/Reviews";
 import NotFound from "./pages/NotFound";
@@ -62,6 +63,7 @@ export const routes: RouteRecord[] = [
     children: [
       { index: true, element: <LandingPage />, loader: reviewsLoader },
       { path: "services", element: <ServicesPage /> },
+      { path: "gallery", element: <Gallery /> },
       { path: "contact", element: <ContactUs /> },
       { path: "reviews", element: <Reviews />, loader: reviewsLoader },
       // Catch-all 404 — must remain last.

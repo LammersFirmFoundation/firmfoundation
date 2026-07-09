@@ -269,6 +269,12 @@ const ServicesPage = () => {
                 <Link to="/contact">Contact Us</Link>
               </Button>
             </div>
+            <Link
+              to="/gallery"
+              className="inline-block mt-8 text-background/70 hover:text-background underline underline-offset-4 transition-colors"
+            >
+              See examples of our work &rarr;
+            </Link>
           </FadeInView>
         </Section>
       </main>

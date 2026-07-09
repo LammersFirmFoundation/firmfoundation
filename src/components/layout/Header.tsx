@@ -17,6 +17,7 @@ interface HeaderProps {
 const navLinks = [
   { label: "Home", path: "/" },
   { label: "Services", path: "/services" },
+  { label: "Our Work", path: "/gallery" },
   { label: "Reviews", path: "/reviews" },
   { label: "Contact", path: "/contact" },
 ];
@@ -70,7 +71,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-5 lg:gap-6">
             {navLinks.map((link) => (
               <Link
                 key={link.path}

@@ -62,6 +62,14 @@ const Footer = () => {
             <ul className="space-y-2 text-background/60 text-sm">
               <li>
                 <Link
+                  to="/gallery"
+                  className="hover:text-background transition-colors"
+                >
+                  Our Work
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/reviews"
                   className="hover:text-background transition-colors"
                 >
