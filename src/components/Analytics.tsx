@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/react";
 import { track } from "@vercel/analytics";
 
 /**
@@ -31,12 +30,10 @@ const Analytics = () => {
     return () => document.removeEventListener("click", onClick);
   }, []);
 
-  return (
-    <>
-      <VercelAnalytics />
-      <SpeedInsights />
-    </>
-  );
+  // Speed Insights is deliberately NOT mounted: it's a separately billed Vercel
+  // product, and Will's instruction was no extra spend. Core Web Vitals are
+  // measured locally with Lighthouse/Playwright instead, which costs nothing.
+  return <VercelAnalytics />;
 };
 
 /** Fired from the contact form once Formspree accepts the submission. */
