@@ -96,7 +96,7 @@ const ServicesPage = () => {
         />
 
         {/* Page header */}
-        <section className="px-5 sm:px-6 md:px-10 py-24 md:py-36">
+        <section className="px-5 sm:px-6 md:px-10 py-16 md:py-24">
           <div className="mx-auto max-w-content">
             <FadeInView>
               <p className="eyebrow text-primary mb-6">What We Do</p>
@@ -115,14 +115,14 @@ const ServicesPage = () => {
 
         {/* Services */}
         <Section className="pt-0">
-          <div className="space-y-32 md:space-y-44">
+          <div className="space-y-16 md:space-y-24">
             {services.map((service, index) => {
               const imageLeft = index % 2 === 0;
               return (
                 <article
                   key={service.slug}
                   id={service.slug}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-start scroll-mt-28"
+                  className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-start scroll-mt-28"
                 >
                   <FadeInView
                     direction={imageLeft ? "left" : "right"}
@@ -176,8 +176,8 @@ const ServicesPage = () => {
           <div className="max-w-narrow mx-auto divide-y divide-border border-y border-border">
             {faqs.map((faq) => (
               <FadeInView key={faq.question}>
-                <div className="py-8">
-                  <h3 className="font-heading text-xl md:text-2xl text-foreground mb-3">
+                <div className="py-6">
+                  <h3 className="font-heading text-xl md:text-2xl text-foreground mb-2.5">
                     {faq.question}
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">

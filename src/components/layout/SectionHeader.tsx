@@ -32,11 +32,11 @@ const SectionHeader = ({
   const centered = align === "center";
 
   return (
-    <FadeInView className={cn("mb-16 md:mb-24", className)}>
+    <FadeInView className={cn("mb-10 md:mb-14", className)}>
       {eyebrow && (
         <p
           className={cn(
-            "eyebrow text-primary mb-5",
+            "eyebrow text-primary mb-4",
             centered && "text-center"
           )}
         >

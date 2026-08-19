@@ -11,6 +11,7 @@ import CtaSection from "@/components/CtaSection";
 import { BUSINESS } from "@/data/business";
 import { businessRef, breadcrumbSchema } from "@/lib/schema";
 import principlesBackdrop from "@/assets/services/excavation.jpg";
+import missionPortrait from "@/assets/story/mission-portrait.jpg";
 
 /** Short label + one sentence, the way the reference site frames its own. */
 const principles = [
@@ -60,7 +61,7 @@ const AboutPage = () => {
         />
 
         {/* Page header */}
-        <section className="px-5 sm:px-6 md:px-10 py-24 md:py-36">
+        <section className="px-5 sm:px-6 md:px-10 py-16 md:py-24">
           <div className="mx-auto max-w-content">
             <FadeInView>
               <p className="eyebrow text-primary mb-6">About</p>
@@ -84,27 +85,43 @@ const AboutPage = () => {
           <OurStory />
         </Section>
 
-        {/* Where the name comes from. Josiah's mission portrait is built on
-            Matthew 7:24 — which is literally where "Firm Foundation" came
-            from, and that had never been said anywhere on the site. */}
-        <Section className="border-t border-border">
-          <div className="max-w-narrow mx-auto text-center">
-            <FadeInView>
-              <p className="eyebrow text-primary mb-8">Where the name comes from</p>
-              <blockquote className="font-heading text-3xl md:text-[2.75rem] font-extralight leading-[1.15] text-foreground">
-                &ldquo;Anyone who listens to my teaching and follows it is wise,
-                like a person who builds a house on{" "}
-                <span className="text-primary">solid rock</span>.&rdquo;
-              </blockquote>
-              <cite className="eyebrow text-muted-foreground mt-8 block not-italic">
-                Matthew 7:24
-              </cite>
-              <p className="text-muted-foreground leading-relaxed mt-10">
-                That verse is where the name came from. It&rsquo;s also the
-                standard: get the base right and everything you build on top of
-                it holds. It&rsquo;s true of a driveway, a patio, a drainage
-                line &mdash; and of how we&rsquo;d like to do business.
-              </p>
+        {/* Josiah's mission portrait. The verse is inside the image, so the
+            copy beside it doesn't repeat it — the two share one section rather
+            than costing the reader two. */}
+        <Section variant="muted">
+          <div className="grid grid-cols-1 md:grid-cols-[minmax(0,0.85fr)_1fr] gap-10 md:gap-16 items-center">
+            <FadeInView direction="left">
+              <img
+                src={missionPortrait}
+                alt="Josiah's mission portrait: core values courageous, witty, life-giving, hardworking, warrior; mission to live a life of integrity; vision to speak life and change the atmosphere; anchored on Matthew 7:24"
+                width={1100}
+                height={1955}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-auto rounded-sm shadow-2xl ring-1 ring-border"
+              />
+            </FadeInView>
+
+            <FadeInView direction="right" delay={0.1}>
+              <p className="eyebrow text-primary mb-5">Where the name comes from</p>
+              <h2 className="text-hero font-heading text-foreground mb-8">
+                Built on
+                <br />
+                <span className="text-primary">solid rock</span>
+              </h2>
+              <div className="space-y-5 text-muted-foreground leading-relaxed">
+                <p>
+                  Matthew 7:24 is where the name came from &mdash; the person who
+                  builds on solid rock is the one whose house stands. It&rsquo;s
+                  also the standard: get the base right and everything on top of
+                  it holds. True of a driveway, a patio, a drainage line.
+                </p>
+                <p>
+                  The rest of it is Josiah&rsquo;s own &mdash; the values he works
+                  by and the mission he wrote for himself:{" "}
+                  <span className="text-foreground">live a life of integrity</span>.
+                </p>
+              </div>
             </FadeInView>
           </div>
         </Section>
@@ -135,16 +152,16 @@ const AboutPage = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 md:gap-6">
               {principles.map((principle, i) => (
                 <FadeInView key={principle.title} delay={i * 0.08} direction="up">
-                  <article className="group flex h-full min-h-[360px] md:min-h-[440px] flex-col justify-between rounded-sm border border-border bg-background/70 p-7 md:p-9 backdrop-blur-sm transition-colors duration-500 hover:border-primary/70">
+                  <article className="group flex h-full min-h-[300px] md:min-h-[360px] flex-col justify-between rounded-sm border border-border bg-background/70 p-7 md:p-9 backdrop-blur-sm transition-colors duration-500 hover:border-primary/70">
                     <div>
-                      <span className="eyebrow text-primary block mb-7">
+                      <span className="eyebrow text-primary block mb-5">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <h3 className="font-heading text-3xl md:text-[2.5rem] font-extralight leading-[1.05] text-foreground">
                         {principle.title}
                       </h3>
                     </div>
-                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed mt-10">
+                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed mt-8">
                       {principle.detail}
                     </p>
                   </article>

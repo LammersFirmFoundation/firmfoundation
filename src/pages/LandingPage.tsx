@@ -190,45 +190,43 @@ const LandingPage = () => {
             subtitle="Dirt work first, and everything else that keeps a Lowcountry property right."
           />
 
-          <div className="space-y-28 md:space-y-40">
-            {services.map((service, index) => {
-              const imageLeft = index % 2 === 0;
-              return (
-                <div
-                  key={service.slug}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center"
+          {/* A compact grid, not five full-width alternating rows. The rows
+              looked good but cost roughly five screens of scrolling on the
+              page whose only job is to get someone to call. The detailed
+              alternating treatment still lives on /services. */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {services.map((service, index) => (
+              <FadeInView key={service.slug} delay={index * 0.06}>
+                <Link
+                  to="/services"
+                  className="group flex h-full flex-col rounded-lg overflow-hidden border border-border bg-card transition-colors duration-500 hover:border-primary/60"
                 >
-                  <FadeInView
-                    direction={imageLeft ? "left" : "right"}
-                    className={imageLeft ? "" : "md:order-2"}
-                  >
-                    <ServiceImage service={service} eager={index === 0} />
-                  </FadeInView>
-
-                  <FadeInView
-                    direction={imageLeft ? "right" : "left"}
-                    delay={0.15}
-                    className={imageLeft ? "" : "md:order-1"}
-                  >
-                    <span className="eyebrow text-primary block mb-4">
+                  <div className="overflow-hidden">
+                    <ServiceImage
+                      service={service}
+                      eager={index === 0}
+                      aspect="aspect-[16/10]"
+                      className="rounded-none transition-transform duration-700 ease-editorial group-hover:scale-[1.04]"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col p-6 md:p-7">
+                    <span className="eyebrow text-primary mb-3">
                       {String(index + 1).padStart(2, "0")}
+                      {index === 0 && " · Lead service"}
                     </span>
-                    <h3 className="text-title font-heading text-foreground mb-5">
+                    <h3 className="font-heading text-2xl md:text-[1.75rem] font-extralight leading-tight text-card-foreground mb-3">
                       {service.title}
                     </h3>
-                    <p className="text-muted-foreground leading-relaxed text-lg mb-8">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
                       {service.summary}
                     </p>
-                    <Link
-                      to="/services"
-                      className="eyebrow text-primary hover:text-foreground transition-colors border-b border-primary/40 hover:border-foreground pb-1"
-                    >
+                    <span className="eyebrow text-primary mt-6 inline-block group-hover:text-foreground transition-colors">
                       Learn more
-                    </Link>
-                  </FadeInView>
-                </div>
-              );
-            })}
+                    </span>
+                  </div>
+                </Link>
+              </FadeInView>
+            ))}
           </div>
         </Section>
 
@@ -287,7 +285,7 @@ const LandingPage = () => {
                       isActive ? "opacity-100" : "opacity-0 pointer-events-none"
                     }`}
                   >
-                    <p className="text-xl md:text-2xl font-heading font-light text-foreground leading-snug mb-8">
+                    <p className="text-xl md:text-2xl font-heading font-light text-foreground leading-snug mb-6">
                       &ldquo;{t.quote}&rdquo;
                     </p>
                     {t.images.length > 0 && (
@@ -296,7 +294,7 @@ const LandingPage = () => {
                         alt={`Photo from ${t.name}'s review`}
                         variant="row"
                         max={3}
-                        className="mb-8"
+                        className="mb-6"
                         onOpenChange={setPaused}
                       />
                     )}
@@ -331,7 +329,7 @@ const LandingPage = () => {
               })}
             </div>
 
-            <div className="flex items-center justify-center gap-3 mt-10">
+            <div className="flex items-center justify-center gap-3 mt-7">
               <div className="flex items-center gap-2.5">
                 {testimonials.map((_, i) => (
                   <button
@@ -367,7 +365,7 @@ const LandingPage = () => {
           </div>
 
           <FadeInView delay={0.2}>
-            <div className="flex flex-wrap items-center justify-center gap-5 mt-16 pt-10 border-t border-border">
+            <div className="flex flex-wrap items-center justify-center gap-5 mt-10 pt-8 border-t border-border">
               <StarRating rating={aggregateRating} size="h-5 w-5" className="text-primary" />
               <span className="eyebrow text-muted-foreground inline-flex items-center gap-2">
                 <GoogleIcon className="h-3.5 w-3.5" />

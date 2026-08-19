@@ -91,13 +91,13 @@ const OurStory = ({
   return (
     <div
       className={cn(
-        "grid grid-cols-1 md:grid-cols-2 gap-14 md:gap-20 items-center",
+        "grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 items-center",
         className
       )}
     >
       <FadeInView direction="left">
         {/* White mats and a drop shadow so the photos read as prints laid on a table. */}
-        <div className="relative mx-auto max-w-md pb-24 md:pb-28 pr-2 sm:pr-8">
+        <div className="relative mx-auto max-w-md pb-20 md:pb-24 pr-4 sm:pr-10">
           <figure className="rotate-[-2deg] bg-white p-3 pb-4 shadow-2xl ring-1 ring-black/5">
             <img
               src={photos[0].src}
@@ -114,7 +114,7 @@ const OurStory = ({
           </figure>
 
           {photos[1] && (
-            <figure className="absolute -bottom-10 -right-4 sm:-right-10 w-[44%] rotate-[4deg] bg-white p-2 pb-3 shadow-2xl ring-1 ring-black/5">
+            <figure className="absolute -bottom-10 -right-3 sm:-right-8 w-[44%] rotate-[4deg] bg-white p-2 pb-3 shadow-2xl ring-1 ring-black/5">
               <img
                 src={photos[1].src}
                 alt={photos[1].alt}

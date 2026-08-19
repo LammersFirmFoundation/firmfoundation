@@ -32,8 +32,8 @@ export default {
         'eyebrow': '0.22em',
       },
       spacing: {
-        'section': '10rem',
-        'section-sm': '6rem',
+        'section': '6.5rem',
+        'section-sm': '4rem',
       },
       maxWidth: {
         'content': '1280px',

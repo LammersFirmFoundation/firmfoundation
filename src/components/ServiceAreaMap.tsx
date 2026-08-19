@@ -28,7 +28,7 @@ const ServiceAreaMap = () => {
   return (
     <div className="relative rounded-lg overflow-hidden" style={{ zIndex: 0 }}>
       {/* Map */}
-      <div className="h-[350px] md:h-[500px]">
+      <div className="h-[300px] md:h-[400px]">
         <MapContainer
           center={[32.77, -79.90]}
           zoom={10}

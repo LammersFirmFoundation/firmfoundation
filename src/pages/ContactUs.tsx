@@ -140,7 +140,7 @@ const ContactUs = () => {
         />
 
         {/* Page header */}
-        <section className="px-5 sm:px-6 md:px-10 py-24 md:py-36">
+        <section className="px-5 sm:px-6 md:px-10 py-16 md:py-24">
           <div className="mx-auto max-w-content">
             <FadeInView>
               <p className="eyebrow text-primary mb-6">Free On-Site Quotes</p>

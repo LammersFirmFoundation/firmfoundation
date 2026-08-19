@@ -14,7 +14,7 @@ const companyLinks = [
 const Footer = () => {
   return (
     <footer className="mt-auto bg-charcoal-deep text-foreground border-t border-border">
-      <div className="mx-auto max-w-content px-5 sm:px-6 md:px-10 pt-24 pb-12 md:pt-32">
+      <div className="mx-auto max-w-content px-5 sm:px-6 md:px-10 pt-14 pb-10 md:pt-16">
         {/* The full logo lockup signs the page off. It carries white type, so
             it only ever appears on the dark footer. */}
         <img
@@ -23,13 +23,13 @@ const Footer = () => {
           width={340}
           height={249}
           loading="lazy"
-          className="w-[220px] md:w-[300px] h-auto mb-16 md:mb-24"
+          className="w-[160px] md:w-[200px] h-auto mb-10 md:mb-12"
         />
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 sm:gap-x-8 gap-y-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 sm:gap-x-8 gap-y-10">
           <div className="min-w-0">
-            <h2 className="eyebrow text-muted-foreground mb-5">Services</h2>
-            <ul className="space-y-2.5 text-sm text-foreground/70">
+            <h2 className="eyebrow text-muted-foreground mb-4">Services</h2>
+            <ul className="space-y-2 text-sm text-foreground/70">
               {services.map((service) => (
                 <li key={service.slug}>
                   <Link
@@ -44,8 +44,8 @@ const Footer = () => {
           </div>
 
           <div className="min-w-0">
-            <h2 className="eyebrow text-muted-foreground mb-5">Company</h2>
-            <ul className="space-y-2.5 text-sm text-foreground/70">
+            <h2 className="eyebrow text-muted-foreground mb-4">Company</h2>
+            <ul className="space-y-2 text-sm text-foreground/70">
               {companyLinks.map((link) => (
                 <li key={link.path}>
                   <Link
@@ -60,8 +60,8 @@ const Footer = () => {
           </div>
 
           <div className="min-w-0">
-            <h2 className="eyebrow text-muted-foreground mb-5">Service Areas</h2>
-            <ul className="space-y-2.5 text-sm text-foreground/70">
+            <h2 className="eyebrow text-muted-foreground mb-4">Service Areas</h2>
+            <ul className="space-y-2 text-sm text-foreground/70">
               {serviceAreaNames.map((area) => (
                 <li key={area}>{area}</li>
               ))}
@@ -69,8 +69,8 @@ const Footer = () => {
           </div>
 
           <div className="min-w-0">
-            <h2 className="eyebrow text-muted-foreground mb-5">Get in Touch</h2>
-            <ul className="space-y-4 text-sm text-foreground/70 min-w-0">
+            <h2 className="eyebrow text-muted-foreground mb-4">Get in Touch</h2>
+            <ul className="space-y-3 text-sm text-foreground/70 min-w-0">
               <li className="flex items-start gap-3 min-w-0 break-words">
                 <Phone className="h-4 w-4 mt-0.5 shrink-0 text-primary" aria-hidden="true" />
                 <a
@@ -111,7 +111,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-20 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-12 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="eyebrow text-muted-foreground text-center sm:text-left">
             &copy; {new Date().getFullYear()} {BUSINESS.name}
           </p>

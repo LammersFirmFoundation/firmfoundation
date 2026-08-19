@@ -4,6 +4,8 @@ import type { Service } from "@/data/services";
 import { BUSINESS } from "@/data/business";
 
 interface ServiceImageProps {
+  /** Override the default 4:3 frame. */
+  aspect?: string;
   service: Service;
   className?: string;
   /** Loading hint — the first card on a page should not be lazy. */
@@ -15,12 +17,17 @@ interface ServiceImageProps {
  * A newly launched service line shouldn't leave a broken frame on the page, and
  * dropping the real photo in later is a one-line change in `services.ts`.
  */
-const ServiceImage = ({ service, className, eager = false }: ServiceImageProps) => {
+const ServiceImage = ({
+  service,
+  className,
+  eager = false,
+  aspect = "aspect-[4/3]",
+}: ServiceImageProps) => {
   const shouldReduceMotion = useReducedMotion();
 
   if (service.image) {
     return (
-      <div className={cn("aspect-[4/3] rounded-lg overflow-hidden", className)}>
+      <div className={cn(aspect, "rounded-lg overflow-hidden", className)}>
         <motion.img
           src={service.image}
           alt={service.alt}
@@ -41,7 +48,8 @@ const ServiceImage = ({ service, className, eager = false }: ServiceImageProps) 
   return (
     <div
       className={cn(
-        "aspect-[4/3] rounded-lg overflow-hidden relative flex items-center justify-center",
+        aspect,
+        "rounded-lg overflow-hidden relative flex items-center justify-center",
         "bg-gradient-to-br from-[hsl(220,20%,10%)] to-[hsl(210,50%,22%)]",
         className
       )}
