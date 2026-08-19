@@ -14,20 +14,30 @@ export default {
     },
     extend: {
       fontFamily: {
-        'sans': ['Inter', 'sans-serif'],
-        'heading': ['Playfair Display', 'serif'],
+        // Manrope for everything readable, Outfit for display type. Outfit is
+        // the closest free stand-in for the reference site's Nohemi: geometric,
+        // flat-terminalled, and usable all the way down to weight 200.
+        'sans': ['Manrope', 'system-ui', 'sans-serif'],
+        'heading': ['Outfit', 'Manrope', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        'display': ['4.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
-        'hero': ['3.5rem', { lineHeight: '1.15', letterSpacing: '-0.02em' }],
+        // Fluid so the huge display sizes shrink gracefully instead of needing
+        // a breakpoint override at every call site.
+        'display': ['clamp(3rem, 8.6vw, 8rem)', { lineHeight: '0.88', letterSpacing: '-0.035em' }],
+        'hero': ['clamp(2.35rem, 6.4vw, 5.25rem)', { lineHeight: '0.92', letterSpacing: '-0.03em' }],
+        'title': ['clamp(1.875rem, 4.2vw, 3.5rem)', { lineHeight: '0.98', letterSpacing: '-0.025em' }],
+        'subtitle': ['clamp(1.125rem, 1.8vw, 1.5rem)', { lineHeight: '1.4', letterSpacing: '-0.01em' }],
+      },
+      letterSpacing: {
+        'eyebrow': '0.22em',
       },
       spacing: {
-        'section': '8rem',
-        'section-sm': '5rem',
+        'section': '10rem',
+        'section-sm': '6rem',
       },
       maxWidth: {
-        'content': '1200px',
-        'narrow': '800px',
+        'content': '1280px',
+        'narrow': '760px',
       },
       colors: {
         border: "hsl(var(--border))",
@@ -63,6 +73,15 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        cream: {
+          DEFAULT: "hsl(var(--cream))",
+          foreground: "hsl(var(--cream-foreground))",
+        },
+        charcoal: {
+          DEFAULT: "hsl(var(--charcoal))",
+          deep: "hsl(var(--charcoal-deep))",
+        },
+        "brand-yellow": "hsl(var(--brand-yellow))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -78,6 +97,9 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      transitionTimingFunction: {
+        'editorial': 'cubic-bezier(0.22, 1, 0.36, 1)',
       },
       keyframes: {
         "accordion-down": {

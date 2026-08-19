@@ -4,13 +4,16 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Outlet } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
-import type { RouteRecord } from "vite-react-ssg";
+import { ClientOnly, type RouteRecord } from "vite-react-ssg";
 import type { ApiResponse } from "./lib/useReviews";
 import ScrollToTop from "./components/ScrollToTop";
 import MobileCTABar from "./components/MobileCTABar";
+import ScrollProgress from "./components/ScrollProgress";
+import Analytics from "./components/Analytics";
 import LandingPage from "./pages/LandingPage";
 import ServicesPage from "./pages/ServicesPage";
 import Gallery from "./pages/Gallery";
+import AboutPage from "./pages/AboutPage";
 import ContactUs from "./pages/ContactUs";
 import Reviews from "./pages/Reviews";
 import NotFound from "./pages/NotFound";
@@ -42,11 +45,19 @@ async function reviewsLoader(): Promise<ApiResponse | undefined> {
 // longer mount BrowserRouter or HelmetProvider here.
 const RootLayout = () => (
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+    <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark">
       <TooltipProvider>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-primary focus:px-6 focus:py-3 focus:text-xs focus:font-semibold focus:uppercase focus:tracking-[0.14em] focus:text-primary-foreground"
+        >
+          Skip to content
+        </a>
         <Toaster />
         <Sonner />
         <ScrollToTop />
+        <ScrollProgress />
+        <ClientOnly>{() => <Analytics />}</ClientOnly>
         <Outlet />
         {/* Spacer so the fixed mobile bar never covers footer content */}
         <div className="h-14 md:hidden" aria-hidden="true" />
@@ -64,6 +75,7 @@ export const routes: RouteRecord[] = [
       { index: true, element: <LandingPage />, loader: reviewsLoader },
       { path: "services", element: <ServicesPage /> },
       { path: "gallery", element: <Gallery /> },
+      { path: "about", element: <AboutPage /> },
       { path: "contact", element: <ContactUs /> },
       { path: "reviews", element: <Reviews />, loader: reviewsLoader },
       // Catch-all 404 — must remain last.

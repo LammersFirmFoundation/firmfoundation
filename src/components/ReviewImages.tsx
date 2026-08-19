@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
 
 type Props = {
@@ -71,6 +71,7 @@ const ReviewImages = ({ images, alt, variant = "grid", max = 4, className, onOpe
           className="max-w-[95vw] sm:max-w-4xl p-0 bg-transparent border-0 shadow-none [&>button]:hidden"
           onClick={() => setOpenIndex(null)}
         >
+          <DialogTitle className="sr-only">{alt}</DialogTitle>
           {current && (
             <div className="relative flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
               <img

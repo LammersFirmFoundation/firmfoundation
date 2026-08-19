@@ -1,22 +1,7 @@
 import { MapContainer, TileLayer, Marker, Tooltip, Circle } from "react-leaflet";
 import L from "leaflet";
+import { serviceAreas } from "@/data/business";
 
-const serviceAreas: {
-  name: string;
-  coords: [number, number];
-  tooltipDir: "top" | "bottom" | "left" | "right";
-  tooltipOffset: [number, number];
-}[] = [
-  { name: "Mount Pleasant", coords: [32.7933, -79.8772], tooltipDir: "top", tooltipOffset: [0, -10] },
-  { name: "Isle of Palms", coords: [32.7866, -79.7868], tooltipDir: "right", tooltipOffset: [10, 0] },
-  { name: "Sullivan's Island", coords: [32.7658, -79.8375], tooltipDir: "bottom", tooltipOffset: [0, 10] },
-  { name: "Daniel Island", coords: [32.8590, -79.9020], tooltipDir: "top", tooltipOffset: [0, -10] },
-  { name: "Charleston", coords: [32.7765, -79.9311], tooltipDir: "left", tooltipOffset: [-10, 0] },
-  { name: "West Ashley", coords: [32.7990, -79.9840], tooltipDir: "left", tooltipOffset: [-10, 0] },
-  { name: "James Island", coords: [32.7330, -79.9450], tooltipDir: "bottom", tooltipOffset: [0, 10] },
-  { name: "Johns Island", coords: [32.7000, -80.0300], tooltipDir: "left", tooltipOffset: [-10, 0] },
-  { name: "Folly Beach", coords: [32.6552, -79.9404], tooltipDir: "bottom", tooltipOffset: [0, 10] },
-];
 
 const markerIcon = L.divIcon({
   className: "",
@@ -25,14 +10,14 @@ const markerIcon = L.divIcon({
       <div style="
         position:absolute;inset:0;
         border-radius:50%;
-        background:hsl(210,60%,55%);
+        background:hsl(45,96%,59%);
         border:2px solid white;
-        box-shadow:0 0 10px 2px hsla(210,60%,55%,0.5);
+        box-shadow:0 0 10px 2px hsla(45,96%,59%,0.55);
       "></div>
       <div class="map-pulse-ring" style="
         position:absolute;inset:-6px;
         border-radius:50%;
-        border:2px solid hsl(210,60%,55%);
+        border:2px solid hsl(45,96%,59%);
       "></div>
     </div>`,
   iconSize: [20, 20],
@@ -41,7 +26,7 @@ const markerIcon = L.divIcon({
 
 const ServiceAreaMap = () => {
   return (
-    <div className="relative rounded-xl overflow-hidden" style={{ zIndex: 0 }}>
+    <div className="relative rounded-lg overflow-hidden" style={{ zIndex: 0 }}>
       {/* Map */}
       <div className="h-[350px] md:h-[500px]">
         <MapContainer
@@ -51,7 +36,7 @@ const ServiceAreaMap = () => {
           zoomControl={false}
           attributionControl={false}
           className="service-area-map h-full w-full"
-          style={{ zIndex: 0, background: "hsl(220,20%,10%)" }}
+          style={{ zIndex: 0, background: "hsl(216,17%,12%)" }}
         >
           <TileLayer
             url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
@@ -60,15 +45,23 @@ const ServiceAreaMap = () => {
             center={[32.77, -79.90]}
             radius={18000}
             pathOptions={{
-              color: "hsl(210,60%,55%)",
+              color: "hsl(45,96%,59%)",
               weight: 2,
               dashArray: "8 6",
-              fillColor: "hsl(210,60%,55%)",
+              fillColor: "hsl(45,96%,59%)",
               fillOpacity: 0.08,
             }}
           />
           {serviceAreas.map((area) => (
-            <Marker key={area.name} position={area.coords} icon={markerIcon}>
+            // Non-interactive: the permanent tooltip already exposes the name
+            // as text, so a focusable, unnamed marker button adds only noise.
+            <Marker
+              key={area.name}
+              position={area.coords}
+              icon={markerIcon}
+              interactive={false}
+              keyboard={false}
+            >
               <Tooltip permanent direction={area.tooltipDir} offset={area.tooltipOffset}>
                 {area.name}
               </Tooltip>
@@ -79,10 +72,10 @@ const ServiceAreaMap = () => {
 
       {/* Gradient edge overlays */}
       <div className="pointer-events-none absolute inset-0 z-10">
-        <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-[hsl(220,20%,10%)] to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[hsl(220,20%,10%)] to-transparent" />
-        <div className="absolute top-0 bottom-0 left-0 w-8 bg-gradient-to-r from-[hsl(220,20%,10%)] to-transparent" />
-        <div className="absolute top-0 bottom-0 right-0 w-8 bg-gradient-to-l from-[hsl(220,20%,10%)] to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-background to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-background to-transparent" />
+        <div className="absolute top-0 bottom-0 left-0 w-8 bg-gradient-to-r from-background to-transparent" />
+        <div className="absolute top-0 bottom-0 right-0 w-8 bg-gradient-to-l from-background to-transparent" />
       </div>
 
     </div>

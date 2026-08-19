@@ -1,86 +1,50 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLoaderData } from "react-router-dom";
-import { Star, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { ChevronDown, ChevronLeft, ChevronRight, ExternalLink, Pause, Play } from "lucide-react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useState, useEffect, lazy, Suspense } from "react";
 import { ClientOnly } from "vite-react-ssg";
 import SEO from "@/components/SEO";
+import CtaSection from "@/components/CtaSection";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Section from "@/components/layout/Section";
 import SectionHeader from "@/components/layout/SectionHeader";
 import FadeInView from "@/components/animations/FadeInView";
-// Leaflet touches `window` at import time, so load the map on the client only.
+import ReviewImages from "@/components/ReviewImages";
+import GoogleIcon from "@/components/icons/GoogleIcon";
+import StarRating from "@/components/StarRating";
+import ServiceImage from "@/components/ServiceImage";
+import HeroVideo from "@/components/HeroVideo";
+import OurStory from "@/components/OurStory";
+import { useReviews, type ApiResponse } from "@/lib/useReviews";
+import { services } from "@/data/services";
+import { BUSINESS, serviceAreaNames } from "@/data/business";
+import { localBusinessSchema, websiteSchema } from "@/lib/schema";
+import heroPoster from "@/assets/services/excavation.jpg";
+
+// Leaflet touches `window` at import time, so the map loads on the client only.
 // The static fallback keeps the service-area names in the prerendered HTML.
 const ServiceAreaMap = lazy(() => import("@/components/ServiceAreaMap"));
 
-const SERVICE_AREAS = [
-  "Mount Pleasant",
-  "Charleston",
-  "Daniel Island",
-  "Isle of Palms",
-  "Sullivan's Island",
-  "West Ashley",
-  "James Island",
-  "Johns Island",
-  "Folly Beach",
-  "Dunes West",
-  "Park West",
-];
-import { useReviews, type ApiResponse } from "@/lib/useReviews";
-import ReviewImages from "@/components/ReviewImages";
-import { ExternalLink } from "lucide-react";
-import GoogleIcon from "@/components/icons/GoogleIcon";
-
-const GOOGLE_REVIEWS_URL =
-  "https://search.google.com/local/reviews?placeid=ChIJ5eaJLR-TCSgRcovM30Gs8yw";
-
-import hardscapes from "@/assets/services/hardscapes.jpg";
-import landscaping from "@/assets/services/landscaping.jpg";
-import treeServices from "@/assets/services/tree-services.jpg";
-import carpentry from "@/assets/services/carpentry.jpg";
-
-const stats: { value: string; label: string; isRating?: boolean }[] = [
-  { value: "5.0", label: "Google Rating", isRating: true },
+// The Google rating is prepended at render time from live review data, so this
+// strip can never print a different number than the hero or the reviews section.
+const staticStats: { value: string; label: string }[] = [
   { value: "100+", label: "Properties Served" },
   { value: "Free", label: "On-Site Quotes" },
-  { value: "Local", label: "Owned & Operated" },
-];
-
-const services = [
-  {
-    title: "Hardscapes",
-    description:
-      "From patios and walkways to retaining walls and outdoor living spaces, we deliver durable, beautifully crafted hardscape installations designed to enhance your property.",
-    image: hardscapes,
-    alt: "Professional hardscape installation",
-  },
-  {
-    title: "Landscaping",
-    description:
-      "Create and preserve beautiful outdoor spaces tailored to the Lowcountry climate. From seasonal plantings to full bed maintenance, we keep your property looking its best.",
-    image: landscaping,
-    alt: "Professional landscaping service",
-  },
-  {
-    title: "Tree Services",
-    description:
-      "Keep your trees healthy, safe, and beautiful with professional pruning, removals, and stump grinding. Built for the Lowcountry's live oaks and palms, with proactive storm and hurricane prep.",
-    image: treeServices,
-    alt: "Professional arborist tree trimming service",
-  },
-  {
-    title: "Custom Projects",
-    description:
-      "From deck repairs and fence work to pergolas and custom outdoor builds, we handle projects that protect your investment with quality craftsmanship.",
-    image: carpentry,
-    alt: "Custom outdoor project service",
-  },
+  { value: "Local", label: "Family Run" },
 ];
 
 const LandingPage = () => {
   const loaderData = useLoaderData() as ApiResponse | undefined;
   const { reviews, aggregateRating, totalReviewCount } = useReviews(loaderData);
+  const shouldReduceMotion = useReducedMotion();
+
+  // Hero copy drifts up and dissolves as the page moves off it, so the hero
+  // hands over to the next section instead of just scrolling away.
+  const { scrollY } = useScroll();
+  const heroOpacity = useTransform(scrollY, [0, 520], [1, 0]);
+  const heroLift = useTransform(scrollY, [0, 520], [0, -70]);
 
   const testimonials = reviews.slice(0, 5).map((r) => ({
     quote: r.review,
@@ -93,266 +57,173 @@ const LandingPage = () => {
 
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [paused, setPaused] = useState(false);
+  // Hover and focus pausing never reaches a touch-only visitor, so autoplay
+  // also needs a control they can actually press.
+  const [autoplayOff, setAutoplayOff] = useState(false);
 
   useEffect(() => {
-    if (testimonials.length <= 1 || paused) return;
+    if (testimonials.length <= 1 || paused || autoplayOff) return;
     const interval = setInterval(() => {
       setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, [testimonials.length, paused]);
+  }, [testimonials.length, paused, autoplayOff]);
 
   const goPrev = () =>
-    setActiveTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  const goNext = () =>
-    setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+    setActiveTestimonial((p) => (p - 1 + testimonials.length) % testimonials.length);
+  const goNext = () => setActiveTestimonial((p) => (p + 1) % testimonials.length);
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header transparent />
 
       <SEO
-        title="Firm Foundation Property Services | Mount Pleasant, SC"
-        description="Professional hardscapes, landscaping, tree services, and custom projects across Mount Pleasant, Charleston, Daniel Island, and the greater Charleston area of South Carolina."
+        title="Excavation &amp; Landscaping | Firm Foundation SC"
+        description="Family-run excavation, grading, drainage, hardscapes, landscaping, and tree services in Mount Pleasant and greater Charleston, SC. Call for a free quote."
         canonical="/"
-        keywords="property services Mount Pleasant SC, hardscapes, landscaping, tree services, tree removal, custom projects, Lowcountry"
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "LocalBusiness",
-          name: "Firm Foundation Property Services",
-          description:
-            "Professional property services in Mount Pleasant, SC. Expert hardscapes, landscaping, tree services, and custom projects for residential properties.",
-          image: "https://firmfoundationsc.com/og-image.jpg",
-          telephone: "(843) 998-5593",
-          email: "josiahlammers1@gmail.com",
-          url: "https://firmfoundationsc.com",
-          priceRange: "$$",
-          sameAs: ["https://www.instagram.com/firmfoundationsc"],
-          areaServed: [
-            { "@type": "City", name: "Mount Pleasant", addressRegion: "SC" },
-            { "@type": "City", name: "Charleston", addressRegion: "SC" },
-            { "@type": "City", name: "Daniel Island", addressRegion: "SC" },
-            { "@type": "City", name: "Isle of Palms", addressRegion: "SC" },
-            { "@type": "City", name: "Sullivan's Island", addressRegion: "SC" },
-            { "@type": "City", name: "West Ashley", addressRegion: "SC" },
-            { "@type": "City", name: "James Island", addressRegion: "SC" },
-            { "@type": "City", name: "Johns Island", addressRegion: "SC" },
-            { "@type": "City", name: "Folly Beach", addressRegion: "SC" },
-            { "@type": "City", name: "Dunes West", addressRegion: "SC" },
-            { "@type": "City", name: "Park West", addressRegion: "SC" },
-          ],
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "Mount Pleasant",
-            addressRegion: "SC",
-            postalCode: "29464",
-            addressCountry: "US",
-          },
-          hasOfferCatalog: {
-            "@type": "OfferCatalog",
-            name: "Property Services",
-            itemListElement: [
-              {
-                "@type": "Offer",
-                itemOffered: {
-                  "@type": "Service",
-                  name: "Hardscapes",
-                },
-              },
-              {
-                "@type": "Offer",
-                itemOffered: {
-                  "@type": "Service",
-                  name: "Landscaping",
-                },
-              },
-              {
-                "@type": "Offer",
-                itemOffered: {
-                  "@type": "Service",
-                  name: "Tree Services",
-                },
-              },
-              {
-                "@type": "Offer",
-                itemOffered: {
-                  "@type": "Service",
-                  name: "Custom Projects",
-                },
-              },
-            ],
-          },
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: aggregateRating.toFixed(1),
-            reviewCount: String(totalReviewCount),
-          },
-        }}
+        keywords="excavation Mount Pleasant SC, yard grading, yard drainage, French drain installation, land clearing Charleston SC, irrigation trenching, landscaping, hardscapes, tree services, Lowcountry"
+        jsonLd={[localBusinessSchema, websiteSchema]}
       />
 
-      <main className="flex-1">
-        {/* Full-Screen Video Hero */}
-        <section className="relative h-[70vh] md:h-screen min-h-[500px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
-          {/* Video / Poster Background */}
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            poster={hardscapes}
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src="/hero-video.mp4" type="video/mp4" />
-          </video>
-          {/* Dark overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+      <main id="main" className="flex-1">
+        {/* ── Hero ─────────────────────────────────────────────────────── */}
+        <section className="relative min-h-[100svh] flex items-end overflow-hidden">
+          {/* Hero is the still. The cab clip is handheld phone footage shot
+              through dirty glass, and behind a headline it reads as noise
+              rather than atmosphere — re-add src="/hero-excavator.mp4" once
+              there's stabilised landscape footage worth the motion. */}
+          <HeroVideo
+            poster={heroPoster}
+            posterAlt="Firm Foundation's excavator clearing timber on a Lowcountry site"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-charcoal/85 via-charcoal/55 to-charcoal" />
+          <div className="absolute inset-0 bg-charcoal/18" />
 
-          <div className="relative z-10 container mx-auto px-4 pt-20 md:pt-0 text-center max-w-4xl">
-            <h1 className="text-3xl sm:text-5xl md:text-display font-bold text-white mb-4 md:mb-6 leading-tight tracking-tight font-heading drop-shadow-lg">
-              Mount Pleasant's Trusted
-              <br />
-              Property Services
-            </h1>
-            <p className="text-base md:text-xl text-white/90 mb-6 md:mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md">
-              Professional hardscapes, landscaping, tree services, and
-              custom projects for homes across the Lowcountry
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <Button
-                asChild
-                size="lg"
-                className="bg-white text-foreground hover:bg-white/90 text-base md:text-lg px-8 md:px-10 py-4 md:py-6 h-auto"
-              >
-                <Link to="/contact">Get a Free Quote</Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                className="bg-transparent border-2 border-white text-white hover:bg-white/10 text-base md:text-lg px-8 md:px-10 py-4 md:py-6 h-auto"
-              >
-                <Link to="/services">Our Services</Link>
-              </Button>
-            </div>
-
-            <div className="mt-6 flex items-center justify-center gap-2">
-              <div
-                className="flex"
-                role="img"
-                aria-label={`${aggregateRating.toFixed(1)} out of 5 stars`}
-              >
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="h-4 w-4 fill-white text-white"
-                    aria-hidden="true"
-                  />
-                ))}
-              </div>
-              <span className="text-sm text-white/90 drop-shadow-md inline-flex items-center gap-1.5">
-                <GoogleIcon className="h-3.5 w-3.5" />
-                {aggregateRating.toFixed(1)} from verified Google reviews
-              </span>
-            </div>
-          </div>
-
-          {/* Scroll indicator */}
           <motion.div
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block"
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
+            style={shouldReduceMotion ? undefined : { opacity: heroOpacity, y: heroLift }}
+            className="relative z-10 w-full mx-auto max-w-content px-5 sm:px-6 md:px-10 pb-24 pt-32 md:pb-32 will-change-transform"
           >
-            <ChevronDown className="h-8 w-8 text-white/60" />
+            <FadeInView>
+              <p className="eyebrow text-primary mb-6">
+                Mount Pleasant &middot; Greater Charleston
+              </p>
+              <h1 className="text-hero md:text-display font-heading text-foreground max-w-6xl">
+                Groundwork for
+                <br />
+                <span className="text-primary">the Lowcountry&rsquo;s</span>
+                <br />
+                finest homes
+              </h1>
+              <p className="text-subtitle text-foreground/70 mt-8 max-w-xl leading-relaxed">
+                Small excavation, grading, drainage, and irrigation &mdash; plus
+                the landscaping, hardscapes, and tree work that got us here.
+              </p>
+
+              <div className="mt-10 flex flex-col sm:flex-row gap-4 sm:items-center">
+                <Button asChild size="lg" variant="contrast">
+                  <Link to="/contact">Get a Free Quote</Link>
+                </Button>
+                <Button asChild size="lg" variant="outline">
+                  <Link to="/services">Our Services</Link>
+                </Button>
+              </div>
+
+              <a
+                href="#reviews"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document
+                    .getElementById("reviews")
+                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                className="mt-10 inline-flex items-center gap-2.5 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              >
+                <StarRating rating={aggregateRating} size="h-4 w-4" className="text-primary" />
+                <span className="text-sm text-foreground/75 inline-flex items-center gap-1.5">
+                  <GoogleIcon className="h-3.5 w-3.5" />
+                  {aggregateRating.toFixed(1)} from verified Google reviews
+                </span>
+              </a>
+            </FadeInView>
           </motion.div>
+
+          {!shouldReduceMotion && (
+            <motion.div
+              className="absolute bottom-8 right-8 hidden md:block text-foreground/40"
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              aria-hidden="true"
+            >
+              <ChevronDown className="h-6 w-6" />
+            </motion.div>
+          )}
         </section>
 
-        {/* Value Proposition Strip */}
-        <section className="border-b border-border bg-background">
-          <div className="container mx-auto px-4 py-8">
-            <div className="flex flex-wrap justify-center gap-8 md:gap-16">
-              {stats.map((stat) => {
-                const isRating = Boolean(stat.isRating);
-                const content = (
-                  <div className="text-center">
-                    <div className="text-2xl md:text-3xl font-bold text-foreground font-heading">
-                      {stat.value}
-                    </div>
-                    <div className="text-sm text-muted-foreground mt-1 inline-flex items-center gap-1.5">
-                      {isRating && <GoogleIcon className="h-3.5 w-3.5" />}
-                      {stat.label}
-                    </div>
-                  </div>
-                );
-                return (
-                  <FadeInView key={stat.label}>
-                    {isRating ? (
-                      <a
-                        href="#reviews"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          document
-                            .getElementById("reviews")
-                            ?.scrollIntoView({ behavior: "smooth", block: "start" });
-                        }}
-                        aria-label="Scroll to reviews"
-                        className="block rounded-md transition-opacity hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                      >
-                        {content}
-                      </a>
-                    ) : (
-                      content
-                    )}
-                  </FadeInView>
-                );
-              })}
-            </div>
+        {/* ── Stats strip ──────────────────────────────────────────────── */}
+        <section className="border-y border-border bg-background">
+          <div className="mx-auto max-w-content px-5 sm:px-6 md:px-10">
+            <dl className="grid grid-cols-2 md:grid-cols-4 border-border [&>*]:border-border [&>*]:border-t [&>*]:border-l max-md:[&>*:nth-child(-n+2)]:border-t-0 max-md:[&>*:nth-child(odd)]:border-l-0 md:[&>*]:border-t-0 md:[&>*:first-child]:border-l-0">
+              {[
+                { value: aggregateRating.toFixed(1), label: "Google Rating", isRating: true },
+                ...staticStats,
+              ].map((stat, i) => (
+                <div key={stat.label} className="py-10 px-5 text-center">
+                  <dd className="font-heading text-4xl md:text-5xl text-foreground">
+                    {stat.value}
+                  </dd>
+                  <dt className="eyebrow text-muted-foreground mt-3 inline-flex items-center gap-1.5">
+                    {"isRating" in stat && <GoogleIcon className="h-3 w-3" />}
+                    {stat.label}
+                  </dt>
+                </div>
+              ))}
+            </dl>
           </div>
         </section>
 
-        {/* Services Overview — Alternating Layout */}
+        {/* ── Services ─────────────────────────────────────────────────── */}
         <Section>
           <SectionHeader
-            title="Our Services"
-            subtitle="Professional property services for homeowners across Mount Pleasant"
+            eyebrow="What We Do"
+            title="Our"
+            accent="Services"
+            subtitle="Dirt work first, and everything else that keeps a Lowcountry property right."
           />
 
-          <div className="space-y-24">
+          <div className="space-y-28 md:space-y-40">
             {services.map((service, index) => {
               const imageLeft = index % 2 === 0;
               return (
                 <div
-                  key={service.title}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center"
+                  key={service.slug}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center"
                 >
                   <FadeInView
                     direction={imageLeft ? "left" : "right"}
                     className={imageLeft ? "" : "md:order-2"}
                   >
-                    <div className="aspect-[4/3] rounded-lg overflow-hidden">
-                      <img
-                        src={service.image}
-                        alt={service.alt}
-                        loading="lazy"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
+                    <ServiceImage service={service} eager={index === 0} />
                   </FadeInView>
+
                   <FadeInView
                     direction={imageLeft ? "right" : "left"}
                     delay={0.15}
                     className={imageLeft ? "" : "md:order-1"}
                   >
-                    <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-heading">
+                    <span className="eyebrow text-primary block mb-4">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="text-title font-heading text-foreground mb-5">
                       {service.title}
-                    </h2>
-                    <p className="text-muted-foreground leading-relaxed text-lg mb-6">
-                      {service.description}
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed text-lg mb-8">
+                      {service.summary}
                     </p>
                     <Link
                       to="/services"
-                      className="text-primary font-medium hover:underline"
+                      className="eyebrow text-primary hover:text-foreground transition-colors border-b border-primary/40 hover:border-foreground pb-1"
                     >
-                      Learn more &rarr;
+                      Learn more
                     </Link>
                   </FadeInView>
                 </div>
@@ -361,17 +232,26 @@ const LandingPage = () => {
           </div>
         </Section>
 
-        {/* Testimonials */}
+        {/* ── Our story ────────────────────────────────────────────────── */}
+        <Section variant="cream">
+          <OurStory showLink />
+        </Section>
+
+        {/* ── Reviews ──────────────────────────────────────────────────── */}
         <Section variant="muted" id="reviews" className="scroll-mt-24">
           <SectionHeader
-            title="What Our Clients Say"
-            subtitle="Trusted by homeowners throughout Mount Pleasant"
+            eyebrow="Testimonials"
+            title="Client"
+            accent="Reviews"
+            subtitle="Real, verified Google reviews from homeowners across the Lowcountry."
           />
 
           <div
             className="max-w-3xl mx-auto text-center relative"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
+            onFocus={() => setPaused(true)}
+            onBlur={() => setPaused(false)}
           >
             {testimonials.length > 1 && (
               <>
@@ -379,36 +259,36 @@ const LandingPage = () => {
                   type="button"
                   onClick={goPrev}
                   aria-label="Previous review"
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-6 z-10 h-10 w-10 rounded-full bg-background border border-border shadow-sm hover:bg-muted flex items-center justify-center transition-colors"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 sm:-translate-x-8 z-10 h-11 w-11 rounded-full border border-border hover:border-primary hover:text-primary flex items-center justify-center transition-colors"
                 >
-                  <ChevronLeft className="h-5 w-5 text-foreground" />
+                  <ChevronLeft className="h-5 w-5" aria-hidden="true" />
                 </button>
                 <button
                   type="button"
                   onClick={goNext}
                   aria-label="Next review"
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-6 z-10 h-10 w-10 rounded-full bg-background border border-border shadow-sm hover:bg-muted flex items-center justify-center transition-colors"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 sm:translate-x-8 z-10 h-11 w-11 rounded-full border border-border hover:border-primary hover:text-primary flex items-center justify-center transition-colors"
                 >
-                  <ChevronRight className="h-5 w-5 text-foreground" />
+                  <ChevronRight className="h-5 w-5" aria-hidden="true" />
                 </button>
               </>
             )}
+
             <div className="grid px-4">
               {testimonials.map((t, i) => {
                 const isActive = i === activeTestimonial % testimonials.length;
                 return (
                   <div
                     key={i}
-                    aria-hidden={!isActive}
-                    className={`[grid-column:1] [grid-row:1] flex flex-col items-center justify-start transition-opacity duration-700 ease-in-out ${
+                    // `inert` keeps hidden slides out of the tab order and away
+                    // from screen readers; opacity alone left them focusable.
+                    {...(!isActive ? { inert: "" } : {})}
+                    className={`[grid-column:1] [grid-row:1] flex flex-col items-center transition-opacity duration-700 ease-editorial ${
                       isActive ? "opacity-100" : "opacity-0 pointer-events-none"
                     }`}
                   >
-                    <div className="text-6xl text-primary/20 font-heading leading-none mb-4">
-                      &ldquo;
-                    </div>
-                    <p className="text-lg md:text-xl text-foreground leading-relaxed italic mb-6">
-                      {t.quote}
+                    <p className="text-xl md:text-2xl font-heading font-light text-foreground leading-snug mb-8">
+                      &ldquo;{t.quote}&rdquo;
                     </p>
                     {t.images.length > 0 && (
                       <ReviewImages
@@ -416,32 +296,34 @@ const LandingPage = () => {
                         alt={`Photo from ${t.name}'s review`}
                         variant="row"
                         max={3}
-                        className="mb-6"
+                        className="mb-8"
                         onOpenChange={setPaused}
                       />
                     )}
-                    <div className="flex flex-col items-center gap-2">
+                    <div className="flex flex-col items-center gap-2.5">
                       {t.avatarUrl && (
                         <img
                           src={t.avatarUrl}
                           alt=""
                           loading="lazy"
+                          width={48}
+                          height={48}
                           className="h-12 w-12 rounded-full object-cover"
                           referrerPolicy="no-referrer"
                         />
                       )}
-                      <p className="font-bold text-foreground">{t.name}</p>
-                      <p className="text-sm text-muted-foreground inline-flex items-center gap-1.5">
-                        <GoogleIcon className="h-3.5 w-3.5" />
+                      <p className="eyebrow text-foreground">{t.name}</p>
+                      <p className="text-xs text-muted-foreground inline-flex items-center gap-1.5">
+                        <GoogleIcon className="h-3 w-3" />
                         {t.location}
                       </p>
                       <a
-                        href={t.sourceUrl ?? GOOGLE_REVIEWS_URL}
+                        href={t.sourceUrl ?? BUSINESS.googleReviewsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="mt-1 inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
                       >
-                        View on Google <ExternalLink className="h-3 w-3" />
+                        View on Google <ExternalLink className="h-3 w-3" aria-hidden="true" />
                       </a>
                     </div>
                   </div>
@@ -449,64 +331,72 @@ const LandingPage = () => {
               })}
             </div>
 
-            {/* Dots */}
-            <div className="flex justify-center gap-2 mt-6">
-              {testimonials.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveTestimonial(i)}
-                  className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                    i === activeTestimonial
-                      ? "bg-primary"
-                      : "bg-border hover:bg-muted-foreground/40"
-                  }`}
-                  aria-label={`Go to testimonial ${i + 1}`}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Trust indicators */}
-          <FadeInView delay={0.2}>
-            <div className="flex flex-wrap items-center justify-center gap-6 mt-12 pt-8 border-t border-border">
-              <div className="flex items-center gap-1" role="img" aria-label="5 out of 5 stars">
-                {[...Array(5)].map((_, i) => (
-                  <Star
+            <div className="flex items-center justify-center gap-3 mt-10">
+              <div className="flex items-center gap-2.5">
+                {testimonials.map((_, i) => (
+                  <button
                     key={i}
-                    className="h-5 w-5 fill-primary text-primary"
-                    aria-hidden="true"
+                    onClick={() => setActiveTestimonial(i)}
+                    aria-label={`Go to review ${i + 1}`}
+                    aria-current={i === activeTestimonial ? "true" : undefined}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      i === activeTestimonial
+                        ? "w-8 bg-primary"
+                        : "w-1.5 bg-muted-foreground/70 hover:bg-muted-foreground"
+                    }`}
                   />
                 ))}
               </div>
-              <span className="text-muted-foreground text-sm inline-flex items-center gap-1.5">
-                <GoogleIcon className="h-4 w-4" />
+              {testimonials.length > 1 && (
+                <button
+                  type="button"
+                  onClick={() => setAutoplayOff((v) => !v)}
+                  aria-label={
+                    autoplayOff ? "Resume review autoplay" : "Pause review autoplay"
+                  }
+                  className="ml-1 flex h-8 w-8 items-center justify-center rounded-full border border-muted-foreground/70 text-muted-foreground hover:border-primary hover:text-primary transition-colors"
+                >
+                  {autoplayOff ? (
+                    <Play className="h-3.5 w-3.5" aria-hidden="true" />
+                  ) : (
+                    <Pause className="h-3.5 w-3.5" aria-hidden="true" />
+                  )}
+                </button>
+              )}
+            </div>
+          </div>
+
+          <FadeInView delay={0.2}>
+            <div className="flex flex-wrap items-center justify-center gap-5 mt-16 pt-10 border-t border-border">
+              <StarRating rating={aggregateRating} size="h-5 w-5" className="text-primary" />
+              <span className="eyebrow text-muted-foreground inline-flex items-center gap-2">
+                <GoogleIcon className="h-3.5 w-3.5" />
                 {aggregateRating.toFixed(1)} average from {totalReviewCount} verified Google reviews
               </span>
             </div>
           </FadeInView>
         </Section>
 
-        {/* Service Areas */}
-        <Section variant="dark" className="bg-gradient-to-b from-[hsl(220,20%,10%)] to-[hsl(210,50%,22%)]">
+        {/* ── Service areas ────────────────────────────────────────────── */}
+        <Section>
           <SectionHeader
-            title="Areas We Serve"
-            subtitle="Proudly serving Mount Pleasant, Charleston, and the surrounding Lowcountry"
-            dark
+            eyebrow="Coverage"
+            title="Areas We"
+            accent="Serve"
+            subtitle={`Firm Foundation Property Services is based in Mount Pleasant, South Carolina and works across ${serviceAreaNames.filter((a) => a !== "Mount Pleasant").join(", ")}.`}
           />
-
           <FadeInView>
             <ClientOnly
               fallback={
-                <div className="rounded-xl bg-[hsl(220,20%,10%)] p-8 md:p-12 min-h-[350px] md:min-h-[500px] flex flex-col items-center justify-center">
-                  <p className="text-background/70 mb-6 text-center max-w-md">
-                    Proudly serving Mount Pleasant and the surrounding
-                    Lowcountry communities:
+                <div className="rounded-lg bg-muted p-10 md:p-16 min-h-[350px] md:min-h-[500px] flex flex-col items-center justify-center">
+                  <p className="eyebrow text-muted-foreground mb-8 text-center">
+                    Proudly serving
                   </p>
                   <ul className="flex flex-wrap justify-center gap-3">
-                    {SERVICE_AREAS.map((area) => (
+                    {serviceAreaNames.map((area) => (
                       <li
                         key={area}
-                        className="bg-background/10 border border-background/20 text-background px-4 py-2 rounded-full text-sm"
+                        className="border border-border px-5 py-2 rounded-full eyebrow text-foreground/80"
                       >
                         {area}
                       </li>
@@ -524,35 +414,12 @@ const LandingPage = () => {
           </FadeInView>
         </Section>
 
-        {/* CTA Section */}
-        <Section variant="dark" className="text-center bg-gradient-to-b from-[hsl(210,50%,22%)] to-[hsl(220,20%,10%)]">
-          <FadeInView>
-            <h2 className="text-hero md:text-display font-bold text-background mb-6 font-heading leading-tight">
-              Ready to Transform
-              <br />
-              Your Property?
-            </h2>
-            <p className="text-xl text-background/70 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Contact Josiah Lammers today for a free consultation and quote
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                asChild
-                size="lg"
-                className="bg-background text-foreground hover:bg-background/90 text-lg px-10 py-6 h-auto"
-              >
-                <a href="tel:8439985593">Call (843) 998-5593</a>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                className="bg-transparent border-2 border-background/40 text-background hover:bg-background/10 text-lg px-10 py-6 h-auto"
-              >
-                <Link to="/contact">Send a Message</Link>
-              </Button>
-            </div>
-          </FadeInView>
-        </Section>
+        {/* ── CTA ──────────────────────────────────────────────────────── */}
+        <CtaSection
+          title="Ready to"
+          accent="get started?"
+          blurb="Call Josiah for a free walk-through and an honest quote — usually same week."
+        />
       </main>
 
       <Footer />

@@ -1,149 +1,123 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Instagram } from "lucide-react";
+import { BUSINESS, serviceAreaNames } from "@/data/business";
+import { services } from "@/data/services";
+import logoLockup from "@/assets/logo-lockup.png";
+
+const companyLinks = [
+  { label: "About", path: "/about" },
+  { label: "Our Work", path: "/gallery" },
+  { label: "Reviews", path: "/reviews" },
+  { label: "Contact", path: "/contact" },
+];
 
 const Footer = () => {
   return (
-    <footer className="bg-foreground text-background mt-auto">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* Brand */}
-          <div>
-            <h3 className="text-xl font-bold font-heading mb-3">
-              Firm Foundation
-            </h3>
-            <p className="text-background/60 leading-relaxed text-sm">
-              Professional property services for Charleston's Lowcountry.
-              Trusted by homeowners throughout Mount Pleasant.
-            </p>
-          </div>
+    <footer className="mt-auto bg-charcoal-deep text-foreground border-t border-border">
+      <div className="mx-auto max-w-content px-5 sm:px-6 md:px-10 pt-24 pb-12 md:pt-32">
+        {/* The full logo lockup signs the page off. It carries white type, so
+            it only ever appears on the dark footer. */}
+        <img
+          src={logoLockup}
+          alt={BUSINESS.name}
+          width={340}
+          height={249}
+          loading="lazy"
+          className="w-[220px] md:w-[300px] h-auto mb-16 md:mb-24"
+        />
 
-          {/* Services */}
-          <div>
-            <h4 className="font-semibold mb-4 text-background/90">Services</h4>
-            <ul className="space-y-2 text-background/60 text-sm">
-              <li>
-                <Link
-                  to="/services"
-                  className="hover:text-background transition-colors"
-                >
-                  Hardscapes
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/services"
-                  className="hover:text-background transition-colors"
-                >
-                  Landscaping
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/services"
-                  className="hover:text-background transition-colors"
-                >
-                  Tree Services
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/services"
-                  className="hover:text-background transition-colors"
-                >
-                  Custom Projects
-                </Link>
-              </li>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 sm:gap-x-8 gap-y-12">
+          <div className="min-w-0">
+            <h2 className="eyebrow text-muted-foreground mb-5">Services</h2>
+            <ul className="space-y-2.5 text-sm text-foreground/70">
+              {services.map((service) => (
+                <li key={service.slug}>
+                  <Link
+                    to="/services"
+                    className="hover:text-primary transition-colors"
+                  >
+                    {service.title}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Company */}
-          <div>
-            <h4 className="font-semibold mb-4 text-background/90">Company</h4>
-            <ul className="space-y-2 text-background/60 text-sm">
-              <li>
-                <Link
-                  to="/gallery"
-                  className="hover:text-background transition-colors"
-                >
-                  Our Work
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/reviews"
-                  className="hover:text-background transition-colors"
-                >
-                  Reviews
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/contact"
-                  className="hover:text-background transition-colors"
-                >
-                  Contact Us
-                </Link>
-              </li>
+          <div className="min-w-0">
+            <h2 className="eyebrow text-muted-foreground mb-5">Company</h2>
+            <ul className="space-y-2.5 text-sm text-foreground/70">
+              {companyLinks.map((link) => (
+                <li key={link.path}>
+                  <Link
+                    to={link.path}
+                    className="hover:text-primary transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Service Areas & Contact */}
-          <div>
-            <h4 className="font-semibold mb-4 text-background/90">
-              Service Areas
-            </h4>
-            <ul className="space-y-1 text-background/60 text-sm mb-6">
-              <li>Mount Pleasant</li>
-              <li>Charleston</li>
-              <li>Daniel Island</li>
-              <li>Isle of Palms</li>
-              <li>Sullivan's Island</li>
-              <li>West Ashley</li>
-              <li>James Island</li>
-              <li>Johns Island</li>
-              <li>Folly Beach</li>
+          <div className="min-w-0">
+            <h2 className="eyebrow text-muted-foreground mb-5">Service Areas</h2>
+            <ul className="space-y-2.5 text-sm text-foreground/70">
+              {serviceAreaNames.map((area) => (
+                <li key={area}>{area}</li>
+              ))}
             </ul>
-            <ul className="space-y-2 text-background/60 text-sm">
-              <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4 flex-shrink-0" />
+          </div>
+
+          <div className="min-w-0">
+            <h2 className="eyebrow text-muted-foreground mb-5">Get in Touch</h2>
+            <ul className="space-y-4 text-sm text-foreground/70 min-w-0">
+              <li className="flex items-start gap-3 min-w-0 break-words">
+                <Phone className="h-4 w-4 mt-0.5 shrink-0 text-primary" aria-hidden="true" />
                 <a
-                  href="tel:8439985593"
-                  className="hover:text-background transition-colors"
+                  href={BUSINESS.phoneHref}
+                  className="hover:text-primary transition-colors"
                 >
-                  (843) 998-5593
+                  {BUSINESS.phone}
                 </a>
               </li>
-              <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4 flex-shrink-0" />
+              <li className="flex items-start gap-3 min-w-0 break-words">
+                <Mail className="h-4 w-4 mt-0.5 shrink-0 text-primary" aria-hidden="true" />
                 <a
-                  href="mailto:josiahlammers1@gmail.com"
-                  className="hover:text-background transition-colors"
+                  href={`mailto:${BUSINESS.email}`}
+                  className="hover:text-primary transition-colors break-all"
                 >
-                  josiahlammers1@gmail.com
+                  {BUSINESS.email}
                 </a>
               </li>
-              <li className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 flex-shrink-0" />
-                <span>Mount Pleasant, SC 29464</span>
+              <li className="flex items-start gap-3 min-w-0 break-words">
+                <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-primary" aria-hidden="true" />
+                <span>
+                  {BUSINESS.address.locality}, {BUSINESS.address.region}{" "}
+                  {BUSINESS.address.postalCode}
+                </span>
+              </li>
+              <li className="flex items-start gap-3 min-w-0 break-words">
+                <Instagram className="h-4 w-4 mt-0.5 shrink-0 text-primary" aria-hidden="true" />
+                <a
+                  href={BUSINESS.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary transition-colors break-all"
+                >
+                  @firmfoundationsc
+                </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-background/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-background/40 text-sm">
-          <p>
-            &copy; {new Date().getFullYear()} Firm Foundation Property
-            Services. All rights reserved.
+        <div className="mt-20 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="eyebrow text-muted-foreground text-center sm:text-left">
+            &copy; {new Date().getFullYear()} {BUSINESS.name}
           </p>
-          <a
-            href="https://www.instagram.com/firmfoundationsc"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 hover:text-background/60 transition-colors"
-          >
-            <Instagram className="h-5 w-5" />
-            <span>Follow us on Instagram</span>
-          </a>
+          <p className="eyebrow text-muted-foreground">
+            Mount Pleasant, South Carolina
+          </p>
         </div>
       </div>
     </footer>

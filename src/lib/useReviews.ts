@@ -39,10 +39,22 @@ export function useReviews(initialData?: ApiResponse): UseReviewsResult {
   const live = data?.reviews?.length ? data.reviews : null;
   const reviews = live ?? fallbackReviews;
 
+  // Derived from whatever reviews are actually on screen. The old default of a
+  // flat 5.0 meant a failed API produced a headline rating that disagreed with
+  // the reviews rendered right beneath it.
+  const derivedRating = reviews.length
+    ? Math.round(
+        (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length) * 10
+      ) / 10
+    : 5;
+
   return {
     reviews,
-    aggregateRating: data?.aggregateRating ?? 5.0,
-    totalReviewCount: data?.totalReviewCount ?? reviews.length,
+    // Only trust the API's totals when the API is what supplied `reviews`.
+    // A response with a rating but an empty review list would otherwise print
+    // a headline describing a different set than the one rendered below it.
+    aggregateRating: (live && data?.aggregateRating) || derivedRating,
+    totalReviewCount: (live && data?.totalReviewCount) || reviews.length,
     isLive: Boolean(live),
     isLoading,
   };

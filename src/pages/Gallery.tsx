@@ -3,11 +3,14 @@ import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Section from "@/components/layout/Section";
-import SectionHeader from "@/components/layout/SectionHeader";
 import FadeInView from "@/components/animations/FadeInView";
 import SEO from "@/components/SEO";
+import CtaSection from "@/components/CtaSection";
+import { BUSINESS } from "@/data/business";
+import { businessRef, breadcrumbSchema } from "@/lib/schema";
 import landscapingWalkway from "@/assets/gallery/landscaping-walkway-mount-pleasant.jpg";
 import landscapingBed from "@/assets/gallery/landscaping-bed-mount-pleasant.jpg";
+import customPantry from "@/assets/gallery/custom-pantry-mount-pleasant.jpg";
 
 const projects = [
   {
@@ -24,6 +27,13 @@ const projects = [
     image: landscapingBed,
     alt: "Before and after: overgrown front yard transformed with fresh mulch beds and plantings, Mount Pleasant SC",
   },
+  {
+    title: "Butler's Pantry Build",
+    category: "Custom Projects",
+    location: "Mount Pleasant, SC",
+    image: customPantry,
+    alt: "Custom butler's pantry: painted shaker cabinetry, brass hardware, patterned tile backsplash, and a quartz counter, Mount Pleasant SC",
+  },
 ];
 
 const Gallery = () => {
@@ -31,90 +41,96 @@ const Gallery = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
 
-      <main className="flex-1 pt-[72px]">
+      <main id="main" className="flex-1 pt-24">
         <SEO
-          title="Our Work – Recent Projects"
-          description="See real before-and-after landscaping, hardscape, and property transformations by Firm Foundation in Mount Pleasant and the greater Charleston area."
+          title="Project Gallery | Firm Foundation, Mount Pleasant"
+          description="Recent excavation, hardscape, landscaping, and custom project work from Firm Foundation in Mount Pleasant and the greater Charleston area."
           canonical="/gallery"
-          keywords="landscaping before and after, Mount Pleasant landscaping photos, property transformation, real projects Charleston SC"
+          keywords="landscaping before and after, Mount Pleasant landscaping photos, custom cabinetry Mount Pleasant, property transformation Charleston SC"
+          jsonLd={[
+            {
+              "@context": "https://schema.org",
+              "@type": "CollectionPage",
+              name: `Our Work — ${BUSINESS.name}`,
+              url: `${BUSINESS.url}/gallery`,
+              about: businessRef,
+              hasPart: projects.map((project) => ({
+                "@type": "ImageObject",
+                name: project.title,
+                description: project.alt,
+                contentUrl: `${BUSINESS.url}${project.image}`,
+                contentLocation: {
+                  "@type": "Place",
+                  name: project.location,
+                },
+              })),
+            },
+            breadcrumbSchema("Our Work", "/gallery"),
+          ]}
         />
 
-        {/* Page Header */}
-        <section className="py-20 md:py-28 px-4">
-          <div className="container mx-auto max-w-content text-center">
+        {/* Page header */}
+        <section className="px-5 sm:px-6 md:px-10 py-24 md:py-36">
+          <div className="mx-auto max-w-content">
             <FadeInView>
-              <h1 className="text-hero md:text-display font-bold text-foreground tracking-tight font-heading mb-4">
-                Our Work
+              <p className="eyebrow text-primary mb-6">Portfolio</p>
+              <h1 className="text-hero md:text-display font-heading max-w-4xl">
+                Recent work in
+                <br />
+                <span className="text-primary">Mount Pleasant</span>
               </h1>
-              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Real before-and-after transformations from properties across Mount Pleasant and the Lowcountry
+              <p className="text-subtitle text-muted-foreground mt-8 max-w-xl leading-relaxed">
+                Real projects from properties across Mount Pleasant and the
+                Lowcountry &mdash; outside and in.
               </p>
             </FadeInView>
           </div>
         </section>
 
-        {/* Project Gallery */}
-        <Section>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-            {projects.map((project) => (
-              <FadeInView key={project.title}>
-                <div className="rounded-lg overflow-hidden border border-border bg-card">
-                  <div className="overflow-hidden">
+        <Section className="pt-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 items-start">
+            {projects.map((project, index) => (
+              <FadeInView key={project.title} delay={index * 0.08}>
+                <figure className="group">
+                  <div className="overflow-hidden rounded-lg bg-muted">
                     <img
                       src={project.image}
                       alt={project.alt}
-                      loading="lazy"
-                      className="w-full h-auto object-cover"
+                      loading={index === 0 ? "eager" : "lazy"}
+                      decoding="async"
+                      className="w-full h-auto object-cover transition-transform duration-700 ease-editorial group-hover:scale-[1.03]"
                     />
                   </div>
-                  <div className="p-5">
-                    <span className="inline-block text-xs font-medium text-primary bg-primary/10 px-2.5 py-1 rounded-full mb-2">
+                  <figcaption className="mt-6 flex items-start justify-between gap-6 border-t border-border pt-5">
+                    <div>
+                      <h2 className="font-heading text-xl md:text-2xl text-foreground">
+                        {project.title}
+                      </h2>
+                      <p className="eyebrow text-muted-foreground mt-2.5">
+                        {project.location}
+                      </p>
+                    </div>
+                    <span className="eyebrow text-primary shrink-0 pt-1">
                       {project.category}
                     </span>
-                    <h2 className="text-lg font-bold text-foreground font-heading mb-1">
-                      {project.title}
-                    </h2>
-                    <p className="text-sm text-muted-foreground">{project.location}</p>
-                  </div>
-                </div>
+                  </figcaption>
+                </figure>
               </FadeInView>
             ))}
           </div>
 
           <FadeInView delay={0.1}>
-            <p className="text-center text-muted-foreground mt-12">
-              More projects added regularly — check back soon for the latest work.
+            <p className="text-center eyebrow text-muted-foreground mt-20">
+              More projects added regularly
             </p>
           </FadeInView>
         </Section>
 
-        {/* CTA Section */}
-        <Section variant="dark" className="text-center bg-gradient-to-b from-[hsl(210,50%,22%)] to-[hsl(220,20%,10%)]">
-          <FadeInView>
-            <h2 className="text-hero md:text-display font-bold text-background mb-6 font-heading leading-tight">
-              Ready for Your Own Transformation?
-            </h2>
-            <p className="text-xl text-background/70 mb-10 max-w-2xl mx-auto">
-              Contact us today for a free quote on your next project
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                asChild
-                size="lg"
-                className="bg-background text-foreground hover:bg-background/90 text-lg px-10 py-6 h-auto"
-              >
-                <a href="tel:8439985593">Call (843) 998-5593</a>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                className="bg-transparent border-2 border-background/40 text-background hover:bg-background/10 text-lg px-10 py-6 h-auto"
-              >
-                <Link to="/contact">Contact Us</Link>
-              </Button>
-            </div>
-          </FadeInView>
-        </Section>
+        <CtaSection
+          title="Ready for"
+          accent="yours?"
+          blurb="Tell us what you have in mind and we’ll come take a look."
+        />
       </main>
 
       <Footer />

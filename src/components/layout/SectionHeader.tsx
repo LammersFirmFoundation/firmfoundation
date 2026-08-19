@@ -2,37 +2,66 @@ import FadeInView from "@/components/animations/FadeInView";
 import { cn } from "@/lib/utils";
 
 interface SectionHeaderProps {
+  /** First line of the display heading. */
   title: string;
+  /**
+   * Second line, set in the bronze accent. The reference design breaks almost
+   * every section heading over two lines this way ("Recent / Work",
+   * "Client / Reviews") — it's what makes the huge type feel composed rather
+   * than merely large.
+   */
+  accent?: string;
+  /** Small uppercase label above the heading. */
+  eyebrow?: string;
   subtitle?: string;
   align?: "center" | "left";
   className?: string;
-  dark?: boolean;
+  /** Render as h1 — for page headers where this is the document title. */
+  as?: "h1" | "h2";
 }
 
 const SectionHeader = ({
   title,
+  accent,
+  eyebrow,
   subtitle,
   align = "center",
   className,
-  dark = false,
+  as: Heading = "h2",
 }: SectionHeaderProps) => {
+  const centered = align === "center";
+
   return (
-    <FadeInView className={cn("mb-12 md:mb-16", className)}>
-      <h2
+    <FadeInView className={cn("mb-16 md:mb-24", className)}>
+      {eyebrow && (
+        <p
+          className={cn(
+            "eyebrow text-primary mb-5",
+            centered && "text-center"
+          )}
+        >
+          {eyebrow}
+        </p>
+      )}
+      <Heading
         className={cn(
-          "text-hero md:text-display font-bold tracking-tight",
-          align === "center" && "text-center",
-          dark ? "text-background" : "text-foreground"
+          "text-hero md:text-display font-heading",
+          centered && "text-center"
         )}
       >
         {title}
-      </h2>
+        {accent && (
+          <>
+            <br />
+            <span className="text-primary">{accent}</span>
+          </>
+        )}
+      </Heading>
       {subtitle && (
         <p
           className={cn(
-            "text-lg md:text-xl mt-4 max-w-2xl leading-relaxed",
-            align === "center" && "text-center mx-auto",
-            dark ? "text-background/70" : "text-muted-foreground"
+            "text-subtitle text-muted-foreground mt-7 max-w-narrow leading-relaxed",
+            centered && "text-center mx-auto"
           )}
         >
           {subtitle}
