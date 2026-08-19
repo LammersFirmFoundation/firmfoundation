@@ -47,7 +47,7 @@ const ServicesPage = () => {
 
       <main id="main" className="flex-1 pt-24">
         <SEO
-          title="Excavation, Hardscapes &amp; More | Firm Foundation"
+          title="Excavation &amp; Grading Services, Mount Pleasant | Firm Foundation"
           description="Excavation, hardscapes, landscaping, tree services, and custom projects for homes across Mount Pleasant and greater Charleston, SC. See all five services."
           canonical="/services"
           keywords="excavation Mount Pleasant SC, yard grading, French drain installation, yard drainage, land clearing Charleston SC, irrigation trenching, driveway grading, hardscapes, landscaping, tree services, custom cabinetry, tile backsplash"

@@ -5,6 +5,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import { useState, useEffect, lazy, Suspense } from "react";
 import { ClientOnly } from "vite-react-ssg";
 import SEO from "@/components/SEO";
+import { sizedPhoto } from "@/lib/reviewPhoto";
 import CtaSection from "@/components/CtaSection";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -78,7 +79,7 @@ const LandingPage = () => {
       <Header transparent />
 
       <SEO
-        title="Excavation &amp; Landscaping | Firm Foundation SC"
+        title="Excavation &amp; Grading in Mount Pleasant, SC | Firm Foundation"
         description="Family-run excavation, grading, drainage, hardscapes, landscaping, and tree services in Mount Pleasant and greater Charleston, SC. Call for a free quote."
         canonical="/"
         keywords="excavation Mount Pleasant SC, yard grading, yard drainage, French drain installation, land clearing Charleston SC, irrigation trenching, landscaping, hardscapes, tree services, Lowcountry"
@@ -103,7 +104,7 @@ const LandingPage = () => {
             style={shouldReduceMotion ? undefined : { opacity: heroOpacity, y: heroLift }}
             className="relative z-10 w-full mx-auto max-w-content px-5 sm:px-6 md:px-10 pb-24 pt-32 md:pb-32 will-change-transform"
           >
-            <FadeInView>
+            <FadeInView immediate>
               <p className="eyebrow text-primary mb-6">
                 Mount Pleasant &middot; Greater Charleston
               </p>
@@ -301,7 +302,7 @@ const LandingPage = () => {
                     <div className="flex flex-col items-center gap-2.5">
                       {t.avatarUrl && (
                         <img
-                          src={t.avatarUrl}
+                          src={sizedPhoto(t.avatarUrl, 96)}
                           alt=""
                           loading="lazy"
                           width={48}
@@ -330,19 +331,23 @@ const LandingPage = () => {
             </div>
 
             <div className="flex items-center justify-center gap-3 mt-7">
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center -my-4">
                 {testimonials.map((_, i) => (
                   <button
                     key={i}
                     onClick={() => setActiveTestimonial(i)}
                     aria-label={`Go to review ${i + 1}`}
                     aria-current={i === activeTestimonial ? "true" : undefined}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      i === activeTestimonial
-                        ? "w-8 bg-primary"
-                        : "w-1.5 bg-muted-foreground/70 hover:bg-muted-foreground"
-                    }`}
-                  />
+                    className="group flex h-11 items-center px-2.5"
+                  >
+                    <span
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        i === activeTestimonial
+                          ? "w-8 bg-primary"
+                          : "w-1.5 bg-muted-foreground/70 group-hover:bg-muted-foreground"
+                      }`}
+                    />
+                  </button>
                 ))}
               </div>
               {testimonials.length > 1 && (
@@ -352,7 +357,7 @@ const LandingPage = () => {
                   aria-label={
                     autoplayOff ? "Resume review autoplay" : "Pause review autoplay"
                   }
-                  className="ml-1 flex h-8 w-8 items-center justify-center rounded-full border border-muted-foreground/70 text-muted-foreground hover:border-primary hover:text-primary transition-colors"
+                  className="ml-1 flex h-11 w-11 items-center justify-center rounded-full border border-muted-foreground/70 text-muted-foreground hover:border-primary hover:text-primary transition-colors"
                 >
                   {autoplayOff ? (
                     <Play className="h-3.5 w-3.5" aria-hidden="true" />

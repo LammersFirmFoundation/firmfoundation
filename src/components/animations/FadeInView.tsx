@@ -7,6 +7,15 @@ interface FadeInViewProps {
   delay?: number;
   duration?: number;
   className?: string;
+  /**
+   * Render visible immediately, with no reveal. Required for anything above
+   * the fold: `whileInView` starts at opacity:0, and vite-react-ssg bakes that
+   * start state into the prerendered HTML — so the hero headline and its call
+   * CTA shipped invisible and only painted once framer-motion hydrated. On a
+   * throttled phone that is a blank hero for the whole of that wait, on the one
+   * page whose entire job is getting someone to call.
+   */
+  immediate?: boolean;
 }
 
 const directionOffset = {
@@ -31,10 +40,11 @@ const FadeInView = ({
   delay = 0,
   duration = 0.95,
   className,
+  immediate = false,
 }: FadeInViewProps) => {
   const shouldReduceMotion = useReducedMotion();
 
-  if (shouldReduceMotion) {
+  if (immediate || shouldReduceMotion) {
     return <div className={className}>{children}</div>;
   }
 

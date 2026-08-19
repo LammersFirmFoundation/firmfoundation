@@ -73,7 +73,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
               <Link
                 key={link.path}
                 to={link.path}
-                className="relative eyebrow text-foreground/75 hover:text-foreground transition-colors py-1 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+                className="relative whitespace-nowrap eyebrow text-foreground/75 hover:text-foreground transition-colors py-1 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
               >
                 {link.label}
               </Link>
@@ -97,13 +97,13 @@ const Header = ({ transparent = false }: HeaderProps) => {
               href={BUSINESS.phoneHref}
               data-analytics-where="header-mobile"
               aria-label={`Call ${BUSINESS.phone}`}
-              className="p-2"
+              className="p-3"
             >
               <Phone className="h-5 w-5 text-foreground" />
             </a>
             <Sheet>
               <SheetTrigger asChild>
-                <button aria-label="Open menu" className="p-2">
+                <button aria-label="Open menu" className="p-2.5">
                   <Menu className="h-6 w-6 text-foreground" />
                 </button>
               </SheetTrigger>

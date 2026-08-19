@@ -6,6 +6,7 @@ import Section from "@/components/layout/Section";
 import FadeInView from "@/components/animations/FadeInView";
 import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerContainer";
 import SEO from "@/components/SEO";
+import { sizedPhoto } from "@/lib/reviewPhoto";
 import CtaSection from "@/components/CtaSection";
 import StarRating from "@/components/StarRating";
 import GoogleIcon from "@/components/icons/GoogleIcon";
@@ -96,7 +97,7 @@ const Reviews = () => {
                     <div className="flex items-center gap-3 min-w-0">
                       {review.avatarUrl && (
                         <img
-                          src={review.avatarUrl}
+                          src={sizedPhoto(review.avatarUrl, 96)}
                           alt=""
                           loading="lazy"
                           width={40}
