@@ -6,6 +6,7 @@ import Section from "@/components/layout/Section";
 import FadeInView from "@/components/animations/FadeInView";
 import StaggerContainer, { StaggerItem } from "@/components/animations/StaggerContainer";
 import SEO from "@/components/SEO";
+import { Button } from "@/components/ui/button";
 import { sizedPhoto } from "@/lib/reviewPhoto";
 import CtaSection from "@/components/CtaSection";
 import StarRating from "@/components/StarRating";
@@ -64,6 +65,16 @@ const Reviews = () => {
                   {aggregateRating.toFixed(1)} average &middot; {totalReviewCount}{" "}
                   verified Google reviews
                 </p>
+              </div>
+
+              {/* Worked with us? The same /review redirect the printed QR card
+                  points at, so the ask is identical in print and on the web.
+                  Deliberately neutral wording — Google prohibits soliciting
+                  positive reviews specifically or asking for a star count. */}
+              <div className="mt-10">
+                <Button asChild size="lg" variant="outline">
+                  <a href="/review">Leave a review on Google</a>
+                </Button>
               </div>
             </FadeInView>
           </div>
