@@ -10,6 +10,12 @@ interface ServiceImageProps {
   className?: string;
   /** Loading hint — the first card on a page should not be lazy. */
   eager?: boolean;
+  /**
+   * How wide this image renders, so the browser can pick a variant. Defaults to
+   * the two-column layout used on /services and each service page; the
+   * homepage's three-up grid passes its own.
+   */
+  sizes?: string;
 }
 
 /**
@@ -22,6 +28,7 @@ const ServiceImage = ({
   className,
   eager = false,
   aspect = "aspect-[4/3]",
+  sizes = "(min-width: 768px) 50vw, 100vw",
 }: ServiceImageProps) => {
   const shouldReduceMotion = useReducedMotion();
 
@@ -30,6 +37,10 @@ const ServiceImage = ({
       <div className={cn(aspect, "rounded-lg overflow-hidden", className)}>
         <motion.img
           src={service.image}
+          // WebP variants at 640/1024/1600. `src` stays the original JPEG, so
+          // anything that doesn't understand srcset still gets a photo.
+          srcSet={service.imageSrcSet}
+          sizes={sizes}
           alt={service.alt}
           loading={eager ? "eager" : "lazy"}
           decoding="async"

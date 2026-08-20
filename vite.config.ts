@@ -1,5 +1,6 @@
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
+import { imagetools } from "vite-imagetools";
 import path from "path";
 import fs from "fs";
 
@@ -49,7 +50,15 @@ export default defineConfig({
       },
     },
   },
-  plugins: [react(), vercelRedirects()],
+  plugins: [
+    react(),
+    // Generates the resized WebP variants behind the `?w=…&as=srcset` imports.
+    // The site ships 4.79 MB of media against 0.79 MB of code and had no
+    // srcset at all, so a phone on cellular was downloading desktop-sized
+    // photographs of an excavator.
+    imagetools(),
+    vercelRedirects(),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

@@ -24,6 +24,7 @@ import { services } from "@/data/services";
 import { BUSINESS, serviceAreaNames } from "@/data/business";
 import { localBusinessSchema, websiteSchema } from "@/lib/schema";
 import heroPoster from "@/assets/services/excavation.jpg";
+import heroPosterSet from "@/assets/services/excavation.jpg?w=640;1024;1600;2000&format=webp&quality=68&as=srcset";
 
 // Leaflet touches `window` at import time, so the map loads on the client only.
 // The static fallback keeps the service-area names in the prerendered HTML.
@@ -98,6 +99,7 @@ const LandingPage = () => {
               there's stabilised landscape footage worth the motion. */}
           <HeroVideo
             poster={heroPoster}
+            posterSrcSet={heroPosterSet}
             posterAlt="Firm Foundation's excavator clearing timber on a Lowcountry site"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-charcoal/85 via-charcoal/55 to-charcoal" />
@@ -233,6 +235,7 @@ const LandingPage = () => {
                       service={service}
                       eager={index === 0}
                       aspect="aspect-[16/10]"
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                       className="rounded-none transition-transform duration-700 ease-editorial group-hover:scale-[1.04]"
                     />
                   </div>

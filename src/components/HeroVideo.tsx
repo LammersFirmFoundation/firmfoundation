@@ -4,6 +4,12 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 interface HeroVideoProps {
   /** Shown immediately, and left as the only background on phones. */
   poster: string;
+  /**
+   * WebP variants of the poster. This still is the page's LCP element, and it
+   * was being served at full desktop size to every phone on cellular — the
+   * single largest download on the site's most important screen.
+   */
+  posterSrcSet?: string;
   posterAlt: string;
   /** Optional clip. Omit it and the hero is just the still. */
   src?: string;
@@ -18,7 +24,7 @@ interface HeroVideoProps {
  * slightly slower than the page scrolls, which is most of what gives the
  * reference site's hero its sense of depth.
  */
-const HeroVideo = ({ poster, posterAlt, src }: HeroVideoProps) => {
+const HeroVideo = ({ poster, posterSrcSet, posterAlt, src }: HeroVideoProps) => {
   const [showVideo, setShowVideo] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
   const shouldReduceMotion = useReducedMotion();
@@ -50,6 +56,8 @@ const HeroVideo = ({ poster, posterAlt, src }: HeroVideoProps) => {
       >
         <img
           src={poster}
+          srcSet={posterSrcSet}
+          sizes="100vw"
           alt={posterAlt}
           width={1600}
           height={900}

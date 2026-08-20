@@ -1,8 +1,13 @@
 import excavation from "@/assets/services/excavation.jpg";
+import excavationSet from "@/assets/services/excavation.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
 import hardscapes from "@/assets/services/hardscapes.jpg";
+import hardscapesSet from "@/assets/services/hardscapes.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
 import landscaping from "@/assets/services/landscaping.jpg";
+import landscapingSet from "@/assets/services/landscaping.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
 import treeServices from "@/assets/services/tree-services.jpg";
+import treeServicesSet from "@/assets/services/tree-services.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
 import customProjects from "@/assets/services/custom-projects.jpg";
+import customProjectsSet from "@/assets/services/custom-projects.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
 
 export type ServiceItem = { label: string; detail: string };
 
@@ -12,6 +17,12 @@ export type Service = {
   title: string;
   /** Undefined until we have a real photo — ServiceImage draws a branded panel instead. */
   image?: string;
+  /**
+   * WebP variants at 640/1024/1600 for the same photo, generated at build time
+   * by vite-imagetools. `image` stays the fallback `src` so a browser without
+   * WebP (or without srcset) still gets the original JPEG.
+   */
+  imageSrcSet?: string;
   alt: string;
   /**
    * Per-page SEO for `/services/<slug>`. Required, not optional: a dedicated
@@ -52,6 +63,7 @@ export const services: Service[] = [
       "excavation Mount Pleasant SC, yard grading, French drain installation, yard drainage, land clearing Charleston SC, irrigation trenching, driveway grading, shed pad prep, SC811",
     title: "Excavation",
     image: excavation,
+    imageSrcSet: excavationSet,
     alt: "Firm Foundation's tracked excavator clearing timber on a Lowcountry site",
     summary:
       "Grading, drainage, clearing, and driveway prep for Lowcountry yards. We move dirt so water moves away from your house instead of pooling against it.",
@@ -78,6 +90,7 @@ export const services: Service[] = [
       "paver patio Mount Pleasant SC, stone walkway Charleston, retaining wall installation, hardscapes Lowcountry, outdoor living space",
     title: "Hardscapes",
     image: hardscapes,
+    imageSrcSet: hardscapesSet,
     alt: "Paver patio and stone walkway installation in Mount Pleasant, SC",
     summary:
       "From patios and walkways to retaining walls and outdoor living spaces, we deliver durable, beautifully crafted hardscape installations designed to enhance your property.",
@@ -102,6 +115,7 @@ export const services: Service[] = [
       "landscaping Mount Pleasant SC, mulch installation Charleston, planting beds, sod installation, yard cleanup Lowcountry",
     title: "Landscaping",
     image: landscaping,
+    imageSrcSet: landscapingSet,
     alt: "Fresh mulch beds and seasonal plantings at a Mount Pleasant, SC home",
     summary:
       "Create and preserve beautiful outdoor spaces tailored to the Lowcountry climate. From seasonal plantings to full bed maintenance, we keep your property looking its best.",
@@ -126,6 +140,7 @@ export const services: Service[] = [
       "tree removal Mount Pleasant SC, tree trimming Charleston, stump grinding, storm prep, limb removal Lowcountry",
     title: "Tree Services",
     image: treeServices,
+    imageSrcSet: treeServicesSet,
     alt: "Arborist trimming a Lowcountry live oak in Mount Pleasant, SC",
     summary:
       "Keep your trees healthy, safe, and beautiful with professional pruning, removals, and stump grinding. Built for the Lowcountry's live oaks and palms, with proactive storm and hurricane prep.",
@@ -150,6 +165,7 @@ export const services: Service[] = [
       "deck builder Mount Pleasant SC, fence installation Charleston, pergola, custom built-ins, tile backsplash, home finish work",
     title: "Custom Projects",
     image: customProjects,
+    imageSrcSet: customProjectsSet,
     alt: "Custom butler's pantry with painted cabinetry, brass hardware, patterned tile backsplash, and a quartz counter",
     summary:
       "The jobs that don't fit a category, inside or out — custom cabinetry and built-ins, tile and backsplash, decks, fences, pergolas, and finish carpentry.",
