@@ -1,9 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLoaderData } from "react-router-dom";
-import { ChevronDown, ChevronLeft, ChevronRight, ExternalLink, Pause, Play } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, ExternalLink, MapPin, Pause, Play } from "lucide-react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useState, useEffect, lazy, Suspense } from "react";
-import { ClientOnly } from "vite-react-ssg";
+import { useState, useEffect } from "react";
 import SEO from "@/components/SEO";
 import { sizedPhoto } from "@/lib/reviewPhoto";
 import CtaSection from "@/components/CtaSection";
@@ -26,7 +25,6 @@ import heroPoster from "@/assets/services/excavation.jpg";
 
 // Leaflet touches `window` at import time, so the map loads on the client only.
 // The static fallback keeps the service-area names in the prerendered HTML.
-const ServiceAreaMap = lazy(() => import("@/components/ServiceAreaMap"));
 
 // The Google rating is prepended at render time from live review data, so this
 // strip can never print a different number than the hero or the reviews section.
@@ -380,41 +378,62 @@ const LandingPage = () => {
           </FadeInView>
         </Section>
 
-        {/* ── Service areas ────────────────────────────────────────────── */}
+        {/* ── Service areas ────────────────────────────────────────────────
+            Was a centred heading over a 400px leaflet map: 994px of homepage,
+            with the town names written out in prose and then again as pins. A
+            homeowner knows whether they live near "Johns Island" the instant
+            they read it — decoding a pin against a mostly-empty Lowcountry
+            frame is slower than reading the word. So this is a directory, not
+            a map, set beside the heading rather than stacked under it.
+
+            The map is gone from the homepage but ServiceAreaMap.tsx stays in
+            the repo — it belongs on a future location or project page, where
+            it would want fitBounds rather than the fixed zoom that left two
+            thirds of the frame empty here.
+
+            Nothing here is client-only any more, so the nine towns are plain
+            server-rendered text instead of living in a ClientOnly fallback —
+            strictly better for the local SEO these names carry. Hairline grid
+            matches the stats strip idiom above. */}
         <Section>
-          <SectionHeader
-            eyebrow="Coverage"
-            title="Areas We"
-            accent="Serve"
-            subtitle={`Firm Foundation Property Services is based in Mount Pleasant, South Carolina and works across ${serviceAreaNames.filter((a) => a !== "Mount Pleasant").join(", ")}.`}
-          />
-          <FadeInView>
-            <ClientOnly
-              fallback={
-                <div className="rounded-lg bg-muted p-10 md:p-16 min-h-[350px] md:min-h-[500px] flex flex-col items-center justify-center">
-                  <p className="eyebrow text-muted-foreground mb-8 text-center">
-                    Proudly serving
-                  </p>
-                  <ul className="flex flex-wrap justify-center gap-3">
-                    {serviceAreaNames.map((area) => (
-                      <li
-                        key={area}
-                        className="border border-border px-5 py-2 rounded-full eyebrow text-foreground/80"
-                      >
-                        {area}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              }
-            >
-              {() => (
-                <Suspense fallback={null}>
-                  <ServiceAreaMap />
-                </Suspense>
-              )}
-            </ClientOnly>
-          </FadeInView>
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,26rem)_1fr] lg:gap-16 lg:items-center">
+            <FadeInView>
+              <p className="eyebrow text-primary mb-4">Coverage</p>
+              <h2 className="text-hero font-heading">
+                <span className="whitespace-nowrap">Areas We</span>
+                <br />
+                <span className="text-primary">Serve</span>
+              </h2>
+              <p className="mt-6 text-muted-foreground leading-relaxed">
+                Based in Mount Pleasant, working the length of the Charleston
+                Lowcountry.
+              </p>
+            </FadeInView>
+
+            <FadeInView delay={0.1}>
+              <ul className="grid grid-cols-2 sm:grid-cols-3 border-border [&>li]:border-border [&>li]:border-t [&>li]:border-l max-sm:[&>li:nth-child(-n+2)]:border-t-0 max-sm:[&>li:nth-child(odd)]:border-l-0 sm:[&>li:nth-child(-n+3)]:border-t-0 sm:[&>li:nth-child(3n+1)]:border-l-0">
+                {serviceAreaNames.map((area) => (
+                  <li
+                    key={area}
+                    className="flex min-w-0 items-center gap-2 px-3 py-3.5 sm:px-4 md:px-5 md:py-5 sm:gap-2.5"
+                  >
+                    <MapPin
+                      className="h-3.5 w-3.5 shrink-0 text-primary/70"
+                      aria-hidden="true"
+                    />
+                    <span className="min-w-0 font-heading text-[0.9375rem] sm:text-base md:text-lg text-foreground">
+                      {area}
+                    </span>
+                    {area === BUSINESS.address.locality && (
+                      <span className="eyebrow text-[0.625rem] text-primary shrink-0">
+                        HQ
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </FadeInView>
+          </div>
         </Section>
 
         {/* ── CTA ──────────────────────────────────────────────────────── */}
