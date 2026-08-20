@@ -79,6 +79,10 @@ The redirect lives in `vercel.json`. Don't remove it — printed cards depend on
 favourite it** — then he opens Photos, holds the phone out, and the customer
 scans it right there.
 
+**How he gets it onto his phone:** open **firmfoundationsc.com/review-qr.png**
+in the phone browser, press and hold the image, "Add to Photos". No AirDrop or
+texting needed, and he can get it back the same way on a new phone.
+
 Save it to Photos rather than bookmarking a web page: job sites have bad
 reception, and a saved image works with no signal. Only the *customer's* phone
 needs a connection to follow the link.
