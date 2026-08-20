@@ -6,12 +6,14 @@ import { Outlet } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { ClientOnly, type RouteRecord } from "vite-react-ssg";
 import type { ApiResponse } from "./lib/useReviews";
+import { services } from "./data/services";
 import ScrollToTop from "./components/ScrollToTop";
 import MobileCTABar from "./components/MobileCTABar";
 import ScrollProgress from "./components/ScrollProgress";
 import Analytics from "./components/Analytics";
 import LandingPage from "./pages/LandingPage";
 import ServicesPage from "./pages/ServicesPage";
+import ServiceDetailPage from "./pages/ServiceDetailPage";
 import Gallery from "./pages/Gallery";
 import AboutPage from "./pages/AboutPage";
 import ContactUs from "./pages/ContactUs";
@@ -81,6 +83,15 @@ export const routes: RouteRecord[] = [
     children: [
       { index: true, element: <LandingPage />, loader: reviewsLoader },
       { path: "services", element: <ServicesPage /> },
+      {
+        // One prerendered page per service. `getStaticPaths` is what makes
+        // these real static HTML with their own title, description, canonical
+        // and Service schema — a client-only dynamic route would be worth
+        // nothing for the local-organic ranking this exists to earn.
+        path: "services/:slug",
+        element: <ServiceDetailPage />,
+        getStaticPaths: () => services.map((service) => `/services/${service.slug}`),
+      },
       { path: "gallery", element: <Gallery /> },
       { path: "about", element: <AboutPage /> },
       { path: "contact", element: <ContactUs /> },

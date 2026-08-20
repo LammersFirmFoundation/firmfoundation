@@ -26,6 +26,25 @@ export const BUSINESS = {
 } as const;
 
 /**
+ * Whether (843) 998-5593 accepts text messages.
+ *
+ * Contractor leads skew heavily to SMS — a homeowner will text a photo of a
+ * soggy yard at 9pm who would never make a phone call about it — so this is
+ * worth having. But a "Text us" button on a line that cannot receive texts is
+ * a dead end and reads as careless, which is worse than not offering it.
+ *
+ * So it stays OFF until Josiah confirms the number takes texts. Flipping this
+ * to `true` is the entire change: the button appears in the mobile action bar
+ * and on the contact page, and nowhere else needs touching. Typed as `boolean`
+ * rather than inferred so flipping it doesn't require touching call sites.
+ */
+export const ACCEPTS_SMS: boolean = false;
+
+/** Prefilled so the first tap already has something in the box. */
+export const smsHref =
+  "sms:8439985593?&body=Hi%20Josiah%2C%20I%27d%20like%20a%20quote%20for%20";
+
+/**
  * Towns and cities we cover. These are real municipalities, so they're the
  * only ones that belong in `areaServed` as schema.org City nodes — and the map,
  * the footer, and the prerendered fallback list all read from this same array

@@ -32,8 +32,11 @@ const Footer = () => {
             <ul className="space-y-2 text-sm text-foreground/70">
               {services.map((service) => (
                 <li key={service.slug}>
+                  {/* Each goes to its own page now. These were five links with
+                      five different labels all pointing at /services, which is
+                      a wasted internal link on every page of the site. */}
                   <Link
-                    to="/services"
+                    to={`/services/${service.slug}`}
                     className="hover:text-primary transition-colors"
                   >
                     {service.title}

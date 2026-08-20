@@ -40,6 +40,11 @@ const faqs = [
   },
 ];
 
+/**
+ * The services hub. Its title is deliberately broad ("Property Services"): it
+ * used to lead on "Excavation & Grading", which now competes directly with
+ * /services/excavation — the page that exists to own that term.
+ */
 const ServicesPage = () => {
   return (
     <div className="min-h-screen flex flex-col">
@@ -47,8 +52,8 @@ const ServicesPage = () => {
 
       <main id="main" className="flex-1 pt-24">
         <SEO
-          title="Excavation &amp; Grading Services, Mount Pleasant | Firm Foundation"
-          description="Excavation, hardscapes, landscaping, tree services, and custom projects for homes across Mount Pleasant and greater Charleston, SC. See all five services."
+          title="Property Services in Mount Pleasant, SC | Firm Foundation"
+          description="Excavation, hardscapes, landscaping, tree services, and custom projects for homes across Mount Pleasant and greater Charleston, SC."
           canonical="/services"
           keywords="excavation Mount Pleasant SC, yard grading, French drain installation, yard drainage, land clearing Charleston SC, irrigation trenching, driveway grading, hardscapes, landscaping, tree services, custom cabinetry, tile backsplash"
           jsonLd={[
@@ -63,7 +68,7 @@ const ServicesPage = () => {
                   "@type": "Service",
                   name: service.title,
                   serviceType: service.title,
-                  url: `${BUSINESS.url}/services#${service.slug}`,
+                  url: `${BUSINESS.url}/services/${service.slug}`,
                   description: service.description1,
                   provider: businessRef,
                   areaServed: areaServedSchema,
@@ -158,6 +163,12 @@ const ServicesPage = () => {
                         </li>
                       ))}
                     </ul>
+
+                    <Button asChild variant="outline" className="mt-8">
+                      <Link to={`/services/${service.slug}`}>
+                        More on {service.title.toLowerCase()}
+                      </Link>
+                    </Button>
                   </FadeInView>
                 </article>
               );

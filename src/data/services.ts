@@ -13,6 +13,19 @@ export type Service = {
   /** Undefined until we have a real photo — ServiceImage draws a branded panel instead. */
   image?: string;
   alt: string;
+  /**
+   * Per-page SEO for `/services/<slug>`. Required, not optional: a dedicated
+   * page per service is the single highest-value local-organic factor there is,
+   * and a new service shipping without its own title and description would
+   * quietly launch a page that competes with the others for nothing.
+   *
+   * Titles must contain "Firm Foundation" inline — `SEO.tsx` only appends the
+   * site name when the title doesn't already mention the brand, so one that
+   * omits it silently grows to ~90 characters.
+   */
+  pageTitle: string;
+  pageDescription: string;
+  pageKeywords: string;
   /** One-paragraph version, used on the homepage. */
   summary: string;
   /** Two-paragraph version, used on the services page. */
@@ -32,6 +45,11 @@ export type Service = {
 export const services: Service[] = [
   {
     slug: "excavation",
+    pageTitle: "Excavation & Grading, Mount Pleasant SC | Firm Foundation",
+    pageDescription:
+      "Yard grading, drainage and French drains, land clearing, driveway prep and irrigation trenching in Mount Pleasant and greater Charleston, SC.",
+    pageKeywords:
+      "excavation Mount Pleasant SC, yard grading, French drain installation, yard drainage, land clearing Charleston SC, irrigation trenching, driveway grading, shed pad prep, SC811",
     title: "Excavation",
     image: excavation,
     alt: "Firm Foundation's tracked excavator clearing timber on a Lowcountry site",
@@ -53,6 +71,11 @@ export const services: Service[] = [
   },
   {
     slug: "hardscapes",
+    pageTitle: "Paver Patios & Walkways, Mount Pleasant | Firm Foundation",
+    pageDescription:
+      "Paver patios, stone walkways and retaining walls in Mount Pleasant and greater Charleston, SC, built on a base that is excavated and compacted properly.",
+    pageKeywords:
+      "paver patio Mount Pleasant SC, stone walkway Charleston, retaining wall installation, hardscapes Lowcountry, outdoor living space",
     title: "Hardscapes",
     image: hardscapes,
     alt: "Paver patio and stone walkway installation in Mount Pleasant, SC",
@@ -72,6 +95,11 @@ export const services: Service[] = [
   },
   {
     slug: "landscaping",
+    pageTitle: "Landscaping in Mount Pleasant, SC | Firm Foundation",
+    pageDescription:
+      "Bed installation, mulching, planting and seasonal yard cleanups across Mount Pleasant and greater Charleston, SC. Free on-site quotes.",
+    pageKeywords:
+      "landscaping Mount Pleasant SC, mulch installation Charleston, planting beds, sod installation, yard cleanup Lowcountry",
     title: "Landscaping",
     image: landscaping,
     alt: "Fresh mulch beds and seasonal plantings at a Mount Pleasant, SC home",
@@ -91,6 +119,11 @@ export const services: Service[] = [
   },
   {
     slug: "tree-services",
+    pageTitle: "Tree Trimming & Removal, Mount Pleasant | Firm Foundation",
+    pageDescription:
+      "Tree trimming, removal, stump grinding and storm prep in Mount Pleasant and greater Charleston, SC. Free on-site quotes.",
+    pageKeywords:
+      "tree removal Mount Pleasant SC, tree trimming Charleston, stump grinding, storm prep, limb removal Lowcountry",
     title: "Tree Services",
     image: treeServices,
     alt: "Arborist trimming a Lowcountry live oak in Mount Pleasant, SC",
@@ -110,6 +143,11 @@ export const services: Service[] = [
   },
   {
     slug: "custom-projects",
+    pageTitle: "Decks, Fences & Built-Ins, Mount Pleasant | Firm Foundation",
+    pageDescription:
+      "Decks, fences, pergolas, built-ins, tile and finish work for homes in Mount Pleasant and greater Charleston, SC. Free on-site quotes.",
+    pageKeywords:
+      "deck builder Mount Pleasant SC, fence installation Charleston, pergola, custom built-ins, tile backsplash, home finish work",
     title: "Custom Projects",
     image: customProjects,
     alt: "Custom butler's pantry with painted cabinetry, brass hardware, patterned tile backsplash, and a quartz counter",

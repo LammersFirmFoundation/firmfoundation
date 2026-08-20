@@ -65,7 +65,7 @@ export const localBusinessSchema = {
         "@type": "Service",
         name: service.title,
         serviceType: service.title,
-        url: `${BUSINESS.url}/services#${service.slug}`,
+        url: `${BUSINESS.url}/services/${service.slug}`,
         description: service.summary,
       },
     })),

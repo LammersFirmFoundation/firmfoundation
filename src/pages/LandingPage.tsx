@@ -17,6 +17,7 @@ import StarRating from "@/components/StarRating";
 import ServiceImage from "@/components/ServiceImage";
 import HeroVideo from "@/components/HeroVideo";
 import SurveyLayer from "@/components/SurveyLayer";
+import YardTriage from "@/components/YardTriage";
 import OurStory from "@/components/OurStory";
 import { useReviews, type ApiResponse } from "@/lib/useReviews";
 import { services } from "@/data/services";
@@ -191,6 +192,21 @@ const LandingPage = () => {
             </dl>
           </div>
         </section>
+
+        {/* ── What's your yard doing? ──────────────────────────────────
+            Sits directly under the stats rather than further down: a homeowner
+            with a problem should meet their own symptom on the first scroll,
+            before the list of what we offer. Naming the problem is what gets
+            the call — describing the services is what happens after. */}
+        <Section variant="muted" id="yard" className="scroll-mt-24">
+          <SectionHeader
+            eyebrow="Not sure what you need?"
+            title="What&rsquo;s your"
+            accent="yard doing?"
+            subtitle="Pick what you&rsquo;re seeing and we&rsquo;ll tell you what it usually is, what fixing it involves, and what Josiah would look at."
+          />
+          <YardTriage />
+        </Section>
 
         {/* ── Services ─────────────────────────────────────────────────── */}
         <Section>

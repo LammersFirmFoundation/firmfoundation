@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -13,15 +14,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, MapPin, Instagram } from "lucide-react";
+import { Mail, MessageSquare, Phone, MapPin, Instagram } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Section from "@/components/layout/Section";
 import FadeInView from "@/components/animations/FadeInView";
 import SEO from "@/components/SEO";
 import { trackQuoteRequest } from "@/components/Analytics";
-import { BUSINESS, serviceAreaNames } from "@/data/business";
+import { ACCEPTS_SMS, BUSINESS, serviceAreaNames, smsHref } from "@/data/business";
 import { serviceNames } from "@/data/services";
+import { findYardProblem } from "@/data/yard-problems";
 import { businessRef, breadcrumbSchema } from "@/lib/schema";
 import {
   Form,
@@ -71,15 +73,28 @@ const ContactUs = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Arriving from "What's your yard doing?" on the homepage. The picker passes
+  // an id rather than the copy itself, so the wording lives in one file and the
+  // URL a visitor might share stays short and readable.
+  //
+  // At prerender time there is no query string, so the built HTML carries the
+  // empty form exactly as before — the prefill is a client-side improvement on
+  // top of it, never something a crawler sees a half-filled version of.
+  const [searchParams] = useSearchParams();
+  const picked = findYardProblem(searchParams.get("problem"));
+
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
       name: "",
       email: "",
       phone: "",
-      service: "",
+      service: picked?.service ?? "",
       address: "",
-      message: "",
+      // Deliberately an unfinished sentence: it gives them somewhere to start
+      // and a cursor in the right place, rather than a paragraph they have to
+      // read and decide whether to delete.
+      message: picked?.note ?? "",
     },
   });
 
@@ -175,6 +190,16 @@ const ContactUs = () => {
                   >
                     {BUSINESS.phone}
                   </a>
+                  {ACCEPTS_SMS && (
+                    <a
+                      href={smsHref}
+                      data-analytics-where="contact-page-text"
+                      className="mt-3 inline-flex items-center gap-2 text-sm text-primary hover:underline"
+                    >
+                      <MessageSquare className="h-3.5 w-3.5" aria-hidden="true" />
+                      Or send a text
+                    </a>
+                  )}
                 </li>
                 <li className="py-6">
                   <span className="eyebrow text-muted-foreground flex items-center gap-2.5 mb-2.5">
@@ -220,6 +245,19 @@ const ContactUs = () => {
                 <h2 className="font-heading text-2xl md:text-3xl text-card-foreground mb-8">
                   Request a quote
                 </h2>
+
+                {picked && (
+                  <div className="mb-6 rounded-lg border border-border bg-background p-4">
+                    <p className="eyebrow text-primary mb-1.5">Starting from</p>
+                    <p className="text-sm text-foreground leading-relaxed">
+                      {picked.label}
+                    </p>
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      We&rsquo;ve filled in the service and started the message — change
+                      anything that isn&rsquo;t right.
+                    </p>
+                  </div>
+                )}
 
                 <p className="text-xs text-muted-foreground mb-6">
                   Fields marked <span className="text-primary">*</span> are required.
