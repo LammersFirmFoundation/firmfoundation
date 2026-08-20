@@ -98,74 +98,124 @@ const LandingPage = () => {
 
       <main id="main" className="flex-1">
         {/* ── Hero ─────────────────────────────────────────────────────── */}
-        <section className="relative min-h-[100svh] flex items-end overflow-hidden">
-          {/* Hero is the still. The cab clip is handheld phone footage shot
-              through dirty glass, and behind a headline it reads as noise
-              rather than atmosphere — re-add src="/hero-excavator.mp4" once
-              there's stabilised landscape footage worth the motion. */}
-          <HeroVideo
-            poster={heroPoster}
-            posterSrcSet={heroPosterSet}
-            posterAlt="Firm Foundation's excavator clearing timber on a Lowcountry site"
-            overlay={<RelitHero photoUrl={heroRelitPhoto} depthUrl={heroDepth} />}
+        <section className="relative overflow-hidden bg-background lg:min-h-[100svh]">
+          {/*
+            A SPLIT hero, and the split is what makes the photograph usable.
+
+            This was a full-bleed still with the copy laid over it and a
+            charcoal wash covering the whole frame to keep the headline legible.
+            That wash was load-bearing — measured against the real composited
+            pixels, opening it up took the h1 from 3.34:1 to 2.18:1 and the
+            eyebrow to 1.58:1, both failing AA — but it also reduced a real
+            photograph of Josiah's machine to a texture, and it crushed anything
+            happening inside the picture.
+
+            Separating them removes the compromise entirely. The copy sits on
+            solid charcoal, so its contrast is fixed and no longer depends on
+            what the photo is doing behind it, and the photograph runs at full
+            strength with the relit light actually visible. Below `lg` the two
+            stack rather than sitting side by side, so a phone never puts type
+            over the picture either.
+          */}
+          <div className="relative h-[42svh] min-h-[16rem] w-full lg:absolute lg:inset-y-0 lg:left-[56%] lg:right-0 lg:h-auto lg:w-auto">
+            {/* Hero is the still. The cab clip is handheld phone footage shot
+                through dirty glass, and behind a headline it reads as noise
+                rather than atmosphere — re-add src="/hero-excavator.mp4" once
+                there's stabilised landscape footage worth the motion. */}
+            <HeroVideo
+              poster={heroPoster}
+              posterSrcSet={heroPosterSet}
+              posterAlt="Firm Foundation's excavator clearing timber on a Lowcountry site"
+              overlay={<RelitHero photoUrl={heroRelitPhoto} depthUrl={heroDepth} />}
+            />
+            {/* Feathered into the charcoal rather than butted against it — a
+                hard vertical seam between a panel and a photograph is the tell
+                of a template. Horizontal on desktop, upward on mobile, so the
+                picture always dissolves into the copy's ground. */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background to-transparent lg:hidden"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 left-0 hidden w-44 bg-gradient-to-r from-background to-transparent lg:block"
+            />
+          </div>
+
+          {/* The header is transparent over the hero, and the split now puts the
+              right-hand nav items on top of a bright photograph — measured at
+              1.27:1 against the sky, where the old full-frame wash had been
+              carrying them invisibly. This band is the smallest thing that
+              fixes it: opaque at the very top where the nav sits, gone by
+              9rem, so the machine and the timber below are untouched. */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-0 z-[5] h-36 bg-gradient-to-b from-background via-background/85 to-transparent"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-charcoal/85 via-charcoal/55 to-charcoal" />
-          <div className="absolute inset-0 bg-charcoal/18" />
 
+          <div className="relative z-10 mx-auto flex max-w-content items-center px-5 sm:px-6 md:px-10 lg:min-h-[100svh]">
+            <motion.div
+              style={shouldReduceMotion ? undefined : { opacity: heroOpacity, y: heroLift }}
+              className="w-full py-14 will-change-transform lg:w-[52%] lg:py-32 lg:pr-10"
+            >
+              <FadeInView immediate>
+                <p className="eyebrow text-primary mb-6">
+                  Mount Pleasant &middot; Greater Charleston
+                </p>
+                {/* Its own clamp rather than `text-hero`/`text-display`: those
+                    are sized for a full-width hero, and in a half-width column
+                    "the Lowcountry's" is wider than the column at both of them,
+                    which broke the headline into four ragged lines. */}
+                <h1 className="text-hero font-heading text-foreground lg:text-[clamp(2.4rem,4vw,4.1rem)] lg:leading-[0.92] lg:tracking-[-0.03em]">
+                  Groundwork for
+                  <br />
+                  <span className="text-primary">the Lowcountry&rsquo;s</span>
+                  <br />
+                  finest homes
+                </h1>
+                <p className="text-subtitle text-foreground/70 mt-8 max-w-xl leading-relaxed">
+                  Small excavation, grading, drainage, and irrigation &mdash; plus
+                  the landscaping, hardscapes, and tree work that got us here.
+                </p>
 
-          <motion.div
-            style={shouldReduceMotion ? undefined : { opacity: heroOpacity, y: heroLift }}
-            className="relative z-10 w-full mx-auto max-w-content px-5 sm:px-6 md:px-10 pb-24 pt-32 md:pb-32 will-change-transform"
-          >
-            <FadeInView immediate>
-              <p className="eyebrow text-primary mb-6">
-                Mount Pleasant &middot; Greater Charleston
-              </p>
-              <h1 className="text-hero md:text-display font-heading text-foreground max-w-6xl">
-                Groundwork for
-                <br />
-                <span className="text-primary">the Lowcountry&rsquo;s</span>
-                <br />
-                finest homes
-              </h1>
-              <p className="text-subtitle text-foreground/70 mt-8 max-w-xl leading-relaxed">
-                Small excavation, grading, drainage, and irrigation &mdash; plus
-                the landscaping, hardscapes, and tree work that got us here.
-              </p>
+                <div className="mt-10 flex flex-col sm:flex-row gap-4 sm:items-center">
+                  <Button asChild size="lg" variant="contrast">
+                    <Link to="/contact">Get a Free Quote</Link>
+                  </Button>
+                  <Button asChild size="lg" variant="outline">
+                    <Link to="/services">Our Services</Link>
+                  </Button>
+                </div>
 
-              <div className="mt-10 flex flex-col sm:flex-row gap-4 sm:items-center">
-                <Button asChild size="lg" variant="contrast">
-                  <Link to="/contact">Get a Free Quote</Link>
-                </Button>
-                <Button asChild size="lg" variant="outline">
-                  <Link to="/services">Our Services</Link>
-                </Button>
-              </div>
-
-              <a
-                href="#reviews"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document
-                    .getElementById("reviews")
-                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
-                }}
-                className="mt-10 inline-flex items-center gap-2.5 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              >
-                <StarRating rating={aggregateRating} size="h-4 w-4" className="text-primary" />
-                <span className="text-sm text-foreground/75 inline-flex items-center gap-1.5">
-                  <GoogleIcon className="h-3.5 w-3.5" />
-                  {aggregateRating.toFixed(1)} from verified Google reviews
-                </span>
-              </a>
-            </FadeInView>
-          </motion.div>
+                <a
+                  href="#reviews"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document
+                      .getElementById("reviews")
+                      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}
+                  className="mt-10 inline-flex items-center gap-2.5 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                >
+                  <StarRating rating={aggregateRating} size="h-4 w-4" className="text-primary" />
+                  <span className="text-sm text-foreground/75 inline-flex items-center gap-1.5">
+                    <GoogleIcon className="h-3.5 w-3.5" />
+                    {aggregateRating.toFixed(1)} from verified Google reviews
+                  </span>
+                </a>
+              </FadeInView>
+            </motion.div>
+          </div>
 
           {!shouldReduceMotion && (
             <motion.div
-              className="absolute bottom-8 right-8 hidden md:block text-foreground/40"
+              className="absolute bottom-8 left-8 hidden text-foreground/40 lg:block"
               animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
+              /* Finite, not `repeat: Infinity`. WCAG 2.2.2 Pause, Stop, Hide is
+                 Level A and covers any automatic motion past five seconds
+                 without a pause control; four two-second cycles land inside it
+                 and the hint has done its job by then anyway. */
+              transition={{ duration: 2, repeat: 3 }}
               aria-hidden="true"
             >
               <ChevronDown className="h-6 w-6" />

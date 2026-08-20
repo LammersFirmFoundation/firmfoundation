@@ -80,14 +80,23 @@ const float MIN_LIGHT_ANGLE= 0.15;
 const float SOFTNESS_GROWTH= 3.0;
 const float AMBIENT        = 0.46;   // the photo is already lit; this is a relight, not a lift
 
-/** object-fit: cover, in UV space. */
+/**
+ * object-fit: cover, in UV space.
+ *
+ * Note the MULTIPLY. Dividing here inverts the crop — instead of sampling a
+ * sub-rectangle of the image it samples a range wider than 0..1, and every
+ * pixel outside gets clamped to the edge texel. That shows up as heavy
+ * horizontal smearing down both sides of the frame, which is exactly what the
+ * split hero exposed: the old full-bleed hero was wider than the photo so the
+ * same bug only smeared the top and bottom, where the scrim hid it.
+ */
 vec2 coverUv(vec2 fragUv) {
   float frameAspect = uResolution.x / uResolution.y;
   float imageAspect = uImageSize.x / uImageSize.y;
   vec2 scale = frameAspect > imageAspect
-    ? vec2(1.0, imageAspect / frameAspect)
-    : vec2(frameAspect / imageAspect, 1.0);
-  return (fragUv - 0.5) / scale + 0.5;
+    ? vec2(1.0, imageAspect / frameAspect)   // frame is wider — crop top and bottom
+    : vec2(frameAspect / imageAspect, 1.0);  // frame is taller — crop the sides
+  return (fragUv - 0.5) * scale + 0.5;
 }
 
 float depthAt(vec2 uv) {
@@ -376,6 +385,11 @@ export async function mountRelitHero(
   };
 
   const onPointerMove = (event: PointerEvent) => {
+    // Someone who asked for reduced motion gets a beautifully lit still and
+    // nothing that moves. Pointer-driven light is user-initiated, so WCAG does
+    // not forbid it — but the request was for less movement, not for movement
+    // they have to opt out of by keeping the mouse away.
+    if (reduced.matches) return;
     const rect = canvas.getBoundingClientRect();
     target[0] = (event.clientX - rect.left) / rect.width;
     // Flipped: WebGL's origin is bottom-left, the pointer's is top-left.

@@ -55,17 +55,31 @@ produces soft self-shadowing under a light that follows the pointer.
   near zero in the depth map where the gradient is flat and noisy; lighting it produced most of the
   artifacting and bought nothing.
 
-### The hero scrim is load-bearing, and it is what limits the effect
-Measured 2026-08-20 against the real composited pixels (photo + canvas + scrim), text hidden so only
-the background is sampled: the current full-frame scrim gives the **h1 3.34:1** and the eyebrow
-5.32:1 — both passing AA (3:1 large text, 4.5:1 small). Opening it into a directional gradient so
-the photograph could be seen dropped those to **2.18:1 and 1.58:1, both failing**, and was reverted.
+### The hero is SPLIT, and that is what made the photograph usable
+The hero was a full-bleed still with the copy laid over it under a charcoal wash. That wash was
+load-bearing — measured against the real composited pixels, opening it into a directional gradient
+took the h1 from 3.34:1 to **2.18:1** and the eyebrow to **1.58:1**, both failing AA — but it also
+reduced a real photograph to a texture and crushed anything happening inside it.
 
-**axe cannot catch this** — it does not evaluate text over images — so a scrim change must be
-re-measured by sampling pixels, never assumed from a green axe run. The consequence worth knowing:
-any photo effect in this hero is necessarily subtle, because the thing that makes the headline
-legible is the same thing that crushes the picture. Making the effect prominent needs a
-*composition* change (a narrower headline, or type on its own panel), not a shader change.
+Splitting them removed the compromise instead of trading against it. Copy on solid charcoal,
+photograph at full strength beside it, stacked rather than overlaid below `lg`. Measured after:
+**h1 14.88:1, eyebrow 10.74:1, sub 14.88:1, nav 10.91:1**, no horizontal overflow 320–1920, axe 0
+across all six routes.
+
+Three things that are easy to break here:
+- **The copy column is measured from the centred `max-w-content` container; the photo is positioned
+  against the VIEWPORT.** Different origins, so the two can overlap even though the percentages look
+  like they add up — at 54%/46% the column's box ran onto the picture. The current 52%/56% pair
+  keeps a gap at every width from 1024 to 1920; re-measure `copyRight < photoLeft` if either moves.
+- **The h1 needs its own clamp** (`lg:text-[clamp(2.4rem,4vw,4.1rem)]`). `text-hero` and
+  `text-display` are sized for a full-width hero and both wrap "the Lowcountry's" onto its own line
+  in a half-width column, turning three lines into five.
+- **The header is transparent over the hero**, so the right-hand nav now sits on the photograph —
+  measured at **1.27:1** before the `h-36` top band was added. Any change to that band needs the nav
+  re-measured, not just axe re-run.
+
+**axe cannot catch any of this** — it does not evaluate text over images. Sample the real pixels
+with the text hidden.
 
 ## The survey layer — and why it is NOT three.js
 `src/lib/survey-layer.ts` draws topographic contour lines in ~120 lines of raw WebGL. Contour
