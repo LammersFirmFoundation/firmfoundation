@@ -5,8 +5,9 @@
  * so a scene graph buys nothing. Measured against this repo's own toolchain on
  * 2026-08-20, an equivalent three.js hero scene (r0.185.1, tree-shaken, with
  * instancing and a custom shader) came to 106,027 bytes brotli against the
- * 198,434 the whole site's JavaScript weighs. This file is under a kilobyte
- * compressed. Google's crawler does not support WebGL and <canvas> is not an
+ * 198,434 the whole site's JavaScript weighs. This file ships as its own lazy
+ * chunk of roughly 2.5 KB brotli. Google's crawler does not support WebGL and
+ * <canvas> is not an
  * LCP-eligible element, so every pixel drawn here is decoration that has to
  * pay for itself in feel alone — and at 106 KB it could not.
  *
@@ -22,15 +23,15 @@
 export type SurveyMode = "ambient" | "reveal";
 
 export interface SurveyOptions {
-  /** `ambient` drifts forever behind a charcoal band; `reveal` sweeps once and stops. */
+  /** `ambient` settles into a still survey sheet; `reveal` sweeps the hero and clears. */
   mode?: SurveyMode;
   /** Isoline count. Higher reads as steeper ground. */
   density?: number;
   /** Peak opacity of the ink. */
   alpha?: number;
-  /** Seconds the one-shot sweep takes. Ignored when `mode` is `ambient`. */
+  /** Seconds the pass takes. Clamped under five — see WCAG 2.2.2 below. */
   duration?: number;
-  /** Called once a `reveal` sweep has finished, so the caller can drop the canvas. */
+  /** Called once the pass has finished, so a `reveal` caller can drop the canvas. */
   onDone?: () => void;
 }
 
@@ -51,8 +52,10 @@ uniform float uTime;
 uniform vec3  uInk;
 uniform float uDensity;
 uniform float uAlpha;
-/** -1 while ambient; otherwise 0 to 1 sweep progress. */
-uniform float uReveal;
+/** 0 to 1 across a single survey pass. Both modes are finite. */
+uniform float uProgress;
+/** 1 for the ambient layer, 0 for the one-shot hero sweep. */
+uniform float uAmbient;
 
 float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 
@@ -91,19 +94,39 @@ void main(){
   float indexLine = (1.0 - smoothstep(0.0, max(fwidth(bands * 0.2) * 1.4, 0.001), idx)) * 0.85;
   float ink = max(line * 0.55, indexLine);
 
-  float ambient = step(uReveal, -0.5);
-
-  // Ambient: a soft band travelling up the frame forever.
-  // Reveal: one pass down the frame, driven by progress rather than the clock.
-  float centre = mix(mix(-0.18, 1.18, uReveal), fract(uTime * 0.045) * 1.4 - 0.2, ambient);
-  float width  = mix(0.20, 0.34, ambient);
+  // ONE pass down the frame, in both modes. Nothing here loops: WCAG 2.2.2
+  // Pause, Stop, Hide is a Level A criterion covering any automatic motion
+  // lasting over five seconds, and it sits under Conformance Requirement 5.2.5
+  // (Non-Interference), so failing it makes the WHOLE PAGE non-conforming even
+  // though this layer is pure decoration. A reduced-motion media query does NOT
+  // satisfy it — it is not among the sufficient techniques. Stopping on our own
+  // well inside five seconds does, and needs no pause button on a decoration.
+  // The travel runs past both edges by more than the band's own half-width,
+  // so the pass fully clears the frame. Ending at 1.18 with a 0.34 band left a
+  // residual glow sitting on the eyebrow text for good.
+  float centre = mix(-0.40, 1.40, uProgress);
+  float width  = mix(0.20, 0.34, uAmbient);
   float band   = smoothstep(width, 0.0, abs(uv.y - centre));
 
-  // Ambient keeps the lines faintly lit everywhere; the sweep only shows what
-  // it is passing over, led by a bright hairline.
-  float lit  = mix(band * 1.35, 0.45 + band * 1.5, ambient);
-  float edge = (1.0 - ambient) * (1.0 - smoothstep(0.0, 0.005, abs(uv.y - centre))) * 0.7;
+  // The ambient layer keeps the lines lit after the pass has gone by, so the
+  // band settles into a survey sheet. The hero sweep only shows what it is
+  // crossing, led by a bright hairline, and leaves nothing behind.
+  // The resting floor is deliberately low: this sheet sits BEHIND live copy,
+  // including a small yellow eyebrow, and contour lines crossing type is the
+  // one way a decorative layer can actually cost the page something.
+  float lit  = mix(band * 1.35, 0.30 + band * 1.35, uAmbient);
+  float edge = (1.0 - uAmbient) * (1.0 - smoothstep(0.0, 0.005, abs(uv.y - centre))) * 0.7;
   ink = ink * lit + edge;
+
+  // A real survey sheet clears a title block rather than printing contours
+  // through its own labelling, and the same move is what keeps this layer from
+  // ever costing legibility: the ink drops to a trace behind the centre of the
+  // band, where the eyebrow, heading and buttons all sit, and comes back to
+  // full strength out at the margins. Ambient only — the hero sweep is
+  // transient and its copy sits low and left.
+  vec2 fromCentre = vec2((uv.x - 0.5) / 0.46, (uv.y - 0.5) / 0.50);
+  float clearing = smoothstep(0.55, 1.30, length(fromCentre));
+  ink *= mix(1.0, mix(0.14, 1.0, clearing), uAmbient);
 
   // Never show a hard boundary: fade the layer out at every edge. The falloff
   // is kept shallow because a CTA band is short and wide — a 30% fade at each
@@ -111,8 +134,8 @@ void main(){
   float vig = smoothstep(0.0, 0.16, uv.y) * smoothstep(1.0, 0.84, uv.y);
   vig *= smoothstep(0.0, 0.07, uv.x) * smoothstep(1.0, 0.93, uv.x);
 
-  // The sweep dims as it leaves, so the hero settles back to the photograph.
-  float fade = mix(smoothstep(1.0, 0.70, uReveal), 1.0, ambient);
+  // The hero sweep dims as it leaves, so the photograph is handed back clean.
+  float fade = mix(smoothstep(1.0, 0.70, uProgress), 1.0, uAmbient);
 
   float a = clamp(ink, 0.0, 1.0) * vig * uAlpha * fade;
   gl_FragColor = vec4(uInk * a, a);
@@ -143,7 +166,10 @@ export function mountSurveyLayer(
   const mode: SurveyMode = options.mode ?? "ambient";
   const density = options.density ?? 8;
   const alpha = options.alpha ?? 0.85;
-  const duration = options.duration ?? 2.2;
+  // Hard-capped under five seconds. WCAG 2.2.2 (Level A) covers any automatic
+  // motion running longer than that without a pause control, so the cap — not
+  // a caller's good intentions — is what keeps this layer conforming.
+  const duration = Math.min(options.duration ?? (mode === "reveal" ? 2.4 : 4.5), 4.8);
 
   const gl = canvas.getContext("webgl", {
     alpha: true,
@@ -189,7 +215,8 @@ export function mountSurveyLayer(
 
   const uRes = gl.getUniformLocation(program, "uRes");
   const uTime = gl.getUniformLocation(program, "uTime");
-  const uReveal = gl.getUniformLocation(program, "uReveal");
+  const uProgress = gl.getUniformLocation(program, "uProgress");
+  gl.uniform1f(gl.getUniformLocation(program, "uAmbient"), mode === "ambient" ? 1 : 0);
   gl.uniform3fv(gl.getUniformLocation(program, "uInk"), INK);
   gl.uniform1f(gl.getUniformLocation(program, "uDensity"), density);
   gl.uniform1f(gl.getUniformLocation(program, "uAlpha"), alpha);
@@ -211,10 +238,10 @@ export function mountSurveyLayer(
     gl.uniform2f(uRes, canvas.width, canvas.height);
   };
 
-  const draw = (time: number, reveal: number) => {
+  const draw = (time: number, progress: number) => {
     resize();
     gl.uniform1f(uTime, time);
-    gl.uniform1f(uReveal, reveal);
+    gl.uniform1f(uProgress, progress);
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
@@ -224,24 +251,35 @@ export function mountSurveyLayer(
   let running = false;
   let destroyed = false;
   let finished = false;
-  let started = 0;
+  let elapsed = 0;
+  let last = 0;
+
+  /**
+   * The pass is over. The hero drops its canvas; the ambient layer keeps its
+   * last frame on screen — a still survey sheet — and never animates again.
+   */
+  const finish = () => {
+    finished = true;
+    running = false;
+    cancelAnimationFrame(raf);
+    if (mode === "ambient") draw(duration, 1);
+    options.onDone?.();
+  };
 
   const frame = (now: number) => {
     if (destroyed) return;
-    if (!started) started = now;
-    const elapsed = (now - started) / 1000;
+    // Time is accumulated rather than measured from a fixed start, so a pass
+    // interrupted by a scroll or a tab switch resumes where it stopped instead
+    // of jumping forward. The clamp keeps a long stall from skipping the pass.
+    const delta = last ? Math.min((now - last) / 1000, 0.05) : 0;
+    last = now;
+    elapsed += delta;
 
-    if (mode === "reveal") {
-      const progress = Math.min(elapsed / duration, 1);
-      draw(elapsed, progress);
-      if (progress >= 1) {
-        finished = true;
-        running = false;
-        options.onDone?.();
-        return;
-      }
-    } else {
-      draw(elapsed, -1);
+    const progress = Math.min(elapsed / duration, 1);
+    draw(elapsed, progress);
+    if (progress >= 1) {
+      finish();
+      return;
     }
     raf = requestAnimationFrame(frame);
   };
@@ -249,6 +287,7 @@ export function mountSurveyLayer(
   const start = () => {
     if (running || destroyed || finished) return;
     running = true;
+    last = 0;
     raf = requestAnimationFrame(frame);
   };
   const stop = () => {
@@ -258,41 +297,42 @@ export function mountSurveyLayer(
 
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  // Under reduced motion the ambient layer holds a designed still frame rather
-  // than disappearing, and the one-shot sweep never runs at all — a sweep IS
-  // the motion, so freezing one mid-pass would leave a bright bar across the
-  // hero for good.
-  const syncMotion = () => {
-    if (destroyed) return;
-    if (reduced.matches) {
-      stop();
-      if (mode === "ambient") draw(9, -1);
-      else {
-        finished = true;
-        options.onDone?.();
-      }
-      return;
-    }
-    start();
+  // Reduced motion never gets a moving frame at all. The ambient layer jumps
+  // straight to the finished still; the hero sweep is skipped entirely, since a
+  // sweep IS the motion and freezing one mid-pass would leave a bright bar
+  // across the photograph for good.
+  const applyReducedMotion = () => {
+    stop();
+    elapsed = duration;
+    finish();
   };
 
-  // A layer that has scrolled off screen must never keep a phone's GPU awake.
-  const observer =
-    mode === "ambient"
-      ? new IntersectionObserver(
-          ([entry]) => {
-            if (reduced.matches || destroyed) return;
-            if (entry.isIntersecting) start();
-            else stop();
-          },
-          { threshold: 0 }
-        )
-      : null;
-  observer?.observe(canvas);
+  // Gates the start on visibility, so the pass plays when the band is actually
+  // on screen rather than finishing above the fold, and so a layer scrolled
+  // away mid-pass never keeps a phone's GPU awake.
+  let onScreen = false;
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      onScreen = entry.isIntersecting;
+      if (destroyed || finished || reduced.matches) return;
+      if (onScreen) start();
+      else stop();
+    },
+    { threshold: 0 }
+  );
 
+  const syncMotion = () => {
+    if (destroyed || finished) return;
+    if (reduced.matches) applyReducedMotion();
+  };
+
+  // A tab switch mid-pass must not strand the band halfway down the section:
+  // the observer only fires on intersection changes, so coming back needs an
+  // explicit restart.
   const onVisibility = () => {
+    if (destroyed || finished || reduced.matches) return;
     if (document.hidden) stop();
-    else syncMotion();
+    else if (onScreen) start();
   };
 
   // iOS drops WebGL contexts under memory pressure. Swallowing the default
@@ -306,7 +346,7 @@ export function mountSurveyLayer(
   };
 
   const onResize = () => {
-    if (reduced.matches && mode === "ambient") draw(9, -1);
+    if (finished && mode === "ambient") draw(duration, 1);
   };
 
   reduced.addEventListener("change", syncMotion);
@@ -314,13 +354,14 @@ export function mountSurveyLayer(
   canvas.addEventListener("webglcontextlost", onContextLost);
   window.addEventListener("resize", onResize);
 
-  syncMotion();
+  if (reduced.matches) applyReducedMotion();
+  else observer.observe(canvas);
 
   return {
     destroy() {
       destroyed = true;
       stop();
-      observer?.disconnect();
+      observer.disconnect();
       reduced.removeEventListener("change", syncMotion);
       document.removeEventListener("visibilitychange", onVisibility);
       canvas.removeEventListener("webglcontextlost", onContextLost);

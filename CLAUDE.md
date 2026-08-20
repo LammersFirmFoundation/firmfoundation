@@ -37,17 +37,34 @@ Palette is **sampled from Josiah's logo PNG**, not invented — brand yellow `#f
 ## The survey layer — and why it is NOT three.js
 `src/lib/survey-layer.ts` draws topographic contour lines in ~120 lines of raw WebGL. Contour
 lines are the literal visual language of grading and drainage, so the motif comes from Josiah's
-trade rather than from a demo. Two modes: `ambient` (drifts behind the CTA band) and `reveal`
-(one survey sweep over the hero on load, then the canvas and its GL context are dropped).
+trade rather than from a demo. Two modes, both a single finite pass: `ambient` (crosses the CTA
+band once, then settles into a still survey sheet that stays) and `reveal` (one sweep over the
+hero on load, after which the canvas and its GL context are dropped entirely).
 
 - **three.js was evaluated and rejected on measurement, 2026-08-20 — don't re-open it without new
   numbers.** Built against this repo's own toolchain, a realistic tree-shaken three.js hero scene
   (r0.185.1: renderer, scene, camera, instanced mesh, shader material, fog, lights) came to
   **106,027 bytes brotli** against the 198,434 the whole site's JS weighs. The shipped survey layer
-  costs **2,469 bytes brotli** in its own lazy chunk plus **295 bytes** on the app chunk. A scene
-  graph buys nothing here: an ambient background is one triangle and a function that colours
-  pixels. `ogl` was measured at 12,749 brotli and is the middle option **if real geometry ever
-  appears** — a before/after grade or drainage visualisation is the one case that would earn it.
+  costs **3,089 bytes brotli** in its own lazy chunk plus ~**300 bytes** on the app chunk — about
+  34x lighter for the same feeling. **State the reason honestly:** three.js could be lazy-loaded
+  exactly the way this layer is, so "it would bloat the bundle" is NOT the argument. The argument is
+  that a scene graph buys nothing when there is no scene — an ambient background is one triangle and
+  a function that colours pixels. `ogl` was measured at 12,749 brotli and is the middle option **if
+  real geometry ever appears**; a before/after grade or drainage visualisation is the one case that
+  would earn any of it, and it needs survey or drone data first.
+- **Nothing may loop.** Both modes run ONE pass and stop, hard-capped under five seconds. WCAG 2.2.2
+  Pause, Stop, Hide is **Level A** and sits under Conformance Requirement 5.2.5 (Non-Interference),
+  which makes the *whole page* non-conforming when failed — even for pure decoration. A
+  reduced-motion media query does **not** satisfy it; it is not among the sufficient techniques.
+  Self-stopping does, and needs no pause button. Verified by counting rAF callbacks: 0 after the
+  pass, and two screenshots two seconds apart are byte-identical.
+- **Phones get no WebGL context at all** (`minWidth`, default 768). At 390px the copy fills the
+  band, so the cleared title-block zone that keeps type legible covers essentially the whole canvas
+  — the layer was invisible while still costing a context, a shader compile and GPU time on the
+  device least able to spare it. Same call `HeroVideo` already makes about the hero clip.
+- **The centre is cleared, like a title block.** A real survey sheet doesn't print contours through
+  its own labelling. `ink` drops to 14% behind the middle of the band and returns to full at the
+  margins, which is what makes it safe to put live copy — including a small yellow eyebrow — on top.
 - **Meng To's Sylva cannot be copied.** Despite the "I open-sourced it" post, the repo README
   states: *"No license is granted for reuse or redistribution of the Sylva code, design, or
   artwork."* There is no root LICENSE. The separate `MengTo/Skills` repo **is** MIT and its
