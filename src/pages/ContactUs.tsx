@@ -208,7 +208,7 @@ const ContactUs = () => {
                     rel="noopener noreferrer"
                     className="text-foreground hover:text-primary transition-colors"
                   >
-                    @firmfoundationsc
+                    @firmfoundation_chs
                   </a>
                 </li>
               </ul>

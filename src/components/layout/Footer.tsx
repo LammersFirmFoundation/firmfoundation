@@ -104,7 +104,7 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   className="hover:text-primary transition-colors break-all"
                 >
-                  @firmfoundationsc
+                  @firmfoundation_chs
                 </a>
               </li>
             </ul>

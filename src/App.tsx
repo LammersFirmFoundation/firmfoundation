@@ -29,10 +29,17 @@ const queryClient = new QueryClient();
  */
 async function reviewsLoader(): Promise<ApiResponse | undefined> {
   try {
+    // At build time the endpoint's own `stale-while-revalidate=604800` would
+    // happily hand the prerender a copy up to a week old — which would bake
+    // stale reviews and a stale rating into the exact HTML crawlers read, and
+    // it did: a build ran while the CDN still held 5 reviews at 4.8 after the
+    // real profile had moved to 7 at 4.9. A cache-buster on the SSR fetch only
+    // (never the browser, which should keep using the shared cached copy)
+    // guarantees the baked-in numbers are current as of the build.
     const url = import.meta.env.SSR
-      ? "https://firmfoundationsc.com/api/reviews"
+      ? `https://firmfoundationsc.com/api/reviews?build=${Date.now()}`
       : "/api/reviews";
-    const res = await fetch(url);
+    const res = await fetch(url, import.meta.env.SSR ? { cache: "no-store" } : undefined);
     if (!res.ok) return undefined;
     return (await res.json()) as ApiResponse;
   } catch {

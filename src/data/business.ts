@@ -11,7 +11,7 @@ export const BUSINESS = {
   phone: "(843) 998-5593",
   phoneHref: "tel:8439985593",
   email: "josiahlammers1@gmail.com",
-  instagram: "https://www.instagram.com/firmfoundationsc",
+  instagram: "https://www.instagram.com/firmfoundation_chs",
   googleReviewsUrl:
     "https://search.google.com/local/reviews?placeid=ChIJ5eaJLR-TCSgRcovM30Gs8yw",
   /** Built from the same place_id api/reviews.ts pins; used in schema sameAs. */

@@ -19,6 +19,28 @@ export type Review = {
  */
 export const fallbackReviews: Review[] = [
   {
+    "name": "Margo Jostworth",
+    "location": "",
+    "rating": 5,
+    "date": "August 2026",
+    "review": "Josiah does everything with excellence and perfection! He has such high tenacity and grit! He does everything through the love of Christ!\nMatthew 7:24!!!\nSo proud of him and cannot wait to see the amazing projects to come!",
+    "service": "Google Review",
+    "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocJxhgrlxW2-de6xsqW5I_XaGRI7UuzFv59sUk9S_mSp7iJmFg=s1920-c-rp-mo-br100",
+    "images": [],
+    "sourceUrl": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2pWMFlYTmZOR2xsUWs1bmRVZEJNMWxrUWxoeFpGRRAB!2m1!1s0x0:0x2cf3ac41dfcc8b72!3m1!1s2@1:CAIQACodChtycF9oOjV0YXNfNGllQk5ndUdBM1lkQlhxZFE%7C%7C?hl=en"
+  },
+  {
+    "name": "Joe Welch",
+    "location": "",
+    "rating": 5,
+    "date": "August 2026",
+    "review": "Thank you Josiah for your amazing landscaping work at our non-profit project. I can always count on your professionalism and attention to detail. Looking forward to working together again soon.",
+    "service": "Google Review",
+    "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocKFZLw4M9HULEeN1YGkOSI1258tnq-JhQjVNTSVzkvx1N46Bg=s1920-c-rp-mo-br100",
+    "images": [],
+    "sourceUrl": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2xwNFlVcFhibHBSWTNndFJ6STNaMFI0ZEhWb2IxRRAB!2m1!1s0x0:0x2cf3ac41dfcc8b72!3m1!1s2@1:CAIQACodChtycF9oOlp4YUpXblpRY3gtRzI3Z0R4dHVob1E%7C%7C?hl=en"
+  },
+  {
     "name": "Steve Kelly",
     "location": "",
     "rating": 4,
@@ -71,8 +93,8 @@ export const fallbackReviews: Review[] = [
     "service": "Google Review",
     "avatarUrl": "https://lh3.googleusercontent.com/a-/ALV-UjVLmFNOh8FsIgkvlEiByMCfGm8z0A-RUyBgX7cPiXRlQ1FxyeSdKQ=s1920-c-rp-mo-br100",
     "images": [
-      "https://lh3.googleusercontent.com/grass-cs/ACvplmNCiduUcbaVSfX3EuwlTPH7ZbpWuFrCxy0Q8B76rKqD-8R4af0yJaJ4otSWGL4m5TLrZbiWUKhCLy_SvzOXRDiXLfY6KX-oeTt4C7nKXZFykYdkMbfWoIF_NWmwij57skk5PGCya4zbl-iN=k-no",
-      "https://lh3.googleusercontent.com/grass-cs/ACvplmOWYcGcN_LQSSWgGTJrN_UqiZdYtMnMTq6Ob7Kc04PKvUvF1Vv8HGWO_fiAHiGhNS4rF_2HQnzvd8pCywWFfkBxY8LvqbfFsSZlTl78PDovBEtlk3YiUhpQdBFxEOR6o8pp5LN37c0F08A=k-no"
+      "https://lh3.googleusercontent.com/grass-cs/ACvplmNGTqtmKMR61Gi8MktnpEi5Mif3eCXPoHGXlXZBYK-lg8L3zw4E2n7pm25P99tt5lvniVZd4lU3Xf5XIBg0K12t6w8Wyvhj8cWAB2le31RAht2MacC67T6296VQEdIRwT8BH0k6yGGQ6Iqx=k-no",
+      "https://lh3.googleusercontent.com/grass-cs/ACvplmP_8i-IBL8Swk-RJ3m1Uwnk7MMAP5gtOHTGD0xrDBncf3OfDG_cvgmIyedxe6L7v7J1WkVvw7F_8gqNA_dtMAyGW3c5BsBOqns64nxYeThFzMRlGDbrXY8tec3tn-X16E4P647HlqGMvBY=k-no"
     ],
     "sourceUrl": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT25OYVpHeHNUMTg0TkdsQlEwMHpTWGhQYUhoUU9IYxAB!2m1!1s0x0:0x2cf3ac41dfcc8b72!3m1!1s2@1:CAIQACodChtycF9oOnNaZGxsT184NGlBQ00zSXhPaHhQOHc%7C%7C?hl=en"
   }

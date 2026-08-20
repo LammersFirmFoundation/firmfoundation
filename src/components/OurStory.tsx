@@ -59,12 +59,8 @@ const OurStory = ({
           learning from a man who believed a job wasn&rsquo;t finished until it
           was finished right.
         </p>
-        <p>
-          Uncle Donnie always said he hoped Josiah would take the business over
-          one day.
-        </p>
         <p className="text-foreground text-2xl md:text-3xl font-heading">
-          He&rsquo;s starting to.
+          He runs Firm Foundation the same way.
         </p>
       </div>
       {showLink && (
