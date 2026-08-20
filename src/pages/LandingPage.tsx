@@ -45,7 +45,10 @@ const LandingPage = () => {
   const heroOpacity = useTransform(scrollY, [0, 520], [1, 0]);
   const heroLift = useTransform(scrollY, [0, 520], [0, -70]);
 
-  const testimonials = reviews.slice(0, 5).map((r) => ({
+  // Every review, not a fixed slice — this was hardcoded to 5 and silently
+  // dropped the two newest the moment the profile went from 5 reviews to 7.
+  // /reviews is still the full list; this carousel just no longer hides any.
+  const testimonials = reviews.map((r) => ({
     quote: r.review,
     name: r.name,
     location: r.location || "Verified Google Review",
@@ -329,7 +332,7 @@ const LandingPage = () => {
             </div>
 
             <div className="flex items-center justify-center gap-3 mt-7">
-              <div className="flex items-center -my-4">
+              <div className="flex flex-wrap justify-center items-center -my-4">
                 {testimonials.map((_, i) => (
                   <button
                     key={i}
