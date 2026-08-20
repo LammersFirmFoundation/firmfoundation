@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
 interface HeroVideoProps {
@@ -13,6 +13,15 @@ interface HeroVideoProps {
   posterAlt: string;
   /** Optional clip. Omit it and the hero is just the still. */
   src?: string;
+  /**
+   * Painted over the still, INSIDE the parallax transform.
+   *
+   * That placement is the whole point. The relit canvas redraws this same
+   * photograph, so outside the transform it would hold still while the photo
+   * drifted underneath it, and the two copies would visibly separate on the
+   * first scroll.
+   */
+  overlay?: ReactNode;
 }
 
 /**
@@ -24,7 +33,7 @@ interface HeroVideoProps {
  * slightly slower than the page scrolls, which is most of what gives the
  * reference site's hero its sense of depth.
  */
-const HeroVideo = ({ poster, posterSrcSet, posterAlt, src }: HeroVideoProps) => {
+const HeroVideo = ({ poster, posterSrcSet, posterAlt, src, overlay }: HeroVideoProps) => {
   const [showVideo, setShowVideo] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
   const shouldReduceMotion = useReducedMotion();
@@ -64,6 +73,7 @@ const HeroVideo = ({ poster, posterSrcSet, posterAlt, src }: HeroVideoProps) => 
           {...{ fetchpriority: "high" }}
           className="absolute inset-0 h-full w-full object-cover"
         />
+        {overlay}
         {src && showVideo && (
           <video
             autoPlay

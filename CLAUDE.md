@@ -34,12 +34,47 @@ Palette is **sampled from Josiah's logo PNG**, not invented — brand yellow `#f
 - **Yellow is 1.5:1 on cream**, so `.on-cream` remaps `--primary` to a dark amber. That's what keeps eyebrow-size text passing AA. Don't collapse it back.
 - The theme is **forced dark** (`forcedTheme="dark"` in `App.tsx`); the `.dark` block mirrors `:root` so a stray toggle can't half-light the site.
 
+## The relit hero
+`src/lib/relit-hero.ts` gives the hero photograph real surface relief: a depth map turns it into a
+height field, normals come from the depth gradient, and a 12-step ray-march through the same map
+produces soft self-shadowing under a light that follows the pointer.
+
+- **Adapted from Dominik Fojcik's "Relighting Images with Depth Maps and Three.js"** (Codrops,
+  2026-08-19, https://github.com/DGFX/codrops-relightning-images). The README states MIT; keep the
+  attribution in the file header. Re-implemented in plain WebGL2 rather than his TSL/WebGPU
+  original — the effect is one fragment shader over one quad either way, and `three/webgpu` costs
+  ~150 KB brotli that this does not. Shipped cost: **3.7 KB brotli + a 16 KB depth map**, desktop only.
+- **Licensing, checked so it isn't re-checked:** Codrops demos are **MIT** and fine for client work.
+  **Shadertoy's default is CC BY-NC-SA 3.0 — no commercial use** — so shaders lifted from there are
+  off the table for this site unless the author states otherwise.
+- **The depth map is generated locally**, not by hand or a paid service:
+  `@huggingface/transformers` + `onnx-community/depth-anything-v2-small`, then blurred ~3px and
+  saved as near-lossless WebP. Both steps matter — at 1.6px blur / q88 the 8-bit terracing survived
+  and showed as blocky steps across the sky and down the boom.
+- **The light is masked to the subject** (`smoothstep(0.18, 0.52, depth)`). The far background sits
+  near zero in the depth map where the gradient is flat and noisy; lighting it produced most of the
+  artifacting and bought nothing.
+
+### The hero scrim is load-bearing, and it is what limits the effect
+Measured 2026-08-20 against the real composited pixels (photo + canvas + scrim), text hidden so only
+the background is sampled: the current full-frame scrim gives the **h1 3.34:1** and the eyebrow
+5.32:1 — both passing AA (3:1 large text, 4.5:1 small). Opening it into a directional gradient so
+the photograph could be seen dropped those to **2.18:1 and 1.58:1, both failing**, and was reverted.
+
+**axe cannot catch this** — it does not evaluate text over images — so a scrim change must be
+re-measured by sampling pixels, never assumed from a green axe run. The consequence worth knowing:
+any photo effect in this hero is necessarily subtle, because the thing that makes the headline
+legible is the same thing that crushes the picture. Making the effect prominent needs a
+*composition* change (a narrower headline, or type on its own panel), not a shader change.
+
 ## The survey layer — and why it is NOT three.js
 `src/lib/survey-layer.ts` draws topographic contour lines in ~120 lines of raw WebGL. Contour
 lines are the literal visual language of grading and drainage, so the motif comes from Josiah's
 trade rather than from a demo. Two modes, both a single finite pass: `ambient` (crosses the CTA
-band once, then settles into a still survey sheet that stays) and `reveal` (one sweep over the
-hero on load, after which the canvas and its GL context are dropped entirely).
+band once, then settles into a still survey sheet that stays) and `reveal` (one sweep, canvas
+dropped afterwards). **`reveal` currently has no caller** — it drove the hero until the relit hero
+replaced it, because a single bright line crossing a photograph reads as a lightning flash rather
+than a survey. Keep it or delete it; don't leave it as a third state.
 
 - **three.js was evaluated and rejected on measurement, 2026-08-20 — don't re-open it without new
   numbers.** Built against this repo's own toolchain, a realistic tree-shaken three.js hero scene

@@ -33,12 +33,11 @@ export const BUSINESS = {
  * worth having. But a "Text us" button on a line that cannot receive texts is
  * a dead end and reads as careless, which is worse than not offering it.
  *
- * So it stays OFF until Josiah confirms the number takes texts. Flipping this
- * to `true` is the entire change: the button appears in the mobile action bar
- * and on the contact page, and nowhere else needs touching. Typed as `boolean`
- * rather than inferred so flipping it doesn't require touching call sites.
+ * Will confirmed on 2026-08-20 that (843) 998-5593 is Josiah's own mobile and
+ * takes texts, so this is ON. Typed as `boolean` rather than inferred so it can
+ * be flipped back without touching call sites if the number ever changes.
  */
-export const ACCEPTS_SMS: boolean = false;
+export const ACCEPTS_SMS: boolean = true;
 
 /** Prefilled so the first tap already has something in the box. */
 export const smsHref =

@@ -16,7 +16,7 @@ import GoogleIcon from "@/components/icons/GoogleIcon";
 import StarRating from "@/components/StarRating";
 import ServiceImage from "@/components/ServiceImage";
 import HeroVideo from "@/components/HeroVideo";
-import SurveyLayer from "@/components/SurveyLayer";
+import RelitHero from "@/components/RelitHero";
 import YardTriage from "@/components/YardTriage";
 import OurStory from "@/components/OurStory";
 import { useReviews, type ApiResponse } from "@/lib/useReviews";
@@ -25,6 +25,12 @@ import { BUSINESS, serviceAreaNames } from "@/data/business";
 import { localBusinessSchema, websiteSchema } from "@/lib/schema";
 import heroPoster from "@/assets/services/excavation.jpg";
 import heroPosterSet from "@/assets/services/excavation.jpg?w=640;1024;1600;2000&format=webp&quality=68&as=srcset";
+// The colour texture for the relit hero. Deliberately ONE of the srcset
+// candidates above rather than a separate export, so on a desktop the browser
+// has usually already fetched this exact file for the <img> and the canvas
+// costs nothing more than the 11 KB depth map.
+import heroRelitPhoto from "@/assets/services/excavation.jpg?w=1600&format=webp&quality=68&as=url";
+import heroDepth from "@/assets/services/excavation-depth.webp";
 
 // Leaflet touches `window` at import time, so the map loads on the client only.
 // The static fallback keeps the service-area names in the prerendered HTML.
@@ -101,17 +107,11 @@ const LandingPage = () => {
             poster={heroPoster}
             posterSrcSet={heroPosterSet}
             posterAlt="Firm Foundation's excavator clearing timber on a Lowcountry site"
+            overlay={<RelitHero photoUrl={heroRelitPhoto} depthUrl={heroDepth} />}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-charcoal/85 via-charcoal/55 to-charcoal" />
           <div className="absolute inset-0 bg-charcoal/18" />
 
-          {/* One survey pass over the ground before the page settles, then the
-              canvas and its GL context are dropped entirely. A contour layer
-              left running over a photograph reads as dirt on the lens; passing
-              over it once reads as the site being surveyed. It waits for an
-              idle moment so it never competes with the hero still, which is
-              the element this page's LCP is measured on. */}
-          <SurveyLayer mode="reveal" density={10} alpha={0.95} duration={2.4} />
 
           <motion.div
             style={shouldReduceMotion ? undefined : { opacity: heroOpacity, y: heroLift }}
