@@ -13,7 +13,7 @@ interface SEOProps {
 
 const SITE_URL = "https://firmfoundationsc.com";
 const SITE_NAME = "Firm Foundation Property Services";
-const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.jpg`;
+const DEFAULT_OG_IMAGE = `${SITE_URL}/og-logo.jpg`;
 
 const SEO = ({
   title,
@@ -52,14 +52,14 @@ const SEO = ({
       <meta property="og:image" content={ogImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content="A flagstone walkway installed by Firm Foundation in Mount Pleasant, SC" />
+      <meta property="og:image:alt" content="Firm Foundation Property Services" />
       {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
-      <meta name="twitter:image:alt" content="A flagstone walkway installed by Firm Foundation in Mount Pleasant, SC" />
+      <meta name="twitter:image:alt" content="Firm Foundation Property Services" />
 
       <meta name="geo.region" content="US-SC" />
       <meta name="geo.placename" content="Mount Pleasant" />

@@ -32,7 +32,7 @@ export const localBusinessSchema = {
   name: BUSINESS.name,
   description:
     "Family-run property services in Mount Pleasant, SC — small excavation, grading, drainage, and irrigation work, plus landscaping, hardscapes, tree services, and custom projects inside and out across the greater Charleston area.",
-  image: `${BUSINESS.url}/og-image.jpg`,
+  image: `${BUSINESS.url}/og-logo.jpg`,
   logo: `${BUSINESS.url}/favicon-192.png`,
   telephone: BUSINESS.phone,
   email: BUSINESS.email,
