@@ -70,7 +70,28 @@ The redirect lives in `vercel.json`. Don't remove it — printed cards depend on
 | File | What it is |
 |---|---|
 | `review-card-print.pdf` | Send this to the printer. 2 pages, front and back, bleed included. |
+| `review-qr-phone.png` | For showing customers on the spot. Save to the camera roll. |
 | `review-qr.svg` | The QR on its own, vector. For a truck decal, yard sign, or invoice footer. |
+
+## Showing it on the spot (no card needed)
+
+`review-qr-phone.png` is the phone version. **Save it to Josiah's camera roll and
+favourite it** — then he opens Photos, holds the phone out, and the customer
+scans it right there.
+
+Save it to Photos rather than bookmarking a web page: job sites have bad
+reception, and a saved image works with no signal. Only the *customer's* phone
+needs a connection to follow the link.
+
+Two practical notes:
+- **Turn screen brightness all the way up** before holding it out. That is the
+  single biggest factor in whether it scans outdoors.
+- This one is mostly **white**, not charcoal like the printed card. That is
+  deliberate: a phone screen is emissive, so a white ground makes it far brighter
+  and easier to scan in sunlight. Same brand, different medium.
+
+Verified to still decode when captured at 300px wide, under simulated screen
+glare, and on a dimmed screen.
 
 If you reuse the QR anywhere else: keep it **dark on light** (never yellow on
 charcoal — inverted codes fail on a lot of phone cameras), keep the pale margin
