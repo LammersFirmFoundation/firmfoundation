@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Section from "@/components/layout/Section";
 import SectionHeader from "@/components/layout/SectionHeader";
 import FadeInView from "@/components/animations/FadeInView";
+import SurveyLayer from "@/components/SurveyLayer";
 import { BUSINESS } from "@/data/business";
 
 interface CtaSectionProps {
@@ -21,6 +22,11 @@ interface CtaSectionProps {
  * be charcoal-on-charcoal and read muddy. The reference site keeps its own
  * closing CTA on the dark ground and never uses its accent as a large fill —
  * so this does the same, and the yellow goes back to being an accent.
+ *
+ * The contour layer lives here rather than on the hero: over a photograph it
+ * reads as dirt on the lens, because the photograph is already carrying the
+ * whole visual load. On the bare charcoal it reads as a survey sheet, which is
+ * the right note directly above a phone number.
  */
 const CtaSection = ({
   title,
@@ -28,7 +34,10 @@ const CtaSection = ({
   blurb,
   eyebrow = "Free On-Site Quotes",
 }: CtaSectionProps) => (
-  <Section className="text-center border-t border-border">
+  <Section
+    className="text-center border-t border-border"
+    backdrop={<SurveyLayer mode="ambient" density={9} alpha={1} />}
+  >
     <SectionHeader
       eyebrow={eyebrow}
       title={title}

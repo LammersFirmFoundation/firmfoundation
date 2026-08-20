@@ -14,6 +14,12 @@ interface SectionProps {
   id?: string;
   /** Drop the container so children can run edge to edge. */
   bleed?: boolean;
+  /**
+   * A decorative layer painted behind the content, edge to edge. The section
+   * becomes a positioning context and clips it, and the content is lifted
+   * above it — so a caller only has to hand over an absolutely positioned node.
+   */
+  backdrop?: ReactNode;
 }
 
 const variantStyles: Record<NonNullable<SectionProps["variant"]>, string> = {
@@ -28,6 +34,7 @@ const Section = ({
   variant = "default",
   id,
   bleed = false,
+  backdrop,
 }: SectionProps) => {
   return (
     <section
@@ -35,11 +42,19 @@ const Section = ({
       className={cn(
         "py-section-sm md:py-section",
         !bleed && "px-5 sm:px-6 md:px-10",
+        backdrop && "relative overflow-hidden",
         variantStyles[variant],
         className
       )}
     >
-      {bleed ? children : <div className="container mx-auto max-w-content px-0">{children}</div>}
+      {backdrop}
+      {bleed ? (
+        children
+      ) : (
+        <div className={cn("container mx-auto max-w-content px-0", backdrop && "relative")}>
+          {children}
+        </div>
+      )}
     </section>
   );
 };

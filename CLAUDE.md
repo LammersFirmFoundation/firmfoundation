@@ -8,7 +8,7 @@ Marketing site for a family-run property services company in Mount Pleasant, SC 
 - **Vite + React 18 + TypeScript strict + Tailwind 3** with a shadcn-style kit in `src/components/ui/`.
 - **`vite-react-ssg`** prerenders all 6 routes to static HTML at build time (`/`, `/services`, `/gallery`, `/about`, `/contact`, `/reviews`). This is the whole SEO story — crawlers get full HTML, not an empty `#root`.
 - **Vercel** hosting. One serverless function: `api/reviews.ts`.
-- `framer-motion` for scroll reveals, `leaflet`/`react-leaflet` for the service-area map (client-only — it touches `window` at import).
+- `framer-motion` for scroll reveals. **`leaflet`/`react-leaflet` are no longer rendered** — the homepage map became the coverage directory, and `ServiceAreaMap.tsx` is now unreferenced. Tree-shaking keeps both out of the bundle (verified), so it costs nothing shipped, but it is dead code: delete it or re-mount it, don't leave it as a third state.
 
 ## Commands
 - `npm run dev` (port **8080**, proxies `/api` to production so live reviews work locally)
@@ -33,6 +33,45 @@ Palette is **sampled from Josiah's logo PNG**, not invented — brand yellow `#f
 - **`--border` and `--input` diverge on purpose.** Form-control boundaries need 3:1 (WCAG 1.4.11); decorative section rules don't. `--input` is much lighter than `--border` for exactly that reason — don't "unify" them.
 - **Yellow is 1.5:1 on cream**, so `.on-cream` remaps `--primary` to a dark amber. That's what keeps eyebrow-size text passing AA. Don't collapse it back.
 - The theme is **forced dark** (`forcedTheme="dark"` in `App.tsx`); the `.dark` block mirrors `:root` so a stray toggle can't half-light the site.
+
+## The survey layer — and why it is NOT three.js
+`src/lib/survey-layer.ts` draws topographic contour lines in ~120 lines of raw WebGL. Contour
+lines are the literal visual language of grading and drainage, so the motif comes from Josiah's
+trade rather than from a demo. Two modes: `ambient` (drifts behind the CTA band) and `reveal`
+(one survey sweep over the hero on load, then the canvas and its GL context are dropped).
+
+- **three.js was evaluated and rejected on measurement, 2026-08-20 — don't re-open it without new
+  numbers.** Built against this repo's own toolchain, a realistic tree-shaken three.js hero scene
+  (r0.185.1: renderer, scene, camera, instanced mesh, shader material, fog, lights) came to
+  **106,027 bytes brotli** against the 198,434 the whole site's JS weighs. The shipped survey layer
+  costs **2,469 bytes brotli** in its own lazy chunk plus **295 bytes** on the app chunk. A scene
+  graph buys nothing here: an ambient background is one triangle and a function that colours
+  pixels. `ogl` was measured at 12,749 brotli and is the middle option **if real geometry ever
+  appears** — a before/after grade or drainage visualisation is the one case that would earn it.
+- **Meng To's Sylva cannot be copied.** Despite the "I open-sourced it" post, the repo README
+  states: *"No license is granted for reuse or redistribution of the Sylva code, design, or
+  artwork."* There is no root LICENSE. The separate `MengTo/Skills` repo **is** MIT and its
+  SKILL.md files are worth reading — they mandate IntersectionObserver pausing, teardown and a
+  reduced-motion still that Sylva itself never implements.
+- **Never run the contour layer over a photograph.** Tested on the hero: the photo already carries
+  the whole visual load, so a persistent layer over it reads as dirt on the lens. On the bare
+  charcoal it reads as a survey sheet. A one-shot *sweep* over the photo is fine — that's `reveal`.
+- **Frequency keys to the SHORT edge of the viewport, never the aspect ratio.** Keyed to aspect,
+  the field stretches on a tall phone until the lines fall outside the frame — at 390px the motif
+  had all but vanished, on exactly the visitor who matters most. Same reason the edge vignette is
+  shallow (0.16, not 0.30): a CTA band is short and wide, and a deep falloff left only the middle
+  third carrying any ink.
+- **The canvas is rendered only AFTER mount, so it never appears in the prerendered HTML.**
+  Googlebot does not support WebGL (Search Central, JS troubleshooting guide), and `<canvas>` is
+  **not an LCP-eligible element** — if decoration ever displaced the hero `<img>`, LCP would
+  silently move to the H1. The layer is additive, always.
+- `SurveyLayer.tsx` reaches the module through a **dynamic `import()`**. Importing
+  `@/lib/survey-layer` at the top of a page component puts WebGL on the contact form's critical
+  path — all the client JS is still one chunk, so there is nothing else stopping it.
+- The hero sweep waits for `requestIdleCallback` so it never competes with the hero still, which is
+  what the page's LCP is actually measured on. Under `prefers-reduced-motion` the sweep does not
+  run at all (freezing a sweep mid-pass leaves a bright bar across the hero for good); the ambient
+  layer holds a designed still frame instead.
 
 ## Deliberate omissions — these are decisions, not oversights
 - **No licensing / insurance / bonding / permitting claims anywhere.** SC requires an LLR residential specialty licence for grading work over $500 and Josiah hasn't confirmed status. These are verifiable legal claims, not marketing copy. Will explicitly chose to leave them off (2026-08-19). Same reason the Custom Projects copy doesn't advertise **electrical** even though he did the electrical on the pantry job.
@@ -73,10 +112,21 @@ He shared a Wildfire Leadership "mission portrait" (2026-08-19): core values *Co
 There's no browser extension here, but Playwright with system Chrome works and is how every visual claim in this repo was checked. Scripts live in the session scratchpad, not the repo — rebuild them as needed. Serve `dist/` over plain `http.server`-style Node and:
 - **Screenshots** — scroll the page in ~0.6vh steps before capturing, or `FadeInView`'s IntersectionObserver never fires and full-page shots come back with huge empty sections.
 - **axe-core** — currently **0 violations across all 6 pages**. Keep it there.
-- **Horizontal overflow** — check 320/375/414/768/1024/1440/1920. Currently clean at every width.
+- **Horizontal overflow** — check 320/375/414/768/1024/1440/1920. Clean from 768 up. **It is NOT clean below that**: measured 2026-08-20, the page scrolls sideways at 320 (367px), 375 (422px) and 414. The offender is the tilted polaroid pair in `OurStory.tsx` — the second `<figure>` is `absolute -bottom-10 -right-3 w-[44%]` inside a wrapper with no clip. Confirmed identical on a build with no other changes, so it is long-standing and not a regression. Fixing it means deciding whether that photo is *meant* to poke past the edge; clipping it changes the composition, so it's a design call, not a patch.
 - **Contrast** — compute WCAG ratios for real token pairs including opacity-modified ones (`text-charcoal/55` etc.) rather than eyeballing.
 
 ## Open items
+- **A page per service is the highest-value on-site change left, and it is not built.** Whitespark's
+  2026 Local Search Ranking Factors puts "dedicated page per service" at **#1 for local organic**;
+  all five services currently share one `/services` page, and the slugs already exist unused in
+  `src/data/services.ts`. Same study puts site speed at **#95 and #137 in the local pack**, with
+  Core Web Vitals not listed at all — which is the honest frame for how much any front-end polish
+  can move rankings here. GBP category (#1) and proximity (#2) dominate, so **adding excavation as
+  a secondary GBP category outranks anything in this repo.**
+- **Vercel Web Analytics is still not enabled** (`get_web_analytics` returned 404 again on
+  2026-08-20). The tracking code has been shipping for weeks and recording nothing, so there is no
+  device split, no traffic baseline, and no way to judge whether any change helped. One dashboard
+  toggle: Project → Analytics → Enable.
 - Photography is the real ceiling. Six good **landscape** shots of one excavation job unlock named project pages (`/work/<slug>`) and the pinned-scroll treatment, which are the two biggest remaining gaps vs the reference site.
 - Does `(843) 998-5593` accept texts? If yes, add click-to-text — contractor leads skew heavily to SMS.
 - "Uncle Donnie" vs "Danny" — Will wrote Donnie, Josiah's voice note said Danny. Site says **Donnie** in three places.
