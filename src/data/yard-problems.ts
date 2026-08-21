@@ -213,6 +213,30 @@ export const yardProblemGroups: YardProblemGroup[] = [
   "Something you want built",
 ];
 
+/**
+ * What the HOMEPAGE shows — the ground problems only.
+ *
+ * The triage earns its place because a homeowner cannot name a drainage
+ * problem: they see a wet yard, not a grade. But "I want a patio", "a tree
+ * needs to come down" and "the beds look tired" are things people can already
+ * name, so for those four the tool is doing no diagnostic work at all — it was
+ * just a menu, and it cost a screen of scrolling on the page whose only job is
+ * to get someone to call.
+ *
+ * The four that come out are NOT lost: every problem renders on the service
+ * page it routes to, as prose and as `FAQPage` schema, which is where Whitespark
+ * puts the search value anyway (dedicated page per service is their #1 local
+ * organic factor). Verified against the built HTML, not assumed.
+ *
+ * Keyed on the service rather than on `group` because "Can you clear overgrown
+ * brush and small trees?" routes to Excavation while sitting under the "Trees
+ * and growth" heading — cutting by group would have dropped a lead-service
+ * question.
+ */
+export const homepageProblems = yardProblems.filter(
+  (problem) => problem.serviceSlug === "excavation"
+);
+
 export const findYardProblem = (id: string | null | undefined) =>
   id ? yardProblems.find((p) => p.id === id) : undefined;
 

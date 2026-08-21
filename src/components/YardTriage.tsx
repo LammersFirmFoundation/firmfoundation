@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BUSINESS } from "@/data/business";
-import { yardProblems, yardProblemGroups } from "@/data/yard-problems";
+import { homepageProblems } from "@/data/yard-problems";
 
 /**
  * "What's your yard doing?" — the one part of this site that does work for the
@@ -23,6 +23,13 @@ import { yardProblems, yardProblemGroups } from "@/data/yard-problems";
  * them only after a click would hide them from crawlers entirely. All of them
  * start closed — see the note on `openId`.
  *
+ * **Six rows, no group headings.** It shows only the problems that route to
+ * Excavation — the ones a homeowner genuinely cannot name for themselves. The
+ * other four ("I want a patio", "a tree needs to come down") were a menu, not a
+ * diagnosis, and they cost a screen of scrolling; they live on their service
+ * pages instead. With six items the three group headings were structure the
+ * list no longer needed.
+ *
  * **It is an accordion, not a two-column picker.** The answer opens directly
  * under the thing you tapped, so there is no scrolling to find where the
  * content went and no separate mobile layout to keep in sync.
@@ -36,20 +43,14 @@ const YardTriage = () => {
   // Everything starts CLOSED. With the first panel open the section ran 2.5
   // screens on a phone and pushed the reviews — the strongest trust signal on
   // the page — past the point most visitors ever scroll to. Closed, it reads
-  // as a scannable list of the ten questions people actually arrive with, and
+  // as a scannable list of the questions people actually arrive with, and
   // every answer is still in the DOM for crawlers either way.
   const [openId, setOpenId] = useState<string>("");
 
   return (
     <div className="mx-auto max-w-narrow">
-      {yardProblemGroups.map((group) => (
-        <div key={group} className="mb-10 last:mb-0">
-          <p className="eyebrow text-muted-foreground mb-3">{group}</p>
-
-          <ul className="divide-y divide-border border-y border-border">
-            {yardProblems
-              .filter((problem) => problem.group === group)
-              .map((problem) => {
+      <ul className="divide-y divide-border border-y border-border">
+        {homepageProblems.map((problem) => {
                 const isOpen = openId === problem.id;
                 const panelId = `yard-answer-${problem.id}`;
                 const buttonId = `yard-symptom-${problem.id}`;
@@ -141,10 +142,20 @@ const YardTriage = () => {
                     </div>
                   </li>
                 );
-              })}
-          </ul>
-        </div>
-      ))}
+        })}
+      </ul>
+
+      <p className="mt-6 text-sm text-muted-foreground">
+        Something else &mdash; a tree, a patio, tired beds, or something you want
+        built?{" "}
+        <Link
+          to="/services"
+          className="text-primary underline underline-offset-4"
+        >
+          See everything we do
+        </Link>
+        .
+      </p>
     </div>
   );
 };

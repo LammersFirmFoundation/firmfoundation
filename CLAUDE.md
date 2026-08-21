@@ -141,7 +141,7 @@ than a survey. Keep it or delete it; don't leave it as a third state.
 
 ## Homepage length — measured, and why the ORDER mattered more than the cutting
 Measured 2026-08-21 against the built page: the homepage was **12.7 screens on a phone** (8,514px
-desktop / 10,746px mobile), 8 sections, 1,006 words. Now **10 screens**, 775 words.
+desktop / 10,746px mobile), 8 sections, 1,006 words. Now **9.5 screens** (8.1 desktop), 753 words.
 
 The bigger fix was order, not length. NN/g finds **65% of viewing time goes to the top 40% of a
 page regardless of how long it is**, and average scroll depth on a well-designed page is ~63%. The
@@ -154,8 +154,15 @@ What was cut and why, so it isn't undone:
   their summary sentence. Five stacked image cards were 3.4 screens — the biggest block on the page
   — duplicating five pages that now exist in their own right. Cards link to `/services/<slug>`, not
   the index, which is also the internal linking those pages want.
-- **The yard triage starts fully collapsed.** With the first panel open it ran 2.5 screens. Every
-  answer is still in the DOM either way, so nothing is lost for crawlers.
+- **The yard triage starts fully collapsed, and the homepage shows only the SIX Excavation
+  problems** (`homepageProblems`). With the first panel open and all ten rows it ran 2.5 screens;
+  it is now 1.17. The tool earns its place because a homeowner cannot name a drainage problem —
+  but "I want a patio", "a tree needs to come down" and "the beds look tired" are things people
+  already know, so for those four it was a menu, not a diagnosis. All ten still render on the
+  service page each routes to, as prose AND `FAQPage` schema — verified against the built HTML.
+  Keyed on `serviceSlug`, not `group`: "Can you clear overgrown brush and small trees?" routes to
+  Excavation while sitting under the "Trees and growth" heading, so cutting by group would have
+  dropped a lead-service question.
 
 Still on the table if it needs to be shorter, all three being content calls rather than craft ones:
 the stats strip (0.32 screens, and its Google rating duplicates the hero 300px above), Areas We
