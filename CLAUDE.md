@@ -139,6 +139,32 @@ than a survey. Keep it or delete it; don't leave it as a third state.
   run at all (freezing a sweep mid-pass leaves a bright bar across the hero for good); the ambient
   layer holds a designed still frame instead.
 
+## Homepage length — measured, and why the ORDER mattered more than the cutting
+Measured 2026-08-21 against the built page: the homepage was **12.7 screens on a phone** (8,514px
+desktop / 10,746px mobile), 8 sections, 1,006 words. Now **10 screens**, 775 words.
+
+The bigger fix was order, not length. NN/g finds **65% of viewing time goes to the top 40% of a
+page regardless of how long it is**, and average scroll depth on a well-designed page is ~63%. The
+reviews — a real 4.9 from verified Google reviews, the strongest trust signal the business has —
+sat at **screen 8.9 of 12.7**, past where most visitors ever reach. They now sit at screen 5.0,
+directly after Services and ahead of the story. **Proof before biography.**
+
+What was cut and why, so it isn't undone:
+- **Services cards drop their photo on a phone except the lead service**, and non-lead cards drop
+  their summary sentence. Five stacked image cards were 3.4 screens — the biggest block on the page
+  — duplicating five pages that now exist in their own right. Cards link to `/services/<slug>`, not
+  the index, which is also the internal linking those pages want.
+- **The yard triage starts fully collapsed.** With the first panel open it ran 2.5 screens. Every
+  answer is still in the DOM either way, so nothing is lost for crawlers.
+
+Still on the table if it needs to be shorter, all three being content calls rather than craft ones:
+the stats strip (0.32 screens, and its Google rating duplicates the hero 300px above), Areas We
+Serve (0.74, duplicates the footer), and shortening Our Story to a teaser plus the existing link to
+`/about` (~0.8). Those three together would land it near 8 screens.
+
+Re-measure with a scripted section audit rather than by eye — section heights in *screens* is the
+unit that matters, and it differs a lot between desktop and mobile.
+
 ## Deliberate omissions — these are decisions, not oversights
 - **No licensing / insurance / bonding / permitting claims anywhere.** SC requires an LLR residential specialty licence for grading work over $500 and Josiah hasn't confirmed status. These are verifiable legal claims, not marketing copy. Will explicitly chose to leave them off (2026-08-19). Same reason the Custom Projects copy doesn't advertise **electrical** even though he did the electrical on the pantry job.
 - **No `aggregateRating` / `Review` nodes in JSON-LD.** Google makes a business republishing reviews about itself ineligible for the star rich result, so the markup can never pay off. Real ratings still render for visitors — they're just not claimed as schema.

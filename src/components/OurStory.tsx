@@ -54,12 +54,12 @@ const OurStory = ({
   const story = (
     <>
       <p className="eyebrow text-primary mb-6">Our Story</p>
-      <Heading className="text-hero font-heading text-foreground mb-10">
+      <Heading className="text-hero font-heading text-foreground mb-7 sm:mb-10">
         It started
         <br />
         in the cab
       </Heading>
-      <div className="space-y-6 text-lg md:text-xl text-muted-foreground leading-relaxed font-light">
+      <div className="space-y-5 sm:space-y-6 text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed font-light">
         <p>
           Josiah was barely old enough to walk the first time his Uncle Donnie
           sat him in an excavator.
@@ -69,7 +69,7 @@ const OurStory = ({
           learning from a man who believed a job wasn&rsquo;t finished until it
           was finished right.
         </p>
-        <p className="text-foreground text-2xl md:text-3xl font-heading">
+        <p className="text-foreground text-xl sm:text-2xl md:text-3xl font-heading">
           He runs Firm Foundation the same way.
         </p>
       </div>

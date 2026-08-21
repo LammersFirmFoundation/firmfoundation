@@ -20,8 +20,8 @@ import { yardProblems, yardProblemGroups } from "@/data/yard-problems";
  * **Every answer is in the DOM, collapsed rather than absent.** These are the
  * literal questions people type into Google ("why does water stand in my yard")
  * and the answers are the most search-valuable prose on the site — rendering
- * them only after a click would hide them from crawlers entirely. The first is
- * open on load so the section is never a wall of unanswered buttons.
+ * them only after a click would hide them from crawlers entirely. All of them
+ * start closed — see the note on `openId`.
  *
  * **It is an accordion, not a two-column picker.** The answer opens directly
  * under the thing you tapped, so there is no scrolling to find where the
@@ -33,7 +33,12 @@ import { yardProblems, yardProblemGroups } from "@/data/yard-problems";
  * that is thirty lines of `aria-expanded`.
  */
 const YardTriage = () => {
-  const [openId, setOpenId] = useState<string>(yardProblems[0].id);
+  // Everything starts CLOSED. With the first panel open the section ran 2.5
+  // screens on a phone and pushed the reviews — the strongest trust signal on
+  // the page — past the point most visitors ever scroll to. Closed, it reads
+  // as a scannable list of the ten questions people actually arrive with, and
+  // every answer is still in the DOM for crawlers either way.
+  const [openId, setOpenId] = useState<string>("");
 
   return (
     <div className="mx-auto max-w-narrow">

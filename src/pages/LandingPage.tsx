@@ -231,7 +231,7 @@ const LandingPage = () => {
                 { value: aggregateRating.toFixed(1), label: "Google Rating", isRating: true },
                 ...staticStats,
               ].map((stat, i) => (
-                <div key={stat.label} className="py-10 px-5 text-center">
+                <div key={stat.label} className="py-7 sm:py-10 px-5 text-center">
                   <dd className="font-heading text-4xl md:text-5xl text-foreground">
                     {stat.value}
                   </dd>
@@ -273,14 +273,19 @@ const LandingPage = () => {
               looked good but cost roughly five screens of scrolling on the
               page whose only job is to get someone to call. The detailed
               alternating treatment still lives on /services. */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {services.map((service, index) => (
               <FadeInView key={service.slug} delay={index * 0.06}>
                 <Link
-                  to="/services"
+                  to={`/services/${service.slug}`}
                   className="group flex h-full flex-col rounded-lg overflow-hidden border border-border bg-card transition-colors duration-500 hover:border-primary/60"
                 >
-                  <div className="overflow-hidden">
+                  {/* On a phone only the lead service keeps its photograph.
+                      Five stacked image cards ran 3.4 screens — the single
+                      biggest block on the page — to duplicate five pages that
+                      now exist in their own right. One photo holds the visual
+                      proof at the top; the rest become compact rows. */}
+                  <div className={index === 0 ? "overflow-hidden" : "hidden overflow-hidden sm:block"}>
                     <ServiceImage
                       service={service}
                       eager={index === 0}
@@ -289,18 +294,18 @@ const LandingPage = () => {
                       className="rounded-none transition-transform duration-700 ease-editorial group-hover:scale-[1.04]"
                     />
                   </div>
-                  <div className="flex flex-1 flex-col p-6 md:p-7">
-                    <span className="eyebrow text-primary mb-3">
+                  <div className="flex flex-1 flex-col p-5 sm:p-6 md:p-7">
+                    <span className="eyebrow text-primary mb-2 sm:mb-3">
                       {String(index + 1).padStart(2, "0")}
                       {index === 0 && " · Lead service"}
                     </span>
-                    <h3 className="font-heading text-2xl md:text-[1.75rem] font-extralight leading-tight text-card-foreground mb-3">
+                    <h3 className="font-heading text-xl sm:text-2xl md:text-[1.75rem] font-extralight leading-tight text-card-foreground mb-2 sm:mb-3">
                       {service.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
+                    <p className={`text-sm text-muted-foreground leading-relaxed sm:line-clamp-none ${index === 0 ? "line-clamp-2" : "hidden sm:block"}`}>
                       {service.summary}
                     </p>
-                    <span className="eyebrow text-primary mt-6 inline-block group-hover:text-foreground transition-colors">
+                    <span className="eyebrow text-primary mt-4 sm:mt-6 inline-block group-hover:text-foreground transition-colors">
                       Learn more
                     </span>
                   </div>
@@ -310,11 +315,12 @@ const LandingPage = () => {
           </div>
         </Section>
 
-        {/* ── Our story ────────────────────────────────────────────────── */}
-        <Section variant="cream">
-          <OurStory showLink />
-        </Section>
-
+        {/* Reviews sit directly after Services, ahead of the story.
+            NN/g: 65% of viewing time goes to the top 40% of a page regardless
+            of length, and average scroll depth on a well-designed page is ~63%.
+            Below the story, the 4.9 Google rating landed at screen 8.9 of 12.7
+            on a phone — past where most visitors ever get. Proof has to come
+            before biography. */}
         {/* ── Reviews ──────────────────────────────────────────────────── */}
         <Section variant="muted" id="reviews" className="scroll-mt-24">
           <SectionHeader
@@ -457,6 +463,11 @@ const LandingPage = () => {
               </span>
             </div>
           </FadeInView>
+        </Section>
+
+        {/* ── Our story ────────────────────────────────────────────────── */}
+        <Section variant="cream">
+          <OurStory showLink />
         </Section>
 
         {/* ── Service areas ────────────────────────────────────────────────
