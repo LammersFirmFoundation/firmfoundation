@@ -205,7 +205,7 @@ He shared a Wildfire Leadership "mission portrait" (2026-08-19): core values *Co
 - **`APIFY_TOKEN` must be set in Vercel env**, or `/api/reviews` 500s and the site silently falls back to the snapshot. `.env.local` holds the local copy and is gitignored.
 - **The repo is PUBLIC.** `.claude/settings.local.json` contains the Apify token inside approved-command strings; it's gitignored both globally and in-repo now, but never move it or commit it.
 - **Contact form posts to Formspree** (`xlgwpbnn`, hardcoded in `ContactUs.tsx`). No backend — if leads stop arriving, check Formspree, not the code.
-- **Google Business Profile:** excavation still needs adding as a **secondary** category (leaving the primary alone avoids re-verification). Research put GBP service categories above any on-site change for local ranking.
+- **Google Business Profile:** **Excavating contractor is already on the listing** as a secondary category (confirmed 2026-08-25), alongside Landscaper, Tree service and Drainage service. **The PRIMARY is still "Property maintenance"** — and primary category is the strongest single local-ranking signal, so it, not the secondaries, is the lever left. Moving it to Excavating contractor is a positioning call for Josiah, and it re-triggers verification, so it is only free while the profile is already unverified. Listed name is now `Firm Foundation Property Services`, matching the site and the truck sticker.
   **BLOCKED until ownership verification clears.** Google emailed `josiahlammers1@gmail.com` on 2026-08-24 from the genuine `businessprofile-noreply@google.com` asking for further verification that Josiah *manages* the profile — the listing itself is live and carries the real reviews this site pulls. That is a normal step for a service-area business at a residential address with no storefront, not a denial. **A category edit while verification is pending can restart it**, so add excavation only after it clears. Path is video verification: one unedited 30s+ take shot on the phone while signed into that exact Google account (street sign → house number → truck plate → equipment → unlock/start the truck → a document naming the business → the profile open on screen). Failed attempts now end in a "No more ways to verify" dead end needing support, so it is a one-shot.
   **Scam calls are riding on this.** Two so far (2026-08-21, 2026-08-25), both claiming a "verified listing department", both with a spoofed caller ID and a different callback area code, both citing a fake "issue with your keywords attached to your listing" and a same-day deadline. Google never cold-calls about verification and has no such department. Never grant anyone manager access; the goal of these calls is the profile itself.
 
@@ -217,17 +217,17 @@ There's no browser extension here, but Playwright with system Chrome works and i
 - **Contrast** — compute WCAG ratios for real token pairs including opacity-modified ones (`text-charcoal/55` etc.) rather than eyeballing.
 
 ## Open items
-- **A page per service is the highest-value on-site change left, and it is not built.** Whitespark's
-  2026 Local Search Ranking Factors puts "dedicated page per service" at **#1 for local organic**;
-  all five services currently share one `/services` page, and the slugs already exist unused in
-  `src/data/services.ts`. Same study puts site speed at **#95 and #137 in the local pack**, with
-  Core Web Vitals not listed at all — which is the honest frame for how much any front-end polish
-  can move rankings here. GBP category (#1) and proximity (#2) dominate, so **adding excavation as
-  a secondary GBP category outranks anything in this repo.**
+- **The GBP PRIMARY category is the highest-value lever left, and it is not in this repo.**
+  Whitespark's 2026 Local Search Ranking Factors puts GBP category at **#1** and proximity at #2,
+  with site speed at **#95 / #137** and Core Web Vitals unlisted — the honest frame for how much
+  front-end polish can move local rankings. Excavating contractor is already a *secondary*
+  category; the primary still reads "Property maintenance", which is what actually ranks. See the
+  Google Business Profile entry in External setup for the verification constraint on changing it.
+  *(A page per service — Whitespark's #1 for local **organic** — is now BUILT: `ServiceDetailPage`
+  + `getStaticPaths` in `App.tsx` prerender all five slugs, each carrying its `FAQPage` schema.)*
 - **Vercel Web Analytics is still not enabled** (`get_web_analytics` returned 404 again on
   2026-08-20). The tracking code has been shipping for weeks and recording nothing, so there is no
   device split, no traffic baseline, and no way to judge whether any change helped. One dashboard
   toggle: Project → Analytics → Enable.
 - Photography is the real ceiling. Six good **landscape** shots of one excavation job unlock named project pages (`/work/<slug>`) and the pinned-scroll treatment, which are the two biggest remaining gaps vs the reference site.
-- Does `(843) 998-5593` accept texts? If yes, add click-to-text — contractor leads skew heavily to SMS.
 - "Uncle Donnie" vs "Danny" — Will wrote Donnie, Josiah's voice note said Danny. Site says **Donnie** in three places.
