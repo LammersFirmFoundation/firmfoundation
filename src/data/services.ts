@@ -1,5 +1,18 @@
 import landClearing from "@/assets/services/excavation.jpg";
 import landClearingSet from "@/assets/services/excavation.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
+// Stock photography: licenses and the rules for using it are in
+// src/assets/stock/CREDITS.md. None of these are Firm Foundation jobs; each is
+// a placeholder for one of Josiah's own photos.
+import clearingCard from "@/assets/stock/land-clearing-excavator.jpg";
+import clearingCardSet from "@/assets/stock/land-clearing-excavator.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
+import treeStump from "@/assets/stock/tree-stump.jpg";
+import treeStumpSet from "@/assets/stock/tree-stump.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
+import gradingBackyard from "@/assets/stock/grading-backyard.jpg";
+import gradingBackyardSet from "@/assets/stock/grading-backyard.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
+import pondExcavation from "@/assets/stock/pond-excavation.jpg";
+import pondExcavationSet from "@/assets/stock/pond-excavation.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
+import drainagePipe from "@/assets/stock/drainage-pipe.jpg";
+import drainagePipeSet from "@/assets/stock/drainage-pipe.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
 import hardscapes from "@/assets/services/hardscapes.jpg";
 import hardscapesSet from "@/assets/services/hardscapes.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
 import landscaping from "@/assets/services/landscaping.jpg";
@@ -37,6 +50,14 @@ export type Service = {
   imageSrcSet?: string;
   /** Describes the photo. Only needed alongside `image`; a drawing describes itself. */
   alt?: string;
+  /**
+   * A different photo for the service grid, when `image` would repeat something
+   * already on screen. Land clearing uses it: its `image` is Josiah's own
+   * machine, which the homepage hero already shows one screen up.
+   */
+  cardImage?: string;
+  cardImageSrcSet?: string;
+  cardAlt?: string;
   /** The section drawing. Every core service has one; it stands in for a photo we don't have yet. */
   plate?: PlateId;
   /**
@@ -107,6 +128,9 @@ export const services: Service[] = [
     image: landClearing,
     imageSrcSet: landClearingSet,
     alt: "Firm Foundation's tracked excavator clearing timber on a Lowcountry lot",
+    cardImage: clearingCard,
+    cardImageSrcSet: clearingCardSet,
+    cardAlt: "An excavator beside piles of cleared brush at the edge of a tree line",
     summary:
       "Overgrown lots, underbrush and small trees cleared down to usable ground, with the trees worth keeping left standing and the debris hauled off.",
     description1:
@@ -185,6 +209,9 @@ export const services: Service[] = [
     title: "Tree & Stump Removal",
     navBlurb: "Trees down, stumps ground or pulled, cleanup included",
     plate: "trees",
+    image: treeStump,
+    imageSrcSet: treeStumpSet,
+    alt: "A freshly cut tree stump surrounded by sawdust",
     pageTitle: "Tree & Stump Removal, Mount Pleasant SC | Firm Foundation",
     pageDescription:
       "Tree removal, stump grinding and full stump and root-ball removal with an excavator, plus storm cleanup, in Mount Pleasant and greater Charleston, SC. Free on-site quotes.",
@@ -251,6 +278,9 @@ export const services: Service[] = [
     title: "Excavation & Grading",
     navBlurb: "Site prep, pads, driveways and regrading",
     plate: "grading",
+    image: gradingBackyard,
+    imageSrcSet: gradingBackyardSet,
+    alt: "A compact excavator beside a freshly graded dirt pad behind a brick house",
     pageTitle: "Excavation & Grading, Mount Pleasant SC | Firm Foundation",
     pageDescription:
       "Grading, site prep, building and shed pads, gravel driveways and trenching in Mount Pleasant and greater Charleston, SC. Utilities located through SC811 before any digging.",
@@ -303,6 +333,9 @@ export const services: Service[] = [
     title: "Pool & Pond Excavation",
     navBlurb: "Pool digs and ponds, spoils hauled off",
     plate: "pools",
+    image: pondExcavation,
+    imageSrcSet: pondExcavationSet,
+    alt: "An excavator beside a newly dug pond on flat open ground",
     pageTitle: "Pool & Pond Excavation, Mount Pleasant | Firm Foundation",
     pageDescription:
       "Site prep and excavation for in-ground pools and ponds in Mount Pleasant and greater Charleston, SC: access, clearing, digging to plan and spoils haul-off.",
@@ -374,6 +407,9 @@ export const services: Service[] = [
     title: "Drainage",
     navBlurb: "French drains, swales, ditches and culverts",
     plate: "drainage",
+    image: drainagePipe,
+    imageSrcSet: drainagePipeSet,
+    alt: "A mini excavator next to a coil of perforated drain pipe",
     pageTitle: "Drainage & French Drains, Mount Pleasant | Firm Foundation",
     pageDescription:
       "French drains, swales, regrading, ditch and culvert work for yards that hold water in Mount Pleasant and greater Charleston, SC. Planned around the high water table.",

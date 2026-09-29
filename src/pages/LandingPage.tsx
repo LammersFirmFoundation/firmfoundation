@@ -193,7 +193,7 @@ const LandingPage = () => {
             name; a photo does that faster, and it is how most of these jobs
             start anyway. */}
         <section className="border-y border-border bg-muted px-5 py-12 sm:px-6 md:px-10 md:py-14">
-          <FadeInView className="mx-auto flex max-w-content flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+          <FadeInView className="mx-auto flex max-w-content flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
             <div>
               <h2 className="font-heading text-3xl font-extralight leading-tight text-foreground md:text-4xl">
                 Not sure what you need? <span className="text-primary">Send a photo.</span>
@@ -209,6 +209,9 @@ const LandingPage = () => {
                   <a href={smsHref} data-analytics-where="photo-band-text">
                     <MessageSquare aria-hidden="true" />
                     Text a photo
+                    {/* A laptop can't always send a text, so wider screens get
+                        the number itself to copy onto a phone. */}
+                    <span className="hidden sm:inline">to {BUSINESS.phone}</span>
                   </a>
                 </Button>
               )}

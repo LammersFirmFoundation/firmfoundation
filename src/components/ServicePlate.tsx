@@ -8,14 +8,13 @@ import type { PlateId } from "@/data/services";
  * civil detail sheet is drawn: hairlines, hatched earth, a dashed existing
  * grade, the water-table symbol, a title block.
  *
- * They exist because the photography does not. Josiah has one strong clearing
- * photo, and the four other core services have none. A stock photo of someone
- * else's excavator would be a small lie on a site whose whole pitch is "we're
- * straight with you"; an empty frame reads as unfinished. A drawing is honest
- * about what it is, and it does something no photo can: it shows the part of
- * the job that happens underground. A homeowner who has never seen a French
- * drain in section, or a root ball, or cut and fill, understands the work — and
- * the quote — better for having seen one.
+ * They started as stand-ins for photos Josiah doesn't have yet, and turned out
+ * to be better at a different job: explaining. A photo shows the machine; a
+ * section shows the half of the work that happens underground — a root ball,
+ * a French drain, cut and fill — which a homeowner has never seen and which is
+ * what the quote is actually paying for. So each service page puts its drawing
+ * beside the choice it illustrates (grind or pull, swale or drain), and the
+ * photographs carry the cards and the heroes.
  *
  * It is the same visual language as the survey layer behind every CTA
  * (`survey-layer.ts`): contour lines are how grading work is drawn, and a
