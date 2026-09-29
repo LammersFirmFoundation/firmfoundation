@@ -12,7 +12,7 @@ import logoMark from "@/assets/logo-mark.png";
 import { ArrowRight, ChevronDown, Menu, Phone } from "lucide-react";
 import { useState, useEffect } from "react";
 import { BUSINESS } from "@/data/business";
-import { coreServices, moreServices } from "@/data/services";
+import { coreServices } from "@/data/services";
 
 interface HeaderProps {
   transparent?: boolean;
@@ -36,21 +36,38 @@ const linkStyle =
  */
 const Header = ({ transparent = false }: HeaderProps) => {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [menu, setMenu] = useState("");
 
   useEffect(() => {
-    if (!transparent) return;
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 50);
+      // Phones only: the header slides away while reading down and comes back
+      // on the first scroll up. The sticky Call/Text/Quote bar already holds
+      // the actions at the bottom, and two fixed bars on a 390px screen is
+      // the pattern NN/g singles out. Desktop keeps a fixed header.
+      if (window.innerWidth < 768 && Math.abs(y - last) > 6) {
+        setHidden(y > last && y > 120);
+        last = y;
+      } else if (window.innerWidth >= 768) {
+        setHidden(false);
+        last = y;
+      }
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [transparent]);
+  }, []);
 
   // An open menu needs a solid bar above it, or the panel hangs off nothing.
   const isTransparent = transparent && !scrolled && !menu;
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,transform] duration-500 ${
+        hidden ? "-translate-y-full" : "translate-y-0"
+      } ${
         isTransparent
           ? "bg-transparent"
           : "bg-background/90 backdrop-blur-md border-b border-border/60"
@@ -83,7 +100,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
           <div className="hidden md:flex items-center gap-7 lg:gap-10">
             <NavigationMenu.Root value={menu} onValueChange={setMenu} delayDuration={60} aria-label="Main">
               <NavigationMenu.List className="flex items-center gap-7 lg:gap-10">
-                <NavigationMenu.Item value="services">
+                <NavigationMenu.Item value="services" className="relative">
                   <NavigationMenu.Trigger className={`group inline-flex items-center gap-1.5 ${linkStyle} data-[state=open]:text-foreground`}>
                     Services
                     <ChevronDown
@@ -91,62 +108,35 @@ const Header = ({ transparent = false }: HeaderProps) => {
                       aria-hidden="true"
                     />
                   </NavigationMenu.Trigger>
-                  <NavigationMenu.Content className="data-[motion^=from-]:animate-in data-[motion^=from-]:fade-in data-[motion^=to-]:animate-out data-[motion^=to-]:fade-out">
-                    <div className="mx-auto grid max-w-content grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-10 px-6 py-10 md:px-10 lg:gap-16">
-                      <div>
-                        <p className="eyebrow text-primary mb-5">Land clearing &amp; excavation</p>
-                        <ul className="grid grid-cols-2 gap-x-8 border-t border-border">
-                          {coreServices.map((service, i) => (
-                            <li key={service.slug} className="border-b border-border">
-                              <NavigationMenu.Link asChild>
-                                <Link to={`/services/${service.slug}`} className="group flex gap-4 py-4">
-                                  <span className="eyebrow pt-1.5 text-primary">{String(i + 1).padStart(2, "0")}</span>
-                                  <span>
-                                    <span className="block font-heading text-xl font-light text-foreground transition-colors group-hover:text-primary">
-                                      {service.title}
-                                    </span>
-                                    <span className="mt-1 block text-sm text-muted-foreground">{service.navBlurb}</span>
-                                  </span>
-                                </Link>
-                              </NavigationMenu.Link>
-                            </li>
-                          ))}
-                          <li className="border-b border-border">
+                  {/* A plain dropdown, not a mega menu: NN/g reserves those for
+                      big sites, and five services fit in one short list. */}
+                  <NavigationMenu.Content className="absolute left-0 top-full mt-4 w-[21rem] data-[motion^=from-]:animate-in data-[motion^=from-]:fade-in data-[motion^=from-]:slide-in-from-top-1 data-[motion^=to-]:animate-out data-[motion^=to-]:fade-out">
+                    <div className="overflow-hidden rounded-lg border border-border bg-background shadow-2xl">
+                      <ul className="py-2">
+                        {coreServices.map((service) => (
+                          <li key={service.slug}>
                             <NavigationMenu.Link asChild>
-                              <Link to="/services" className="group flex h-full items-center gap-2 py-4 eyebrow text-foreground/80 hover:text-primary">
-                                All services
-                                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                              <Link
+                                to={`/services/${service.slug}`}
+                                className="group block px-5 py-3 transition-colors hover:bg-card focus:bg-card focus:outline-none"
+                              >
+                                <span className="block font-heading text-lg font-light text-foreground group-hover:text-primary">
+                                  {service.title}
+                                </span>
+                                <span className="mt-0.5 block text-xs text-muted-foreground">{service.navBlurb}</span>
                               </Link>
                             </NavigationMenu.Link>
                           </li>
-                        </ul>
-                      </div>
-                      <div className="flex flex-col justify-between gap-8 border-l border-border pl-10 lg:pl-16">
-                        <div>
-                          <p className="eyebrow text-muted-foreground mb-5">Smaller jobs, on request</p>
-                          <ul className="space-y-3">
-                            {moreServices.map((service) => (
-                              <li key={service.slug}>
-                                <NavigationMenu.Link asChild>
-                                  <Link to={`/services/${service.slug}`} className="text-foreground/80 transition-colors hover:text-primary">
-                                    {service.title}
-                                  </Link>
-                                </NavigationMenu.Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div>
-                          <p className="text-sm leading-relaxed text-muted-foreground">
-                            Not sure which? Tell us what you&rsquo;re looking at and Josiah will come walk it.
-                          </p>
-                          <NavigationMenu.Link asChild>
-                            <Link to="/contact" className="mt-4 inline-flex items-center gap-2 eyebrow text-primary hover:text-foreground">
-                              Get a free quote
-                              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-                            </Link>
-                          </NavigationMenu.Link>
-                        </div>
+                        ))}
+                      </ul>
+                      <div className="flex items-center justify-between gap-4 border-t border-border px-5 py-3.5">
+                        <NavigationMenu.Link asChild>
+                          <Link to="/services" className="group inline-flex items-center gap-2 eyebrow text-primary hover:text-foreground">
+                            All services
+                            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                          </Link>
+                        </NavigationMenu.Link>
+                        <span className="text-xs text-muted-foreground">+ patios, beds, builds</span>
                       </div>
                     </div>
                   </NavigationMenu.Content>
@@ -163,11 +153,6 @@ const Header = ({ transparent = false }: HeaderProps) => {
                 ))}
               </NavigationMenu.List>
 
-              {/* The panel spans the full width under the bar. The header is
-                  `fixed`, so it is the containing block for this. */}
-              <div className="absolute inset-x-0 top-full">
-                <NavigationMenu.Viewport className="w-full overflow-hidden border-b border-border bg-background shadow-2xl h-[var(--radix-navigation-menu-viewport-height)] transition-[height] duration-300 data-[state=open]:animate-in data-[state=open]:fade-in data-[state=closed]:animate-out data-[state=closed]:fade-out" />
-              </div>
             </NavigationMenu.Root>
 
             <a

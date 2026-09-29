@@ -37,6 +37,12 @@ interface OurStoryProps {
   className?: string;
   /** Link out to /about. Off when the component is already on /about. */
   showLink?: boolean;
+  /**
+   * The homepage version: one print and two lines. The full two-photo spread
+   * is for /about, where the story is the point; on the homepage it was the
+   * second-tallest block on a page whose job is to get someone to call.
+   */
+  compact?: boolean;
 }
 
 /**
@@ -47,9 +53,48 @@ const OurStory = ({
   asPageHeading = false,
   className,
   showLink = false,
+  compact = false,
 }: OurStoryProps) => {
   const Heading = asPageHeading ? "h1" : "h2";
   const hasPhotos = photos.length > 0;
+
+  if (compact && hasPhotos) {
+    return (
+      <div className={cn("grid grid-cols-[7rem_1fr] items-center gap-6 sm:grid-cols-[11rem_1fr] sm:gap-10 md:mx-auto md:max-w-3xl", className)}>
+        <FadeInView direction="none">
+          <figure className="rotate-[-3deg] bg-white p-2 pb-2.5 shadow-xl ring-1 ring-black/5">
+            <img
+              src={photos[0].src}
+              srcSet={photos[0].srcSet}
+              sizes="176px"
+              alt={photos[0].alt}
+              loading="lazy"
+              decoding="async"
+              className="h-auto w-full object-cover"
+            />
+          </figure>
+        </FadeInView>
+        <FadeInView delay={0.1}>
+          <p className="eyebrow text-primary mb-3">Our story</p>
+          <Heading className="font-heading text-3xl font-extralight leading-tight text-foreground md:text-[2.5rem]">
+            It started in the cab.
+          </Heading>
+          <p className="mt-3 leading-relaxed text-muted-foreground md:text-lg">
+            Josiah grew up in his Uncle Donnie&rsquo;s excavator, learning that a job isn&rsquo;t
+            finished until it&rsquo;s finished right. He runs Firm Foundation the same way.
+          </p>
+          {showLink && (
+            <Link
+              to="/about"
+              className="mt-5 inline-block eyebrow text-primary hover:text-foreground border-b border-primary/40 hover:border-foreground pb-1 transition-colors"
+            >
+              More about Firm Foundation
+            </Link>
+          )}
+        </FadeInView>
+      </div>
+    );
+  }
 
   const story = (
     <>

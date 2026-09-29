@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 /**
- * New page, top of the page — unless the link named a section (`/#yard`), in
- * which case land on that section. Without the hash branch, a link into the
- * homepage triage from the quote form dropped people at the hero instead.
+ * New page, top of the page — unless the link named a section (`/#reviews`), in
+ * which case land on that section. Without the hash branch, a link into a
+ * homepage section from another page dropped people at the hero instead.
  */
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation();

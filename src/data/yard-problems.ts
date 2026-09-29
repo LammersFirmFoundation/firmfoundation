@@ -2,7 +2,10 @@ import { services } from "@/data/services";
 
 /**
  * The situations a homeowner actually recognises, and what each one usually
- * turns out to be.
+ * turns out to be. They render as each service page's FAQ (and `FAQPage`
+ * schema), and `/contact?problem=<id>` prefills the quote form from one. The
+ * homepage accordion that used to show six of them was cut on 2026-09-29 for
+ * simplicity; "send a photo" replaced it.
  *
  * This exists because the real barrier to someone calling is not that they
  * don't trust Josiah — it's that they cannot name their own job. They know
@@ -307,33 +310,6 @@ export const yardProblemGroups: YardProblemGroup[] = [
   "Something to dig or build",
 ];
 
-/**
- * What the HOMEPAGE shows — six, chosen, not filtered.
- *
- * The triage earns its place on the homepage only where a homeowner genuinely
- * can't name the job: that the good trees can stay while the thicket goes,
- * that a stump can be pulled rather than ground, that a pool builder may not
- * do the dig, that standing water is a grade problem. "A tree needs to come
- * down" and "I want a patio" are things people already know how to ask for, so
- * there the tool would be a menu, not a diagnosis — and every row is a row of
- * scrolling on the page whose only job is to get someone to call.
- *
- * Nothing left off is lost: every problem renders on the service page it
- * routes to, as prose and as `FAQPage` schema.
- */
-const HOMEPAGE_IDS = [
-  "overgrown",
-  "keep-good-trees",
-  "stumps",
-  "pool-dig",
-  "standing-water",
-  "water-toward-house",
-];
-
-export const homepageProblems = HOMEPAGE_IDS.map(
-  (id) => yardProblems.find((p) => p.id === id)!
-);
-
 export const findYardProblem = (id: string | null | undefined) =>
   id ? yardProblems.find((p) => p.id === id) : undefined;
 
@@ -344,11 +320,6 @@ export const findYardProblem = (id: string | null | undefined) =>
  * reaching a customer.
  */
 if (import.meta.env.DEV || import.meta.env.SSR) {
-  for (const id of HOMEPAGE_IDS) {
-    if (!yardProblems.some((p) => p.id === id)) {
-      throw new Error(`yard-problems: homepage lists unknown problem "${id}"`);
-    }
-  }
   for (const problem of yardProblems) {
     const service = services.find((s) => s.slug === problem.serviceSlug);
     if (!service) {

@@ -173,6 +173,44 @@
   --accent-foreground: 216 17% 12%;
 }
 
+/* ── Hero entrance ────────────────────────────────────────────────────────
+   Pure CSS on purpose. A JS-driven reveal (FadeInView) bakes its opacity:0
+   start state into the prerendered HTML, which is the gotcha that once
+   shipped this headline invisible until hydration. A CSS animation runs from
+   the first paint with no JavaScript at all, and `both` fill leaves the
+   finished state in place. It plays once and stops (WCAG 2.2.2), and not at
+   all under reduced motion. The hero photo, not this text, is the LCP element
+   at every breakpoint, so the ~0.7s rise does not move LCP. Kept short on
+   purpose: NN/g finds animated text reads as waiting. */
+.hero-line {
+  display: block;
+  overflow: hidden;
+  /* Room for descenders, which the mask would otherwise clip. */
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+}
+.hero-line > span {
+  display: inline-block;
+  animation: hero-line-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-rise {
+  animation: hero-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes hero-line-rise {
+  from { transform: translateY(105%); }
+  to { transform: translateY(0); }
+}
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-line > span,
+  .hero-rise {
+    animation: none;
+  }
+}
+
 /* The inverse: a subtree that must stay on the dark palette wherever it is
    placed. The section drawings are dark sheets drawn in the dark tokens; set
    inside a cream section, `.on-cream` would otherwise turn every line of them

@@ -120,12 +120,22 @@ void main() {
   // ── Normals ──────────────────────────────────────────────────────────
   // Central difference over the depth map gives the large shapes: the boom,
   // the cab, the bank of cut timber.
-  vec2 texel = 3.0 / uImageSize;
-  float dxL = depthAt(uv - vec2(texel.x, 0.0));
-  float dxR = depthAt(uv + vec2(texel.x, 0.0));
-  float dyD = depthAt(uv - vec2(0.0, texel.y));
-  float dyU = depthAt(uv + vec2(0.0, texel.y));
-  vec2 slope = vec2(dxR - dxL, dyU - dyD) * 0.5 / texel * DISPLACEMENT * NORMAL_SCALE;
+  //
+  // Wide baseline, three taps per side, on purpose. The depth map is 8-bit,
+  // so a smooth slope is stored as a staircase of one-level steps, and a
+  // gradient taken 3 texels wide turned every step into a hard lighting edge:
+  // a checkerboard across the cab glass and stripes down the boom. Found
+  // 2026-09-29 by switching each shader term off in turn (it vanished only
+  // with NORMAL_SCALE at 0), so it was the data, not the GPU. A 12-texel
+  // baseline averaged across the perpendicular spans several steps at once
+  // and reads as the smooth surface the map is approximating.
+  vec2 texel = 12.0 / uImageSize;
+  vec2 o = texel * 0.5;
+  float dxL = depthAt(uv - vec2(texel.x, 0.0)) + depthAt(uv - vec2(texel.x, o.y)) + depthAt(uv - vec2(texel.x, -o.y));
+  float dxR = depthAt(uv + vec2(texel.x, 0.0)) + depthAt(uv + vec2(texel.x, o.y)) + depthAt(uv + vec2(texel.x, -o.y));
+  float dyD = depthAt(uv - vec2(0.0, texel.y)) + depthAt(uv - vec2(o.x, texel.y)) + depthAt(uv - vec2(-o.x, texel.y));
+  float dyU = depthAt(uv + vec2(0.0, texel.y)) + depthAt(uv + vec2(o.x, texel.y)) + depthAt(uv + vec2(-o.x, texel.y));
+  vec2 slope = vec2(dxR - dxL, dyU - dyD) / 3.0 * 0.5 / texel * DISPLACEMENT * NORMAL_SCALE;
 
   // A second gradient, taken from the photograph's own luminance at a blurred
   // mip level, adds the fine grain the depth map is far too smooth to carry —

@@ -64,26 +64,38 @@ const ServiceImage = ({
 
   if (!service.image) return null;
 
+  // Below the fold, the photo is uncovered bottom-up as it arrives: a
+  // curtain, once. Motion lives on imagery rather than text on purpose (NN/g:
+  // animated text reads as waiting). Never above the fold — `eager` images are
+  // the first screen, and they should simply be there.
+  const reveal = !eager && !shouldReduceMotion;
+
   return (
-    <div className={cn(aspect, "rounded-lg overflow-hidden", className)}>
+    <motion.div
+      className={cn(aspect, "rounded-lg overflow-hidden", className)}
+      initial={reveal ? { clipPath: "inset(100% 0% 0% 0%)" } : false}
+      whileInView={reveal ? { clipPath: "inset(0% 0% 0% 0%)" } : undefined}
+      viewport={{ once: true, margin: "-8% 0px" }}
+      transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+    >
       <motion.img
         src={service.image}
         // WebP variants at 640/1024/1600. `src` stays the original JPEG, so
         // anything that doesn't understand srcset still gets a photo.
         srcSet={service.imageSrcSet}
         sizes={sizes}
-        alt={service.alt}
+        alt={service.alt ?? ""}
         loading={eager ? "eager" : "lazy"}
         decoding="async"
         width={1200}
         height={900}
-        initial={shouldReduceMotion ? undefined : { scale: 1.12 }}
-        whileInView={shouldReduceMotion ? undefined : { scale: 1 }}
-        viewport={{ once: true, margin: "-10% 0px" }}
-        transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+        initial={reveal ? { scale: 1.14 } : undefined}
+        whileInView={reveal ? { scale: 1 } : undefined}
+        viewport={{ once: true, margin: "-8% 0px" }}
+        transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
         className="w-full h-full object-cover will-change-transform"
       />
-    </div>
+    </motion.div>
   );
 };
 

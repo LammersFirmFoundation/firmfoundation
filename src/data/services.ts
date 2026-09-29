@@ -68,13 +68,14 @@ export type Service = {
     accent: string;
     options: { name: string; detail: string; bestFor: string }[];
   };
-  /** How a job of this kind actually runs, start to finish. */
-  process?: ServiceItem[];
   /**
-   * What moves the price — never the price itself. There are no numbers on
-   * this site on purpose: a range Josiah hasn't set is a promise he didn't make.
+   * What moves the price — never the price itself. Rendered as the first FAQ
+   * answer on the service page. There are no numbers on this site on purpose:
+   * a range Josiah hasn't set is a promise he didn't make.
    */
   priceFactors?: ServiceItem[];
+  /** Overrides the default "How much does <service> cost?" — use the phrasing people search. */
+  priceQuestion?: string;
   /** Service-specific questions, rendered with the yard-problem FAQ and as FAQPage schema. */
   faqs?: { question: string; answer: string }[];
 };
@@ -94,6 +95,7 @@ export const services: Service[] = [
   {
     slug: "land-clearing",
     tier: "core",
+    priceQuestion: "How much does it cost to clear an acre?",
     title: "Land Clearing",
     navBlurb: "Lots, underbrush and fence lines, cleared and hauled off",
     plate: "clearing",
@@ -141,12 +143,6 @@ export const services: Service[] = [
         },
       ],
     },
-    process: [
-      { label: "Walk the lot", detail: "We walk it together and flag what stays: the property line, the trees you care about, and any big ones worth checking with the town before they come down." },
-      { label: "Scope it", detail: "What gets cleared, what stays, and where the debris goes, agreed before a machine is on site." },
-      { label: "Clear", detail: "Brush and trees down, stumps out, debris loaded and hauled as we go." },
-      { label: "Leave it usable", detail: "Root holes filled and the ground rough-graded, so it is ready for whatever comes next." },
-    ],
     priceFactors: [
       { label: "How thick it is", detail: "Density matters more than acreage. A quarter acre of scrub and vines can take longer than an acre of open pines." },
       { label: "What's on it", detail: "Brush and saplings go quickly. Big trees and stumps are what add time." },
@@ -180,11 +176,6 @@ export const services: Service[] = [
         question: "Will the town pick up the debris?",
         answer:
           "Not if a contractor cut it. Mount Pleasant and the City of Charleston both leave debris from hired work to the contractor to haul away, which is why where the debris goes is part of the quote from the start.",
-      },
-      {
-        question: "How much does it cost to clear an acre?",
-        answer:
-          "It depends far more on what is standing on the acre than on the acre itself: a quarter acre of thick scrub can take longer than an acre of open pines, and hauling everything off is a large part of most jobs. There is no price list here on purpose. Josiah walks it and gives you a straight number.",
       },
     ],
   },
@@ -229,12 +220,6 @@ export const services: Service[] = [
         },
       ],
     },
-    process: [
-      { label: "Look at what's around it", detail: "The roof, the fence, the drive, and how much room there is to bring it down." },
-      { label: "Bring it down", detail: "Planned around whatever is underneath it." },
-      { label: "Deal with the stump", detail: "Ground or pulled, depending on what the ground is for next." },
-      { label: "Clean up", detail: "Limbs, logs and grindings hauled off. You get the yard back, not a pile." },
-    ],
     priceFactors: [
       { label: "Size of the tree", detail: "Height and trunk thickness decide how much work it is to bring down and cut up." },
       { label: "What's underneath it", detail: "Open ground is one job. A roof, a fence or a driveway underneath is a slower one." },
@@ -286,12 +271,6 @@ export const services: Service[] = [
       { label: "Fill Dirt & Topsoil", detail: "Brought in, spread and graded" },
       { label: "Haul-Off", detail: "Spoils loaded out so the site is clean when we leave" },
     ],
-    process: [
-      { label: "Read the ground", detail: "Where it's high, where it's low, where water goes now, and where it needs to go." },
-      { label: "Call SC811", detail: "Underground utilities located and marked before any digging starts." },
-      { label: "Cut, fill, compact", detail: "Move the dirt, bring in what's missing, and pack it so it doesn't settle." },
-      { label: "Finish grade", detail: "A final pass that leaves the surface smooth and falling the right way." },
-    ],
     priceFactors: [
       { label: "How much dirt moves", detail: "The volume cut from the high spots and filled into the low ones." },
       { label: "What comes in", detail: "Fill, stone or topsoil trucked to the site." },
@@ -320,6 +299,7 @@ export const services: Service[] = [
   {
     slug: "pools-and-ponds",
     tier: "core",
+    priceQuestion: "How much does a pool dig or a pond cost?",
     title: "Pool & Pond Excavation",
     navBlurb: "Pool digs and ponds, spoils hauled off",
     plate: "pools",
@@ -358,12 +338,6 @@ export const services: Service[] = [
         },
       ],
     },
-    process: [
-      { label: "Plan the dig", detail: "Layout, depths, and how the machine and the trucks get in and out." },
-      { label: "Clear the way in", detail: "Trees, stumps and anything in the path out before dig day." },
-      { label: "Dig and haul", detail: "Dug to plan, with spoils loaded out as we go." },
-      { label: "Put the yard back", detail: "Backfill and a final grade when the builder is ready for it." },
-    ],
     priceFactors: [
       { label: "Size and depth", detail: "How much ground comes out of the hole." },
       { label: "Where the dirt goes", detail: "Trucking spoils away is often the biggest part of a pool dig." },
@@ -435,12 +409,6 @@ export const services: Service[] = [
         },
       ],
     },
-    process: [
-      { label: "Watch the water", detail: "Where it collects, where it comes from, and where it could go instead. Best seen after a rain." },
-      { label: "Find the fall", detail: "How much drop there is between the problem and an outlet decides what will work." },
-      { label: "Build it", detail: "Regrade, trench, or both, with utilities marked through SC811 first." },
-      { label: "Leave it clean", detail: "Backfilled, graded, and ready for sod or seed." },
-    ],
     priceFactors: [
       { label: "Length of the run", detail: "How far the water has to be carried." },
       { label: "Depth and outlet", detail: "How far it is to somewhere the water can actually leave." },

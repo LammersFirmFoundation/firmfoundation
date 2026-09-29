@@ -8,14 +8,13 @@ import SectionHeader from "@/components/layout/SectionHeader";
 import FadeInView from "@/components/animations/FadeInView";
 import ServiceImage from "@/components/ServiceImage";
 import ServicePlate, { plateDescriptions } from "@/components/ServicePlate";
-import ProcessSteps from "@/components/ProcessSteps";
 import FaqList, { type FaqEntry } from "@/components/FaqList";
 import SEO from "@/components/SEO";
 import CtaSection from "@/components/CtaSection";
 import NotFound from "@/pages/NotFound";
 import { coreServices, findService } from "@/data/services";
 import { problemsForService } from "@/data/yard-problems";
-import { BUSINESS, areaServedSchema, serviceAreaNames } from "@/data/business";
+import { BUSINESS, areaServedSchema } from "@/data/business";
 import { businessRef } from "@/lib/schema";
 
 /**
@@ -52,7 +51,35 @@ const ServiceDetailPage = () => {
   // place further down, next to the choice it illustrates.
   const plateBelow = Boolean(service.image && service.plate);
 
+  // Price is the first question anyone has, so it is the first answer, not a
+  // section of its own. Still no numbers: a range Josiah hasn't set is a
+  // promise he didn't make. What moves the price is the honest answer.
+  const priceQuestion = service.priceQuestion ?? `How much does ${service.title.toLowerCase()} cost?`;
+  const priceIntro =
+    "There's no price list here, on purpose: no two pieces of ground are the same. Josiah walks it and gives you a straight number. What it comes down to:";
   const faqs: FaqEntry[] = [
+    ...(service.priceFactors
+      ? [
+          {
+            question: priceQuestion,
+            answer: (
+              <>
+                <p>{priceIntro}</p>
+                <ul className="mt-4 space-y-2.5">
+                  {service.priceFactors.map((factor) => (
+                    <li key={factor.label} className="flex gap-3">
+                      <span aria-hidden="true" className="mt-2.5 h-1 w-3 shrink-0 rounded-full bg-primary" />
+                      <span>
+                        <span className="text-foreground">{factor.label}.</span> {factor.detail}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ),
+          },
+        ]
+      : []),
     ...problems.map((problem) => ({
       question: problem.question,
       answer: (
@@ -75,6 +102,9 @@ const ServiceDetailPage = () => {
   ];
 
   const faqSchema = [
+    ...(service.priceFactors
+      ? [{ q: priceQuestion, a: `${priceIntro} ${service.priceFactors.map((f) => `${f.label}: ${f.detail}`).join(" ")}` }]
+      : []),
     ...problems.map((p) => ({ q: p.question, a: `${p.cause} ${p.fix}` })),
     ...(service.faqs ?? []).map((f) => ({ q: f.question, a: f.answer })),
   ];
@@ -220,7 +250,7 @@ const ServiceDetailPage = () => {
               <p className="font-heading text-2xl font-light leading-snug text-foreground md:text-[1.75rem]">
                 {service.description1}
               </p>
-              <p className="mt-6 leading-relaxed text-muted-foreground">{service.description2}</p>
+              <p className="mt-6 hidden leading-relaxed text-muted-foreground md:block">{service.description2}</p>
             </FadeInView>
 
             {/* One reveal around the whole list, never one per row: a
@@ -230,13 +260,15 @@ const ServiceDetailPage = () => {
               <h2 className="eyebrow text-primary mb-6">What&rsquo;s included</h2>
               <ul className="grid grid-cols-1 border-t border-border sm:grid-cols-2 sm:gap-x-10">
                 {service.items.map((item, i) => (
-                  <li key={item.label} className="flex gap-4 border-b border-border py-5">
-                    <span className="eyebrow pt-1 text-primary">{String(i + 1).padStart(2, "0")}</span>
+                  <li key={item.label} className="flex gap-4 border-b border-border py-3.5 sm:py-5">
+                    <span className="eyebrow pt-1.5 text-primary">{String(i + 1).padStart(2, "0")}</span>
                     <span>
                       <span className="block font-heading text-lg leading-snug text-foreground">
                         {item.label}
                       </span>
-                      <span className="mt-1.5 block text-sm leading-relaxed text-muted-foreground">
+                      {/* Labels alone on a phone: seven two-line rows was a screen of
+                          scrolling for detail the label mostly already says. */}
+                      <span className="mt-1.5 hidden text-sm leading-relaxed text-muted-foreground sm:block">
                         {item.detail}
                       </span>
                     </span>
@@ -288,37 +320,6 @@ const ServiceDetailPage = () => {
           </Section>
         )}
 
-        {/* ── How the job runs ─────────────────────────────────────────── */}
-        {service.process && (
-          <Section variant="muted">
-            <SectionHeader eyebrow="How it runs" title="Start" accent="to finish" />
-            <ProcessSteps steps={service.process} />
-          </Section>
-        )}
-
-        {/* ── What moves the price — never the price ───────────────────── */}
-        {service.priceFactors && (
-          <Section className="border-t border-border">
-            <SectionHeader
-              eyebrow="Pricing, honestly"
-              title="What moves"
-              accent="the price"
-              subtitle="There&rsquo;s no price list on this site, on purpose: no two pieces of ground are the same. These are the things a quote actually comes down to."
-            />
-            <FadeInView>
-              <ul className="grid grid-cols-1 border-t border-border sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-3">
-                {service.priceFactors.map((factor, i) => (
-                  <li key={factor.label} className="border-b border-border py-6">
-                    <span className="eyebrow text-primary">{String(i + 1).padStart(2, "0")}</span>
-                    <h3 className="mt-3 font-heading text-xl leading-snug text-foreground">{factor.label}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{factor.detail}</p>
-                  </li>
-                ))}
-              </ul>
-            </FadeInView>
-          </Section>
-        )}
-
         {/* ── Questions ────────────────────────────────────────────────── */}
         {faqs.length > 0 && (
           <Section variant="cream">
@@ -336,45 +337,34 @@ const ServiceDetailPage = () => {
           </Section>
         )}
 
-        {/* ── Coverage + the rest of the core work ─────────────────────── */}
+        {/* ── The rest of the core work ───────────────────────────────── */}
         <Section className="border-t border-border">
-          <div className="grid gap-12 md:grid-cols-2 md:gap-16">
-            <FadeInView>
-              <p className="eyebrow text-primary mb-5">Where we work</p>
-              <p className="text-muted-foreground leading-relaxed">
-                {service.title} across {serviceAreaNames.slice(0, -1).join(", ")}, and{" "}
-                {serviceAreaNames[serviceAreaNames.length - 1]}. Josiah is based in Mount
-                Pleasant, and quotes are free and on-site.
-              </p>
-            </FadeInView>
-
-            <FadeInView delay={0.1}>
-              <p className="eyebrow text-primary mb-5">
-                {isCore ? "Often part of the same job" : "What we mostly do"}
-              </p>
-              <ul className="divide-y divide-border border-y border-border">
-                {others.map((other) => (
-                  <li key={other.slug}>
-                    <Link
-                      to={`/services/${other.slug}`}
-                      className="group flex min-h-[44px] items-center justify-between gap-4 py-4"
-                    >
-                      <span>
-                        <span className="block text-foreground transition-colors group-hover:text-primary">
-                          {other.title}
-                        </span>
-                        <span className="mt-0.5 block text-sm text-muted-foreground">{other.navBlurb}</span>
+          <FadeInView>
+            <p className="eyebrow text-primary mb-6">
+              {isCore ? "Often part of the same job" : "What we mostly do"}
+            </p>
+            <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {others.map((other) => (
+                <li key={other.slug}>
+                  <Link
+                    to={`/services/${other.slug}`}
+                    className="group flex h-full items-start justify-between gap-4 rounded-lg border border-border p-5 transition-colors hover:border-primary/60"
+                  >
+                    <span>
+                      <span className="block font-heading text-lg text-foreground transition-colors group-hover:text-primary">
+                        {other.title}
                       </span>
-                      <ArrowUpRight
-                        className="h-4 w-4 flex-none text-primary opacity-60 transition-opacity group-hover:opacity-100"
-                        aria-hidden="true"
-                      />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </FadeInView>
-          </div>
+                      <span className="mt-1 block text-sm text-muted-foreground">{other.navBlurb}</span>
+                    </span>
+                    <ArrowUpRight
+                      className="mt-1 h-4 w-4 flex-none text-primary transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                      aria-hidden="true"
+                    />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </FadeInView>
         </Section>
 
         <CtaSection

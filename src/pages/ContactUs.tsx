@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -270,11 +270,11 @@ const ContactUs = () => {
         />
 
         {/* Page header */}
-        <section className="px-5 sm:px-6 md:px-10 py-16 md:py-24">
+        <section className="px-5 sm:px-6 md:px-10 pt-10 pb-10 md:py-20">
           <div className="mx-auto max-w-content">
             <FadeInView immediate>
               <p className="eyebrow text-primary mb-6">Free On-Site Quotes</p>
-              <h1 className="text-hero md:text-display font-heading max-w-4xl">
+              <h1 className="text-hero font-heading max-w-4xl">
                 Get a free quote
                 <br />
                 <span className="text-primary">in Mount Pleasant</span>
@@ -287,10 +287,12 @@ const ContactUs = () => {
           </div>
         </section>
 
-        <Section className="pt-0">
+        <Section className="pt-0 md:pt-4">
           <div className="grid md:grid-cols-[1fr_1.45fr] gap-14 md:gap-16 lg:gap-20 [&>*]:min-w-0">
-            {/* Contact details — they ride alongside the long form on desktop. */}
-            <div className="md:sticky md:top-28 md:self-start">
+            {/* Contact details — alongside the form on desktop (left, sticky), but
+                AFTER it on a phone: someone who tapped "Get a Free Quote" should
+                land on the form, not scroll past an email address to find it. */}
+            <div className="order-2 md:order-1 md:sticky md:top-28 md:self-start">
               <FadeInView immediate>
                 <h2 className="eyebrow text-primary mb-8">Rather talk?</h2>
 
@@ -357,7 +359,7 @@ const ContactUs = () => {
             </div>
 
             {/* The quote form */}
-            <FadeInView immediate>
+            <FadeInView immediate className="order-1 md:order-2">
               <div className="border border-border rounded-lg bg-card p-6 sm:p-8 md:p-10 min-w-0">
                 {sent ? (
                   <div role="status" className="py-6 text-center">
@@ -632,13 +634,6 @@ const ContactUs = () => {
                 )}
               </div>
 
-              <p className="mt-6 text-center text-xs text-muted-foreground">
-                Not sure what you need?{" "}
-                <Link to="/#yard" className="text-primary underline underline-offset-4">
-                  Start from what you&rsquo;re seeing
-                </Link>
-                .
-              </p>
             </FadeInView>
           </div>
         </Section>

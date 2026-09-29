@@ -28,7 +28,7 @@ const ProcessSteps = ({ steps }: { steps: ServiceItem[] }) => {
         transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
       />
 
-      <ol className="relative grid gap-9 md:grid-cols-4 md:gap-8">
+      <ol className={`relative grid gap-9 md:gap-10 ${steps.length === 3 ? "md:grid-cols-3" : "md:grid-cols-4"}`}>
         {steps.map((step, i) => (
           <li key={step.label} className="grid grid-cols-[2.75rem_1fr] gap-5 md:block">
             <FadeInView delay={0.15 * i} direction="none">

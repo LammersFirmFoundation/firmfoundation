@@ -92,8 +92,7 @@ export const postalAddressSchema = {
 };
 
 /**
- * How any job runs, start to finish — the homepage's process strip. Each core
- * service page carries its own, more specific version in `services.ts`.
+ * How any job runs, in three steps — the homepage's process strip.
  *
  * Every step is something Josiah already does and the site already says
  * elsewhere (free on-site quotes, SC811 before digging, haul-off). Nothing here
@@ -101,23 +100,17 @@ export const postalAddressSchema = {
  */
 export const howAJobRuns = [
   {
-    label: "Walk the property",
-    detail:
-      "Josiah comes out and walks it with you, free: what stays, what goes, where the water runs, and how a machine gets in.",
+    label: "Call, text or send the form",
+    detail: "Tell us what you're looking at. A photo of the ground says more than a paragraph.",
   },
   {
-    label: "A straight number",
+    label: "A free walk-through",
     detail:
-      "The scope in plain words (what gets cleared, what stays, where the debris goes) and a price to match it.",
+      "Josiah walks it with you and gives you a straight number: what goes, what stays, and where the debris ends up.",
   },
   {
-    label: "Marked before we dig",
+    label: "Done right, cleaned up",
     detail:
-      "Utilities located through SC811, and the trees you're keeping flagged, before a machine moves.",
-  },
-  {
-    label: "Cleared, graded, hauled",
-    detail:
-      "The work, then the part people remember: debris gone, and the ground left graded rather than rutted.",
+      "Utilities marked through SC811 before any digging. Debris hauled off, ground left graded, not rutted.",
   },
 ];

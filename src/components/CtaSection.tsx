@@ -4,7 +4,7 @@ import Section from "@/components/layout/Section";
 import SectionHeader from "@/components/layout/SectionHeader";
 import FadeInView from "@/components/animations/FadeInView";
 import SurveyLayer from "@/components/SurveyLayer";
-import { BUSINESS } from "@/data/business";
+import { BUSINESS, serviceAreaNames } from "@/data/business";
 
 interface CtaSectionProps {
   /** First line of the display heading. */
@@ -53,9 +53,16 @@ const CtaSection = ({
           </a>
         </Button>
         <Button asChild size="lg" variant="outline">
-          <Link to="/contact">Send a Message</Link>
+          <Link to="/contact">Get a Free Quote</Link>
         </Button>
       </div>
+      {/* Where we work, in one line. This used to be its own homepage section,
+          a 3×3 grid that repeated the footer; one line answers "do you come to
+          me?" right beside the phone number, which is where the question gets asked. */}
+      <p className="mx-auto mt-10 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+        <span className="eyebrow mr-2 text-foreground/80">Serving</span>
+        {serviceAreaNames.join(" · ")}
+      </p>
     </FadeInView>
   </Section>
 );
