@@ -12,7 +12,7 @@ const NotFound = () => {
 
       <SEO
         title="Page Not Found | Firm Foundation Property Services"
-        description="That page doesn't exist. Head back to Firm Foundation for hardscapes, landscaping, excavation, tree services, and custom projects in Mount Pleasant, SC."
+        description="That page doesn't exist. Head back to Firm Foundation for land clearing, tree and stump removal, grading, pool and pond digs, and drainage in Mount Pleasant, SC."
         noindex
       />
 

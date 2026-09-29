@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Instagram } from "lucide-react";
 import { BUSINESS, serviceAreaNames } from "@/data/business";
-import { services } from "@/data/services";
+import { coreServices, moreServices } from "@/data/services";
 import logoLockup from "@/assets/logo-lockup.png";
 
 const companyLinks = [
@@ -30,11 +30,23 @@ const Footer = () => {
           <div className="min-w-0">
             <h2 className="eyebrow text-muted-foreground mb-4">Services</h2>
             <ul className="space-y-2 text-sm text-foreground/70">
-              {services.map((service) => (
+              {coreServices.map((service) => (
                 <li key={service.slug}>
-                  {/* Each goes to its own page now. These were five links with
-                      five different labels all pointing at /services, which is
-                      a wasted internal link on every page of the site. */}
+                  {/* Each goes to its own page — never all to /services, which
+                      is a wasted internal link on every page of the site. */}
+                  <Link
+                    to={`/services/${service.slug}`}
+                    className="hover:text-primary transition-colors"
+                  >
+                    {service.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <h3 className="eyebrow text-muted-foreground mt-7 mb-3">Also on request</h3>
+            <ul className="space-y-2 text-sm text-foreground/55">
+              {moreServices.map((service) => (
+                <li key={service.slug}>
                   <Link
                     to={`/services/${service.slug}`}
                     className="hover:text-primary transition-colors"

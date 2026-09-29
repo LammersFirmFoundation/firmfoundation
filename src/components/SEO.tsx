@@ -13,7 +13,12 @@ interface SEOProps {
 
 const SITE_URL = "https://firmfoundationsc.com";
 const SITE_NAME = "Firm Foundation Property Services";
-const DEFAULT_OG_IMAGE = `${SITE_URL}/og-logo.jpg`;
+// A new filename rather than overwriting og-logo.jpg: iMessage, Slack and
+// Facebook cache og:image by URL, so reusing the path would keep serving the
+// old card to everyone who has already shared the link. og-logo.jpg stays in
+// public/ so those old shares still resolve.
+const DEFAULT_OG_IMAGE = `${SITE_URL}/og-land-clearing.jpg`;
+const DEFAULT_OG_ALT = "Firm Foundation: Land Clearing & Excavation, Mount Pleasant and Charleston, SC";
 
 const SEO = ({
   title,
@@ -52,14 +57,14 @@ const SEO = ({
       <meta property="og:image" content={ogImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content="Firm Foundation Property Services" />
+      <meta property="og:image:alt" content={DEFAULT_OG_ALT} />
       {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
-      <meta name="twitter:image:alt" content="Firm Foundation Property Services" />
+      <meta name="twitter:image:alt" content={DEFAULT_OG_ALT} />
 
       <meta name="geo.region" content="US-SC" />
       <meta name="geo.placename" content="Mount Pleasant" />

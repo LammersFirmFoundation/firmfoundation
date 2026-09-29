@@ -7,6 +7,11 @@
       "source": "/review",
       "destination": "https://g.page/r/CXKLzN9BrPMsEBM/review",
       "permanent": false
+    },
+    {
+      "source": "/services/tree-services",
+      "destination": "/services/tree-removal",
+      "permanent": true
     }
   ],
   "rewrites": [

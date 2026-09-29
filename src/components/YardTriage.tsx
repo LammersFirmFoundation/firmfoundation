@@ -23,12 +23,10 @@ import { homepageProblems } from "@/data/yard-problems";
  * them only after a click would hide them from crawlers entirely. All of them
  * start closed — see the note on `openId`.
  *
- * **Six rows, no group headings.** It shows only the problems that route to
- * Excavation — the ones a homeowner genuinely cannot name for themselves. The
- * other four ("I want a patio", "a tree needs to come down") were a menu, not a
- * diagnosis, and they cost a screen of scrolling; they live on their service
- * pages instead. With six items the three group headings were structure the
- * list no longer needed.
+ * **Six rows, no group headings.** It shows only the situations a homeowner
+ * genuinely cannot turn into a job on their own (see `homepageProblems`). The
+ * rest ("I want a patio", "a tree needs to come down") are a menu, not a
+ * diagnosis; they live on their service pages instead.
  *
  * **It is an accordion, not a two-column picker.** The answer opens directly
  * under the thing you tapped, so there is no scrolling to find where the
@@ -146,8 +144,7 @@ const YardTriage = () => {
       </ul>
 
       <p className="mt-6 text-sm text-muted-foreground">
-        Something else &mdash; a tree, a patio, tired beds, or something you want
-        built?{" "}
+        Something else &mdash; a single tree, a shed pad, a driveway, or a patio?{" "}
         <Link
           to="/services"
           className="text-primary underline underline-offset-4"

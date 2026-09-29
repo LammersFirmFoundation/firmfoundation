@@ -11,8 +11,21 @@ import { businessRef, breadcrumbSchema } from "@/lib/schema";
 import landscapingWalkway from "@/assets/gallery/landscaping-walkway-mount-pleasant.jpg";
 import landscapingBed from "@/assets/gallery/landscaping-bed-mount-pleasant.jpg";
 import customPantry from "@/assets/gallery/custom-pantry-mount-pleasant.jpg";
+import landClearing from "@/assets/services/excavation.jpg";
 
+/**
+ * Order is the business's order: clearing first. The finish-work projects stay
+ * — they are real and they are good — but they no longer lead the portfolio of
+ * a land clearing and excavation company.
+ */
 const projects = [
+  {
+    title: "Timber & Lot Clearing",
+    category: "Land Clearing",
+    location: "Lowcountry, SC",
+    image: landClearing,
+    alt: "Firm Foundation's tracked excavator working through felled timber on a Lowcountry clearing job",
+  },
   {
     title: "Front Walkway & Lawn Renovation",
     category: "Landscaping",
@@ -44,9 +57,9 @@ const Gallery = () => {
       <main id="main" className="flex-1 pt-24">
         <SEO
           title="Project Gallery | Firm Foundation, Mount Pleasant"
-          description="Recent excavation, hardscape, landscaping, and custom project work from Firm Foundation in Mount Pleasant and the greater Charleston area."
+          description="Recent land clearing, excavation and finish work from Firm Foundation in Mount Pleasant and the greater Charleston area."
           canonical="/gallery"
-          keywords="landscaping before and after, Mount Pleasant landscaping photos, custom cabinetry Mount Pleasant, property transformation Charleston SC"
+          keywords="land clearing photos Charleston SC, lot clearing Mount Pleasant, excavation project photos, before and after Mount Pleasant"
           jsonLd={[
             {
               "@context": "https://schema.org",
@@ -72,7 +85,7 @@ const Gallery = () => {
         {/* Page header */}
         <section className="px-5 sm:px-6 md:px-10 py-16 md:py-24">
           <div className="mx-auto max-w-content">
-            <FadeInView>
+            <FadeInView immediate>
               <p className="eyebrow text-primary mb-6">Portfolio</p>
               <h1 className="text-hero md:text-display font-heading max-w-4xl">
                 Recent work in
@@ -80,8 +93,8 @@ const Gallery = () => {
                 <span className="text-primary">Mount Pleasant</span>
               </h1>
               <p className="text-subtitle text-muted-foreground mt-8 max-w-xl leading-relaxed">
-                Real projects from properties across Mount Pleasant and the
-                Lowcountry &mdash; outside and in.
+                Real jobs from properties across Mount Pleasant and the
+                Lowcountry, from clearing and dirt work to the finish on top.
               </p>
             </FadeInView>
           </div>

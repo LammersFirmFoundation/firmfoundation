@@ -12,24 +12,36 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://firmfoundationsc.com/services/land-clearing</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://firmfoundationsc.com/services/tree-removal</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://firmfoundationsc.com/services/excavation</loc>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://firmfoundationsc.com/services/hardscapes</loc>
+    <loc>https://firmfoundationsc.com/services/pools-and-ponds</loc>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://firmfoundationsc.com/services/drainage</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://firmfoundationsc.com/services/hardscapes</loc>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://firmfoundationsc.com/services/landscaping</loc>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://firmfoundationsc.com/services/tree-services</loc>
-    <priority>0.9</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://firmfoundationsc.com/services/custom-projects</loc>
-    <priority>0.9</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://firmfoundationsc.com/gallery</loc>

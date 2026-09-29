@@ -31,7 +31,7 @@ const Reviews = () => {
             1
           )} average from ${totalReviewCount} verified Google reviews.`}
           canonical="/reviews"
-          keywords="property services reviews Mount Pleasant SC, landscaping reviews Charleston, hardscapes reviews"
+          keywords="land clearing reviews Charleston SC, excavation contractor reviews Mount Pleasant, Firm Foundation reviews"
           jsonLd={[
             {
               "@context": "https://schema.org",
@@ -47,7 +47,7 @@ const Reviews = () => {
         {/* Page header */}
         <section className="px-5 sm:px-6 md:px-10 py-16 md:py-24">
           <div className="mx-auto max-w-content">
-            <FadeInView>
+            <FadeInView immediate>
               <p className="eyebrow text-primary mb-6">Testimonials</p>
               <h1 className="text-hero md:text-display font-heading max-w-4xl">
                 Client

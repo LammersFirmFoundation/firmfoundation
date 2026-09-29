@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLoaderData } from "react-router-dom";
-import { ChevronDown, ChevronLeft, ChevronRight, ExternalLink, MapPin, Pause, Play } from "lucide-react";
+import { ArrowRight, ChevronDown, ChevronLeft, ChevronRight, ExternalLink, MapPin, Pause, Play } from "lucide-react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useState, useEffect } from "react";
 import SEO from "@/components/SEO";
@@ -14,14 +14,15 @@ import FadeInView from "@/components/animations/FadeInView";
 import ReviewImages from "@/components/ReviewImages";
 import GoogleIcon from "@/components/icons/GoogleIcon";
 import StarRating from "@/components/StarRating";
-import ServiceImage from "@/components/ServiceImage";
+import ServicesBento from "@/components/ServicesBento";
+import ProcessSteps from "@/components/ProcessSteps";
 import HeroVideo from "@/components/HeroVideo";
 import RelitHero from "@/components/RelitHero";
 import YardTriage from "@/components/YardTriage";
 import OurStory from "@/components/OurStory";
 import { useReviews, type ApiResponse } from "@/lib/useReviews";
-import { services } from "@/data/services";
-import { BUSINESS, serviceAreaNames } from "@/data/business";
+import { coreServices } from "@/data/services";
+import { BUSINESS, howAJobRuns, serviceAreaNames } from "@/data/business";
 import { localBusinessSchema, websiteSchema } from "@/lib/schema";
 import heroPoster from "@/assets/services/excavation.jpg";
 import heroPosterSet from "@/assets/services/excavation.jpg?w=640;1024;1600;2000&format=webp&quality=68&as=srcset";
@@ -31,17 +32,6 @@ import heroPosterSet from "@/assets/services/excavation.jpg?w=640;1024;1600;2000
 // costs nothing more than the 11 KB depth map.
 import heroRelitPhoto from "@/assets/services/excavation.jpg?w=1600&format=webp&quality=68&as=url";
 import heroDepth from "@/assets/services/excavation-depth.webp";
-
-// Leaflet touches `window` at import time, so the map loads on the client only.
-// The static fallback keeps the service-area names in the prerendered HTML.
-
-// The Google rating is prepended at render time from live review data, so this
-// strip can never print a different number than the hero or the reviews section.
-const staticStats: { value: string; label: string }[] = [
-  { value: "100+", label: "Properties Served" },
-  { value: "Free", label: "On-Site Quotes" },
-  { value: "Local", label: "Family Run" },
-];
 
 const LandingPage = () => {
   const loaderData = useLoaderData() as ApiResponse | undefined;
@@ -89,10 +79,10 @@ const LandingPage = () => {
       <Header transparent />
 
       <SEO
-        title="Excavation &amp; Grading in Mount Pleasant, SC | Firm Foundation"
-        description="Family-run excavation, grading, drainage, hardscapes, landscaping, and tree services in Mount Pleasant and greater Charleston, SC. Call for a free quote."
+        title="Land Clearing &amp; Excavation, Charleston SC | Firm Foundation"
+        description="Family-run land clearing and excavation in Mount Pleasant and greater Charleston, SC: lot clearing, tree and stump removal, grading, pool and pond digs, and drainage."
         canonical="/"
-        keywords="excavation Mount Pleasant SC, yard grading, yard drainage, French drain installation, land clearing Charleston SC, irrigation trenching, landscaping, hardscapes, tree services, Lowcountry"
+        keywords="land clearing Charleston SC, land clearing Mount Pleasant SC, lot clearing, excavation contractor Mount Pleasant, stump removal, grading, pool excavation, pond digging, yard drainage, French drains, Lowcountry"
         jsonLd={[localBusinessSchema, websiteSchema]}
       />
 
@@ -162,28 +152,30 @@ const LandingPage = () => {
                 <p className="eyebrow text-primary mb-6">
                   Mount Pleasant &middot; Greater Charleston
                 </p>
-                {/* Its own clamp rather than `text-hero`/`text-display`: those
-                    are sized for a full-width hero, and in a half-width column
-                    "the Lowcountry's" is wider than the column at both of them,
-                    which broke the headline into four ragged lines. */}
-                <h1 className="text-hero font-heading text-foreground lg:text-[clamp(2.4rem,4vw,4.1rem)] lg:leading-[0.92] lg:tracking-[-0.03em]">
-                  Groundwork for
+                {/* The same words as the Instagram ad, on purpose: someone who
+                    taps "Land Clearing & Excavation" should land on "Land
+                    Clearing & Excavation", not on a different pitch. Its own
+                    clamp rather than `text-hero`, which is sized for a
+                    full-width hero and breaks badly in a half-width column. */}
+                <h1 className="text-hero font-heading text-foreground lg:text-[clamp(2.6rem,4.6vw,4.75rem)] lg:leading-[0.9] lg:tracking-[-0.035em]">
+                  Land Clearing
                   <br />
-                  <span className="text-primary">the Lowcountry&rsquo;s</span>
-                  <br />
-                  finest homes
+                  <span className="text-primary">&amp; Excavation</span>
                 </h1>
                 <p className="text-subtitle text-foreground/70 mt-8 max-w-xl leading-relaxed">
-                  Small excavation, grading, drainage, and irrigation &mdash; plus
-                  the landscaping, hardscapes, and tree work that got us here.
+                  Lots cleared, trees and stumps out, ground graded, pools and
+                  ponds dug, and water sent where it belongs &mdash; across Mount
+                  Pleasant and the Lowcountry.
                 </p>
 
                 <div className="mt-10 flex flex-col sm:flex-row gap-4 sm:items-center">
-                  <Button asChild size="lg" variant="contrast">
+                  <Button asChild size="lg">
                     <Link to="/contact">Get a Free Quote</Link>
                   </Button>
                   <Button asChild size="lg" variant="outline">
-                    <Link to="/services">Our Services</Link>
+                    <a href={BUSINESS.phoneHref} data-analytics-where="hero">
+                      Call {BUSINESS.phone}
+                    </a>
                   </Button>
                 </div>
 
@@ -200,7 +192,7 @@ const LandingPage = () => {
                   <StarRating rating={aggregateRating} size="h-4 w-4" className="text-primary" />
                   <span className="text-sm text-foreground/75 inline-flex items-center gap-1.5">
                     <GoogleIcon className="h-3.5 w-3.5" />
-                    {aggregateRating.toFixed(1)} from verified Google reviews
+                    {aggregateRating.toFixed(1)} from {totalReviewCount} verified Google reviews
                   </span>
                 </a>
               </FadeInView>
@@ -223,96 +215,61 @@ const LandingPage = () => {
           )}
         </section>
 
-        {/* ── Stats strip ──────────────────────────────────────────────── */}
-        <section className="border-y border-border bg-background">
-          <div className="mx-auto max-w-content px-5 sm:px-6 md:px-10">
-            <dl className="grid grid-cols-2 md:grid-cols-4 border-border [&>*]:border-border [&>*]:border-t [&>*]:border-l max-md:[&>*:nth-child(-n+2)]:border-t-0 max-md:[&>*:nth-child(odd)]:border-l-0 md:[&>*]:border-t-0 md:[&>*:first-child]:border-l-0">
-              {[
-                { value: aggregateRating.toFixed(1), label: "Google Rating", isRating: true },
-                ...staticStats,
-              ].map((stat, i) => (
-                <div key={stat.label} className="py-7 sm:py-10 px-5 text-center">
-                  <dd className="font-heading text-4xl md:text-5xl text-foreground">
-                    {stat.value}
-                  </dd>
-                  <dt className="eyebrow text-muted-foreground mt-3 inline-flex items-center gap-1.5">
-                    {"isRating" in stat && <GoogleIcon className="h-3 w-3" />}
-                    {stat.label}
-                  </dt>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </section>
-
-        {/* ── What's your yard doing? ──────────────────────────────────
-            Sits directly under the stats rather than further down: a homeowner
-            with a problem should meet their own symptom on the first scroll,
-            before the list of what we offer. Naming the problem is what gets
-            the call — describing the services is what happens after. */}
-        <Section variant="muted" id="yard" className="scroll-mt-24">
-          <SectionHeader
-            eyebrow="Not sure what you need?"
-            title="What&rsquo;s your"
-            accent="yard doing?"
-            subtitle="Pick what you&rsquo;re seeing and we&rsquo;ll tell you what it usually is, what fixing it involves, and what Josiah would look at."
-          />
-          <YardTriage />
-        </Section>
+        {/* ── Service index ────────────────────────────────────────────
+            Where the stats strip was. Its Google rating duplicated the hero's
+            300px above, and the ad this page answers lists services, not
+            stats — so the band directly under the fold now names the five
+            things the business does, each one tap from its own page. Desktop
+            only: on a phone the grid below is the very next thing anyway, and
+            the same five rows twice in a row is just scrolling. */}
+        <nav aria-label="Services" className="hidden border-y border-border bg-background md:block">
+          <ul className="mx-auto grid max-w-content grid-cols-5 px-6 md:px-10">
+            {coreServices.map((service, i) => (
+              <li key={service.slug} className="border-l border-border first:border-l-0">
+                <Link
+                  to={`/services/${service.slug}`}
+                  className="group flex h-full flex-col justify-between gap-5 px-5 py-7 transition-colors hover:bg-card lg:px-6"
+                >
+                  <span className="eyebrow text-primary">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="flex items-end justify-between gap-3">
+                    <span className="font-heading text-lg font-light leading-tight text-foreground lg:text-xl">
+                      {service.title}
+                    </span>
+                    <ArrowRight
+                      className="h-4 w-4 shrink-0 text-primary opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100"
+                      aria-hidden="true"
+                    />
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
         {/* ── Services ─────────────────────────────────────────────────── */}
         <Section>
           <SectionHeader
-            eyebrow="What We Do"
-            title="Our"
-            accent="Services"
-            subtitle="Dirt work first, and everything else that keeps a Lowcountry property right."
+            eyebrow="What we do"
+            title="From overgrown lot"
+            accent="to finished grade"
+            subtitle="Most jobs are more than one of these. The lot gets cleared, the stumps come out, the ground gets graded and the water gets somewhere to go, and it is all one call."
           />
+          <ServicesBento />
+        </Section>
 
-          {/* A compact grid, not five full-width alternating rows. The rows
-              looked good but cost roughly five screens of scrolling on the
-              page whose only job is to get someone to call. The detailed
-              alternating treatment still lives on /services. */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-            {services.map((service, index) => (
-              <FadeInView key={service.slug} delay={index * 0.06}>
-                <Link
-                  to={`/services/${service.slug}`}
-                  className="group flex h-full flex-col rounded-lg overflow-hidden border border-border bg-card transition-colors duration-500 hover:border-primary/60"
-                >
-                  {/* On a phone only the lead service keeps its photograph.
-                      Five stacked image cards ran 3.4 screens — the single
-                      biggest block on the page — to duplicate five pages that
-                      now exist in their own right. One photo holds the visual
-                      proof at the top; the rest become compact rows. */}
-                  <div className={index === 0 ? "overflow-hidden" : "hidden overflow-hidden sm:block"}>
-                    <ServiceImage
-                      service={service}
-                      eager={index === 0}
-                      aspect="aspect-[16/10]"
-                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                      className="rounded-none transition-transform duration-700 ease-editorial group-hover:scale-[1.04]"
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col p-5 sm:p-6 md:p-7">
-                    <span className="eyebrow text-primary mb-2 sm:mb-3">
-                      {String(index + 1).padStart(2, "0")}
-                      {index === 0 && " · Lead service"}
-                    </span>
-                    <h3 className="font-heading text-xl sm:text-2xl md:text-[1.75rem] font-extralight leading-tight text-card-foreground mb-2 sm:mb-3">
-                      {service.title}
-                    </h3>
-                    <p className={`text-sm text-muted-foreground leading-relaxed sm:line-clamp-none ${index === 0 ? "line-clamp-2" : "hidden sm:block"}`}>
-                      {service.summary}
-                    </p>
-                    <span className="eyebrow text-primary mt-4 sm:mt-6 inline-block group-hover:text-foreground transition-colors">
-                      Learn more
-                    </span>
-                  </div>
-                </Link>
-              </FadeInView>
-            ))}
-          </div>
+        {/* ── Not sure what you need? ─────────────────────────────────────
+            After the services rather than before them now: the visitor this
+            page is built for arrives from an ad that already named the work.
+            The triage is for the one who recognises the situation but not the
+            job — it names the job, and hands them a form that already knows. */}
+        <Section variant="muted" id="yard" className="scroll-mt-24">
+          <SectionHeader
+            eyebrow="Not sure what you need?"
+            title="What are you"
+            accent="looking at?"
+            subtitle="Pick what you&rsquo;re seeing. We&rsquo;ll tell you what it usually is, what the work involves, and what Josiah looks at on the visit."
+          />
+          <YardTriage />
         </Section>
 
         {/* Reviews sit directly after Services, ahead of the story.
@@ -465,6 +422,16 @@ const LandingPage = () => {
           </FadeInView>
         </Section>
 
+        {/* ── How a job runs ───────────────────────────────────────────── */}
+        <Section>
+          <SectionHeader
+            eyebrow="How it works"
+            title="One walk-through,"
+            accent="one straight number"
+          />
+          <ProcessSteps steps={howAJobRuns} />
+        </Section>
+
         {/* ── Our story ────────────────────────────────────────────────── */}
         <Section variant="cream">
           <OurStory showLink />
@@ -530,9 +497,9 @@ const LandingPage = () => {
 
         {/* ── CTA ──────────────────────────────────────────────────────── */}
         <CtaSection
-          title="Ready to"
-          accent="get started?"
-          blurb="Call Josiah for a free walk-through and an honest quote — usually same week."
+          title="Got ground"
+          accent="that needs work?"
+          blurb="Call Josiah for a free walk-through and an honest quote, usually the same week."
         />
       </main>
 

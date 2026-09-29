@@ -45,9 +45,9 @@ const AboutPage = () => {
       <main id="main" className="flex-1 pt-24">
         <SEO
           title="About Firm Foundation | Mount Pleasant, SC"
-          description="A family-run property services company based in Mount Pleasant, SC. Meet founder Josiah Lammers and see how Firm Foundation works."
+          description="A family-run land clearing and excavation company based in Mount Pleasant, SC. Meet founder Josiah Lammers and see how Firm Foundation works."
           canonical="/about"
-          keywords="family owned landscaping Mount Pleasant SC, local property services Charleston, about Firm Foundation"
+          keywords="family owned land clearing Mount Pleasant SC, local excavation contractor Charleston, Josiah Lammers, about Firm Foundation"
           jsonLd={[
             {
               "@context": "https://schema.org",
@@ -63,7 +63,7 @@ const AboutPage = () => {
         {/* Page header */}
         <section className="px-5 sm:px-6 md:px-10 py-16 md:py-24">
           <div className="mx-auto max-w-content">
-            <FadeInView>
+            <FadeInView immediate>
               <p className="eyebrow text-primary mb-6">About</p>
               <h1 className="text-hero md:text-display font-heading max-w-4xl">
                 A family business
@@ -71,10 +71,10 @@ const AboutPage = () => {
                 <span className="text-primary">in Mount Pleasant</span>
               </h1>
               <p className="text-subtitle text-muted-foreground mt-8 max-w-xl leading-relaxed">
-                Firm Foundation Property Services is a family-run excavation
-                and landscaping contractor in Mount Pleasant, South Carolina,
-                run by {BUSINESS.owner}. The work goes back a lot further than
-                the company does.
+                Firm Foundation Property Services is a family-run land clearing
+                and excavation company in Mount Pleasant, South Carolina, run by{" "}
+                {BUSINESS.owner}. The work goes back a lot further than the
+                company does.
               </p>
             </FadeInView>
           </div>

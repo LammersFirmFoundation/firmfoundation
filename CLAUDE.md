@@ -2,11 +2,13 @@
 
 Marketing site for a family-run property services company in Mount Pleasant, SC (greater Charleston / Lowcountry). Owner is **Josiah Lammers**; Will owns the repo. **The entire point of this site is phone calls and quote requests** — optimise for that, not for time-on-page.
 
-**The business is pivoting toward small excavation** (grading, drainage, irrigation trenching, clearing, driveway prep) while keeping landscaping, hardscapes, tree work and custom projects. That's why Excavation is first in `src/data/services.ts`, and order in that file is the order it renders everywhere.
+**Land clearing & excavation is the business (Josiah, 2026-09-29).** His words: make land clearing the main focus and feature tree and stump removal, grading, site prep for pools and ponds, and larger drainage projects; move small irrigation, landscaping and hardscapes out of the main messaging. His Instagram bio and ad now lead with the headline **"Land Clearing & Excavation"**, so the homepage H1, the header tagline and the share card use exactly those words: someone who taps the ad should land on the same sentence.
+
+So `services.ts` has two tiers. **`core`** (land-clearing, tree-removal, excavation, pools-and-ponds, drainage) leads everywhere, in that order. **`more`** (hardscapes, landscaping, custom-projects) keeps its pages, because they are indexed and still bring work, but it never leads: it sits in a dashed "smaller jobs, still on request" tile, a menu sidebar, and a muted footer list. Irrigation is gone from the copy entirely; he said it isn't him long-term. `/services/tree-services` became `/services/tree-removal` with a permanent redirect in `vercel.json`. Rename any other slug the same way.
 
 ## Stack
 - **Vite + React 18 + TypeScript strict + Tailwind 3** with a shadcn-style kit in `src/components/ui/`.
-- **`vite-react-ssg`** prerenders all 6 routes to static HTML at build time (`/`, `/services`, `/gallery`, `/about`, `/contact`, `/reviews`). This is the whole SEO story — crawlers get full HTML, not an empty `#root`.
+- **`vite-react-ssg`** prerenders every route to static HTML at build time: 14 pages, including `/services/<slug>` for all eight services via `getStaticPaths`. This is the whole SEO story — crawlers get full HTML, not an empty `#root`.
 - **Vercel** hosting. One serverless function: `api/reviews.ts`.
 - `framer-motion` for scroll reveals. **`leaflet`/`react-leaflet` are no longer rendered** — the homepage map became the coverage directory, and `ServiceAreaMap.tsx` is now unreferenced. Tree-shaking keeps both out of the bundle (verified), so it costs nothing shipped, but it is dead code: delete it or re-mount it, don't leave it as a third state.
 
@@ -19,7 +21,9 @@ Marketing site for a family-run property services company in Mount Pleasant, SC 
 ## Single sources of truth — do not re-inline these
 The site previously wrote these out by hand in five to seven files, which is how it ended up **showing two different Google ratings on one page** (a hardcoded `5.0` stat beside a live `4.8`). Adding a service is now a one-file change.
 
-- **`src/data/services.ts`** — the service list. Homepage, `/services`, footer, the contact form's dropdown, and every JSON-LD block read from it.
+- **`src/data/services.ts`** — the service list, its tier, and each core service's `approaches` (the choice the homeowner has to make), `process`, `priceFactors` and `faqs`. Homepage, `/services`, every service page, the header menu, the footer, the quote form and every JSON-LD block read from it.
+- **`src/data/yard-problems.ts`** — the situations a homeowner can describe but not name, each routed to a service. They feed the homepage triage (`homepageProblems`, six hand-picked ids), each service page's FAQ + `FAQPage` schema, and the quote form's `?problem=` prefill. A build-time guard fails the build if one points at a service that doesn't exist.
+- **`src/data/quote-questions.ts`** — the tap-to-answer questions the quote form asks per job (acreage band, what's on it, keeping trees, access, timeline). All optional, by design; see the file header.
 - **`src/data/business.ts`** — NAP, service areas *with map coordinates*, and schema helpers. The map, the footer, the prerendered fallback list and `areaServed` all derive from one array.
 - **`src/lib/schema.ts`** — one `LocalBusiness` node with a stable `@id` that other pages reference.
 
@@ -139,7 +143,20 @@ than a survey. Keep it or delete it; don't leave it as a third state.
   run at all (freezing a sweep mid-pass leaves a bright bar across the hero for good); the ambient
   layer holds a designed still frame instead.
 
+## The section drawings (`ServicePlate.tsx`) — why the services have drawings, not photos
+Only one real clearing photo exists (the hero). Stock photos of someone else's excavator were ruled out: a small lie on a site whose pitch is honesty. So each core service has a **section drawing** in the language of a civil detail sheet: hatched earth, dashed existing grade, the water-table symbol, a title block reading "N.T.S.". They explain the underground half of the work (root ball, French drain, cut and fill) that no photo can show, and they extend the survey-contour motif rather than adding a new one.
+- **`ServiceImage` shows the photo when `image` exists, else the plate.** Dropping in a real photo later is one line in `services.ts`. `preferPlate` forces the drawing (the homepage bento does this for land clearing, because the hero one screen up already carries that exact photo).
+- **The one dimension drawn is the code's, not ours:** 6 in. of fall in the first 10 ft is IRC R401.3. Don't add numbers that are ours.
+- **Never add `vectorEffect="non-scaling-stroke"` to a drawn path.** It breaks framer-motion's `pathLength` normalisation, and lines stop drawing partway. That cost an iteration.
+- **Callouts hide in `compact` mode and below `sm`.** At card size or phone width the 8.6-unit labels render at 6–7px. `.on-dark` (in `index.css`) keeps a plate's dark palette when it sits inside a cream section.
+- **They draw once and stay drawn** (WCAG 2.2.2, the same rule as the survey layer), and render finished under reduced motion.
+
+## The quote form — scoping, not just contact
+`/contact` asks for the job first (five core cards plus "Something else"), then chips specific to that job, then name and phone. **Email is optional**: Josiah calls or texts back, so requiring email blocked the one thing the visitor came to do. The Formspree payload carries a one-line `summary` (e.g. "Land Clearing · ¼ to 1 acre · Brush & vines, Small trees · Yes, some · New build") plus each answer as its own labelled line. `?problem=<id>` and `?service=<slug>` prefill it. Formspree's free tier has no file upload, so the form asks people to **text photos** instead. Tested end to end with Formspree mocked (2026-09-29).
+
 ## Homepage length — measured, and why the ORDER mattered more than the cutting
+**Re-measured 2026-09-29 after the land-clearing rebuild:** 8,542px desktop (9.5 screens at 900px) and 8,923px on a 390×844 phone (10.6 screens). The +1.1 mobile screens is the new "How it works" process strip. The reviews moved **up**, to about screen 4.4 on a phone. The stats strip is gone: its rating duplicated the hero, and its slot now holds a desktop-only service index under the fold. Current order: hero → service index (md+) → services bento → triage → reviews → process → story → areas → CTA.
+
 Measured 2026-08-21 against the built page: the homepage was **12.7 screens on a phone** (8,514px
 desktop / 10,746px mobile), 8 sections, 1,006 words. Now **9.5 screens** (8.1 desktop), 753 words.
 
@@ -150,30 +167,26 @@ sat at **screen 8.9 of 12.7**, past where most visitors ever reach. They now sit
 directly after Services and ahead of the story. **Proof before biography.**
 
 What was cut and why, so it isn't undone:
-- **Services cards drop their photo on a phone except the lead service**, and non-lead cards drop
-  their summary sentence. Five stacked image cards were 3.4 screens — the biggest block on the page
-  — duplicating five pages that now exist in their own right. Cards link to `/services/<slug>`, not
-  the index, which is also the internal linking those pages want.
-- **The yard triage starts fully collapsed, and the homepage shows only the SIX Excavation
-  problems** (`homepageProblems`). With the first panel open and all ten rows it ran 2.5 screens;
-  it is now 1.17. The tool earns its place because a homeowner cannot name a drainage problem —
-  but "I want a patio", "a tree needs to come down" and "the beds look tired" are things people
-  already know, so for those four it was a menu, not a diagnosis. All ten still render on the
-  service page each routes to, as prose AND `FAQPage` schema — verified against the built HTML.
-  Keyed on `serviceSlug`, not `group`: "Can you clear overgrown brush and small trees?" routes to
-  Excavation while sitting under the "Trees and growth" heading, so cutting by group would have
-  dropped a lead-service question.
+- **The services bento drops its drawings on a phone except the lead tile**, and the rest become
+  compact rows. Five stacked image cards were 3.4 screens — the biggest block on the page. Cards
+  link to `/services/<slug>`, not the index, which is also the internal linking those pages want.
+- **The triage starts fully collapsed, and the homepage shows six hand-picked situations**
+  (`homepageProblems`): the ones a homeowner can describe but can't turn into a job. Those are
+  overgrown ground, keeping the good trees, stumps, a pool dig, standing water, and water toward
+  the house. "A tree needs to come down" or "I want a patio" are things people already know how
+  to ask for, so on the homepage they would be a menu, not a diagnosis. All fifteen still render
+  on the service page each routes to, as prose AND `FAQPage` schema.
 
-Still on the table if it needs to be shorter, all three being content calls rather than craft ones:
-the stats strip (0.32 screens, and its Google rating duplicates the hero 300px above), Areas We
-Serve (0.74, duplicates the footer), and shortening Our Story to a teaser plus the existing link to
-`/about` (~0.8). Those three together would land it near 8 screens.
+Still on the table if it needs to be shorter, all content calls rather than craft ones: Areas We
+Serve (0.74, duplicates the footer), shortening Our Story to a teaser plus the existing link to
+`/about` (~0.8), and the process strip on phones (~1.1, and every core service page carries its
+own version).
 
 Re-measure with a scripted section audit rather than by eye — section heights in *screens* is the
 unit that matters, and it differs a lot between desktop and mobile.
 
 ## Deliberate omissions — these are decisions, not oversights
-- **No licensing / insurance / bonding / permitting claims anywhere.** SC requires an LLR residential specialty licence for grading work over $500 and Josiah hasn't confirmed status. These are verifiable legal claims, not marketing copy. Will explicitly chose to leave them off (2026-08-19). Same reason the Custom Projects copy doesn't advertise **electrical** even though he did the electrical on the pantry job.
+- **No licensing / insurance / bonding / permitting claims anywhere.** These are verifiable legal claims, not marketing copy, and Will explicitly chose to leave them off (2026-08-19). **Corrected 2026-09-29, from the statute text:** the $500 residential-specialty threshold (S.C. Code §40-59-20(7)) covers a list of trades (plumbing, electrical, HVAC, roofing, masonry, carpentry…) that **does not include grading, excavation, land clearing or tree work**. **"Grading" is a Contractor's Licensing Board subclassification** (§40-11-410(2)(d)), and CLB licensing starts at **$10,000** total cost (§40-11-30, raised from $5,000 in 2023). Using the words "licensed contractor" without a CLB licence is itself unlawful (§40-11-370). **Unresolved:** whether a stand-alone residential grading or pool-dig job over $10,000 needs a CLB Grading licence. That is a question for LLR, not for this site, and it matters more now that grading and pool digs are core work. Same reason the Custom Projects copy doesn't advertise **electrical** even though he did the electrical on the pantry job.
 - **No `aggregateRating` / `Review` nodes in JSON-LD.** Google makes a business republishing reviews about itself ineligible for the star rich result, so the markup can never pay off. Real ratings still render for visitors — they're just not claimed as schema.
 - **`public/hero-excavator.mp4` exists but the hero doesn't use it.** All of Josiah's clips are portrait phone video (`rotation=-90`); cropped to a landscape band and put behind a headline it read as noise. Pass `src` back to `<HeroVideo>` when there's stabilised landscape footage. **Tell them to turn the phone sideways.**
 
@@ -211,21 +224,17 @@ He shared a Wildfire Leadership "mission portrait" (2026-08-19): core values *Co
 There's no browser extension here, but Playwright with system Chrome works and is how every visual claim in this repo was checked. Scripts live in the session scratchpad, not the repo — rebuild them as needed. Serve `dist/` over plain `http.server`-style Node and:
 - **Screenshots** — scroll the page in ~0.6vh steps before capturing, or `FadeInView`'s IntersectionObserver never fires and full-page shots come back with huge empty sections.
 - **axe-core** — currently **0 violations across all 6 pages**. Keep it there.
-- **Horizontal overflow** — check 320/375/414/768/1024/1440/1920. Clean from 768 up. **It is NOT clean below that**: measured 2026-08-20, the page scrolls sideways at 320 (367px), 375 (422px) and 414. The offender is the tilted polaroid pair in `OurStory.tsx` — the second `<figure>` is `absolute -bottom-10 -right-3 w-[44%]` inside a wrapper with no clip. Confirmed identical on a build with no other changes, so it is long-standing and not a regression. Fixing it means deciding whether that photo is *meant* to poke past the edge; clipping it changes the composition, so it's a design call, not a patch.
+- **Horizontal overflow** — check 320/375/414/768/1024/1440/1920. **Clean at every width** (re-checked 2026-09-29): `html, body { overflow-x: clip }` in `index.css` contains the tilted `OurStory` polaroid without clipping its composition. The overflow check also flags any element inside `<main>` wider than the viewport, which is how the non-wrapping "More on pool & pond excavation" button at 320px was caught.
+- **The relit hero looks blocky in headless Chromium.** SwiftShader (no GPU) shows checkerboarding on the cab glass and stripes on the boom; with WebGL disabled the photo is clean. It was built and checked on real hardware, so this is probably the software rasteriser, but it is **unconfirmed on a real GPU as of 2026-09-29**. Check it on a Mac before trusting either reading.
 - **Contrast** — compute WCAG ratios for real token pairs including opacity-modified ones (`text-charcoal/55` etc.) rather than eyeballing.
 
 ## Open items
-- **A page per service is the highest-value on-site change left, and it is not built.** Whitespark's
-  2026 Local Search Ranking Factors puts "dedicated page per service" at **#1 for local organic**;
-  all five services currently share one `/services` page, and the slugs already exist unused in
-  `src/data/services.ts`. Same study puts site speed at **#95 and #137 in the local pack**, with
-  Core Web Vitals not listed at all — which is the honest frame for how much any front-end polish
-  can move rankings here. GBP category (#1) and proximity (#2) dominate, so **adding excavation as
-  a secondary GBP category outranks anything in this repo.**
+- **Google Business Profile category is now the biggest lever, and it lives outside this repo.** Whitespark 2026 puts primary GBP category at #1 for the map pack. With land clearing and excavation now the business, the research (2026-09-29) recommends **"Excavating contractor" as primary**, with "Earth works company", "Drainage service" and "Pond contractor" as secondaries. "Land clearing service" could not be confirmed as a real GBP category, so check the picker. The trade-off: changing the primary can trigger re-verification, which is why the earlier advice was secondary-only. That decision belongs to Josiah. (Per-service pages, which this item used to call "not built", shipped in b4e29fa.)
+- **Searchers say "Charleston", not "Mount Pleasant", for clearing.** Google autocompletes "land clearing mount pleasant" to Mount Pleasant, **TX**. Titles and H1s therefore pair the two ("Mount Pleasant & Charleston"). Coverage for clearing is probably wider than the nine towns listed (Awendaw, Wando/Cainhoy, Huger, Ravenel), but those are Josiah's to add, not ours to invent.
+- **The FAQ permit answers cite code sections verified 2026-09-29** (Mount Pleasant Zoning Code Ch. 156, S.C. Code Titles 40/48/49/58, 33 CFR 323.2, IRC R401.3). Ordinances change, so re-verify yearly. Charleston County's tree rules were deliberately left out: Ord. 2275 and a 2024 grand-tree amendment couldn't be read.
 - **Vercel Web Analytics is still not enabled** (`get_web_analytics` returned 404 again on
   2026-08-20). The tracking code has been shipping for weeks and recording nothing, so there is no
   device split, no traffic baseline, and no way to judge whether any change helped. One dashboard
   toggle: Project → Analytics → Enable.
-- Photography is the real ceiling. Six good **landscape** shots of one excavation job unlock named project pages (`/work/<slug>`) and the pinned-scroll treatment, which are the two biggest remaining gaps vs the reference site.
-- Does `(843) 998-5593` accept texts? If yes, add click-to-text — contractor leads skew heavily to SMS.
+- Photography is the real ceiling, and more so now: the lead service has **one** photo. The asks, in order: a before and after of one clearing job from the same spot, a pool dig mid-dig, a finished French drain before backfill, and a stump root ball on the bucket. **Landscape orientation**. Each one drops into `services.ts` and replaces a drawing with no other change. Six good shots of one job would also unlock named project pages (`/work/<slug>`).
 - "Uncle Donnie" vs "Danny" — Will wrote Donnie, Josiah's voice note said Danny. Site says **Donnie** in three places.

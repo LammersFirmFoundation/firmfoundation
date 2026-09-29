@@ -1,8 +1,9 @@
 # Firm Foundation Property Services
 
-> Family-run property services in Mount Pleasant, South Carolina, serving the
-> greater Charleston area. Small excavation, grading, drainage, and irrigation
-> work, plus landscaping, hardscapes, tree services, and custom projects.
+> Family-run land clearing and excavation in Mount Pleasant, South Carolina,
+> serving the greater Charleston area: lot and underbrush clearing, tree and
+> stump removal, grading and site prep, pool and pond excavation, and drainage.
+> Smaller hardscape, landscaping and custom projects are taken on by request.
 
 Owner: Josiah Lammers
 Phone: (843) 998-5593
@@ -14,9 +15,14 @@ Quotes: free and on-site
 
 ## Pages
 
-- [Home](https://firmfoundationsc.com/): overview of all five services and service area
-- [Services](https://firmfoundationsc.com/services): excavation, hardscapes, landscaping, tree services, custom projects, plus FAQs
+- [Home](https://firmfoundationsc.com/): land clearing and excavation overview, how a job runs, reviews, service area
+- [Services](https://firmfoundationsc.com/services): all services, plus FAQs
+- [Land Clearing](https://firmfoundationsc.com/services/land-clearing): lot, underbrush and selective clearing; Mount Pleasant clearing and marsh-buffer rules
+- [Tree & Stump Removal](https://firmfoundationsc.com/services/tree-removal): removal, stump grinding or root-ball removal; tree permit rules by town
+- [Excavation & Grading](https://firmfoundationsc.com/services/excavation): site prep, pads, driveways, regrading, SC811
+- [Pool & Pond Excavation](https://firmfoundationsc.com/services/pools-and-ponds): pool digs with the pool builder, ponds dug to groundwater
+- [Drainage](https://firmfoundationsc.com/services/drainage): French drains, swales, ditches and culverts
 - [Our Work](https://firmfoundationsc.com/gallery): photos of completed projects
 - [About](https://firmfoundationsc.com/about): family history and how the company works
 - [Reviews](https://firmfoundationsc.com/reviews): verified Google reviews
-- [Contact](https://firmfoundationsc.com/contact): free quote request form
+- [Contact](https://firmfoundationsc.com/contact): free quote request form (job type, size, what's on the lot, timeline)

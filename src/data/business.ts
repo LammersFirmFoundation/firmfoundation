@@ -90,3 +90,34 @@ export const postalAddressSchema = {
   postalCode: BUSINESS.address.postalCode,
   addressCountry: BUSINESS.address.country,
 };
+
+/**
+ * How any job runs, start to finish — the homepage's process strip. Each core
+ * service page carries its own, more specific version in `services.ts`.
+ *
+ * Every step is something Josiah already does and the site already says
+ * elsewhere (free on-site quotes, SC811 before digging, haul-off). Nothing here
+ * is a new promise.
+ */
+export const howAJobRuns = [
+  {
+    label: "Walk the property",
+    detail:
+      "Josiah comes out and walks it with you, free: what stays, what goes, where the water runs, and how a machine gets in.",
+  },
+  {
+    label: "A straight number",
+    detail:
+      "The scope in plain words (what gets cleared, what stays, where the debris goes) and a price to match it.",
+  },
+  {
+    label: "Marked before we dig",
+    detail:
+      "Utilities located through SC811, and the trees you're keeping flagged, before a machine moves.",
+  },
+  {
+    label: "Cleared, graded, hauled",
+    detail:
+      "The work, then the part people remember: debris gone, and the ground left graded rather than rutted.",
+  },
+];

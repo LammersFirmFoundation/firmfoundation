@@ -15,8 +15,8 @@ const HQ = serviceAreas.find((a) => a.name === BUSINESS.address.locality)!;
  * The business entity, emitted in full on the homepage.
  *
  * `HomeAndConstructionBusiness` rather than plain LocalBusiness: it is a real,
- * directly-usable schema.org type and the closest honest fit for excavation
- * plus hardscapes, landscaping and tree work. Deliberately NOT
+ * directly-usable schema.org type and the closest honest fit for land clearing
+ * and excavation work on homeowners' property. Deliberately NOT
  * `GeneralContractor` — schema.org defines that as a licensed role, and we make
  * no licensing claim anywhere else on the site.
  *
@@ -31,8 +31,8 @@ export const localBusinessSchema = {
   "@id": ORG_ID,
   name: BUSINESS.name,
   description:
-    "Family-run property services in Mount Pleasant, SC — small excavation, grading, drainage, and irrigation work, plus landscaping, hardscapes, tree services, and custom projects inside and out across the greater Charleston area.",
-  image: `${BUSINESS.url}/og-logo.jpg`,
+    "Family-run land clearing and excavation in Mount Pleasant, SC: lot and underbrush clearing, tree and stump removal, grading and site prep, pool and pond excavation, and drainage across the greater Charleston area, with smaller hardscape, landscaping and custom projects by request.",
+  image: `${BUSINESS.url}/og-land-clearing.jpg`,
   logo: `${BUSINESS.url}/favicon-192.png`,
   telephone: BUSINESS.phone,
   email: BUSINESS.email,

@@ -173,6 +173,20 @@
   --accent-foreground: 216 17% 12%;
 }
 
+/* The inverse: a subtree that must stay on the dark palette wherever it is
+   placed. The section drawings are dark sheets drawn in the dark tokens; set
+   inside a cream section, `.on-cream` would otherwise turn every line of them
+   charcoal on charcoal. */
+.on-dark {
+  --background: 216 17% 12%;
+  --foreground: 30 20% 96%;
+  --primary: 45 96% 59%;
+  --primary-foreground: 216 17% 12%;
+  --muted-foreground: 28 9% 68%;
+  --border: 216 11% 22%;
+  --ring: 45 96% 59%;
+}
+
 .leaflet-container img {
   max-width: none !important;
 }
