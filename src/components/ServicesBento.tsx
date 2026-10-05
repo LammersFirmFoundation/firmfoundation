@@ -52,10 +52,10 @@ const CardVisual = ({
   return (
     <motion.div
       className={cn("relative overflow-hidden bg-muted", className)}
-      initial={reduce ? false : { clipPath: "inset(100% 0% 0% 0%)" }}
+      initial={{ clipPath: "inset(100% 0% 0% 0%)" }}
       whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
       viewport={{ once: true, margin: "-8% 0px" }}
-      transition={{ duration: 1.1, delay: 0.05 * number, ease: [0.22, 1, 0.36, 1] }}
+      transition={reduce ? { duration: 0 } : { duration: 1.1, delay: 0.05 * number, ease: [0.22, 1, 0.36, 1] }}
     >
       <img
         src={photo.src}

@@ -44,7 +44,12 @@ const FadeInView = ({
 }: FadeInViewProps) => {
   const shouldReduceMotion = useReducedMotion();
 
-  if (immediate || shouldReduceMotion) {
+  // `immediate` is a prop, so it renders the same on the server and the
+  // client. Reduced motion is NOT: it is unknown while prerendering. So it may
+  // only change the transition, never the element or its start state, or the
+  // prerendered markup stops matching and hydration fails (CLAUDE.md, "Reduced
+  // motion"). Under reduced motion the content simply appears, with no fade.
+  if (immediate) {
     return <div className={className}>{children}</div>;
   }
 
@@ -53,7 +58,7 @@ const FadeInView = ({
       initial={{ opacity: 0, scale: 0.985, ...directionOffset[direction] }}
       whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
       viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
-      transition={{ duration, delay, ease: EDITORIAL_EASE }}
+      transition={shouldReduceMotion ? { duration: 0 } : { duration, delay, ease: EDITORIAL_EASE }}
       className={className}
     >
       {children}

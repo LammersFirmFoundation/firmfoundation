@@ -22,10 +22,10 @@ const ProcessSteps = ({ steps }: { steps: ServiceItem[] }) => {
       <motion.div
         aria-hidden="true"
         className="absolute left-[1.375rem] top-2 bottom-2 w-px origin-top bg-primary md:left-0 md:right-0 md:top-[1.375rem] md:bottom-auto md:h-px md:w-auto md:origin-left"
-        initial={reduce ? false : { scaleX: 0, scaleY: 0 }}
+        initial={{ scaleX: 0, scaleY: 0 }}
         whileInView={{ scaleX: 1, scaleY: 1 }}
         viewport={{ once: true, margin: "-15% 0px" }}
-        transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
+        transition={reduce ? { duration: 0 } : { duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
       />
 
       <ol className={`relative grid gap-9 md:gap-10 ${steps.length === 3 ? "md:grid-cols-3" : "md:grid-cols-4"}`}>

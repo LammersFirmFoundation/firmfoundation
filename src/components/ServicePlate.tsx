@@ -155,8 +155,15 @@ function roots(x: number, y: number, spread: number, depth: number, seed: number
 // ── Motion ──────────────────────────────────────────────────────────────────
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+// Every variant set has a `shown` state: the finished drawing with no
+// transition, which is what reduced motion gets. The plate always STARTS from
+// `hidden`, because reduced motion is unknown while prerendering and a start
+// state that depended on it broke hydration (CLAUDE.md, "Reduced motion").
+const shown = { pathLength: 1, opacity: 1, transition: { duration: 0 } };
+
 const draw: Variants = {
   hidden: { pathLength: 0, opacity: 0 },
+  shown,
   visible: (i: number = 0) => ({
     pathLength: 1,
     opacity: 1,
@@ -170,6 +177,7 @@ const draw: Variants = {
 /** For anything a pathLength animation would break (dashes, hatching, text). */
 const fade: Variants = {
   hidden: { opacity: 0 },
+  shown: { opacity: 1, transition: { duration: 0 } },
   visible: (i: number = 0) => ({
     opacity: 1,
     transition: { delay: 0.35 + i * 0.12, duration: 0.8, ease: EASE },
@@ -680,8 +688,8 @@ const ServicePlate = ({
           preserveAspectRatio="xMidYMid meet"
           {...(decorative ? { "aria-hidden": true } : { role: "img", "aria-label": label })}
           className="absolute inset-0 h-full w-full"
-          initial={reduce ? "visible" : "hidden"}
-          whileInView="visible"
+          initial="hidden"
+          whileInView={reduce ? "shown" : "visible"}
           viewport={{ once: true, margin: "-10% 0px" }}
         >
           <Patterns id={id} />

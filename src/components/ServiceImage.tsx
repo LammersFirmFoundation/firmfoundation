@@ -68,7 +68,12 @@ const ServiceImage = ({
   // curtain, once. Motion lives on imagery rather than text on purpose (NN/g:
   // animated text reads as waiting). Never above the fold — `eager` images are
   // the first screen, and they should simply be there.
-  const reveal = !eager && !shouldReduceMotion;
+  //
+  // `reveal` depends on props only. Reduced motion is unknown while
+  // prerendering, so it may only zero the transitions below, never change the
+  // start state (CLAUDE.md, "Reduced motion").
+  const reveal = !eager;
+  const instant = { duration: 0 };
 
   return (
     <motion.div
@@ -76,7 +81,7 @@ const ServiceImage = ({
       initial={reveal ? { clipPath: "inset(100% 0% 0% 0%)" } : false}
       whileInView={reveal ? { clipPath: "inset(0% 0% 0% 0%)" } : undefined}
       viewport={{ once: true, margin: "-8% 0px" }}
-      transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+      transition={shouldReduceMotion ? instant : { duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
     >
       <motion.img
         src={service.image}
@@ -92,7 +97,7 @@ const ServiceImage = ({
         initial={reveal ? { scale: 1.14 } : undefined}
         whileInView={reveal ? { scale: 1 } : undefined}
         viewport={{ once: true, margin: "-8% 0px" }}
-        transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+        transition={shouldReduceMotion ? instant : { duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
         className="w-full h-full object-cover will-change-transform"
       />
     </motion.div>

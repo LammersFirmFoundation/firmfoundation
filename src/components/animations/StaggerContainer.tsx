@@ -7,8 +7,13 @@ interface StaggerContainerProps {
   staggerDelay?: number;
 }
 
+// Reduced motion gets `shown`: the end state, no stagger, no transition. The
+// start state is `hidden` for everyone, because reduced motion is unknown while
+// prerendering and markup that depended on it broke hydration (CLAUDE.md,
+// "Reduced motion").
 const containerVariants = (staggerDelay: number) => ({
   hidden: {},
+  shown: {},
   visible: {
     transition: {
       staggerChildren: staggerDelay,
@@ -18,6 +23,7 @@ const containerVariants = (staggerDelay: number) => ({
 
 export const staggerItemVariants = {
   hidden: { opacity: 0, y: 30 },
+  shown: { opacity: 1, y: 0, transition: { duration: 0 } },
   visible: {
     opacity: 1,
     y: 0,
@@ -32,15 +38,11 @@ const StaggerContainer = ({
 }: StaggerContainerProps) => {
   const shouldReduceMotion = useReducedMotion();
 
-  if (shouldReduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
   return (
     <motion.div
       variants={containerVariants(staggerDelay)}
       initial="hidden"
-      whileInView="visible"
+      whileInView={shouldReduceMotion ? "shown" : "visible"}
       viewport={{ once: true, margin: "-80px" }}
       className={className}
     >
@@ -56,12 +58,6 @@ export const StaggerItem = ({
   children: ReactNode;
   className?: string;
 }) => {
-  const shouldReduceMotion = useReducedMotion();
-
-  if (shouldReduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
   return (
     <motion.div variants={staggerItemVariants} className={className}>
       {children}

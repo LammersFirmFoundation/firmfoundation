@@ -36,10 +36,12 @@ const Line = ({ children, delay, className }: { children: string; delay: number;
     <span className={cn("block overflow-hidden pb-[0.2em] -mb-[0.2em]", className)}>
       <motion.span
         className="inline-block"
-        initial={reduce ? false : { y: "105%" }}
+        // Same start state for everyone (see FadeInView); reduced motion only
+        // makes the rise instant.
+        initial={{ y: "105%" }}
         whileInView={{ y: "0%" }}
         viewport={{ once: true, margin: "0px 0px -6% 0px" }}
-        transition={{ duration: 0.7, delay, ease: EASE }}
+        transition={reduce ? { duration: 0 } : { duration: 0.7, delay, ease: EASE }}
       >
         {children}
       </motion.span>
