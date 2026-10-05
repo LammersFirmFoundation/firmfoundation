@@ -30,9 +30,10 @@ interface ServiceImageProps {
 /**
  * A service's photo, or its section drawing when there is no photo yet.
  *
- * Dropping a real photo in later is a one-line change in `services.ts` — the
- * drawing steps aside on its own. Until then no service shows an empty frame,
- * and none shows a stock photo of somebody else's work.
+ * Dropping a real photo in later is a one-line change in `services.ts`, and
+ * the drawing steps aside on its own. Four services show licensed stock for now
+ * (rules in `src/assets/stock/CREDITS.md`); each is replaced the moment Josiah
+ * has a real photo of that work.
  */
 const ServiceImage = ({
   service,

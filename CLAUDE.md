@@ -10,7 +10,7 @@ So `services.ts` has two tiers. **`core`** (land-clearing, tree-removal, excavat
 - **Vite + React 18 + TypeScript strict + Tailwind 3** with a shadcn-style kit in `src/components/ui/`.
 - **`vite-react-ssg`** prerenders every route to static HTML at build time: 20 pages, including `/services/<slug>` for all eight services and `/guides/<slug>` for all five guides via `getStaticPaths`. This is the whole SEO story — crawlers get full HTML, not an empty `#root`.
 - **Vercel** hosting. One serverless function: `api/reviews.ts`.
-- `framer-motion` for scroll reveals. **`leaflet`/`react-leaflet` are no longer rendered** — the homepage map became the coverage directory, and `ServiceAreaMap.tsx` is now unreferenced. Tree-shaking keeps both out of the bundle (verified), so it costs nothing shipped, but it is dead code: delete it or re-mount it, don't leave it as a third state.
+- `framer-motion` for scroll reveals. **The Leaflet service-area map was deleted on 2026-10-05** (`ServiceAreaMap.tsx` and its CSS). It had been unrendered since the homepage map became the coverage directory, but `index.css` still imported `leaflet.css`, so every visitor downloaded ~240 Leaflet rules in the render-blocking stylesheet; tree-shaking only ever removed the JS. `leaflet`, `react-leaflet` and `@types/leaflet` are still listed in `package.json` because the repo carries both `package-lock.json` and a binary `bun.lockb`, and removing them means regenerating both together. They ship nothing. The coordinates in `business.ts` are what a future map would read.
 
 ## Commands
 - `npm run dev` (port **8080**, proxies `/api` to production so live reviews work locally)
@@ -24,7 +24,7 @@ The site previously wrote these out by hand in five to seven files, which is how
 - **`src/data/services.ts`** — the service list, its tier, and each core service's `approaches` (the choice the homeowner has to make), `priceFactors` and `faqs`. Homepage, `/services`, every service page, the header menu, the footer, the quote form and every JSON-LD block read from it.
 - **`src/data/yard-problems.ts`** — the situations a homeowner can describe but not name, each routed to a service. They feed each service page's FAQ + `FAQPage` schema, each guide's "what Josiah looks at" section, and the quote form's `?problem=` prefill. A build-time guard fails the build if one points at a service that doesn't exist.
 - **`src/data/quote-questions.ts`** — the tap-to-answer questions the quote form asks per job (acreage band, what's on it, keeping trees, access, timeline). All optional, by design; see the file header.
-- **`src/data/business.ts`** — NAP, service areas *with map coordinates*, and schema helpers. The map, the footer, the prerendered fallback list and `areaServed` all derive from one array.
+- **`src/data/business.ts`** — NAP, service areas *with coordinates*, and schema helpers. The footer, the closing CTA's areas line, the contact page, the services FAQ, the schema `geo` and `areaServed` all derive from one array.
 - **`src/lib/schema.ts`** — one `LocalBusiness` node with a stable `@id` that other pages reference.
 - **`src/data/guides.ts`** — the five question pages at `/guides/<slug>`. A guide pulls service FAQs (`kind: "faq"`) and options (`kind: "approaches"`) in by reference rather than restating them, and `covers` lists the service-page questions that get a "The full answer" link to it. A build-time guard fails the build on any reference that doesn't resolve, so renaming a FAQ question means updating the guide that points at it.
 
@@ -196,8 +196,8 @@ He shared a Wildfire Leadership "mission portrait" (2026-08-19): core values *Co
 
 - **The verse is where the company name came from**, and that had never been stated anywhere on the site. It's now a section on `/about` — understated, one verse, one paragraph tying it to getting the base right. This is the single strongest thing in that document.
 - **Mission wording ("live a life of integrity") frames the principles section subtitle.**
-- **The personal-formation language is deliberately NOT on the site** — *Witty*, *Warrior*, *ID: Live it out* are discipleship vocabulary that would read as confusing to a homeowner comparing excavation quotes. Not a slight; wrong register for the audience.
-- **The portrait image itself is not published** — it's a personal document carrying another company's branding (Wildfire Leadership).
+- **The personal-formation language stays out of the page copy.** *Witty*, *Warrior*, *ID: Live it out* are discipleship vocabulary that would read as confusing to a homeowner comparing excavation quotes. Not a slight; wrong register for the audience. They do appear inside the portrait image and its alt text, below.
+- **The portrait image IS published, at Will's request (2026-08-19, d71c9d5):** it is the left half of the Matthew 7:24 section on `/about`, with the copy beside it. It carries Wildfire Leadership's branding, so it is the one image to revisit if Josiah ever wants the About page to read as his company alone. (An earlier version of this file said it was not published; that was written before d71c9d5 and was wrong from that day.)
 - How faith-forward to be is a **business positioning call that belongs to Josiah**, not a design decision. Current setting is "explains the name, doesn't preach." Dial either way on request.
 
 ## Gotchas that cost real time
@@ -220,7 +220,7 @@ He shared a Wildfire Leadership "mission portrait" (2026-08-19): core values *Co
 - **`APIFY_TOKEN` must be set in Vercel env**, or `/api/reviews` 500s and the site silently falls back to the snapshot. `.env.local` holds the local copy and is gitignored.
 - **The repo is PUBLIC.** `.claude/settings.local.json` contains the Apify token inside approved-command strings; it's gitignored both globally and in-repo now, but never move it or commit it.
 - **Contact form posts to Formspree** (`xlgwpbnn`, hardcoded in `ContactUs.tsx`). No backend — if leads stop arriving, check Formspree, not the code.
-- **Google Business Profile:** excavation still needs adding as a **secondary** category (leaving the primary alone avoids re-verification). Research put GBP service categories above any on-site change for local ranking.
+- **Google Business Profile:** the category decision (primary vs secondary, and which) is in Open items. Research put GBP categories above any on-site change for local ranking.
 
 ## Verifying visual work
 There's no browser extension here, but Playwright with system Chrome works and is how every visual claim in this repo was checked. Scripts live in the session scratchpad, not the repo — rebuild them as needed. Serve `dist/` over plain `http.server`-style Node and:
