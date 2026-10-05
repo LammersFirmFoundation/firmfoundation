@@ -185,7 +185,7 @@ export const yardProblems: YardProblem[] = [
     id: "water-toward-house",
     group: "Water and ground",
     label: "Water runs toward the house, not away from it",
-    question: "Water runs toward my house — what can be done about it?",
+    question: "Water runs toward my house. What can be done about it?",
     cause:
       "The grade falls the wrong way near the foundation. Common on older yards where beds have been topped up with soil and mulch over the years until the ground beside the house sits higher than it did.",
     fix:

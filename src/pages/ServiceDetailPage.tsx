@@ -14,8 +14,28 @@ import CtaSection from "@/components/CtaSection";
 import NotFound from "@/pages/NotFound";
 import { coreServices, findService } from "@/data/services";
 import { problemsForService } from "@/data/yard-problems";
+import { guideCovering } from "@/data/guides";
 import { BUSINESS, areaServedSchema } from "@/data/business";
 import { businessRef } from "@/lib/schema";
+
+/**
+ * The link from a short FAQ answer to its guide, when one exists. The guide is
+ * the page a search for that exact question should land on, so the link is
+ * worded as what it is: the full answer.
+ */
+const FullAnswer = ({ question }: { question: string }) => {
+  const guide = guideCovering(question);
+  if (!guide) return null;
+  return (
+    <Link
+      to={`/guides/${guide.slug}`}
+      className="eyebrow inline-flex items-center gap-1.5 text-primary hover:underline"
+    >
+      The full answer
+      <ChevronRight className="h-3 w-3" aria-hidden="true" />
+    </Link>
+  );
+};
 
 /**
  * One page per service — `/services/<slug>`.
@@ -89,16 +109,23 @@ const ServiceDetailPage = () => {
         </>
       ),
       footer: (
-        <Link
-          to={`/contact?problem=${problem.id}`}
-          className="eyebrow inline-flex items-center gap-1.5 text-primary hover:underline"
-        >
-          Get a quote for this
-          <ChevronRight className="h-3 w-3" aria-hidden="true" />
-        </Link>
+        <div className="flex flex-wrap gap-x-6 gap-y-3">
+          <FullAnswer question={problem.question} />
+          <Link
+            to={`/contact?problem=${problem.id}`}
+            className="eyebrow inline-flex items-center gap-1.5 text-primary hover:underline"
+          >
+            Get a quote for this
+            <ChevronRight className="h-3 w-3" aria-hidden="true" />
+          </Link>
+        </div>
       ),
     })),
-    ...(service.faqs ?? []).map((faq) => ({ question: faq.question, answer: <p>{faq.answer}</p> })),
+    ...(service.faqs ?? []).map((faq) => ({
+      question: faq.question,
+      answer: <p>{faq.answer}</p>,
+      footer: guideCovering(faq.question) ? <FullAnswer question={faq.question} /> : undefined,
+    })),
   ];
 
   const faqSchema = [

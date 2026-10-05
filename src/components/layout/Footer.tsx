@@ -8,6 +8,7 @@ const companyLinks = [
   { label: "About", path: "/about" },
   { label: "Our Work", path: "/gallery" },
   { label: "Reviews", path: "/reviews" },
+  { label: "Guides", path: "/guides" },
   { label: "Contact", path: "/contact" },
 ];
 

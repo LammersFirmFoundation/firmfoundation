@@ -7,6 +7,7 @@ import { ThemeProvider } from "next-themes";
 import { ClientOnly, type RouteRecord } from "vite-react-ssg";
 import type { ApiResponse } from "./lib/useReviews";
 import { services } from "./data/services";
+import { guides } from "./data/guides";
 import ScrollToTop from "./components/ScrollToTop";
 import MobileCTABar from "./components/MobileCTABar";
 import ScrollProgress from "./components/ScrollProgress";
@@ -18,6 +19,8 @@ import Gallery from "./pages/Gallery";
 import AboutPage from "./pages/AboutPage";
 import ContactUs from "./pages/ContactUs";
 import Reviews from "./pages/Reviews";
+import GuidesPage from "./pages/GuidesPage";
+import GuidePage from "./pages/GuidePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -91,6 +94,15 @@ export const routes: RouteRecord[] = [
         path: "services/:slug",
         element: <ServiceDetailPage />,
         getStaticPaths: () => services.map((service) => `/services/${service.slug}`),
+      },
+      { path: "guides", element: <GuidesPage /> },
+      {
+        // One prerendered page per question, for the same reason as the
+        // service pages: a client-only route would be invisible to the search
+        // and AI answers these pages exist to be cited by.
+        path: "guides/:slug",
+        element: <GuidePage />,
+        getStaticPaths: () => guides.map((guide) => `/guides/${guide.slug}`),
       },
       { path: "gallery", element: <Gallery /> },
       { path: "about", element: <AboutPage /> },
