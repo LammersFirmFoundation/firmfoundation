@@ -1,12 +1,14 @@
 import landClearing from "@/assets/services/excavation.jpg";
 import landClearingSet from "@/assets/services/excavation.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
+// Josiah's own photos, sent 2026-10-09. They replaced the stock pictures these
+// two slots used to carry.
+import clearingCard from "@/assets/services/land-clearing-from-the-cab.jpg";
+import clearingCardSet from "@/assets/services/land-clearing-from-the-cab.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
+import stumpRootBall from "@/assets/services/stump-root-ball.jpg";
+import stumpRootBallSet from "@/assets/services/stump-root-ball.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
 // Stock photography: licenses and the rules for using it are in
 // src/assets/stock/CREDITS.md. None of these are Firm Foundation jobs; each is
 // a placeholder for one of Josiah's own photos.
-import clearingCard from "@/assets/stock/land-clearing-excavator.jpg";
-import clearingCardSet from "@/assets/stock/land-clearing-excavator.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
-import treeStump from "@/assets/stock/tree-stump.jpg";
-import treeStumpSet from "@/assets/stock/tree-stump.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
 import gradingBackyard from "@/assets/stock/grading-backyard.jpg";
 import gradingBackyardSet from "@/assets/stock/grading-backyard.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
 import pondExcavation from "@/assets/stock/pond-excavation.jpg";
@@ -130,7 +132,7 @@ export const services: Service[] = [
     alt: "Firm Foundation's tracked excavator clearing timber on a Lowcountry lot",
     cardImage: clearingCard,
     cardImageSrcSet: clearingCardSet,
-    cardAlt: "An excavator beside piles of cleared brush at the edge of a tree line",
+    cardAlt: "From the excavator cab: the bucket working a pile of roots and brush across a cleared tract",
     summary:
       "Overgrown lots, underbrush and small trees cleared down to usable ground, with the trees worth keeping left standing and the debris hauled off.",
     description1:
@@ -209,9 +211,9 @@ export const services: Service[] = [
     title: "Tree & Stump Removal",
     navBlurb: "Trees down, stumps ground or pulled, cleanup included",
     plate: "trees",
-    image: treeStump,
-    imageSrcSet: treeStumpSet,
-    alt: "A freshly cut tree stump surrounded by sawdust",
+    image: stumpRootBall,
+    imageSrcSet: stumpRootBallSet,
+    alt: "An excavator bucket lifting a stump out of the ground with its whole root ball, a second excavator working behind it",
     pageTitle: "Tree & Stump Removal, Mount Pleasant SC | Firm Foundation",
     pageDescription:
       "Tree removal, stump grinding and full stump and root-ball removal with an excavator, plus storm cleanup, in Mount Pleasant and greater Charleston, SC. Free on-site quotes.",

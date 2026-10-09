@@ -12,38 +12,95 @@ import landscapingWalkway from "@/assets/gallery/landscaping-walkway-mount-pleas
 import landscapingBed from "@/assets/gallery/landscaping-bed-mount-pleasant.jpg";
 import customPantry from "@/assets/gallery/custom-pantry-mount-pleasant.jpg";
 import landClearing from "@/assets/services/excavation.jpg";
+import clearingCab from "@/assets/gallery/clearing-from-the-cab.jpg";
+import clearingCabSet from "@/assets/gallery/clearing-from-the-cab.jpg?w=640;1024;1200&format=webp&quality=70&as=srcset";
+// The same landscape crop the Tree & Stump Removal page uses (and the same
+// query string, so the build makes one set of files). Landscape on purpose: it
+// pairs with "Timber & Lot Clearing" beside it, where a portrait left a gap.
+import stumpRootBall from "@/assets/services/stump-root-ball.jpg";
+import stumpRootBallSet from "@/assets/services/stump-root-ball.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
+import forestryMulching from "@/assets/gallery/forestry-mulching.jpg";
+import forestryMulchingSet from "@/assets/gallery/forestry-mulching.jpg?w=640;1024;1200&format=webp&quality=70&as=srcset";
+
+type Project = {
+  title: string;
+  category: string;
+  /** The small line under the title. A place when we know it, otherwise what the picture is. */
+  label: string;
+  /** Where the job was, for schema. Left out when we don't know it rather than guessed. */
+  place?: string;
+  image: string;
+  srcSet?: string;
+  alt: string;
+};
 
 /**
  * Order is the business's order: clearing first. The finish-work projects stay
  * — they are real and they are good — but they no longer lead the portfolio of
  * a land clearing and excavation company.
+ *
+ * The three cab photos are Josiah's own, sent 2026-10-09 "to show more
+ * experience". He didn't say where each job was, so they carry no place: the
+ * label says what they are instead.
+ *
+ * Two to a row, and each row pairs like shapes (4:3 with 4:3, portrait with
+ * portrait), because the grid aligns to the top and a short picture beside a
+ * tall one leaves a hole.
  */
-const projects = [
+const projects: Project[] = [
   {
     title: "Timber & Lot Clearing",
     category: "Land Clearing",
-    location: "Lowcountry, SC",
+    label: "Lowcountry, SC",
+    place: "Lowcountry, SC",
     image: landClearing,
     alt: "Firm Foundation's tracked excavator working through felled timber on a Lowcountry clearing job",
   },
   {
+    title: "Stumps Out, Root Ball and All",
+    category: "Stump Removal",
+    label: "From the operator's seat",
+    image: stumpRootBall,
+    srcSet: stumpRootBallSet,
+    alt: "An excavator bucket lifting a stump out of the ground with its whole root ball, a second excavator working behind it",
+  },
+  {
+    title: "Clearing a Wooded Tract",
+    category: "Land Clearing",
+    label: "From the operator's seat",
+    image: clearingCab,
+    srcSet: clearingCabSet,
+    alt: "From the excavator cab: the bucket working a pile of roots and brush across a cleared tract, with a second excavator at the tree line",
+  },
+  {
+    title: "Forestry Mulching",
+    category: "Land Clearing",
+    label: "From the operator's seat",
+    image: forestryMulching,
+    srcSet: forestryMulchingSet,
+    alt: "From the cab of a forestry mulcher: the mulching head working through underbrush between standing pines",
+  },
+  {
     title: "Front Walkway & Lawn Renovation",
     category: "Landscaping",
-    location: "Mount Pleasant, SC",
+    label: "Mount Pleasant, SC",
+    place: "Mount Pleasant, SC",
     image: landscapingWalkway,
     alt: "Before and after: bare mulch bed transformed into a flagstone walkway with fresh sod, Mount Pleasant SC",
   },
   {
     title: "Planting Bed Installation",
     category: "Landscaping",
-    location: "Mount Pleasant, SC",
+    label: "Mount Pleasant, SC",
+    place: "Mount Pleasant, SC",
     image: landscapingBed,
     alt: "Before and after: overgrown front yard transformed with fresh mulch beds and plantings, Mount Pleasant SC",
   },
   {
     title: "Butler's Pantry Build",
     category: "Custom Projects",
-    location: "Mount Pleasant, SC",
+    label: "Mount Pleasant, SC",
+    place: "Mount Pleasant, SC",
     image: customPantry,
     alt: "Custom butler's pantry: painted shaker cabinetry, brass hardware, patterned tile backsplash, and a quartz counter, Mount Pleasant SC",
   },
@@ -72,10 +129,9 @@ const Gallery = () => {
                 name: project.title,
                 description: project.alt,
                 contentUrl: `${BUSINESS.url}${project.image}`,
-                contentLocation: {
-                  "@type": "Place",
-                  name: project.location,
-                },
+                ...(project.place && {
+                  contentLocation: { "@type": "Place", name: project.place },
+                }),
               })),
             },
             breadcrumbSchema("Our Work", "/gallery"),
@@ -93,8 +149,8 @@ const Gallery = () => {
                 <span className="text-primary">Mount Pleasant</span>
               </h1>
               <p className="text-subtitle text-muted-foreground mt-8 max-w-xl leading-relaxed">
-                Real jobs from properties across Mount Pleasant and the
-                Lowcountry, from clearing and dirt work to the finish on top.
+                Real jobs, photographed on site, from clearing and dirt work
+                to the finish on top.
               </p>
             </FadeInView>
           </div>
@@ -108,6 +164,8 @@ const Gallery = () => {
                   <div className="overflow-hidden rounded-lg bg-muted">
                     <img
                       src={project.image}
+                      srcSet={project.srcSet}
+                      sizes={project.srcSet ? "(min-width: 768px) 50vw, 100vw" : undefined}
                       alt={project.alt}
                       loading={index === 0 ? "eager" : "lazy"}
                       decoding="async"
@@ -120,7 +178,7 @@ const Gallery = () => {
                         {project.title}
                       </h2>
                       <p className="eyebrow text-muted-foreground mt-2.5">
-                        {project.location}
+                        {project.label}
                       </p>
                     </div>
                     <span className="eyebrow text-primary shrink-0 pt-1">
