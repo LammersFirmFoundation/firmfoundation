@@ -150,15 +150,11 @@ export const services: Service[] = [
     slug: "landscaping",
     tier: "core",
     title: "Landscaping",
-    navBlurb: "Beds, mulch and planting",
-    pageTitle: "Landscaping in Mount Pleasant, SC | Firm Foundation",
-    pageDescription:
-      "Bed installation, mulching, planting and yard cleanups across Mount Pleasant and greater Charleston, SC. Free on-site quotes.",
-    pageKeywords:
-      "landscaping Mount Pleasant SC, mulch installation Charleston, planting beds, sod installation, yard cleanup Lowcountry",
+    navBlurb: "New beds, planting, sod, mulch and pine straw",
+    plate: "beds",
     image: landscaping,
     imageSrcSet: landscapingSet,
-    alt: "Fresh mulch beds and seasonal plantings at a Mount Pleasant, SC home",
+    alt: "New mulch beds and rounded shrubs along the curved front walk of a two-story Mount Pleasant house, with a palm and an American flag by the porch",
     beforeAfter: {
       before: landscapingBefore,
       beforeSrcSet: landscapingBeforeSet,
@@ -167,32 +163,95 @@ export const services: Service[] = [
       alt: "Before and after at a Mount Pleasant home: tired beds along the front walk, then new mulch beds and shrubs",
       position: "38% 60%",
     },
+    pageTitle: "Landscaping, Mount Pleasant & Charleston SC | Firm Foundation",
+    pageDescription:
+      "New landscape installs in Mount Pleasant and greater Charleston, SC: beds, shrubs and trees, sod, mulch and pine straw, chosen for Lowcountry sun and salt.",
+    pageKeywords:
+      "landscaping Mount Pleasant SC, landscape installation Charleston SC, landscapers Mount Pleasant, sod installation Charleston SC, planting beds, shrub and tree planting, mulch and pine straw, best grass for Charleston SC, salt tolerant plants, Lowcountry landscaping",
     summary:
-      "Bed installs, fresh mulch, planting and yard cleanups, usually as the finish on a clearing or grading job.",
+      "New landscape installs: beds laid out and planted, and sod laid on ground that was graded first. Every plant is picked for the sun and salt it will get.",
     description1:
-      "Once the ground is right, beds and planting are what make it look finished. We cut and mulch beds, plant, lay sod and clean up yards across Mount Pleasant.",
+      "Most yards don't need more plants. They need the right ones in the right places: shrubs that suit the sun and salt they'll get, grass only where there's light enough to grow it, and beds that tie the house to the ground around it.",
     description2:
-      "Most of our landscaping now comes at the end of bigger ground work, putting a yard back together after clearing, grading or drainage.",
+      "Every install starts with the ground. Low spots get graded out and the soil worked before anything is planted. Shrubs and trees go in at the right depth and in the right season, and the mulch stays back from the house and off the trunks.",
     items: [
-      { label: "Mulching & Bed Edging", detail: "Fresh mulch installation, crisp bed edges, and weed control" },
-      { label: "Planting", detail: "Shrubs, color and bed design suited to the Lowcountry" },
-      { label: "Sod", detail: "New sod laid on properly graded ground" },
-      { label: "Yard Cleanups", detail: "Leaf, branch and storm cleanup" },
+      { label: "Landscape Installs", detail: "New beds laid out and planted along the house, the walk and the yard" },
+      { label: "Shrubs & Trees", detail: "Planted at the right depth and in the right season, for the sun and salt each spot gets" },
+      { label: "Sod", detail: "Laid on ground that was graded and prepped first, so it roots in and water runs off" },
+      { label: "Mulch & Pine Straw", detail: "Spread to the right depth and kept back from the siding and the trunks" },
+      { label: "Bed Edging", detail: "A clean line between bed and lawn, so the grass stays out of the beds" },
+      { label: "Yard Renovations", detail: "Tired, overgrown yards cut back, cleared out and replanted" },
+      { label: "Cleanups", detail: "Leaves, overgrowth and storm debris cleared and hauled off" },
+    ],
+    approaches: {
+      title: "Lawn where it grows,",
+      accent: "beds where it won't",
+      options: [
+        {
+          name: "Sod",
+          detail:
+            "A finished lawn the day it goes down, on ground that was graded and prepped first. It needs real sun: even the shade-tolerant grasses want 4 to 6 hours of direct light a day.",
+          bestFor: "Open, sunny ground you walk and play on",
+        },
+        {
+          name: "Planted beds",
+          detail:
+            "Shrubs, trees and groundcover in mulched beds, each plant picked for how much sun, salt and water that spot gets.",
+          bestFor: "Along the house and the walk, and anywhere grass struggles",
+        },
+        {
+          name: "Pine straw or mulch",
+          detail:
+            "Under big oaks, grass is usually a losing fight. A clean bed of pine straw or mulch goes over the roots instead, with no new soil piled on them.",
+          bestFor: "Shade under big live oaks",
+        },
+      ],
+    },
+    priceFactors: [
+      { label: "How much ground", detail: "The size of the beds and the lawn, and how much of the yard they cover." },
+      { label: "What goes in", detail: "How many plants and how big they are, and which grass. A few large shrubs and trees are a different job from a bed of small ones." },
+      { label: "What comes out first", detail: "Old shrubs, dead grass and years of broken-down mulch, cleared and hauled off before anything new goes in." },
+      { label: "Getting the ground ready", detail: "Grading out low spots, and bringing in soil where the yard needs it." },
+      { label: "Access", detail: "Whether a machine can reach the work, or soil and mulch go in by wheelbarrow." },
+    ],
+    faqs: [
+      {
+        question: "What grass grows best in Charleston?",
+        answer:
+          "Sun decides most of it. Clemson Extension rates St. Augustine and zoysia excellent in shade, though both still need 4 to 6 hours of direct sun a day. Centipede is the low-upkeep grass for open sun, but it handles salt and foot traffic poorly. Bermuda stands up to wear and salt but needs full sun. Under 4 hours of sun, Clemson says it's too shady for grass to grow well.",
+      },
+      {
+        question: "When is the best time to lay sod in Charleston?",
+        answer:
+          "Spring or fall. Clemson Extension says sod is best laid in mid to late spring or in the fall, and in the fall early enough for it to root before cold weather. Summer sod can work, but it takes a lot of water. Sod laid in winter may or may not survive, depending on the temperatures.",
+      },
+      {
+        question: "How deep should mulch or pine straw be?",
+        answer:
+          "About 2 to 3 inches for pine straw and the finer bark mulches, according to Clemson Extension, and up to 4 for coarse pine bark nuggets. Keep it 2 to 3 inches back from shrub stems and tree trunks, and 6 to 12 inches back from the house, because termite treatments are applied to the soil there. On a slope, pine straw stays put better: large bark nuggets can float off in a heavy rain.",
+      },
+      {
+        question: "When should shrubs and trees be planted here?",
+        answer:
+          "Fall. Clemson Extension calls it the best season to plant shrubs in South Carolina, because the roots keep growing through the cooler months. Depth matters as much as timing: a plant goes no deeper than its root ball, and in poorly drained or compacted ground Clemson sets the top of the root ball 2 to 4 inches above the surrounding soil. Planting too deep is one of the most common and serious mistakes it lists.",
+      },
+      {
+        question: "What plants hold up to salt spray?",
+        answer:
+          "Clemson Extension's list for the South Carolina coast rates live oak, magnolia, yaupon holly, southern wax myrtle, sabal palmetto, pittosporum and oleander as highly salt tolerant: they grow where they take direct salt spray. Plants rated moderate do best sheltered behind those, a building or a dune. For lawns, Clemson rates centipede poorly for salt and calls Bermuda a good choice for oceanfront property.",
+      },
     ],
   },
   {
     slug: "hardscapes",
     tier: "core",
     title: "Hardscapes",
-    navBlurb: "Patios, walkways and retaining walls",
-    pageTitle: "Paver Patios & Walkways, Mount Pleasant | Firm Foundation",
-    pageDescription:
-      "Paver patios, stone walkways and retaining walls in Mount Pleasant and greater Charleston, SC, built on a base that is excavated and compacted properly.",
-    pageKeywords:
-      "paver patio Mount Pleasant SC, stone walkway Charleston, retaining wall installation, hardscapes Lowcountry, outdoor living space",
+    navBlurb: "Paver patios, walkways and retaining walls",
+    plate: "pavers",
+    priceQuestion: "How much does a paver patio cost?",
     image: hardscapes,
     imageSrcSet: hardscapesSet,
-    alt: "Paver patio and stone walkway installation in Mount Pleasant, SC",
+    alt: "A flagstone walkway set in pea gravel, curving through new sod to a front porch, beside a freshly mulched bed and a small red-leafed tree",
     beforeAfter: {
       before: hardscapesBefore,
       beforeSrcSet: hardscapesBeforeSet,
@@ -201,17 +260,84 @@ export const services: Service[] = [
       alt: "Before and after beside a front porch: a bare strip of dirt, then a flagstone walkway set in new sod",
       position: "45% 60%",
     },
+    pageTitle: "Paver Patios & Retaining Walls, Mount Pleasant | Firm Foundation",
+    pageDescription:
+      "Paver patios, flagstone and gravel walkways and retaining walls in Mount Pleasant and greater Charleston, SC, built on a base dug out and compacted first.",
+    pageKeywords:
+      "paver patio Mount Pleasant SC, paver patio Charleston SC, hardscapes Charleston SC, flagstone walkway, gravel patio, retaining wall Mount Pleasant SC, paver base, sinking pavers, patio contractor Lowcountry",
     summary:
-      "Patios, walkways and retaining walls, built on a base that was excavated and compacted properly first.",
+      "Paver patios, flagstone and gravel walkways, and retaining walls, built on a base that's dug out and compacted before anything goes on top.",
     description1:
-      "From patios and walkways to retaining walls and outdoor living spaces, Firm Foundation delivers durable, carefully built hardscape installations designed to hold up.",
+      "A patio is only as good as what's under it. When pavers sink, the cause is usually underneath. The base was too thin or never compacted, or it went down over roots that rotted and settled.",
     description2:
-      "We work with pavers, natural stone and concrete. Hardscape lives or dies on what is under it, which is why the dirt work comes first.",
+      "The digging comes first. Utilities get marked through SC811 before any of it. Then the ground is dug out and cleared of roots, and the stone base goes down in compacted layers before a single paver or stone is set. Walls get gravel and a drain behind them, because water trapped behind a wall adds pressure it wasn't built to hold.",
     items: [
-      { label: "Paver Patios", detail: "Patios built on a proper excavated and compacted base" },
-      { label: "Stone Walkways", detail: "Decorative walkways using natural stone and pavers" },
-      { label: "Retaining Walls", detail: "Sturdy walls for erosion control and elevated landscapes" },
-      { label: "Outdoor Living Spaces", detail: "Complete backyard hardscape layouts" },
+      { label: "Paver Patios", detail: "Laid on a dug-out, compacted stone base, with an edge that holds them in place" },
+      { label: "Walkways & Paths", detail: "Pavers, flagstone or gravel, from the drive to the door or across the yard" },
+      { label: "Retaining Walls", detail: "Block walls with gravel and a drain behind them, for slopes and raised beds" },
+      { label: "Fire-Pit Areas", detail: "A level, compacted pad with room to sit around it" },
+      { label: "Steps", detail: "Set into a slope, or up to a patio or porch" },
+      { label: "Gravel Patios", detail: "A compacted base and a firm edge, so the stone stays where it's put" },
+      { label: "Base & Excavation", detail: "The digging, grading and compaction under all of it" },
+    ],
+    approaches: {
+      title: "Pavers, stone,",
+      accent: "or gravel",
+      options: [
+        {
+          name: "Pavers",
+          detail:
+            "Concrete pavers on a compacted stone base and a thin bed of sand, locked in by an edge restraint. The surface can flex a little without cracking, and a section that settles can be lifted and reset.",
+          bestFor: "Patios and walkways you use every day",
+        },
+        {
+          name: "Flagstone",
+          detail:
+            "Natural stone, set dry in gravel or sand, or mortared onto a concrete slab. Set dry, it drains and can be re-leveled. Mortared, it's firmer underfoot, but only as sound as the slab under it.",
+          bestFor: "Walkways and garden paths with a natural look",
+        },
+        {
+          name: "Gravel",
+          detail:
+            "A compacted base with gravel on top and a firm edge to hold it. The simplest of the three and the easiest to change later, though it shifts underfoot and needs topping up.",
+          bestFor: "Side yards, paths and fire-pit areas",
+        },
+      ],
+    },
+    priceFactors: [
+      { label: "Size and shape", detail: "The square footage, and how many curves and cuts it takes. Straight edges go faster than curves." },
+      { label: "The material", detail: "Pavers, natural stone or gravel, and the pattern they're laid in." },
+      { label: "What's underneath", detail: "How much soil comes out, how much stone base goes in, and whether wet ground calls for a thicker base." },
+      { label: "What's there now", detail: "An old patio, roots or a stump in the footprint, all taken out before the base goes in." },
+      { label: "Walls and steps", detail: "How long and how tall. A taller wall needs an engineered design." },
+      { label: "Access", detail: "Getting a machine, stone and pavers to the back yard." },
+    ],
+    faqs: [
+      {
+        question: "How deep should the base be under a paver patio?",
+        answer:
+          "At least 4 inches of compacted stone base under a patio or walkway on well-drained soil, and 6 under a residential driveway, by the construction guide of the Concrete Masonry & Hardscapes Association (CMHA Tech Note PAV-TEC-002). Ground that stays wet or soft needs more. The base goes down in compacted layers with about an inch of bedding sand on top, and that sand is never used to make up for an uneven base.",
+      },
+      {
+        question: "Do I need an engineer for a retaining wall?",
+        answer:
+          "Past a certain height, yes. The residential building code requires an engineered design for a wall that holds back more than 48 inches of earth (the difference in ground level from one side to the other) without support at the top, or for one over 24 inches that also carries loads besides the soil behind it, such as a driveway above it (IRC R404.4). A town or an HOA can add rules of its own.",
+      },
+      {
+        question: "Why do retaining walls lean or fail?",
+        answer:
+          "Often, water. The industry's best-practices guide for block retaining walls (CMHA) calls poor water management a frequent source of problems in any retaining wall: water trapped behind a wall adds pressure it wasn't designed to take. So a block wall gets at least 12 inches of gravel behind it, a drain pipe at the base to carry the water out, and a first course set below grade on a compacted pad.",
+      },
+      {
+        question: "Do I need a permit for a patio in Mount Pleasant?",
+        answer:
+          "It can. The Town requires its stormwater management and tree preservation permit before land on a single-family lot is graded or otherwise disturbed, applied for along with a building permit. The Town counts a patio as impervious ground cover, and in the Old Village an overlay district caps impervious surface at 40 percent of the lot. The Town's Engineering and Environmental Division takes questions at (843) 884-8517.",
+      },
+      {
+        question: "Can a patio go under a big oak?",
+        answer:
+          "Carefully, and not always. Digging and compacting a base is exactly what hurts trees: Clemson Extension names soil compaction, grade changes and cut roots as the three main causes of tree death during construction, and advises keeping equipment out beyond the drip line. Near a tree worth keeping, the patio's footprint and base get planned around the roots, and an arborist's opinion is worth having first.",
+      },
     ],
   },
   {

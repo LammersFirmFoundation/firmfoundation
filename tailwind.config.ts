@@ -22,13 +22,17 @@ export default {
         'sans': ['Manrope', 'system-ui', 'sans-serif'],
         'heading': ['Archivo', 'Arial Narrow', 'system-ui', 'sans-serif'],
         'label': ['Archivo', 'system-ui', 'sans-serif'],
+        // A Clarendon revival, the face the flyer sets its service names and
+        // phone number in. Kept to quotes and numerals: one warm note, not a
+        // third body face.
+        'serif': ['Besley', 'Georgia', 'serif'],
       },
       fontSize: {
         // Fluid so the huge display sizes shrink gracefully instead of needing
         // a breakpoint override at every call site.
         'display': ['clamp(2.75rem, 7.2vw, 6.75rem)', { lineHeight: '0.9', letterSpacing: '-0.005em' }],
         'hero': ['clamp(2.25rem, 5.6vw, 4.75rem)', { lineHeight: '0.92', letterSpacing: '-0.005em' }],
-        'title': ['clamp(1.75rem, 3.6vw, 3rem)', { lineHeight: '0.98', letterSpacing: '-0.005em' }],
+        'title': ['clamp(2rem, 3.8vw, 3.5rem)', { lineHeight: '0.96', letterSpacing: '-0.012em' }],
         'subtitle': ['clamp(1.0625rem, 1.6vw, 1.375rem)', { lineHeight: '1.5', letterSpacing: '0' }],
       },
       letterSpacing: {

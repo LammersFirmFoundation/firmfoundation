@@ -29,7 +29,11 @@ import { services } from "@/data/services";
  * as the customer, because that is who is sending it — and it is deliberately
  * a starting point they can edit rather than a finished description.
  */
-export type YardProblemGroup = "Land and trees" | "Water and ground" | "Something to dig or build";
+export type YardProblemGroup =
+  | "Lawns, beds and patios"
+  | "Land and trees"
+  | "Water and ground"
+  | "Something to dig or build";
 
 export type YardProblem = {
   /** Stable id — used in the deep link, so it must not change casually. */
@@ -58,6 +62,97 @@ export type YardProblem = {
 };
 
 export const yardProblems: YardProblem[] = [
+  // ── Lawns, beds and patios ──────────────────────────────────────────────
+  {
+    id: "bare-yard",
+    group: "Lawns, beds and patios",
+    label: "The yard looks bare and I don't know where to start",
+    question: "Where do you start with landscaping a bare yard?",
+    cause:
+      "Usually there's no single problem, just no plan yet. The lawn never filled in and there are no real beds, so nothing ties the house to the ground around it.",
+    fix:
+      "Starting from the ground: low spots graded out and the soil made ready. Then beds along the house and the walk, planted for the sun and salt each spot gets, and sod only where there's light enough to keep it.",
+    visit:
+      "How much sun each part of the yard gets, where water goes when it rains, how close you are to salt water, and how much upkeep you want to take on.",
+    serviceSlug: "landscaping",
+    service: "Landscaping",
+    note: "My yard is pretty bare and I'd like help knowing where to start. The area is ",
+  },
+  {
+    id: "grass-under-oaks",
+    group: "Lawns, beds and patios",
+    label: "Grass won't grow under the oaks",
+    question: "Why won't grass grow under my oak trees?",
+    cause:
+      "Shade, mostly, and the tree's roots taking the water. Clemson Extension's rule is that under 4 hours of direct sun a day it's too shady for grass to grow well, and a big live oak can cast that much shade on its own.",
+    fix:
+      "The fix that lasts is to stop fighting the shade. The ground under the canopy becomes a bed of pine straw, mulch or groundcover, laid over the roots without piling new soil on them, and the sod stays where the sun is.",
+    visit:
+      "How many hours of direct sun the spot really gets, how close the roots run to the surface, and where the lawn could stay.",
+    serviceSlug: "landscaping",
+    service: "Landscaping",
+    note: "Grass won't grow under the trees in my yard. The area is about ",
+  },
+  {
+    id: "tired-beds",
+    group: "Lawns, beds and patios",
+    label: "The beds look tired and overgrown",
+    question: "Can you redo beds that have gotten tired and overgrown?",
+    cause:
+      "Shrubs that have outgrown their spot, edges that have disappeared into the lawn, and years of new mulch spread over old until it's banked up against the house.",
+    fix:
+      "Pulling out what has outgrown its place, re-cutting the edges, taking the old mulch down instead of adding to it, and replanting with plants that fit. Then fresh mulch or pine straw at the right depth, kept back from the siding.",
+    visit:
+      "What is worth keeping, what has outgrown its place, how high the beds now sit against the house, and how much upkeep you want to be doing.",
+    serviceSlug: "landscaping",
+    service: "Landscaping",
+    note: "My beds have gotten tired and overgrown. What I'd like is ",
+  },
+  {
+    id: "patio-or-walkway",
+    group: "Lawns, beds and patios",
+    label: "I want a patio, a walkway, or somewhere to sit outside",
+    question: "What goes into a paver patio that won't sink?",
+    cause:
+      "Not a problem so much as a project. The part most people underestimate is underneath it: a patio on a base that wasn't dug out and compacted properly starts to move.",
+    fix:
+      "Digging out the footprint, clearing roots and soft soil, and building a compacted stone base in layers, sloped so water runs off. Then the pavers, stone or gravel on top, with an edge that holds them. The dirt work is most of the job, which is why we do both.",
+    visit:
+      "Where it would go, the ground under it, where water moves across that spot, any big trees nearby, and how it ties into the house and the walk.",
+    serviceSlug: "hardscapes",
+    service: "Hardscapes",
+    note: "I'm interested in a patio or walkway. Roughly what I have in mind is ",
+  },
+  {
+    id: "pavers-sinking",
+    group: "Lawns, beds and patios",
+    label: "My pavers are sinking or coming loose",
+    question: "Why are my pavers sinking, and can they be fixed?",
+    cause:
+      "Usually what's under them: a base that was too thin or never compacted, roots or soft soil left underneath to rot and settle, no edge holding the pavers in, or water running under the patio instead of off it.",
+    fix:
+      "Most can be. The pavers come up, the base under the low area is dug out and rebuilt in compacted layers, and the pavers go back down. Where the edge is the problem, a proper edge restraint goes in.",
+    visit:
+      "Where it has sunk, where water runs across it, whether anything is holding the edge, and what's under it once a few pavers are lifted.",
+    serviceSlug: "hardscapes",
+    service: "Hardscapes",
+    note: "My pavers are sinking or coming loose. The patio is about ",
+  },
+  {
+    id: "slope-washing-out",
+    group: "Lawns, beds and patios",
+    label: "A slope keeps washing out",
+    question: "How do you stop a slope from washing out?",
+    cause:
+      "Bare soil on a grade, with water running down it every time it rains. Sometimes a downspout or a neighbor's runoff is aimed straight at it.",
+    fix:
+      "On a gentle slope, planting and pine straw, which holds on a slope better than most mulches. Where it's too steep for that, a retaining wall with gravel and a drain behind it, and an engineered design if the wall has to hold back more than 4 feet of earth.",
+    visit:
+      "How tall and steep the slope is, where the water comes from, and what sits at the top of it.",
+    serviceSlug: "hardscapes",
+    service: "Hardscapes",
+    note: "I have a slope that keeps washing out. It's about ",
+  },
   // ── Land and trees ──────────────────────────────────────────────────────
   {
     id: "overgrown",
@@ -304,36 +399,6 @@ export const yardProblems: YardProblem[] = [
     note: "I'm interested in a pond. What I'm picturing is ",
   },
   {
-    id: "patio-or-walkway",
-    group: "Something to dig or build",
-    label: "I want a patio, walkway, or retaining wall",
-    question: "What actually goes into building a paver patio or walkway?",
-    cause:
-      "The part people underestimate is that hardscape lives or dies on what is under it. A patio on a base that wasn't prepped properly moves within a couple of seasons.",
-    fix:
-      "Excavating and compacting a proper base first, then the paver, stone or wall work on top of it. The dirt work is most of the job, which is why we do both.",
-    visit:
-      "The ground under it, where water moves across the area, and how it ties into what is already there.",
-    serviceSlug: "hardscapes",
-    service: "Hardscapes",
-    note: "I'm interested in a patio or walkway. Roughly what I have in mind is ",
-  },
-  {
-    id: "tired-beds",
-    group: "Something to dig or build",
-    label: "The beds and yard look tired",
-    question: "Can you clean up and re-mulch tired beds?",
-    cause:
-      "Usually maintenance rather than anything structural: beds that have lost their edge, mulch that has broken down, plantings that have outgrown their spot.",
-    fix:
-      "Re-cutting and re-mulching the beds, cleaning up plantings, and putting the yard back into a shape that is easy to keep.",
-    visit:
-      "What is worth keeping, what has outgrown its place, and how much upkeep you actually want to be doing.",
-    serviceSlug: "landscaping",
-    service: "Landscaping",
-    note: "My beds and yard need cleaning up. What I'm after is ",
-  },
-  {
     id: "something-built",
     group: "Something to dig or build",
     label: "Something needs building, inside or out",
@@ -350,6 +415,7 @@ export const yardProblems: YardProblem[] = [
 ];
 
 export const yardProblemGroups: YardProblemGroup[] = [
+  "Lawns, beds and patios",
   "Land and trees",
   "Water and ground",
   "Something to dig or build",

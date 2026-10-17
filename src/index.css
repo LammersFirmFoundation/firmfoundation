@@ -154,20 +154,23 @@
   }
 }
 
-@layer utilities {
-  /* The two display sizes are always set in capitals, like the flyer's
-     headline. Smaller headings (cards, questions) stay in sentence case: a
-     long question in condensed capitals is hard to read. */
-  .text-display,
-  .text-hero {
-    text-transform: uppercase;
-  }
-}
-
 @layer components {
-  /* Small uppercase label that sits above a display heading. */
+  /* A small plain label: metadata, card kickers, nav, captions. Sentence
+     case on purpose. Tracked capitals on every label is the single loudest
+     tell of a template site, so capitals are saved for `.mark` below. */
   .eyebrow {
-    @apply font-label text-[0.6875rem] font-semibold uppercase tracking-[0.2em];
+    @apply font-sans text-[0.8125rem] font-semibold tracking-[0.005em];
+  }
+
+  /* The section mark, borrowed from the badge: spaced capitals behind a
+     short rule, like "— PROPERTY SERVICES —". One per section at most, and
+     never on buttons or nav. */
+  .mark {
+    @apply inline-flex items-center gap-3 font-label text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-primary;
+  }
+  .mark::before {
+    content: "";
+    @apply block h-px w-7 shrink-0 bg-current;
   }
 }
 

@@ -15,7 +15,7 @@ import { yardProblems } from "@/data/yard-problems";
  *
  * Rules, so these stay worth citing:
  *
- * 1. **Few and real.** Five pages, each a question people ask before they
+ * 1. **Few and real.** Six pages, each a question people ask before they
  *    call. Never a page per town ("land clearing in Folly Beach"): Google
  *    treats those as doorway pages, and they would cost the site more than
  *    they could earn.
@@ -99,7 +99,89 @@ const SC_811: GuideSource = {
   url: "https://law.justia.com/codes/south-carolina/title-58/chapter-36/section-58-36-60/",
 };
 
+const HGIC = (n: number, title: string, slug: string): GuideSource => ({
+  label: `Clemson Cooperative Extension, HGIC ${n}, ${title}`,
+  url: `https://hgic.clemson.edu/factsheet/${slug}/`,
+});
+
 export const guides: Guide[] = [
+  {
+    slug: "best-grass-for-charleston",
+    short: "The best grass for Charleston",
+    question: "What grass grows best in Charleston, and when should sod go down?",
+    title: "Best Grass for Charleston, and When to Lay Sod | Firm Foundation",
+    description:
+      "Which lawn grass suits a Charleston yard (St. Augustine, zoysia, centipede or Bermuda), how much sun each needs, and when Clemson Extension says to lay sod.",
+    keywords:
+      "best grass for Charleston SC, best grass for shade Charleston SC, when to lay sod Charleston SC, St. Augustine vs zoysia, centipede grass, Bermuda grass, sod installation Mount Pleasant, grass won't grow under oak tree",
+    answer:
+      "It comes down to sun. St. Augustine takes the most shade of the warm-season grasses but still needs 4 to 6 hours of direct sun, zoysia does well in sun or part shade, centipede is the low-upkeep choice for open sun away from salt, and Bermuda needs full sun. Clemson Extension says sod is best laid in mid to late spring or in the fall, early enough to root before cold weather.",
+    serviceSlug: "landscaping",
+    problemId: "grass-under-oaks",
+    plate: "beds",
+    sections: [
+      {
+        heading: "The four grasses that do well here",
+        paragraphs: [
+          "Charleston lawns are warm-season grasses, and Clemson Extension compares the four common ones on the things that decide it: shade, salt, wear and upkeep.",
+        ],
+        bullets: [
+          "St. Augustine. The most shade-tolerant warm-season grass, though it still needs 4 to 6 hours of sun. Moderate upkeep, and it's planted as sod, sprigs or plugs. Its weak spot is chinch bugs, which Clemson calls its greatest disadvantage.",
+          "Zoysia. Dense in full sun and part shade, thinner in deep shade, and it wears well. It's high-upkeep and slow to spread, which is why Clemson prefers sod for it.",
+          "Centipede. Low upkeep, suited to infertile, acidic soil, and fair in shade. It handles salt poorly, doesn't stand up to heavy foot traffic, and too much fertilizer makes it less cold-hardy.",
+          "Bermuda. Excellent wear, drought and salt tolerance, so Clemson calls it a good choice for oceanfront property. Very poor in shade, and its runners are hard to keep out of beds and walks.",
+        ],
+      },
+      {
+        heading: "Shade decides more than anything",
+        paragraphs: [
+          "Clemson's line is simple: under 4 hours of direct sun a day, it's too shady for grass to grow well. Under a big live oak the grass is also competing with the tree's roots for water and nutrients, and turf in shade tends to thin out year after year.",
+          "Where that's happening, the answer that lasts is usually a bed, not more sod: pine straw, mulch or groundcover over the roots. What not to do is level the ground under the tree with new soil. Clemson names grade changes, along with compaction and cut roots, as the three main causes of tree death during construction.",
+        ],
+      },
+      { kind: "approaches", heading: "Lawn, bed, or both", serviceSlug: "landscaping" },
+      { kind: "faq", question: "What plants hold up to salt spray?" },
+      { kind: "faq", question: "When is the best time to lay sod in Charleston?" },
+      {
+        heading: "Getting the ground ready",
+        steps: [
+          "Test the soil 2 to 3 months ahead. Clemson notes that coastal soils in Charleston County can already be high in phosphorus, so the fertilizer should follow the test, not the bag.",
+          "Clear out the debris: old roots, rubble and dead turf.",
+          "Grade it so water runs away from the house, with the soil left about an inch below walks and drives.",
+          "Loosen compacted soil, work any lime or fertilizer the test calls for into the top 4 to 6 inches, and firm it with a roller.",
+          "Lay the sod within 48 hours of delivery, seams tight and staggered and never stretched, then roll it.",
+        ],
+        see: "yard-floods-after-rain",
+      },
+      { kind: "faq", question: "How much should the yard slope away from the house?" },
+      {
+        heading: "The first few weeks",
+        paragraphs: [
+          "Water new sod to a depth of about 4 inches right after it goes down. Through the first week, if rain doesn't do it, water daily or as often as it takes, and don't let it dry out until it has rooted into the soil underneath.",
+        ],
+      },
+    ],
+    sources: [
+      HGIC(1214, "Selecting a Lawn Grass", "selecting-a-lawn-grass"),
+      HGIC(1223, "Turfgrasses for the Carolinas", "turfgrasses-for-the-carolinas"),
+      HGIC(1211, "St. Augustinegrass", "st-augustinegrass"),
+      HGIC(1212, "Zoysiagrass", "zoysiagrass"),
+      HGIC(1209, "Centipedegrass", "centipedegrass"),
+      HGIC(1208, "Bermudagrass", "bermudagrass"),
+      HGIC(1202, "Growing Grass in Shade", "growing-grass-in-shade"),
+      HGIC(1203, "Lawn Establishment", "lawn-establishment"),
+      HGIC(1002, "Protecting Trees During Construction", "protecting-trees-during-construction"),
+      HGIC(1730, "Salt Tolerant Plants for the South Carolina Coast", "salt-tolerant-plants-for-the-south-carolina-coast"),
+      { label: "International Residential Code R401.3, drainage" },
+    ],
+    published: "2026-10-17",
+    checked: "2026-10-17",
+    covers: [
+      "What grass grows best in Charleston?",
+      "When is the best time to lay sod in Charleston?",
+      "Why won't grass grow under my oak trees?",
+    ],
+  },
   {
     slug: "mount-pleasant-tree-permit",
     short: "Tree permits in Mount Pleasant",

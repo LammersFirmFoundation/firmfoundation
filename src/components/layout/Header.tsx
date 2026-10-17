@@ -26,7 +26,7 @@ const navLinks = [
 ];
 
 const linkStyle =
-  "relative whitespace-nowrap eyebrow text-foreground/75 hover:text-foreground transition-colors py-1 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full";
+  "relative whitespace-nowrap text-[0.9375rem] font-medium text-foreground/80 hover:text-foreground transition-colors py-1 after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-0 after:bg-foreground after:transition-all after:duration-300 hover:after:w-full";
 
 const Header = ({ transparent = false }: HeaderProps) => {
   const [scrolled, setScrolled] = useState(false);
@@ -146,7 +146,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
             <a
               href={BUSINESS.phoneHref}
               data-analytics-where="header"
-              className="hidden xl:inline-flex items-center gap-2 eyebrow text-foreground/75 hover:text-foreground transition-colors"
+              className="hidden xl:inline-flex items-center gap-2 text-[0.9375rem] font-medium text-foreground/80 hover:text-foreground transition-colors"
             >
               <Phone className="h-3.5 w-3.5" aria-hidden="true" />
               {BUSINESS.phone}

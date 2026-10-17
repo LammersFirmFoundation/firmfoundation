@@ -28,6 +28,49 @@ export type QuoteQuestion = {
 };
 
 export const questionsByService: Record<string, QuoteQuestion[]> = {
+  landscaping: [
+    {
+      id: "job",
+      label: "What's the job?",
+      options: ["New beds & planting", "Sod", "Mulch or pine straw", "Redo old beds", "Cleanup", "Something else"],
+      multi: true,
+    },
+    {
+      id: "where",
+      label: "Which part of the yard?",
+      options: ["Front", "Back", "Side yard", "The whole yard"],
+      multi: true,
+    },
+    {
+      id: "sun",
+      label: "How much sun does it get?",
+      options: ["Sun most of the day", "Some shade", "Mostly shade", "Not sure"],
+      hint: "Grass needs at least 4 to 6 hours of direct sun. Under big trees, beds usually do better.",
+    },
+  ],
+  hardscapes: [
+    {
+      id: "what",
+      label: "What's the job?",
+      options: ["New patio", "Walkway or path", "Retaining wall", "Fire-pit area", "Steps", "Fix sunken pavers", "Something else"],
+      multi: true,
+    },
+    {
+      id: "material",
+      label: "Any material in mind?",
+      options: ["Pavers", "Natural stone", "Gravel", "Not sure yet"],
+    },
+    {
+      id: "size",
+      label: "Roughly how big?",
+      options: ["A path or a small pad", "Room for a table and chairs", "Bigger than that", "Not sure"],
+    },
+    {
+      id: "now",
+      label: "What's there now?",
+      options: ["Grass or dirt", "An old patio or path", "A slope"],
+    },
+  ],
   excavation: [
     {
       id: "purpose",

@@ -68,7 +68,7 @@ const tiles: Tile[] = [
 const HeroMosaic = ({ className }: { className?: string }) => (
   <div
     className={cn(
-      "grid grid-cols-3 grid-rows-2 gap-1.5 sm:gap-2 lg:grid-cols-2 lg:grid-rows-[3fr_2fr] lg:gap-2.5",
+      "grid grid-cols-3 grid-rows-2 gap-x-2 gap-y-2.5 sm:gap-x-3 sm:gap-y-4 lg:grid-cols-2 lg:grid-rows-[3fr_2fr] lg:gap-x-4 lg:gap-y-5",
       className,
     )}
   >
@@ -77,10 +77,11 @@ const HeroMosaic = ({ className }: { className?: string }) => (
         key={t.slug}
         to={`/services/${t.slug}`}
         className={cn(
-          "group relative overflow-hidden rounded-md bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background lg:rounded-lg",
+          "group flex min-h-0 flex-col gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:gap-2",
           t.className,
         )}
       >
+        <span className="relative min-h-0 flex-1 overflow-hidden rounded-[3px] bg-muted">
         <img
           src={t.src}
           srcSet={t.srcSet}
@@ -96,12 +97,13 @@ const HeroMosaic = ({ className }: { className?: string }) => (
           style={{ objectPosition: t.position }}
           className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-editorial group-hover:scale-[1.035]"
         />
-        {/* A solid chip rather than text on the photo: legible on any picture
-            without a wash over it. */}
-        <span className="absolute bottom-2 left-2 inline-flex items-center gap-1 rounded-full bg-background/90 px-2.5 py-1 eyebrow text-[0.5625rem] text-primary shadow-sm sm:bottom-3 sm:left-3 sm:px-3 sm:py-1.5 sm:text-[0.625rem]">
+        </span>
+        {/* A caption under the picture, never a chip on it: nothing laid
+            over the photograph, and it reads like a printed plate. */}
+        <span className="flex items-baseline justify-between gap-2 text-[0.6875rem] font-semibold text-foreground sm:text-sm">
           {t.label}
           <ArrowUpRight
-            className="hidden h-3 w-3 transition-transform duration-500 group-hover:-translate-y-px group-hover:translate-x-px sm:block"
+            className="hidden h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform duration-300 group-hover:-translate-y-px group-hover:translate-x-px group-hover:text-foreground sm:block"
             aria-hidden="true"
           />
         </span>

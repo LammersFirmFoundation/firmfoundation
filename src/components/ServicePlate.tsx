@@ -862,7 +862,8 @@ function beds(id: string): Drawing {
   // Mulch: 2–3 in. deep per Clemson HGIC 1052 ("Apply 2 to 3 inches of
   // natural, organic mulch over the planted area") and HGIC 1604, "Mulch"
   // ("Keep mulch 2 to 3 inches away from the stems of woody plants"). The
-  // depth is dimensioned; the gap at the stems is labelled, not measured.
+  // depth is the number in the callout; the gap at the stems is labelled,
+  // not measured, because drawn to any scale it would vanish.
   const under = (x: number) => (x > BL && x < BR ? TB : G);
   const r = rng(97);
   const jit = () => (r() - 0.5) * 2.2;
@@ -881,12 +882,18 @@ function beds(id: string): Drawing {
   // The shrub: a crown of stems out of the top of the ball under a low,
   // spreading mound, wider than it is tall.
   const stems = [
-    `M${X - 3} ${TB} C${X - 5} ${TB - 12} ${X - 14} ${TB - 22} ${X - 26} ${TB - 34}`,
-    `M${X} ${TB} C${X + 1} ${TB - 16} ${X - 2} ${TB - 30} ${X + 1} ${TB - 46}`,
-    `M${X + 3} ${TB} C${X + 6} ${TB - 12} ${X + 15} ${TB - 21} ${X + 27} ${TB - 32}`,
+    `M${X - 3} ${TB} C${X - 5} ${TB - 12} ${X - 16} ${TB - 22} ${X - 30} ${TB - 36}`,
+    `M${X} ${TB} C${X + 1} ${TB - 16} ${X - 2} ${TB - 32} ${X + 1} ${TB - 54}`,
+    `M${X + 3} ${TB} C${X + 6} ${TB - 12} ${X + 17} ${TB - 21} ${X + 32} ${TB - 33}`,
+  ];
+  const twigs = [
+    `M${X - 14} ${TB - 22} Q${X - 18} ${TB - 34} ${X - 16} ${TB - 46}`,
+    `M${X - 1} ${TB - 30} Q${X - 10} ${TB - 40} ${X - 20} ${TB - 52}`,
+    `M${X} ${TB - 36} Q${X + 10} ${TB - 44} ${X + 18} ${TB - 54}`,
+    `M${X + 15} ${TB - 20} Q${X + 20} ${TB - 32} ${X + 18} ${TB - 44}`,
   ];
   const flare = `M${X - 8} ${TB} Q${X - 3} ${TB - 1} ${X - 3} ${TB - 7} M${X + 8} ${TB} Q${X + 3} ${TB - 1} ${X + 3} ${TB - 7}`;
-  const canopy = scallop(X, G - 52, 60, 32, 103, 22, 0.62);
+  const canopy = scallop(X, G - 46, 68, 34, 103, 26, 0.7);
   const rootStrokes = roots(X, TB + 3, 30, 40, 107);
 
   let turf = "";
@@ -894,7 +901,6 @@ function beds(id: string): Drawing {
     turf += `M${f(x)} ${G} l${f((r() - 0.5) * 2.4)} ${f(-(2.4 + r() * 3))}`;
   }
 
-  const DX = EDGE - 34; // mulch depth dimension
 
   return {
     art: (
@@ -932,6 +938,9 @@ function beds(id: string): Drawing {
         {stems.map((d, i) => (
           <L key={i} d={d} tone="strong" step={2.2 + i * 0.1} w={1.3} />
         ))}
+        {twigs.map((d, i) => (
+          <L key={`w${i}`} d={d} step={2.4 + i * 0.05} w={0.9} />
+        ))}
         <L d={flare} tone="strong" step={2.2} w={1.1} />
         <L d={canopy} tone="strong" step={2.6} w={1.2} />
 
@@ -947,17 +956,12 @@ function beds(id: string): Drawing {
         {/* Turf beyond the edge. */}
         <L d={turf} step={3.4} w={0.8} />
 
-        {/* Dimension: the mulch. */}
-        <L d={`M${DX} ${G - M} L${DX} ${G} M${DX - 5} ${G - M} L${DX + 5} ${G - M} M${DX - 5} ${G} L${DX + 5} ${G}`} step={4} w={0.9} />
       </>
     ),
     notes: (
       <>
-        <motion.text variants={fade} custom={4.4} x={DX} y={G - M - 8} textAnchor="middle" fill="currentColor" className="font-sans text-foreground/90" style={{ fontSize: 8.6, fontWeight: 600, letterSpacing: "0.12em" }}>
-          2–3 IN. MULCH
-        </motion.text>
         <Note at={[X - 5, TB]} to={[118, 152]} anchor="end">ROOT FLARE AT GRADE</Note>
-        <Note at={[X + GAP + 2, G - 7]} to={[276, 130]}>MULCH KEPT OFF THE STEMS</Note>
+        <Note at={[X + GAP + 2, G - 7]} to={[268, 150]}>2–3 IN. MULCH · KEPT OFF THE STEMS</Note>
         <Note at={[HL + 34, G + 16]} to={[HL + 26, 254]}>HOLE DUG WIDE · NATIVE SOIL BACK IN</Note>
         <Note at={[X, BB + 1]} to={[300, 236]}>BALL ON UNDISTURBED SOIL</Note>
         <Note at={[EDGE - 2, G + TR - 3]} to={[470, 200]} anchor="end">SPADE-CUT BED EDGE</Note>
@@ -996,8 +1000,8 @@ function mulching(id: string): Drawing {
   // What was there: brush and saplings, as a ghost over the mulch.
   const ghostBrush = thicket(126, END - 24, G - 4, 131);
   const saplings = [
-    { x: 236, h: 74, s: 139 },
-    { x: 306, h: 64, s: 149 },
+    { x: 246, h: 74, s: 139 },
+    { x: 314, h: 64, s: 149 },
   ];
   const stumps = [{ x: 168, s: 137 }, ...saplings];
 
@@ -1015,13 +1019,17 @@ function mulching(id: string): Drawing {
   const hood = `M${H - 22} ${G - 6} L${H - 22} ${G - 28} Q${H - 22} ${G - 34} ${H - 16} ${G - 34} L${H + 4} ${G - 34} C${H + 16} ${G - 34} ${H + 23} ${G - 28} ${H + 23} ${G - 14}`;
   const u = [-0.77, -0.64] as const; // up and back, toward the carrier
   const v = [0.64, -0.77] as const; // across the arm
-  const A0 = [H - 22, G - 21] as const;
-  const LEN = 44;
-  const armEnd = (s: number) => [A0[0] + v[0] * s + u[0] * LEN, A0[1] + v[1] * s + u[1] * LEN] as const;
-  const arms = [-4.5, 4.5]
-    .map((s) => `M${f(A0[0] + v[0] * s)} ${f(A0[1] + v[1] * s)} L${f(armEnd(s)[0])} ${f(armEnd(s)[1])}`)
-    .join(" ");
-  const e = armEnd(0);
+  // Both arm lines start on the hood's back plate and stop on one line square
+  // to them, where the break line goes.
+  const LEN = 40;
+  const lower = [H - 22, G - 14] as const;
+  const upper = [H - 22, G - 26] as const;
+  const lift = (upper[1] - lower[1]) * u[1]; // how far `upper` already sits along the arm
+  const tip = (p: readonly [number, number], len: number) => [p[0] + u[0] * len, p[1] + u[1] * len] as const;
+  const lowerEnd = tip(lower, LEN + lift);
+  const upperEnd = tip(upper, LEN);
+  const arms = `M${lower[0]} ${lower[1]} L${f(lowerEnd[0])} ${f(lowerEnd[1])} M${upper[0]} ${upper[1]} L${f(upperEnd[0])} ${f(upperEnd[1])}`;
+  const e = [(lowerEnd[0] + upperEnd[0]) / 2, (lowerEnd[1] + upperEnd[1]) / 2] as const;
   const brk = [
     [e[0] - v[0] * 10, e[1] - v[1] * 10],
     [e[0] - v[0] * 2.5, e[1] - v[1] * 2.5],
@@ -1032,8 +1040,8 @@ function mulching(id: string): Drawing {
   ]
     .map(([x, y], i) => `${i ? "L" : "M"}${f(x)} ${f(y)}`)
     .join("");
-  // Rotation: the arc runs most of the way round, ending at the bottom.
-  const spin = `M${H + 6.5} ${CY} A6.5 6.5 0 1 0 ${H} ${CY + 6.5} M${H - 3} ${f(CY + 4)} L${H} ${CY + 6.5} L${H - 3} ${f(CY + 9)}`;
+  // A centre mark on the drum's shaft, as any circle on a detail sheet gets.
+  const centre = `M${H - 3.5} ${CY} L${H + 3.5} ${CY} M${H} ${CY - 3.5} L${H} ${CY + 3.5}`;
   // Chips thrown back onto the ground behind the head.
   let spray = "";
   for (let i = 0; i < 9; i++) {
@@ -1108,7 +1116,7 @@ function mulching(id: string): Drawing {
         {/* The mulching head. */}
         <L d={`M${H + DR} ${CY} A${DR} ${DR} 0 1 0 ${H - DR} ${CY} A${DR} ${DR} 0 1 0 ${H + DR} ${CY}`} tone="accent" step={3.4} w={1.6} />
         <L d={teeth} tone="accent" step={3.6} w={1.4} />
-        <L d={spin} tone="accent" step={3.8} w={1} />
+        <L d={centre} step={3.8} w={0.9} />
         <L d={hood} tone="strong" step={3.4} w={1.4} />
         <L d={arms} tone="strong" step={3.6} w={1.3} />
         <L d={brk} step={3.8} w={1} />
@@ -1121,7 +1129,7 @@ function mulching(id: string): Drawing {
     notes: (
       <>
         <Note at={[97.5, FLAG]} to={[112, FLAG]}>FLAGGED KEEPERS STAY</Note>
-        <Note at={[270, G - 18]} to={[270, 112]} anchor="middle">UNDERBRUSH · GROUND WHERE IT STOOD</Note>
+        <Note at={[280, G - 18]} to={[280, 112]} anchor="middle">UNDERBRUSH · GROUND WHERE IT STOOD</Note>
         <Note at={[H + 9, G - 5]} to={[470, 262]} anchor="end">MULCHING HEAD</Note>
         <Note at={[172, f(ground(172) + 18)]} to={[180, 256]}>STUMPS CUT LOW · ROOTS LEFT IN</Note>
         <Note at={[124, f(ground(124) - 4)]} to={[118, 282]}>MULCH STAYS · NOTHING HAULED OFF</Note>
