@@ -228,6 +228,7 @@ const Gallery = () => {
                         <span aria-hidden="true" className="mx-2 text-foreground/30">
                           /
                         </span>
+                        <span className="sr-only">, </span>
                         {project.label}
                       </p>
                     </div>

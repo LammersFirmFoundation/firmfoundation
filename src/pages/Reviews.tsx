@@ -133,7 +133,6 @@ const Reviews = () => {
             phone. No scroll reveal: this is reading, and the first quotes are
             above the fold. */}
         <Section className="pt-0 md:pt-0">
-          <h2 className="sr-only">All reviews</h2>
           <ol className="border-b border-border">
             {reviews.map((review, index) => (
               <li key={index} className="border-t border-border py-9 md:py-12">
@@ -152,7 +151,7 @@ const Reviews = () => {
                       />
                     )}
                   </div>
-                  <Byline review={review} className="min-w-0 lg:col-span-3 lg:col-start-1 lg:row-start-1 lg:pt-1" />
+                  <Byline review={review} className="min-w-0 self-start lg:col-span-3 lg:col-start-1 lg:row-start-1" />
                 </figure>
               </li>
             ))}
