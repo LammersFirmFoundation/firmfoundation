@@ -133,7 +133,7 @@ const LandingPage = () => {
                   <GoogleIcon className="h-3.5 w-3.5" />
                   {aggregateRating.toFixed(1)} from {totalReviewCount} Google reviews
                 </span>
-                <span className="hidden text-sm text-foreground/60 sm:inline">&middot; Free on-site quotes</span>
+                <span className="hidden text-sm text-muted-foreground sm:inline">&middot; Free on-site quotes</span>
               </a>
 
               <div

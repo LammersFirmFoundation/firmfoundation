@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
 
@@ -32,13 +33,13 @@ const ReviewImages = ({ images, alt, variant = "grid", max = 4, className, onOpe
 
   return (
     <>
-      <div className={`${containerClass} ${className ?? ""}`}>
+      <div className={cn(containerClass, className)}>
         {shown.map((src, i) => (
           <button
             key={i}
             type="button"
             onClick={() => setOpenIndex(i)}
-            className={`${itemClass} overflow-hidden rounded-md bg-muted group relative cursor-pointer ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2`}
+            className={`${itemClass} overflow-hidden rounded-[3px] bg-muted group relative cursor-pointer ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2`}
             aria-label={`Open photo ${i + 1} of ${images.length}`}
           >
             <img

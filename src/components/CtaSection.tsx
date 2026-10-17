@@ -46,7 +46,7 @@ const CtaSection = ({ title, accent, blurb, eyebrow = "Free on-site quotes" }: C
         >
           {BUSINESS.phone}
         </a>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <Button asChild size="lg">
             <Link to="/contact">Get a free quote</Link>
           </Button>

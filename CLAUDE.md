@@ -217,7 +217,7 @@ He shared a Wildfire Leadership "mission portrait" (2026-08-19): core values *Co
 There's no browser extension here, but Playwright with system Chrome works and is how every visual claim in this repo was checked. Scripts live in the session scratchpad, not the repo — rebuild them as needed. Serve `dist/` over plain `http.server`-style Node and:
 - **Screenshots** — scroll the page in ~0.6vh steps before capturing, or `FadeInView`'s IntersectionObserver never fires and full-page shots come back with huge empty sections.
 - **axe-core** — **0 violations** on every route, guides included (re-checked 2026-10-05). Keep it there.
-- **Horizontal overflow** — check 320/375/414/768/1024/1440/1920. **Clean at every width** (re-checked 2026-09-29): `html, body { overflow-x: clip }` in `index.css` contains the tilted `OurStory` polaroid without clipping its composition. The overflow check also flags any element inside `<main>` wider than the viewport, which is how the non-wrapping "More on pool & pond excavation" button at 320px was caught.
+- **Horizontal overflow** — check 320/375/414/768/1024/1440/1920. **Clean at every width** (re-checked 2026-09-29): `html, body { overflow-x: clip }` in `index.css` contains `FadeInView`'s off-screen start states without becoming a scroll container (which would break `position: sticky`). Re-checked after the 2026-10-17 redesign: clean at every width on every route. The overflow check also flags any element inside `<main>` wider than the viewport, which is how the non-wrapping "More on pool & pond excavation" button at 320px was caught.
 - **Contrast** — compute WCAG ratios for real token pairs including opacity-modified ones (`text-charcoal/55` etc.) rather than eyeballing.
 
 ## Open items

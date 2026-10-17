@@ -4,6 +4,8 @@ import Section from "@/components/layout/Section";
 import FadeInView from "@/components/animations/FadeInView";
 import SEO from "@/components/SEO";
 import CtaSection from "@/components/CtaSection";
+import InstagramStrip from "@/components/InstagramStrip";
+import { useInstagram } from "@/lib/useInstagram";
 import { BUSINESS } from "@/data/business";
 import { businessRef, breadcrumbSchema } from "@/lib/schema";
 import landscapingWalkway from "@/assets/gallery/landscaping-walkway-mount-pleasant.jpg";
@@ -129,6 +131,8 @@ const projects: Project[] = [
 const sentenceCase = (text: string) => text.charAt(0) + text.slice(1).toLowerCase();
 
 const Gallery = () => {
+  // The portfolio is curated; Instagram is what Josiah posted this month.
+  const instagramPosts = useInstagram();
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -257,6 +261,8 @@ const Gallery = () => {
             </p>
           </div>
         </Section>
+
+        <InstagramStrip posts={instagramPosts} />
 
         <CtaSection
           title="Ready for"

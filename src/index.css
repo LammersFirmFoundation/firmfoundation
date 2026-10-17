@@ -25,8 +25,7 @@
    * `FadeInView`'s `left`/`right` directions start an element 56px off to the
    * side, and vite-react-ssg bakes that start state into the prerendered HTML —
    * so before the IntersectionObserver fires, every one of them is sitting
-   * outside the viewport on a phone. The tilted polaroid in `OurStory` pokes
-   * past its wrapper on purpose at some widths too.
+   * outside the viewport on a phone.
    *
    * `clip` rather than `hidden` on purpose: `hidden` makes this a scroll
    * container, which breaks `position: sticky` inside it. `clip` does not, and
