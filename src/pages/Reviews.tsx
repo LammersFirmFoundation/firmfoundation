@@ -5,7 +5,6 @@ import Footer from "@/components/layout/Footer";
 import Section from "@/components/layout/Section";
 import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-import { sizedPhoto } from "@/lib/reviewPhoto";
 import CtaSection from "@/components/CtaSection";
 import StarRating from "@/components/StarRating";
 import GoogleIcon from "@/components/icons/GoogleIcon";
@@ -16,27 +15,23 @@ import { businessRef, breadcrumbSchema } from "@/lib/schema";
 import { cn } from "@/lib/utils";
 import type { Review } from "@/data/fallbackReviews";
 
-/** Who said it, and when, with the way back to the original on Google. */
+/**
+ * Who said it, and when, with the way back to the original on Google.
+ *
+ * Every reviewer gets the Besley monogram, even when Google supplies an
+ * avatar. Most of those are Google's own letter tiles in teal, pink and
+ * purple, the only saturated colour on a two-colour page, and the few real
+ * photos are 40px thumbnails nobody can recognise anyway. The name beside it
+ * and the link to the original on Google are what make a review checkable.
+ */
 const Byline = ({ review, className }: { review: Review; className?: string }) => (
   <figcaption className={cn("flex items-center gap-3", className)}>
-    {review.avatarUrl ? (
-      <img
-        src={sizedPhoto(review.avatarUrl, 96)}
-        alt=""
-        loading="lazy"
-        width={40}
-        height={40}
-        className="h-10 w-10 shrink-0 rounded-full object-cover"
-        referrerPolicy="no-referrer"
-      />
-    ) : (
-      <span
-        aria-hidden="true"
-        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted font-serif text-foreground"
-      >
-        {review.name.charAt(0)}
-      </span>
-    )}
+    <span
+      aria-hidden="true"
+      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted font-serif text-foreground"
+    >
+      {review.name.charAt(0)}
+    </span>
     <span className="min-w-0">
       <span className="block truncate font-semibold text-foreground">{review.name}</span>
       <span className="mt-1 block text-sm text-muted-foreground">
@@ -54,9 +49,22 @@ const Byline = ({ review, className }: { review: Review; className?: string }) =
   </figcaption>
 );
 
+/** "Nine", not "9", at the head of a sentence; past twenty a numeral reads fine. */
+const NUMBER_WORDS = [
+  "No", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+  "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen",
+  "Eighteen", "Nineteen", "Twenty",
+];
+const countWord = (n: number) => NUMBER_WORDS[n] ?? String(n);
+
 const Reviews = () => {
   const loaderData = useLoaderData() as ApiResponse | undefined;
   const { reviews, aggregateRating, totalReviewCount } = useReviews(loaderData);
+  // The title counts the reviews on THIS page, because "word for word" is a
+  // promise about them. Google's total can be higher: the API leaves out
+  // reviews under four stars and ratings with no text, so that number stays
+  // with the average beside it, which does cover every one.
+  const shown = reviews.length;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -65,9 +73,9 @@ const Reviews = () => {
       <main id="main" className="flex-1 pt-24">
         <SEO
           title="Client Reviews | Firm Foundation, Mount Pleasant"
-          description={`Reviews from homeowners across Mount Pleasant and the greater Charleston area — ${aggregateRating.toFixed(
+          description={`Reviews from homeowners across Mount Pleasant and the greater Charleston area: a ${aggregateRating.toFixed(
             1
-          )} average from ${totalReviewCount} verified Google reviews.`}
+          )} average from ${totalReviewCount} Google reviews.`}
           canonical="/reviews"
           keywords="landscaping reviews Mount Pleasant SC, hardscape contractor reviews Charleston, excavation contractor reviews Mount Pleasant, Firm Foundation reviews"
           jsonLd={[
@@ -83,19 +91,20 @@ const Reviews = () => {
         />
 
         {/* ── Page header ─────────────────────────────────────────────────
-            The title on the left; the true average beside it, set large in
-            the serif like the phone number in the closing band, with the ask
-            under it. Pure CSS entrance: this is all above the fold. */}
-        <section className="px-5 pb-12 pt-10 sm:px-6 md:px-10 md:pb-16 md:pt-16">
-          <div className="mx-auto grid max-w-content grid-cols-1 gap-10 lg:grid-cols-12 lg:items-end">
-            <div className="lg:col-span-7">
-              <p className="mark mb-6 hero-rise">Testimonials</p>
-              <h1 className="text-hero font-heading text-foreground">
-                <span className="hero-line">
-                  <span style={{ animationDelay: "40ms" }}>Client reviews</span>
+            The title on the left, saying what is on the page and how; the true
+            average beside it, set large in the serif like the phone number in
+            the closing band, with the ask under it. No mark: "Testimonials"
+            over "Client reviews" said one thing twice. Pure CSS entrance:
+            this is all above the fold. */}
+        <section className="pb-12 pt-10 md:pb-16 md:pt-16">
+          <div className="frame grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-end">
+            <h1 className="text-hero font-heading text-foreground text-balance lg:col-span-7">
+              <span className="hero-line">
+                <span style={{ animationDelay: "40ms" }}>
+                  {countWord(shown)} Google {shown === 1 ? "review" : "reviews"}, word for word
                 </span>
-              </h1>
-            </div>
+              </span>
+            </h1>
 
             <div className="hero-rise min-w-0 lg:col-span-5 lg:pb-1" style={{ animationDelay: "160ms" }}>
               <div className="flex items-end gap-5">
@@ -107,7 +116,7 @@ const Reviews = () => {
                   <span className="mt-2 flex items-center gap-1.5 text-sm text-muted-foreground">
                     <GoogleIcon className="h-3.5 w-3.5 shrink-0" />
                     <span>
-                      average &middot; {totalReviewCount} verified Google reviews
+                      average across {totalReviewCount} Google {totalReviewCount === 1 ? "review" : "reviews"}
                     </span>
                   </span>
                 </span>
@@ -158,10 +167,10 @@ const Reviews = () => {
           </ol>
         </Section>
 
+        {/* Josiah's own line, off his flyer. */}
         <CtaSection
-          title="Ready to"
-          accent="get started?"
-          blurb="Join the homeowners across Mount Pleasant who already have."
+          title="Dirt work done right."
+          blurb="Call or text, and Josiah will come out and walk the job with you."
         />
       </main>
 

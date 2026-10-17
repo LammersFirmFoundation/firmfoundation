@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 import FadeInView from "@/components/animations/FadeInView";
@@ -106,8 +106,9 @@ const Picture = ({
 
 /**
  * One service as a printed plate: the picture, a hairline, and a caption set
- * under it. The numeral is the order on Josiah's card, in the serif, the way
- * the homepage list numbers them. Nothing is laid over the photograph.
+ * under it. Nothing is laid over the photograph, and there is no index
+ * numeral: the services are not a sequence, so "01 to 05" said nothing
+ * (design review, 2026-10-17). `index` only staggers the reveal.
  */
 const ServiceFigure = ({
   service,
@@ -135,10 +136,7 @@ const ServiceFigure = ({
     >
       <Picture service={service} sizes={sizes} aspect={aspect} eager={eager} delay={0.06 * index} />
       <FadeInView immediate={eager} delay={0.06 * index + 0.1}>
-        <div className="mt-4 grid grid-cols-[1.75rem_minmax(0,1fr)_auto] items-baseline gap-x-3 border-t border-border pt-4 md:mt-5 md:grid-cols-[2.25rem_minmax(0,1fr)_auto] md:pt-5">
-          <span className="font-serif text-sm tabular-nums text-muted-foreground">
-            {String(index + 1).padStart(2, "0")}
-          </span>
+        <div className="mt-4 grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-4 border-t border-border pt-4 md:mt-5 md:pt-5">
           <h3
             className={cn(
               "font-heading leading-none text-foreground underline decoration-transparent decoration-1 underline-offset-[6px] transition-colors duration-300 group-hover:decoration-foreground/35",
@@ -147,13 +145,13 @@ const ServiceFigure = ({
           >
             {service.title}
           </h3>
-          <ArrowUpRight
-            className="h-5 w-5 self-center text-muted-foreground transition-[transform,color] duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground"
+          <ArrowRight
+            className="h-5 w-5 self-center text-muted-foreground transition-[transform,color] duration-300 group-hover:translate-x-1 group-hover:text-foreground"
             aria-hidden="true"
           />
           <p
             className={cn(
-              "col-start-2 col-end-4 mt-2.5 leading-relaxed text-muted-foreground",
+              "col-span-2 mt-2.5 leading-relaxed text-muted-foreground",
               large ? "max-w-lg md:text-[1.0625rem]" : "text-[0.9375rem]",
             )}
           >
@@ -241,8 +239,8 @@ const ServicesBento = () => {
                   <span className="col-start-1 row-start-2 mt-1.5 text-sm leading-relaxed text-muted-foreground md:col-start-2 md:row-start-1 md:mt-0 md:text-base">
                     {service.navBlurb}
                   </span>
-                  <ArrowUpRight
-                    className="col-start-2 row-start-1 h-5 w-5 self-center text-muted-foreground transition-[transform,color] duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground md:col-start-3"
+                  <ArrowRight
+                    className="col-start-2 row-start-1 h-5 w-5 self-center text-muted-foreground transition-[transform,color] duration-300 group-hover:translate-x-1 group-hover:text-foreground md:col-start-3"
                     aria-hidden="true"
                   />
                 </Link>

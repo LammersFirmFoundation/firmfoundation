@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { ArrowRight, ArrowUpRight, ChevronRight, MessageSquare } from "lucide-react";
+import { ArrowRight, ChevronRight, MessageSquare } from "lucide-react";
 import GuideCard from "@/components/GuideCard";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/layout/Header";
@@ -195,8 +195,8 @@ const GuidePage = () => {
         {/* ── The question, and the answer in full ──────────────────────
             Above the fold, so nothing here waits on JavaScript: the static
             HTML is the finished header. */}
-        <section className="px-5 pb-12 pt-8 sm:px-6 md:px-10 md:pb-16 md:pt-12">
-          <div className="mx-auto max-w-content">
+        <section className="pb-12 pt-8 md:pb-16 md:pt-12">
+          <div className="frame">
             <nav aria-label="Breadcrumb" className="mb-10">
               <ol className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
                 <li>
@@ -217,8 +217,9 @@ const GuidePage = () => {
               </ol>
             </nav>
 
-            <p className="mark mb-6">{service.title}</p>
-            <h1 className="max-w-[22ch] font-heading text-[clamp(2.25rem,5vw,4.25rem)] leading-[0.95] text-foreground text-balance">
+            {/* No mark over the question: the breadcrumb already places it, and
+                the service it belongs to is linked at the foot of the page. */}
+            <h1 className="max-w-[22ch] font-heading text-hero text-foreground text-balance">
               {guide.question}
             </h1>
 
@@ -251,7 +252,7 @@ const GuidePage = () => {
                 <h2 className={headingClass}>What Josiah looks at on a visit</h2>
                 <p className="mt-5">{problem.visit}</p>
                 <Link to={quoteHref} className={textLinkClass}>
-                  Get a quote for this
+                  Get a free quote for this
                   <LinkArrow />
                 </Link>
               </section>
@@ -324,21 +325,25 @@ const GuidePage = () => {
           </div>
         </Section>
 
-        {/* ── Where to go next ─────────────────────────────────────────── */}
+        {/* ── Where to go next ─────────────────────────────────────────────
+            A plain heading beside the list, and the service this question
+            belongs to under it. */}
         <Section>
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
             <div className="lg:col-span-4">
-              <p className="mark mb-5">More straight answers</p>
+              <h2 className="font-heading text-[1.75rem] leading-none text-foreground text-balance md:text-[2.25rem]">
+                Other questions
+              </h2>
               <Link
                 to={`/services/${service.slug}`}
-                className="group inline-flex flex-wrap items-baseline gap-x-2.5 gap-y-1 text-foreground"
+                className="group mt-5 inline-flex flex-wrap items-baseline gap-x-2.5 gap-y-1 text-foreground"
               >
                 <span className="text-sm text-muted-foreground">The service</span>
                 <span className="font-heading text-2xl underline decoration-foreground/25 decoration-1 underline-offset-[6px] transition-colors group-hover:decoration-foreground">
                   {service.title}
                 </span>
-                <ArrowUpRight
-                  className="h-4 w-4 self-center text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                <ArrowRight
+                  className="h-4 w-4 self-center text-muted-foreground transition-transform group-hover:translate-x-1"
                   aria-hidden="true"
                 />
               </Link>

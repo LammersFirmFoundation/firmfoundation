@@ -40,11 +40,11 @@ const GuidesPage = () => (
       />
 
       {/* ── Page header ───────────────────────────────────────────────────
-          Pure CSS entrance (above the fold), lede set beside the title. */}
-      <section className="px-5 pb-12 pt-10 sm:px-6 md:px-10 md:pb-16 md:pt-16">
-        <div className="mx-auto grid max-w-content grid-cols-1 gap-7 lg:grid-cols-12 lg:items-end lg:gap-10">
+          Pure CSS entrance (above the fold), lede set beside the title. No
+          mark over it: "Guides" only repeated what the header already says. */}
+      <section className="pb-12 pt-10 md:pb-16 md:pt-16">
+        <div className="frame grid grid-cols-1 gap-7 lg:grid-cols-12 lg:items-end lg:gap-10">
           <div className="lg:col-span-8">
-            <p className="mark mb-6 hero-rise">Guides</p>
             <h1 className="text-hero font-heading text-foreground text-balance">
               <span className="hero-line">
                 <span style={{ animationDelay: "40ms" }}>Straight answers before you call</span>
@@ -61,25 +61,26 @@ const GuidesPage = () => (
       </section>
 
       {/* ── The contents ──────────────────────────────────────────────────
-          A ruled list, numbered like the services index on the homepage, with
-          each short answer printed in full beside its question. No scroll
-          reveal: on a desktop the first rows sit above the fold, and
-          FadeInView's opacity:0 start state is baked into the static HTML. */}
+          A ruled list, set like the services index on the homepage, with each
+          short answer printed in full beside its question. Unnumbered: the
+          guides have no order. No scroll reveal: on a desktop the first rows
+          sit above the fold, and FadeInView's opacity:0 start state is baked
+          into the static HTML. */}
       <Section className="pt-0 md:pt-0">
         <h2 className="sr-only">All guides</h2>
-        <ol className="border-t border-border">
-          {guides.map((guide, index) => (
+        <ul className="border-t border-border">
+          {guides.map((guide) => (
             <li key={guide.slug} className="border-b border-border">
-              <GuideCard guide={guide} index={index} showAnswer />
+              <GuideCard guide={guide} showAnswer />
             </li>
           ))}
-        </ol>
+        </ul>
       </Section>
 
       <CtaSection
         title="Not covered"
         accent="here?"
-        blurb="Josiah can tell a lot from a photo of the ground, and the walk-through is free. Straight answers either way."
+        blurb="Josiah can tell a lot from a photo of the ground, and the walk-through is free."
       />
     </main>
 

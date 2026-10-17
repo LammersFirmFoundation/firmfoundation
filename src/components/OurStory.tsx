@@ -44,7 +44,7 @@ const photos: StoryPhoto[] = [
 ];
 
 interface OurStoryProps {
-  /** Render the heading as an h1 — for the About page, where it's the title. */
+  /** Render the heading as an h1, for a page where the story is the title. */
   asPageHeading?: boolean;
   className?: string;
   /** Link out to /about. Off when the component is already on /about. */
@@ -118,39 +118,37 @@ const OurStory = ({
   const Heading = asPageHeading ? "h1" : "h2";
   const [lead, inset] = photos;
 
+  // The homepage strip: the photo at a size where a face reads (it was a
+  // 190px thumbnail), and the link right under the paragraph it continues,
+  // at every width. It used to float at the far right edge on a desktop,
+  // 450px from the sentence it belonged to. No mark: the heading opens it.
   if (compact && lead) {
     return (
       <div
         className={cn(
-          "grid grid-cols-[6.5rem_minmax(0,1fr)] items-start gap-6 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-10 lg:grid-cols-[12rem_minmax(0,1fr)_auto] lg:items-end lg:gap-14",
+          "grid grid-cols-[6.5rem_minmax(0,1fr)] items-start gap-6 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-10 lg:grid-cols-[17rem_minmax(0,1fr)] lg:items-end lg:gap-14",
           className
         )}
       >
         <FadeInView direction="none">
-          <StoryFigure photo={lead} sizes="(min-width: 1024px) 192px, (min-width: 640px) 160px, 104px" captionClassName="text-xs" />
+          <StoryFigure photo={lead} sizes="(min-width: 1024px) 272px, (min-width: 640px) 176px, 104px" captionClassName="text-xs" />
         </FadeInView>
-        <div className="min-w-0 lg:pb-7">
-          <p className="mark mb-4">Our story</p>
-          <Heading className="font-heading text-3xl leading-[0.98] text-foreground md:text-[2.75rem]">
+        <div className="min-w-0 lg:pb-8">
+          <Heading className="font-heading text-3xl leading-[0.98] text-foreground text-balance md:text-[2.75rem]">
             It started in the cab.
           </Heading>
           <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground md:text-lg">
             Josiah grew up in his Uncle Donnie&rsquo;s excavator, learning that a job isn&rsquo;t
             finished until it&rsquo;s finished right. He runs Firm Foundation the same way.
           </p>
-          {showLink && <MoreLink className="mt-5 lg:hidden" />}
+          {showLink && <MoreLink className="mt-5 md:mt-6" />}
         </div>
-        {showLink && <MoreLink className="hidden lg:inline-flex lg:pb-8" />}
       </div>
     );
   }
 
-  const heading = (
-    <>
-      <p className="mark mb-5">Our story</p>
-      <Heading className="text-title font-heading text-foreground">It started in the cab</Heading>
-    </>
-  );
+  // No mark: on /about the one mark is on the section that explains the name.
+  const heading = <Heading className="text-title font-heading text-foreground">It started in the cab</Heading>;
 
   const body = (
     <div className="mt-8 max-w-[34rem] space-y-5 text-lg leading-relaxed text-muted-foreground md:text-xl md:leading-relaxed">
@@ -159,22 +157,22 @@ const OurStory = ({
         sat him in an excavator.
       </p>
       <p>
-        He grew up around that work &mdash; moving dirt, learning grade,
-        learning from a man who believed a job wasn&rsquo;t finished until it
-        was finished right.
+        He grew up around that work, moving dirt and learning grade from a man
+        who believed a job wasn&rsquo;t finished until it was finished right.
       </p>
     </div>
   );
 
   // The story's last line, pulled out across the full width: the one sentence
-  // the whole page hangs on.
+  // the whole page hangs on. Set at the section-heading size, never above the
+  // page's H1 (at 84px it was bigger than the title of the page it sat on).
   const pullLine = (
-    <p className="mt-14 border-t border-border pt-8 font-heading text-[clamp(2.25rem,6vw,5.25rem)] leading-[0.95] text-foreground text-balance md:mt-20 md:pt-10">
+    <p className="mt-14 border-t border-border pt-8 text-title font-heading text-foreground text-balance md:mt-20 md:pt-10">
       He runs Firm Foundation the same way.
     </p>
   );
 
-  // Without photos the story reads best as one narrow column — it looks
+  // Without photos the story reads best as one narrow column. It looks
   // deliberate, rather than a two-column layout missing its left half.
   if (!lead) {
     return (

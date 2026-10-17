@@ -1,7 +1,6 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Section from "@/components/layout/Section";
-import SectionHeader from "@/components/layout/SectionHeader";
 import ServicesBento from "@/components/ServicesBento";
 import FaqList from "@/components/FaqList";
 import SEO from "@/components/SEO";
@@ -91,24 +90,21 @@ const ServicesPage = () => {
           ]}
         />
 
-        {/* Page header: the title on the left, its note beside it, the way
-            every section opens. Pure CSS rise (.hero-line, .hero-rise), so the
-            prerendered HTML is already the finished header: a JS reveal would
-            bake opacity:0 into the first screen. */}
-        <section className="px-5 pb-12 pt-6 sm:px-6 md:px-10 md:pb-16 md:pt-16">
-          <div className="mx-auto grid max-w-content grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
-            <div className="lg:col-span-7">
-              <p className="mark mb-6 hero-rise" style={{ animationDelay: "0ms" }}>
-                What we do
-              </p>
-              <h1 className="font-heading text-hero text-foreground text-balance md:text-[clamp(3rem,6.4vw,5.75rem)] md:leading-[0.9]">
-                <span className="hero-line">
-                  <span style={{ animationDelay: "40ms" }}>From the ground up</span>
-                </span>
-              </h1>
-            </div>
+        {/* Page header: Josiah's own line from his flyer, with what it covers
+            set under it like the line under a slogan, rather than beside it
+            the way the section openings used to repeat. No mark: "What we do"
+            only restated the page. Pure CSS rise (.hero-line, .hero-rise), so
+            the prerendered HTML is already the finished header: a JS reveal
+            would bake opacity:0 into the first screen. */}
+        <section className="pb-12 pt-6 md:pb-16 md:pt-16">
+          <div className="frame">
+            <h1 className="font-heading text-hero text-foreground text-balance">
+              <span className="hero-line">
+                <span style={{ animationDelay: "40ms" }}>Dirt work done right.</span>
+              </span>
+            </h1>
             <p
-              className="max-w-md text-subtitle leading-relaxed text-muted-foreground hero-rise lg:col-span-5 lg:col-start-8 lg:pb-2"
+              className="mt-6 max-w-xl text-subtitle leading-relaxed text-muted-foreground hero-rise md:mt-7"
               style={{ animationDelay: "160ms" }}
             >
               Landscaping, hardscapes and the dirt work under them. Most jobs
@@ -125,14 +121,20 @@ const ServicesPage = () => {
           <ServicesBento />
         </Section>
 
-        {/* FAQ */}
+        {/* FAQ: a plain heading set beside the questions, no mark and no
+            subtitle. The rule above the section does the dividing. */}
         <Section variant="cream">
-          <SectionHeader
-            eyebrow="Questions"
-            title="Frequently asked"
-            subtitle="Quick answers about the work and where we do it."
-          />
-          <FaqList items={faqs.map((faq) => ({ question: faq.question, answer: <p>{faq.answer}</p> }))} />
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
+            <div className="lg:col-span-4">
+              <h2 className="font-heading text-title text-foreground text-balance lg:sticky lg:top-28">
+                Questions people ask
+              </h2>
+            </div>
+            <FaqList
+              className="min-w-0 lg:col-span-8"
+              items={faqs.map((faq) => ({ question: faq.question, answer: <p>{faq.answer}</p> }))}
+            />
+          </div>
         </Section>
 
         <CtaSection

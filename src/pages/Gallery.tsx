@@ -5,11 +5,12 @@ import FadeInView from "@/components/animations/FadeInView";
 import SEO from "@/components/SEO";
 import CtaSection from "@/components/CtaSection";
 import InstagramStrip from "@/components/InstagramStrip";
+import BeforeAfterPair from "@/components/BeforeAfterPair";
 import { useInstagram } from "@/lib/useInstagram";
 import { BUSINESS } from "@/data/business";
+import { services, type Service } from "@/data/services";
 import { businessRef, breadcrumbSchema } from "@/lib/schema";
-import landscapingWalkway from "@/assets/gallery/landscaping-walkway-mount-pleasant.jpg";
-import landscapingBed from "@/assets/gallery/landscaping-bed-mount-pleasant.jpg";
+import { cn } from "@/lib/utils";
 import customPantry from "@/assets/gallery/custom-pantry-mount-pleasant.jpg";
 import landClearing from "@/assets/services/excavation.jpg";
 import clearingCab from "@/assets/gallery/clearing-from-the-cab.jpg";
@@ -22,6 +23,21 @@ import stumpRootBallSet from "@/assets/services/stump-root-ball.jpg?w=640;1024;1
 import forestryMulching from "@/assets/gallery/forestry-mulching.jpg";
 import forestryMulchingSet from "@/assets/gallery/forestry-mulching.jpg?w=640;1024;1200&format=webp&quality=70&as=srcset";
 
+type Pair = NonNullable<Service["beforeAfter"]>;
+
+/**
+ * The before-and-after halves, taken from the service they belong to. These
+ * replaced the composites Josiah first sent (two photos stacked, one with a
+ * "FIRM FOUNDATION" band of someone else's type across the middle): the split
+ * halves are the same pictures, labelled honestly by `BeforeAfterPair`.
+ * Throws rather than rendering a hole if the data ever loses one.
+ */
+const pairFor = (slug: string): Pair => {
+  const pair = services.find((s) => s.slug === slug)?.beforeAfter;
+  if (!pair) throw new Error(`Gallery: services.ts has no beforeAfter for "${slug}"`);
+  return pair;
+};
+
 type Project = {
   title: string;
   category: string;
@@ -29,26 +45,40 @@ type Project = {
   label: string;
   /** Where the job was, for schema. Left out when we don't know it rather than guessed. */
   place?: string;
+  /** The photo, or for a before-and-after the "after" half (that is what schema points at). */
   image: string;
   srcSet?: string;
+  /** Describes `image`. A pair's own one-sentence label comes from the pair. */
   alt: string;
   /** Intrinsic size, so the page doesn't jump as each photo arrives. */
   width: number;
   height: number;
+  /** Before and after, shown side by side across the whole row. */
+  pair?: Pair;
+  /**
+   * A landscape window cut from a portrait photo. The cab shots are mostly
+   * jeans, boots and dashboard; the work is through the top of the windscreen.
+   * `frame` is a literal Tailwind aspect class so the build can see it.
+   */
+  crop?: { frame: string; position: string };
 };
 
 /**
  * Order is the business's order (2026-10-17): landscaping and hardscapes first,
  * then the dirt work, then the one-offs.
  *
+ * The finished jobs lead and get the most room: each before-and-after takes a
+ * whole row. Then two to a row, each row pairing like shapes, because the grid
+ * aligns to the top and a short picture beside a tall one leaves a hole.
+ *
  * The three cab photos are Josiah's own, sent 2026-10-09 "to show more
  * experience". He didn't say where each job was, so they carry no place: the
- * label says what they are instead.
+ * label says what they are instead. Two of them are portrait shots from the
+ * seat, and whole they were the tallest pictures on the page, ahead of the
+ * finished work. They are cut down to the view through the glass.
  *
- * Two to a row, and each row pairs like shapes (4:3 with 4:3, portrait with
- * portrait), because the grid aligns to the top and a short picture beside a
- * tall one leaves a hole. The odd one out (the pantry) takes a row of its
- * own, with its caption beside it rather than under it.
+ * The odd one out (the pantry) takes a row of its own, with its caption
+ * beside it rather than under it.
  */
 const projects: Project[] = [
   {
@@ -56,20 +86,22 @@ const projects: Project[] = [
     category: "Landscaping",
     label: "Mount Pleasant, SC",
     place: "Mount Pleasant, SC",
-    image: landscapingBed,
-    alt: "Before and after: overgrown front yard transformed with fresh mulch beds and plantings, Mount Pleasant SC",
+    pair: pairFor("landscaping"),
+    image: pairFor("landscaping").after,
+    alt: "New mulch beds and rounded shrubs along the curved front walk of a two-story house, Mount Pleasant SC",
     width: 1069,
-    height: 1600,
+    height: 795,
   },
   {
     title: "Front Walkway & Lawn Renovation",
     category: "Hardscapes",
     label: "Mount Pleasant, SC",
     place: "Mount Pleasant, SC",
-    image: landscapingWalkway,
-    alt: "Before and after: bare mulch bed transformed into a flagstone walkway with fresh sod, Mount Pleasant SC",
+    pair: pairFor("hardscapes"),
+    image: pairFor("hardscapes").after,
+    alt: "A flagstone walkway set in pea gravel, curving through new sod beside a front porch, Mount Pleasant SC",
     width: 1024,
-    height: 1536,
+    height: 718,
   },
   {
     title: "Timber & Lot Clearing",
@@ -97,9 +129,12 @@ const projects: Project[] = [
     label: "From the operator's seat",
     image: clearingCab,
     srcSet: clearingCabSet,
-    alt: "From the excavator cab: the bucket working a pile of roots and brush across a cleared tract, with a second excavator at the tree line",
+    alt: "Through the excavator's windscreen: the bucket working a pile of roots and brush across a cleared tract, with a second excavator at the tree line",
     width: 1200,
     height: 1600,
+    // Sky, tree line, bucket and brush pile; stops above the cab's cross bar
+    // (and the accessory decal on it).
+    crop: { frame: "aspect-[3/2]", position: "50% 5%" },
   },
   {
     title: "Forestry Mulching",
@@ -107,9 +142,11 @@ const projects: Project[] = [
     label: "From the operator's seat",
     image: forestryMulching,
     srcSet: forestryMulchingSet,
-    alt: "From the cab of a forestry mulcher: the mulching head working through underbrush between standing pines",
+    alt: "Through the windscreen of a forestry mulcher: the mulching head working through underbrush between standing pines",
     width: 1200,
     height: 1600,
+    // The pines, the mulching head and the chips it leaves; stops above the dash.
+    crop: { frame: "aspect-[3/2]", position: "50% 14%" },
   },
   {
     title: "Butler's Pantry Build",
@@ -122,6 +159,9 @@ const projects: Project[] = [
     height: 1600,
   },
 ];
+
+/** The plates that share rows two by two. A pair takes a row to itself. */
+const halves = projects.filter((p) => !p.pair);
 
 /**
  * Display casing for a caption. The data keeps its Title Case (it is also the
@@ -165,17 +205,15 @@ const Gallery = () => {
         />
 
         {/* ── Page header ─────────────────────────────────────────────────
-            Pure CSS entrance (above the fold), lede set beside the title. */}
-        <section className="px-5 pb-12 pt-10 sm:px-6 md:px-10 md:pb-16 md:pt-16">
-          <div className="mx-auto grid max-w-content grid-cols-1 gap-7 lg:grid-cols-12 lg:items-end lg:gap-10">
-            <div className="lg:col-span-8">
-              <p className="mark mb-6 hero-rise">Portfolio</p>
-              <h1 className="text-hero font-heading text-foreground text-balance">
-                <span className="hero-line">
-                  <span style={{ animationDelay: "40ms" }}>Recent work in Mount Pleasant</span>
-                </span>
-              </h1>
-            </div>
+            Pure CSS entrance (above the fold), lede set beside the title. No
+            mark: "Portfolio" over "Recent work" said the same thing twice. */}
+        <section className="pb-12 pt-10 md:pb-16 md:pt-16">
+          <div className="frame grid grid-cols-1 gap-7 lg:grid-cols-12 lg:items-end lg:gap-10">
+            <h1 className="text-hero font-heading text-foreground text-balance lg:col-span-8">
+              <span className="hero-line">
+                <span style={{ animationDelay: "40ms" }}>Recent work in Mount Pleasant</span>
+              </span>
+            </h1>
             <p
               className="hero-rise max-w-md text-subtitle leading-relaxed text-muted-foreground lg:col-span-4 lg:pb-2"
               style={{ animationDelay: "160ms" }}
@@ -187,22 +225,35 @@ const Gallery = () => {
         </section>
 
         {/* ── The plates ──────────────────────────────────────────────────
-            Set like a printed portfolio: each photo whole, at its own shape,
-            with a plate number, title, kind of work and place underneath. No
-            hover zoom: nothing here is a link, so nothing should act like one. */}
+            Set like a printed portfolio: each photo at its own shape, with a
+            title, kind of work and place underneath. No plate numbers: the
+            order means nothing, so a number would only be decoration. No hover
+            zoom: nothing here is a link, so nothing should act like one. */}
         <Section className="pt-0 md:pt-0">
           <div className="grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2 md:gap-y-20 lg:gap-x-12">
             {projects.map((project, index) => {
-              // The first row is on screen at load: no reveal, eager, so the
-              // prerendered HTML is the finished picture.
-              const aboveFold = index < 2;
+              // The first plate is on screen at load: eager, so the
+              // prerendered HTML is the finished picture. The second is close
+              // enough to the fold on a phone that it doesn't fade in either.
+              const eager = index === 0;
+              const reveal = index >= 2;
+              const halfIndex = halves.indexOf(project);
               // An odd last plate has no partner of its shape. Rather than
               // leave the row's right half as an accidental hole, it takes the
               // whole row and its caption moves into that half, set against
               // the foot of the photo like a side caption in a printed book.
-              const alone = index === projects.length - 1 && projects.length % 2 === 1;
-              const figure = (
-                <figure className={alone ? "md:grid md:grid-cols-2 md:gap-x-8 lg:gap-x-12" : undefined}>
+              const alone =
+                !project.pair && halfIndex === halves.length - 1 && halves.length % 2 === 1;
+
+              const picture = project.pair ? (
+                <BeforeAfterPair
+                  pair={project.pair}
+                  eager={eager}
+                  sizes="(min-width: 1360px) 640px, 50vw"
+                  className="aspect-[4/3] overflow-hidden rounded-[3px] sm:aspect-[2/1] md:aspect-[8/3]"
+                />
+              ) : project.crop ? (
+                <div className={cn("relative overflow-hidden rounded-[3px] bg-muted", project.crop.frame)}>
                   <img
                     src={project.image}
                     srcSet={project.srcSet}
@@ -210,63 +261,65 @@ const Gallery = () => {
                     alt={project.alt}
                     width={project.width}
                     height={project.height}
-                    loading={aboveFold ? "eager" : "lazy"}
+                    loading={eager ? "eager" : "lazy"}
                     decoding="async"
-                    className="h-auto w-full rounded-[3px] bg-muted"
+                    style={{ objectPosition: project.crop.position }}
+                    className="absolute inset-0 h-full w-full object-cover"
                   />
+                </div>
+              ) : (
+                <img
+                  src={project.image}
+                  srcSet={project.srcSet}
+                  sizes={project.srcSet ? "(min-width: 768px) 50vw, 100vw" : undefined}
+                  alt={project.alt}
+                  width={project.width}
+                  height={project.height}
+                  loading={eager ? "eager" : "lazy"}
+                  decoding="async"
+                  className="h-auto w-full rounded-[3px] bg-muted"
+                />
+              );
+
+              const figure = (
+                <figure className={alone ? "md:grid md:grid-cols-2 md:gap-x-8 lg:gap-x-12" : undefined}>
+                  {picture}
                   <figcaption
-                    className={
-                      "mt-5 grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-3 border-t border-border pt-4 sm:grid-cols-[2.75rem_minmax(0,1fr)]" +
-                      (alone ? " md:mt-0 md:self-end" : "")
-                    }
+                    className={cn("mt-5 min-w-0 border-t border-border pt-4", alone && "md:mt-0 md:self-end")}
                   >
-                    <span className="pt-1.5 font-serif text-sm tabular-nums text-muted-foreground">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <div className="min-w-0">
-                      <h2 className="font-heading text-2xl leading-[1.02] text-foreground md:text-[1.75rem]">
-                        {sentenceCase(project.title)}
-                      </h2>
-                      <p className="mt-2 text-sm text-muted-foreground">
-                        {sentenceCase(project.category)}
-                        <span aria-hidden="true" className="mx-2 text-foreground/30">
-                          /
-                        </span>
-                        <span className="sr-only">, </span>
-                        {project.label}
-                      </p>
-                    </div>
+                    <h2 className="font-heading text-2xl leading-[1.02] text-foreground md:text-[1.75rem]">
+                      {sentenceCase(project.title)}
+                    </h2>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      {sentenceCase(project.category)}
+                      <span aria-hidden="true" className="mx-2 text-foreground/30">
+                        /
+                      </span>
+                      <span className="sr-only">, </span>
+                      {project.label}
+                    </p>
                   </figcaption>
                 </figure>
               );
 
-              const span = alone ? "md:col-span-2" : undefined;
-              return aboveFold ? (
+              const span = project.pair || alone ? "md:col-span-2" : undefined;
+              return reveal ? (
+                <FadeInView key={project.title} delay={(halfIndex % 2) * 0.08} className={span}>
+                  {figure}
+                </FadeInView>
+              ) : (
                 <div key={project.title} className={span}>
                   {figure}
                 </div>
-              ) : (
-                <FadeInView key={project.title} delay={(index % 2) * 0.08} className={span}>
-                  {figure}
-                </FadeInView>
               );
             })}
-          </div>
-
-          {/* The colophon, in the caption column: under the last side caption
-              when the plates run odd, so it reads as the end of the set. */}
-          <div className="mt-14 md:mt-20 md:grid md:grid-cols-2 md:gap-x-8 lg:gap-x-12">
-            <p className="border-t border-border pt-4 text-sm text-muted-foreground md:col-start-2">
-              More projects added regularly
-            </p>
           </div>
         </Section>
 
         <InstagramStrip posts={instagramPosts} />
 
         <CtaSection
-          title="Ready for"
-          accent="yours?"
+          title="Got a job like these?"
           blurb="Tell us what you have in mind and we’ll come take a look."
         />
       </main>

@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { ArrowRight, ArrowUpRight, Phone } from "lucide-react";
+import { ArrowRight, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -116,9 +116,17 @@ const Options = ({
  * as a page someone could learn something from, which is the point.
  *
  * Set like the homepage: one ink, sentence case, hairline rules instead of
- * boxes, pictures captioned underneath, and left-aligned sections with their
- * note beside them. The hero is the first screen, so it rises in CSS
- * (`.hero-line`, `.hero-rise`) and its picture never animates.
+ * boxes, pictures captioned underneath. Below the hero the page is one sheet
+ * of paper divided by rules, not alternating bands (two creams 2% apart read
+ * as rendering seams, design review 2026-10-17), and the sections open in
+ * different ways on purpose: the work with no label at all, the options with
+ * a bare heading, the questions with their note under the heading, the
+ * related work with its heading beside the list. The same mark + heading +
+ * side note six times down a page is what a generated page looks like.
+ *
+ * The hero is the first screen, so it rises in CSS (`.hero-line`,
+ * `.hero-rise`) and its picture never animates. A service with no photo
+ * (pools and ponds, until Josiah has a dig) leads with its section drawing.
  */
 const ServiceDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -179,7 +187,7 @@ const ServiceDetailPage = () => {
         <div className="flex flex-wrap gap-x-8">
           <FullAnswer question={problem.question} />
           <Link to={`/contact?problem=${problem.id}`} className={textLink}>
-            Get a quote for this
+            Get a free quote for this
             <LinkArrow />
           </Link>
         </div>
@@ -191,17 +199,6 @@ const ServiceDetailPage = () => {
       footer: guideCovering(faq.question) ? <FullAnswer question={faq.question} /> : undefined,
     })),
   ];
-
-  // Paper tones alternate down the page so two bands of the same tone never
-  // touch, whichever sections a service has (excavation has no options,
-  // custom projects has no questions).
-  const tones = ["cream", "default"] as const;
-  let band = 0;
-  const nextTone = () => tones[band++ % 2];
-  const workTone = nextTone();
-  const optionsTone = service.approaches ? nextTone() : undefined;
-  const faqTone = faqs.length > 0 ? nextTone() : undefined;
-  const relatedTone = nextTone();
 
   const faqSchema = [
     ...(service.priceFactors
@@ -284,8 +281,8 @@ const ServiceDetailPage = () => {
             Everything here is the first screen, so nothing waits on JavaScript:
             the heading and its lines rise in CSS, and the picture loads eagerly
             and simply paints. */}
-        <section className="px-5 pb-14 pt-6 sm:px-6 md:px-10 md:pb-20 md:pt-10">
-          <div className="mx-auto grid max-w-content grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-x-10">
+        <section className="pb-14 pt-6 md:pb-20 md:pt-10">
+          <div className="frame grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-x-10">
             <div className="min-w-0 lg:col-span-6">
               <nav aria-label="Breadcrumb" className="mb-5 hero-rise" style={{ animationDelay: "0ms" }}>
                 <ol className="flex flex-wrap items-center text-sm text-muted-foreground">
@@ -308,10 +305,9 @@ const ServiceDetailPage = () => {
               </nav>
 
               {/* One ink, sentence case, the place in the same breath as the
-                  work. Sized for a half-width column, like the homepage hero:
-                  the full `text-hero` scale breaks a service name plus the
-                  locality into five ragged lines here. */}
-              <h1 className="font-heading text-hero text-foreground text-balance lg:text-[clamp(2.6rem,4.2vw,4.25rem)] lg:leading-[0.92]">
+                  work. The interior `text-hero` step, the same as every other
+                  page's title: no per-page clamp (design review 2026-10-17). */}
+              <h1 className="font-heading text-hero text-foreground text-balance">
                 <span className="hero-line">
                   <span style={{ animationDelay: "40ms" }}>
                     {sentenceCase(service.title)} in{" "}
@@ -372,15 +368,17 @@ const ServiceDetailPage = () => {
 
         {/* ── The work, and everything it includes ────────────────────────
             A standfirst on the left, the inventory on the right, like a spec
-            sheet: each line a name and what it means, ruled, no numbers. */}
-        <Section variant={workTone}>
+            sheet: each line a name and what it means, ruled, no numbers. The
+            standfirst carries no label: it is the lead paragraph, and a mark
+            beside the list's own "What's included" set two label styles side
+            by side. */}
+        <Section variant="cream">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-10">
             {/* The standfirst holds still beside a long inventory. Not when it
                 carries the drawing: then it can be taller than the screen. */}
             <FadeInView
               className={cn("min-w-0 lg:col-span-5", !plateWithWork && "lg:sticky lg:top-28 lg:self-start")}
             >
-              <p className="mark mb-6">The work</p>
               <p className="text-[1.25rem] font-medium leading-[1.5] text-foreground md:text-[1.5rem] md:leading-[1.45]">
                 {service.description1}
               </p>
@@ -424,12 +422,8 @@ const ServiceDetailPage = () => {
             The drawing and its notes side by side, as on a detail sheet. The
             drawing holds still while the notes scroll past it. */}
         {service.approaches && (
-          <Section variant={optionsTone}>
-            <SectionHeader
-              eyebrow="Know your options"
-              title={service.approaches.title}
-              accent={service.approaches.accent}
-            />
+          <Section variant="cream">
+            <SectionHeader title={service.approaches.title} accent={service.approaches.accent} />
             {plateWithOptions && service.plate ? (
               <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
                 <FadeInView className="min-w-0 lg:col-span-7">
@@ -451,19 +445,17 @@ const ServiceDetailPage = () => {
           </Section>
         )}
 
-        {/* ── Questions ─────────────────────────────────────────────────── */}
+        {/* ── Questions ─────────────────────────────────────────────────
+            The note sits under the heading here, not beside it: it qualifies
+            the heading, and it breaks the side-note rhythm of the page. */}
         {faqs.length > 0 && (
-          <Section variant={faqTone}>
-            <SectionHeader
-              eyebrow="Straight answers"
-              title="Questions"
-              accent="people ask"
-              subtitle={
-                service.faqs?.length
-                  ? "Including the local rules. Where a town has the final word, we say which one and how to reach it."
-                  : "And what Josiah would look at on the visit."
-              }
-            />
+          <Section variant="cream">
+            <SectionHeader title="Questions people ask" className="mb-0 md:mb-0" />
+            <p className="mb-10 mt-5 max-w-xl leading-relaxed text-muted-foreground md:mb-14 md:text-lg">
+              {service.faqs?.length
+                ? "Including the local rules. Where a town has the final word, we say which one and how to reach it."
+                : "And what Josiah would look at on the visit."}
+            </p>
             <FaqList items={faqs} />
           </Section>
         )}
@@ -471,7 +463,7 @@ const ServiceDetailPage = () => {
         {/* ── The rest of the core work ────────────────────────────────────
             The same ruled list as the homepage's services, smaller, with its
             heading set beside it. */}
-        <Section variant={relatedTone}>
+        <Section variant="cream">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
             <FadeInView className="lg:col-span-4">
               <h2 className="font-heading text-[1.75rem] leading-none text-foreground text-balance md:text-[2.25rem]">
@@ -492,8 +484,8 @@ const ServiceDetailPage = () => {
                       <span className="col-start-1 row-start-2 mt-1.5 text-sm leading-relaxed text-muted-foreground md:col-start-2 md:row-start-1 md:mt-0 md:text-base">
                         {other.navBlurb}
                       </span>
-                      <ArrowUpRight
-                        className="col-start-2 row-start-1 h-5 w-5 self-center text-muted-foreground transition-[transform,color] duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground md:col-start-3"
+                      <ArrowRight
+                        className="col-start-2 row-start-1 h-5 w-5 self-center text-muted-foreground transition-[transform,color] duration-300 group-hover:translate-x-1 group-hover:text-foreground md:col-start-3"
                         aria-hidden="true"
                       />
                     </Link>
