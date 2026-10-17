@@ -104,7 +104,7 @@ const ServicesPage = () => {
               </span>
             </h1>
             <p
-              className="mt-6 max-w-xl text-subtitle leading-relaxed text-muted-foreground hero-rise md:mt-7"
+              className="mt-6 max-w-2xl text-subtitle leading-relaxed text-muted-foreground text-pretty hero-rise md:mt-7"
               style={{ animationDelay: "160ms" }}
             >
               Landscaping, hardscapes and the dirt work under them. Most jobs

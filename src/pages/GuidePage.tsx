@@ -134,9 +134,10 @@ const GuideBlock = ({ section }: { section: GuideSection }) => {
  * citing over the Town's own page — what the rule means on a real lot, in the
  * order the job happens, with every rule sourced and dated at the end.
  *
- * Set as an article on one sheet of the lighter paper: a reading measure of
- * about 65 characters, a hairline between sections, the drawing and the ask
- * in the margin, and the sources as numbered references.
+ * Set as an article on the same paper as every other page (it used to be a
+ * second, lighter paper, which left a seam under the header bar): a reading
+ * measure of about 65 characters, a hairline between sections, the drawing and
+ * the ask in the margin, and the sources as numbered references.
  */
 const GuidePage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -153,7 +154,7 @@ const GuidePage = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
 
-      <main id="main" className="flex-1 bg-paper pt-24">
+      <main id="main" className="flex-1 pt-24">
         <SEO
           title={guide.title}
           description={guide.description}
@@ -241,10 +242,9 @@ const GuidePage = () => {
         </section>
 
         {/* ── The detail, with the drawing and the ask in the margin ─────
-            The whole guide is one sheet of the lighter paper, so its sections
-            paint no background of their own. This one runs straight on from
-            the short answer, with no rule between them. */}
-        <Section className="bg-transparent pt-4 md:pt-6">
+            It runs straight on from the short answer, with no rule between
+            them: the short answer's own rules already close the header. */}
+        <Section className="pt-4 md:pt-6">
           <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-10">
             <article className="min-w-0 max-w-[65ch] text-[1.0625rem] leading-[1.7] text-foreground/80 lg:col-span-7 [&>section+section]:mt-14 [&>section+section]:border-t [&>section+section]:border-border [&>section+section]:pt-12">
               {guide.sections.map((section, i) => (
@@ -330,9 +330,8 @@ const GuidePage = () => {
 
         {/* ── Where to go next ─────────────────────────────────────────────
             A plain heading beside the list, and the service this question
-            belongs to under it. The section's hairline is the only rule
-            between the article and this. */}
-        <Section variant="cream" className="bg-transparent">
+            belongs to under it, opened by the section's hairline. */}
+        <Section variant="cream">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
             <div className="lg:col-span-4">
               <h2 className="font-heading text-[1.75rem] leading-none text-foreground text-balance md:text-[2.25rem]">

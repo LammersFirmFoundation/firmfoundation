@@ -89,16 +89,21 @@ const StoryFigure = ({
   </figure>
 );
 
+// The arrow is inline with the words, not a flex sibling: in a narrow column
+// the words wrap, and a flex row then parked the arrow at the far edge.
 const MoreLink = ({ className }: { className?: string }) => (
   <Link
     to="/about"
     className={cn(
-      "group inline-flex items-center gap-2 text-sm font-semibold text-foreground underline decoration-foreground/25 underline-offset-[5px] transition-colors hover:decoration-foreground",
+      "group inline-block text-sm font-semibold text-foreground underline decoration-foreground/25 underline-offset-[5px] transition-colors hover:decoration-foreground",
       className
     )}
   >
     More about Firm Foundation
-    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+    <ArrowRight
+      className="ml-2 inline-block h-3.5 w-3.5 align-[-0.125em] transition-transform group-hover:translate-x-1"
+      aria-hidden="true"
+    />
   </Link>
 );
 
@@ -137,7 +142,7 @@ const OurStory = ({
           <Heading className="font-heading text-3xl leading-[0.98] text-foreground text-balance md:text-[2.75rem]">
             It started in the cab.
           </Heading>
-          <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground md:text-lg">
+          <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground text-pretty md:text-lg">
             Josiah grew up in his Uncle Donnie&rsquo;s excavator, learning that a job isn&rsquo;t
             finished until it&rsquo;s finished right. He runs Firm Foundation the same way.
           </p>

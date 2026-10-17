@@ -116,7 +116,11 @@ const Reviews = () => {
                   <span className="mt-2 flex items-center gap-1.5 text-sm text-muted-foreground">
                     <GoogleIcon className="h-3.5 w-3.5 shrink-0" />
                     <span>
-                      average across {totalReviewCount} Google {totalReviewCount === 1 ? "review" : "reviews"}
+                      {/* The title already gives the count when it is the
+                          same one; say it again only when Google's differs. */}
+                      {totalReviewCount === shown
+                        ? "average on Google"
+                        : `average across ${totalReviewCount} Google reviews`}
                     </span>
                   </span>
                 </span>
@@ -170,7 +174,7 @@ const Reviews = () => {
         {/* Josiah's own line, off his flyer. */}
         <CtaSection
           title="Dirt work done right."
-          blurb="Call or text, and Josiah will come out and walk the job with you."
+          blurb="Call or text. Josiah comes out, walks the job with you, and you have a price before anything starts."
         />
       </main>
 

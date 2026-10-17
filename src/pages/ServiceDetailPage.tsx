@@ -451,7 +451,7 @@ const ServiceDetailPage = () => {
         {faqs.length > 0 && (
           <Section variant="cream">
             <SectionHeader title="Questions people ask" className="mb-0 md:mb-0" />
-            <p className="mb-10 mt-5 max-w-xl leading-relaxed text-muted-foreground md:mb-14 md:text-lg">
+            <p className="mb-10 mt-5 max-w-xl leading-relaxed text-muted-foreground text-pretty md:mb-14 md:text-lg">
               {service.faqs?.length
                 ? "Including the local rules. Where a town has the final word, we say which one and how to reach it."
                 : "And what Josiah would look at on the visit."}

@@ -58,9 +58,11 @@ type Project = {
   /**
    * A landscape window cut from a portrait photo. The cab shots are mostly
    * jeans, boots and dashboard; the work is through the top of the windscreen.
-   * `frame` is a literal Tailwind aspect class so the build can see it.
+   * `frame` is a literal Tailwind aspect class so the build can see it;
+   * `zoom` scales the picture inside that frame about `origin`, for a view
+   * whose edges are still cab.
    */
-  crop?: { frame: string; position: string };
+  crop?: { frame: string; position: string; zoom?: { scale: number; origin: string } };
 };
 
 /**
@@ -145,8 +147,10 @@ const projects: Project[] = [
     alt: "Through the windscreen of a forestry mulcher: the mulching head working through underbrush between standing pines",
     width: 1200,
     height: 1600,
-    // The pines, the mulching head and the chips it leaves; stops above the dash.
-    crop: { frame: "aspect-[3/2]", position: "50% 14%" },
+    // The pines, the mulching head and the chips it leaves. The left quarter
+    // of the frame is the cab's door pillar and its panel, so the picture is
+    // drawn 1.38x about its top right to leave only the glass.
+    crop: { frame: "aspect-[3/2]", position: "50% 14%", zoom: { scale: 1.38, origin: "100% 12.7%" } },
   },
   {
     title: "Butler's Pantry Build",
@@ -157,6 +161,9 @@ const projects: Project[] = [
     alt: "Custom butler's pantry: painted shaker cabinetry, brass hardware, patterned tile backsplash, and a quartz counter, Mount Pleasant SC",
     width: 1200,
     height: 1600,
+    // Landscape like the cab photos, so the one indoor job doesn't end up the
+    // tallest picture on a page about yards. Held on the counter and the tile.
+    crop: { frame: "aspect-[3/2]", position: "62% 64%" },
   },
 ];
 
@@ -263,7 +270,13 @@ const Gallery = () => {
                     height={project.height}
                     loading={eager ? "eager" : "lazy"}
                     decoding="async"
-                    style={{ objectPosition: project.crop.position }}
+                    style={{
+                      objectPosition: project.crop.position,
+                      ...(project.crop.zoom && {
+                        transform: `scale(${project.crop.zoom.scale})`,
+                        transformOrigin: project.crop.zoom.origin,
+                      }),
+                    }}
                     className="absolute inset-0 h-full w-full object-cover"
                   />
                 </div>
@@ -320,7 +333,7 @@ const Gallery = () => {
 
         <CtaSection
           title="Got a job like these?"
-          blurb="Tell us what you have in mind and we’ll come take a look."
+          blurb="Tell us what you have in mind, and Josiah will come out and walk it with you."
         />
       </main>
 

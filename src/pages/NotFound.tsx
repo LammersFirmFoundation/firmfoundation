@@ -29,7 +29,9 @@ const NotFound = () => {
         <div className="frame grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-0 [&>*]:min-w-0">
           <div className="lg:col-span-7 lg:pr-16 xl:pr-24">
             <p className="mark mb-5">Error 404</p>
-            <h1 className="text-hero font-heading text-foreground">
+            {/* The scale's size, with a touch more leading than its 0.94: the
+                descender of "page" otherwise lands on the "h" of "here". */}
+            <h1 className="text-hero font-heading leading-none text-foreground">
               <span className="hero-line">
                 <span style={{ animationDelay: "0ms" }}>This page</span>
               </span>{" "}
