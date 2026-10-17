@@ -41,8 +41,10 @@ const GuideCard = ({
       )}
       <span
         className={cn(
-          "font-heading leading-[1.02] text-foreground text-balance transition-colors duration-300 group-hover:text-primary",
-          showAnswer ? "text-[clamp(1.5rem,2.6vw,2.25rem)]" : "text-xl md:text-[1.375rem]"
+          "font-heading text-foreground text-balance transition-colors duration-300 group-hover:text-primary",
+          // Size and leading together, in this order: tailwind-merge drops a
+          // leading class that comes before a font-size class.
+          showAnswer ? "text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.02]" : "text-xl leading-tight md:text-[1.375rem]"
         )}
       >
         {guide.question}
@@ -50,8 +52,10 @@ const GuideCard = ({
       {showAnswer && (
         <span
           className={cn(
-            "mt-3 block text-[0.9375rem] leading-relaxed text-muted-foreground md:row-start-1 md:mt-0",
-            numbered ? "col-start-2 row-start-2 md:col-start-3" : "col-start-1 row-start-2 md:col-start-2"
+            "mt-3 block text-[0.9375rem] leading-relaxed text-muted-foreground md:row-start-1 md:mt-1 md:text-[1rem]",
+            numbered
+              ? "col-span-2 col-start-2 row-start-2 md:col-span-1 md:col-start-3"
+              : "col-span-2 col-start-1 row-start-2 md:col-span-1 md:col-start-2"
           )}
         >
           {guide.answer}

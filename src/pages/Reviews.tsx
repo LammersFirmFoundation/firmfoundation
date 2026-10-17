@@ -18,7 +18,7 @@ import type { Review } from "@/data/fallbackReviews";
 
 /** Who said it, and when, with the way back to the original on Google. */
 const Byline = ({ review, className }: { review: Review; className?: string }) => (
-  <figcaption className={cn("flex items-start gap-3 lg:flex-col lg:gap-4", className)}>
+  <figcaption className={cn("flex items-center gap-3", className)}>
     {review.avatarUrl ? (
       <img
         src={sizedPhoto(review.avatarUrl, 96)}
@@ -98,7 +98,7 @@ const Reviews = () => {
             </div>
 
             <div className="hero-rise min-w-0 lg:col-span-5 lg:pb-1" style={{ animationDelay: "160ms" }}>
-              <div className="flex items-end gap-5 border-t border-border pt-6">
+              <div className="flex items-end gap-5">
                 <span className="font-serif text-[4rem] font-semibold leading-[0.8] tracking-[-0.02em] text-foreground md:text-[5rem]">
                   {aggregateRating.toFixed(1)}
                 </span>
@@ -148,7 +148,7 @@ const Reviews = () => {
                         images={review.images}
                         alt={`Photo from ${review.name}'s review`}
                         variant="grid"
-                        className="mt-7 max-w-md sm:grid-cols-4"
+                        className="mt-7 max-w-md grid-cols-4"
                       />
                     )}
                   </div>

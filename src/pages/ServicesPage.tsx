@@ -95,7 +95,7 @@ const ServicesPage = () => {
             every section opens. Pure CSS rise (.hero-line, .hero-rise), so the
             prerendered HTML is already the finished header: a JS reveal would
             bake opacity:0 into the first screen. */}
-        <section className="px-5 pb-12 pt-10 sm:px-6 md:px-10 md:pb-16 md:pt-16">
+        <section className="px-5 pb-12 pt-6 sm:px-6 md:px-10 md:pb-16 md:pt-16">
           <div className="mx-auto grid max-w-content grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
             <div className="lg:col-span-7">
               <p className="mark mb-6 hero-rise" style={{ animationDelay: "0ms" }}>

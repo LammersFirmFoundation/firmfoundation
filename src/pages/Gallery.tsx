@@ -45,8 +45,8 @@ type Project = {
  *
  * Two to a row, and each row pairs like shapes (4:3 with 4:3, portrait with
  * portrait), because the grid aligns to the top and a short picture beside a
- * tall one leaves a hole. The odd one out (the pantry) takes the last row's
- * left half, and the closing note sits in the right half on purpose.
+ * tall one leaves a hole. The odd one out (the pantry) takes a row of its
+ * own, with its caption beside it rather than under it.
  */
 const projects: Project[] = [
   {
@@ -192,8 +192,13 @@ const Gallery = () => {
               // The first row is on screen at load: no reveal, eager, so the
               // prerendered HTML is the finished picture.
               const aboveFold = index < 2;
+              // An odd last plate has no partner of its shape. Rather than
+              // leave the row's right half as an accidental hole, it takes the
+              // whole row and its caption moves into that half, set against
+              // the foot of the photo like a side caption in a printed book.
+              const alone = index === projects.length - 1 && projects.length % 2 === 1;
               const figure = (
-                <figure>
+                <figure className={alone ? "md:grid md:grid-cols-2 md:gap-x-8 lg:gap-x-12" : undefined}>
                   <img
                     src={project.image}
                     srcSet={project.srcSet}
@@ -205,7 +210,12 @@ const Gallery = () => {
                     decoding="async"
                     className="h-auto w-full rounded-[3px] bg-muted"
                   />
-                  <figcaption className="mt-5 grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-3 border-t border-border pt-4 sm:grid-cols-[2.75rem_minmax(0,1fr)]">
+                  <figcaption
+                    className={
+                      "mt-5 grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-3 border-t border-border pt-4 sm:grid-cols-[2.75rem_minmax(0,1fr)]" +
+                      (alone ? " md:mt-0 md:self-end" : "")
+                    }
+                  >
                     <span className="pt-1.5 font-serif text-sm tabular-nums text-muted-foreground">
                       {String(index + 1).padStart(2, "0")}
                     </span>
@@ -225,25 +235,23 @@ const Gallery = () => {
                 </figure>
               );
 
+              const span = alone ? "md:col-span-2" : undefined;
               return aboveFold ? (
-                <div key={project.title}>{figure}</div>
+                <div key={project.title} className={span}>
+                  {figure}
+                </div>
               ) : (
-                <FadeInView key={project.title} delay={(index % 2) * 0.08}>
+                <FadeInView key={project.title} delay={(index % 2) * 0.08} className={span}>
                   {figure}
                 </FadeInView>
               );
             })}
+          </div>
 
-            {/* An odd last plate leaves the row's right half empty. The closing
-                note takes it on purpose, ruled level with the caption beside
-                it, rather than leaving an accidental hole. */}
-            <p
-              className={
-                projects.length % 2 === 1
-                  ? "border-t border-border pt-4 text-sm text-muted-foreground md:self-end md:pb-[2.3rem]"
-                  : "border-t border-border pt-4 text-sm text-muted-foreground md:col-span-2"
-              }
-            >
+          {/* The colophon, in the caption column: under the last side caption
+              when the plates run odd, so it reads as the end of the set. */}
+          <div className="mt-14 md:mt-20 md:grid md:grid-cols-2 md:gap-x-8 lg:gap-x-12">
+            <p className="border-t border-border pt-4 text-sm text-muted-foreground md:col-start-2">
               More projects added regularly
             </p>
           </div>

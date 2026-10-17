@@ -104,7 +104,7 @@ const AboutPage = () => {
                 height={1955}
                 loading="lazy"
                 decoding="async"
-                className="mx-auto h-auto w-full max-w-[18rem] rounded-[3px] md:max-w-none"
+                className="h-auto w-full max-w-[18rem] rounded-[3px] md:max-w-none"
               />
             </FadeInView>
 
@@ -113,8 +113,8 @@ const AboutPage = () => {
               <h2 className="font-heading text-[clamp(2.75rem,6.4vw,6rem)] leading-[0.9] text-foreground text-balance">
                 Built on solid rock
               </h2>
-              <div className="mt-10 grid grid-cols-1 gap-6 border-t border-border pt-8 lg:grid-cols-2 lg:gap-10">
-                <p className="leading-relaxed text-foreground md:text-lg">
+              <div className="mt-10 max-w-[36rem] space-y-5 border-t border-border pt-8">
+                <p className="text-lg leading-relaxed text-foreground md:text-xl md:leading-relaxed">
                   <cite className="font-serif italic">Matthew 7:24</cite> is where the name came from
                   &mdash; the person who builds on solid rock is the one whose house stands. It&rsquo;s
                   also the standard: get the base right and everything on top of it holds. True of a
