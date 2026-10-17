@@ -240,8 +240,11 @@ const GuidePage = () => {
           </div>
         </section>
 
-        {/* ── The detail, with the drawing and the ask in the margin ───── */}
-        <Section variant="cream" className="pt-4 md:pt-6">
+        {/* ── The detail, with the drawing and the ask in the margin ─────
+            The whole guide is one sheet of the lighter paper, so its sections
+            paint no background of their own. This one runs straight on from
+            the short answer, with no rule between them. */}
+        <Section className="bg-transparent pt-4 md:pt-6">
           <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-10">
             <article className="min-w-0 max-w-[65ch] text-[1.0625rem] leading-[1.7] text-foreground/80 lg:col-span-7 [&>section+section]:mt-14 [&>section+section]:border-t [&>section+section]:border-border [&>section+section]:pt-12">
               {guide.sections.map((section, i) => (
@@ -327,8 +330,9 @@ const GuidePage = () => {
 
         {/* ── Where to go next ─────────────────────────────────────────────
             A plain heading beside the list, and the service this question
-            belongs to under it. */}
-        <Section>
+            belongs to under it. The section's hairline is the only rule
+            between the article and this. */}
+        <Section variant="cream" className="bg-transparent">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
             <div className="lg:col-span-4">
               <h2 className="font-heading text-[1.75rem] leading-none text-foreground text-balance md:text-[2.25rem]">
