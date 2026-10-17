@@ -17,6 +17,7 @@ So `services.ts` still has two tiers, re-cut. **`core`**, in this order: landsca
 ## Commands
 - `npm run dev` (port **8080**, proxies `/api` to production so live reviews work locally)
 - `npm run build` — runs `vite-react-ssg build`. **A green build is the gate; there is no test suite.**
+- **`dist/404.html` is prerendered from a `404` route** in `App.tsx`, and Vercel serves it with a 404 status for any address that matches no file. Before 2026-10-17 a mistyped link got Vercel's plain-text NOT_FOUND. Keep the `404` route above the `*` catch-all.
 - `npx tsc --noEmit -p tsconfig.app.json` — must be clean.
 - `npx eslint .` — **3 errors are pre-existing** shadcn/Tailwind boilerplate (`command.tsx`, `textarea.tsx` empty interfaces; `require()` in `tailwind.config.ts`). Don't count them as regressions; don't "fix" them either.
 
@@ -150,7 +151,8 @@ Each core service also has a **section drawing** (`ServicePlate.tsx`) in the lan
 - **They draw once and stay drawn** (WCAG 2.2.2, the same rule as the survey layer), and render finished under reduced motion.
 
 ## Navigation and the mobile bars
-- **A plain Services dropdown, not a mega menu.** NN/g recommends mega menus for big sites; five services fit in one short list (Radix NavigationMenu, no Viewport, so the list positions under its trigger).
+- **A plain Services dropdown, not a mega menu.** NN/g recommends mega menus for big sites; five services fit in one short list (Radix NavigationMenu, no Viewport, so the list positions under its trigger). The other four are named in its footer, in the mobile menu and in the site footer.
+- **The full nav starts at `lg`, not `md`.** Five links, the phone number and the quote button need about 1,000px; at 820px the button was cut off. Below `lg` it is the logo, a call button and the menu.
 - **On phones the header slides away while scrolling down and returns on scroll up**, and the sticky Call/Text/Quote bar appears only once the hero's own buttons (`#hero-actions`) are off-screen, or after 240px on other pages. Two fixed bars on a 390px screen is the pattern NN/g singles out. Conversion Rate Experts measured a CTA bar that appears after scroll at +25%. While hidden, the bar is `inert`.
 
 ## Motion rules
@@ -159,22 +161,16 @@ Motion goes on **imagery**: photo curtain reveals, drawings drawing in, the proc
 ## The quote form — scoping, not just contact
 `/contact` asks for the job first (five core cards plus "Something else"), then chips specific to that job, then name and phone. **Email is optional**: Josiah calls or texts back, so requiring email blocked the one thing the visitor came to do. The Formspree payload carries a one-line `summary` (e.g. "Land Clearing · ¼ to 1 acre · Brush & vines, Small trees · Yes, some · New build") plus each answer as its own labelled line. `?problem=<id>` and `?service=<slug>` prefill it. Formspree's free tier has no file upload, so the form asks people to **text photos** instead. Tested end to end with Formspree mocked (2026-09-29). **On a phone the form comes first** and the "Rather talk?" contact list follows it; on desktop the list sits left and sticky.
 
-## Homepage length — measured, and why the ORDER mattered more than the cutting
-**Simplified 2026-09-29 (second pass, at Will's request for "simple, concise, nobody has to hunt"):** now **6.7 screens desktop, 7.8 on a 390×844 phone** (from 9.5 / 10.6 earlier the same day). Order: **hero → reviews → services → "not sure? send a photo" → how it works (3 steps) → story (compact) → CTA with areas**. Each block answers one question a visitor from the ad has; see the header comment in `LandingPage.tsx`. What was cut, with the evidence, so it isn't re-added by habit:
-- **Reviews directly under the hero**: NN/g puts about 65% of viewing time in the top 40% of a page, and third-party proof is what a cold ad visitor lacks.
-- **Static 3-review grid, not the auto-rotating carousel.** NN/g: an auto-forwarded item is visible about 20% of the time, and moving content reads as an ad. `ReviewsGrid` leads with the most relevant reviews (clearing, trees, work ethic) and skips ones about retired services (pressure washing). The rating shown is still the true average of all of them, and all are on /reviews.
-- **The triage accordion is gone from the homepage.** Its content still renders on every service page as FAQ, and `?problem=` still prefills the form. "Not sure what you need? Send a photo" does its job in one line.
-- **The desktop service-index strip is gone:** it repeated the grid directly below it. **Areas We Serve** is one line inside `CtaSection` on every page, not a 3×3 grid repeating the footer.
-- **The first phone screen is complete:** real photo (30svh), place, H1, one line, rating, both buttons. Proof sits above the buttons.
+## Homepage order, and why
+**Order (2026-10-17): hero → reviews → services → before and after → how it works → Instagram → story → CTA.** Each block answers one question a visitor has; see the header comment in `LandingPage.tsx`. About 6.5 screens on desktop, 9 on a 390×844 phone. Rules carried over from the 2026-09-29 simplification, with the evidence, so they aren't undone by habit:
+- **Reviews directly under the hero.** NN/g puts about 65% of viewing time in the top 40% of a page, and third-party proof is what a cold visitor lacks. **Proof before biography** (on 2026-08-21 the reviews sat at screen 8.9 of 12.7).
+- **Reviews are static, never a carousel.** NN/g: an auto-forwarded item is visible about 20% of the time. `ReviewsGrid` sets the most relevant review as a pull quote with two beside it, and skips reviews of retired services (pressure washing). The rating is still the true average of all of them.
+- **The services are a typeset list (`ServicesIndex`), not a card grid**, the way the business card lists them. The hero already carries the photographs; `/services` has the picture grid (`ServicesBento`).
+- **"Not sure? Send a photo" lives in the closing CTA** ("Text a photo of the yard"), not in its own band, and the before-and-after section says it too.
+- **Areas served are one line in `CtaSection`** on every page, not a grid repeating the footer.
+- **The Instagram strip renders nothing until the feed is connected** (see External setup), so the page never shows an empty frame.
 
-History: 2026-08-21 the homepage was 12.7 phone screens with the reviews at screen 8.9; moving
-proof ahead of biography was the bigger win than any cut. **Proof before biography** still holds.
-The services grid still drops its drawings on a phone except the lead tile. Service pages were cut
-the same day to hero → the work → options + drawing → questions (price folded in as the first
-answer, no numbers) → related → CTA, and `/services` is the same grid as the homepage plus the FAQ.
-
-Re-measure with a scripted section audit rather than by eye — section heights in *screens* is the
-unit that matters, and it differs a lot between desktop and mobile.
+Re-measure with a scripted section audit rather than by eye: section heights in *screens* is the unit that matters, and it differs a lot between desktop and mobile.
 
 ## Deliberate omissions — these are decisions, not oversights
 - **No licensing / insurance / bonding / permitting claims anywhere.** These are verifiable legal claims, not marketing copy, and Will explicitly chose to leave them off (2026-08-19). **Corrected 2026-09-29, from the statute text:** the $500 residential-specialty threshold (S.C. Code §40-59-20(7)) covers a list of trades (plumbing, electrical, HVAC, roofing, masonry, carpentry…) that **does not include grading, excavation, land clearing or tree work**. **"Grading" is a Contractor's Licensing Board subclassification** (§40-11-410(2)(d)), and CLB licensing starts at **$10,000** total cost (§40-11-30, raised from $5,000 in 2023). Using the words "licensed contractor" without a CLB licence is itself unlawful (§40-11-370). **Unresolved:** whether a stand-alone residential grading or pool-dig job over $10,000 needs a CLB Grading licence. That is a question for LLR, not for this site, and it matters more now that grading and pool digs are core work. **Also unresolved since hardscapes became core (2026-10-17): "masonry" IS on the §40-59-20 residential-specialty list**, so whether paver, stone-walkway or segmental retaining-wall work over $500 needs a residential specialty registration is another LLR question. Until someone has asked, the site makes no claim either way. Same reason the Custom Projects copy doesn't advertise **electrical** even though he did the electrical on the pantry job.
