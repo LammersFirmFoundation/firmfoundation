@@ -1,7 +1,6 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Section from "@/components/layout/Section";
-import FadeInView from "@/components/animations/FadeInView";
 import GuideCard from "@/components/GuideCard";
 import SEO from "@/components/SEO";
 import CtaSection from "@/components/CtaSection";
@@ -40,33 +39,41 @@ const GuidesPage = () => (
         ]}
       />
 
-      <section className="px-5 sm:px-6 md:px-10 py-14 md:py-20">
-        <div className="mx-auto max-w-content">
-          <FadeInView immediate>
-            <p className="eyebrow text-primary mb-6">Guides</p>
-            <h1 className="text-hero md:text-display font-heading max-w-4xl">
-              Straight answers
-              <br />
-              <span className="text-primary">before you call</span>
+      {/* ── Page header ───────────────────────────────────────────────────
+          Pure CSS entrance (above the fold), lede set beside the title. */}
+      <section className="px-5 pb-12 pt-10 sm:px-6 md:px-10 md:pb-16 md:pt-16">
+        <div className="mx-auto grid max-w-content grid-cols-1 gap-7 lg:grid-cols-12 lg:items-end lg:gap-10">
+          <div className="lg:col-span-8">
+            <p className="mark mb-6 hero-rise">Guides</p>
+            <h1 className="text-hero font-heading text-foreground text-balance">
+              <span className="hero-line">
+                <span style={{ animationDelay: "40ms" }}>Straight answers before you call</span>
+              </span>
             </h1>
-            <p className="text-subtitle text-muted-foreground mt-8 max-w-xl leading-relaxed">
-              Answered with the local rules, and where each rule comes from.
-            </p>
-          </FadeInView>
+          </div>
+          <p
+            className="hero-rise max-w-md text-subtitle leading-relaxed text-muted-foreground lg:col-span-4 lg:pb-2"
+            style={{ animationDelay: "160ms" }}
+          >
+            Answered with the local rules, and where each rule comes from.
+          </p>
         </div>
       </section>
 
-      <Section className="pt-0">
+      {/* ── The contents ──────────────────────────────────────────────────
+          A ruled list, numbered like the services index on the homepage, with
+          each short answer printed in full beside its question. No scroll
+          reveal: on a desktop the first rows sit above the fold, and
+          FadeInView's opacity:0 start state is baked into the static HTML. */}
+      <Section className="pt-0 md:pt-0">
         <h2 className="sr-only">All guides</h2>
-        <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {/* No scroll reveal: on a desktop the first cards sit above the fold,
-              and FadeInView's opacity:0 start state is baked into the static HTML. */}
-          {guides.map((guide) => (
-            <li key={guide.slug}>
-              <GuideCard guide={guide} showAnswer />
+        <ol className="border-t border-border">
+          {guides.map((guide, index) => (
+            <li key={guide.slug} className="border-b border-border">
+              <GuideCard guide={guide} index={index} showAnswer />
             </li>
           ))}
-        </ul>
+        </ol>
       </Section>
 
       <CtaSection

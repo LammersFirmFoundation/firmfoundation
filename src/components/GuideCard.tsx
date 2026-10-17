@@ -1,26 +1,73 @@
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import type { Guide } from "@/data/guides";
+import { cn } from "@/lib/utils";
 
-/** A guide as a link card: its question, and optionally its short answer. Used on /guides and under each guide. */
-const GuideCard = ({ guide, showAnswer = false }: { guide: Guide; showAnswer?: boolean }) => (
-  <Link
-    to={`/guides/${guide.slug}`}
-    className="group flex h-full items-start justify-between gap-4 rounded-lg border border-border p-5 transition-colors hover:border-primary/60"
-  >
-    <span>
-      <span className="block font-heading text-lg leading-snug text-foreground transition-colors group-hover:text-primary">
+/**
+ * A guide as one ruled line of a contents page: its number, its question, and
+ * optionally its short answer. Not a card: the parent list draws the rules,
+ * and the whole row is the link so the target is wide. Used on /guides (with
+ * the answers, set like the services index on the homepage) and under each
+ * guide (questions only).
+ */
+const GuideCard = ({
+  guide,
+  index,
+  showAnswer = false,
+}: {
+  guide: Guide;
+  /** Position in the list, printed as a serif numeral. Omitted, no numeral. */
+  index?: number;
+  showAnswer?: boolean;
+}) => {
+  const numbered = index !== undefined;
+
+  return (
+    <Link
+      to={`/guides/${guide.slug}`}
+      className={cn(
+        "group grid items-baseline gap-x-3",
+        numbered ? "grid-cols-[2rem_minmax(0,1fr)_auto] sm:grid-cols-[3rem_minmax(0,1fr)_auto]" : "grid-cols-[minmax(0,1fr)_auto]",
+        showAnswer && "py-7 md:gap-x-8 md:py-9",
+        showAnswer &&
+          (numbered
+            ? "md:grid-cols-[4rem_minmax(0,1.15fr)_minmax(0,1fr)_auto]"
+            : "md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)_auto]"),
+        !showAnswer && "py-5 md:py-6"
+      )}
+    >
+      {numbered && (
+        <span className="font-serif text-sm tabular-nums text-muted-foreground">{String(index + 1).padStart(2, "0")}</span>
+      )}
+      <span
+        className={cn(
+          "font-heading leading-[1.02] text-foreground text-balance transition-colors duration-300 group-hover:text-primary",
+          showAnswer ? "text-[clamp(1.5rem,2.6vw,2.25rem)]" : "text-xl md:text-[1.375rem]"
+        )}
+      >
         {guide.question}
       </span>
       {showAnswer && (
-        <span className="mt-3 block text-sm leading-relaxed text-muted-foreground">{guide.answer}</span>
+        <span
+          className={cn(
+            "mt-3 block text-[0.9375rem] leading-relaxed text-muted-foreground md:row-start-1 md:mt-0",
+            numbered ? "col-start-2 row-start-2 md:col-start-3" : "col-start-1 row-start-2 md:col-start-2"
+          )}
+        >
+          {guide.answer}
+        </span>
       )}
-    </span>
-    <ArrowUpRight
-      className="mt-1 h-4 w-4 flex-none text-primary transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-      aria-hidden="true"
-    />
-  </Link>
-);
+      <ArrowUpRight
+        className={cn(
+          "h-5 w-5 self-start text-muted-foreground transition-[transform,color] duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary",
+          numbered ? "col-start-3 row-start-1" : "col-start-2 row-start-1",
+          showAnswer && (numbered ? "md:col-start-4" : "md:col-start-3"),
+          "mt-1"
+        )}
+        aria-hidden="true"
+      />
+    </Link>
+  );
+};
 
 export default GuideCard;

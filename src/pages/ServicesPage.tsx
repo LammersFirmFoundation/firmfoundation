@@ -2,7 +2,6 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Section from "@/components/layout/Section";
 import SectionHeader from "@/components/layout/SectionHeader";
-import FadeInView from "@/components/animations/FadeInView";
 import ServicesBento from "@/components/ServicesBento";
 import FaqList from "@/components/FaqList";
 import SEO from "@/components/SEO";
@@ -46,8 +45,8 @@ const faqs = [
  * its own child page.
  *
  * Two tiers: the five services on Josiah's own flyer and business card lead
- * (2026-10-17), and the rest of the work he takes on sits in one tile, present
- * and findable.
+ * (2026-10-17), and the rest of the work he takes on follows as a ruled list,
+ * present and findable.
  */
 const ServicesPage = () => {
   return (
@@ -92,27 +91,35 @@ const ServicesPage = () => {
           ]}
         />
 
-        {/* Page header */}
-        <section className="px-5 sm:px-6 md:px-10 py-14 md:py-20">
-          <div className="mx-auto max-w-content">
-            <FadeInView immediate>
-              <p className="eyebrow text-primary mb-6">What We Do</p>
-              <h1 className="text-hero md:text-display font-heading max-w-4xl">
-                From the ground
-                <br />
-                <span className="text-highlight">up</span>
-              </h1>
-              <p className="text-subtitle text-muted-foreground mt-8 max-w-xl leading-relaxed">
-                Landscaping, hardscapes and the dirt work under them. Most jobs
-                are more than one of these, done by the same crew.
+        {/* Page header: the title on the left, its note beside it, the way
+            every section opens. Pure CSS rise (.hero-line, .hero-rise), so the
+            prerendered HTML is already the finished header: a JS reveal would
+            bake opacity:0 into the first screen. */}
+        <section className="px-5 pb-12 pt-10 sm:px-6 md:px-10 md:pb-16 md:pt-16">
+          <div className="mx-auto grid max-w-content grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+            <div className="lg:col-span-7">
+              <p className="mark mb-6 hero-rise" style={{ animationDelay: "0ms" }}>
+                What we do
               </p>
-            </FadeInView>
+              <h1 className="font-heading text-hero text-foreground text-balance md:text-[clamp(3rem,6.4vw,5.75rem)] md:leading-[0.9]">
+                <span className="hero-line">
+                  <span style={{ animationDelay: "40ms" }}>From the ground up</span>
+                </span>
+              </h1>
+            </div>
+            <p
+              className="max-w-md text-subtitle leading-relaxed text-muted-foreground hero-rise lg:col-span-5 lg:col-start-8 lg:pb-2"
+              style={{ animationDelay: "160ms" }}
+            >
+              Landscaping, hardscapes and the dirt work under them. Most jobs
+              are more than one of these, done by the same crew.
+            </p>
           </div>
         </section>
 
-        {/* The same grid as the homepage: one way of showing the services,
-            everywhere. Each service has its own page for the long version. */}
-        <Section className="pt-0">
+        {/* Every service on one sheet. Each has its own page for the long
+            version; the homepage sets the same list as type. */}
+        <Section className="pt-0 md:pt-0">
           {/* The cards are h3s; the page needs an h2 above them for a sane outline. */}
           <h2 className="sr-only">All services</h2>
           <ServicesBento />
@@ -122,8 +129,7 @@ const ServicesPage = () => {
         <Section variant="cream">
           <SectionHeader
             eyebrow="Questions"
-            title="Frequently"
-            accent="asked"
+            title="Frequently asked"
             subtitle="Quick answers about the work and where we do it."
           />
           <FaqList items={faqs.map((faq) => ({ question: faq.question, answer: <p>{faq.answer}</p> }))} />

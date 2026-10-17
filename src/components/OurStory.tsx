@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import FadeInView from "@/components/animations/FadeInView";
 import { cn } from "@/lib/utils";
 
@@ -9,11 +10,18 @@ import josiahToyTractorSet from "@/assets/story/josiah-toy-tractor.jpg?w=200;320
 
 /**
  * `srcSet` carries WebP variants; `src` stays the original JPEG as the
- * fallback. The two prints render at very different sizes — the big one fills
- * a ~380px column, the tucked one is 44% of it — so they get different width
- * ladders rather than a shared default.
+ * fallback. The two photos render at very different sizes (the lead fills a
+ * five-column spread, the second is a small inset in the text column), so they
+ * get different width ladders rather than a shared default.
  */
-type StoryPhoto = { src: string; srcSet: string; alt: string; caption?: string };
+type StoryPhoto = {
+  src: string;
+  srcSet: string;
+  alt: string;
+  caption?: string;
+  width: number;
+  height: number;
+};
 
 /** Family photos. The layout also handles one photo, or none. */
 const photos: StoryPhoto[] = [
@@ -22,12 +30,16 @@ const photos: StoryPhoto[] = [
     srcSet: josiahAndDonnieSet,
     alt: "Josiah as a small child sitting in an excavator cab on his Uncle Donnie's lap",
     caption: "Josiah and Uncle Donnie",
+    width: 915,
+    height: 1128,
   },
   {
     src: josiahToyTractor,
     srcSet: josiahToyTractorSet,
     alt: "Josiah as a young boy driving a toy tractor in the front yard",
     caption: "An early start",
+    width: 1100,
+    height: 828,
   },
 ];
 
@@ -38,16 +50,64 @@ interface OurStoryProps {
   /** Link out to /about. Off when the component is already on /about. */
   showLink?: boolean;
   /**
-   * The homepage version: one print and two lines. The full two-photo spread
-   * is for /about, where the story is the point; on the homepage it was the
+   * The homepage version: one photo and two lines. The full spread is for
+   * /about, where the story is the point; on the homepage it was the
    * second-tallest block on a page whose job is to get someone to call.
    */
   compact?: boolean;
 }
 
+/** A family photo, captioned underneath like everything else on the site. */
+const StoryFigure = ({
+  photo,
+  sizes,
+  className,
+  captionClassName,
+}: {
+  photo: StoryPhoto;
+  sizes: string;
+  className?: string;
+  captionClassName?: string;
+}) => (
+  <figure className={className}>
+    <img
+      src={photo.src}
+      srcSet={photo.srcSet}
+      sizes={sizes}
+      alt={photo.alt}
+      width={photo.width}
+      height={photo.height}
+      loading="lazy"
+      decoding="async"
+      className="h-auto w-full rounded-[3px] bg-muted object-cover"
+    />
+    {photo.caption && (
+      <figcaption className={cn("mt-3 text-sm text-muted-foreground", captionClassName)}>
+        {photo.caption}
+      </figcaption>
+    )}
+  </figure>
+);
+
+const MoreLink = ({ className }: { className?: string }) => (
+  <Link
+    to="/about"
+    className={cn(
+      "group inline-flex items-center gap-2 text-sm font-semibold text-foreground underline decoration-foreground/25 underline-offset-[5px] transition-colors hover:decoration-foreground",
+      className
+    )}
+  >
+    More about Firm Foundation
+    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+  </Link>
+);
+
 /**
- * Sits in a light `cream` section, so it uses the semantic tokens and picks up
- * the light palette that `.on-cream` remaps for its subtree.
+ * The Uncle Donnie story, set like a short magazine feature: the photograph
+ * carries one side, the story the other, and its last line comes out as a
+ * pull line across the full measure. Photos sit square-on with their captions
+ * underneath; the tilted polaroids this replaced were the scrapbook cliché
+ * every "our story" template reaches for.
  */
 const OurStory = ({
   asPageHeading = false,
@@ -56,140 +116,101 @@ const OurStory = ({
   compact = false,
 }: OurStoryProps) => {
   const Heading = asPageHeading ? "h1" : "h2";
-  const hasPhotos = photos.length > 0;
+  const [lead, inset] = photos;
 
-  if (compact && hasPhotos) {
+  if (compact && lead) {
     return (
-      <div className={cn("grid grid-cols-[7rem_1fr] items-center gap-6 sm:grid-cols-[11rem_1fr] sm:gap-10 md:mx-auto md:max-w-3xl", className)}>
+      <div
+        className={cn(
+          "grid grid-cols-[6.5rem_minmax(0,1fr)] items-start gap-6 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-10 lg:grid-cols-[12rem_minmax(0,1fr)_auto] lg:items-end lg:gap-14",
+          className
+        )}
+      >
         <FadeInView direction="none">
-          <figure className="rotate-[-3deg] bg-white p-2 pb-2.5 shadow-xl ring-1 ring-black/5">
-            <img
-              src={photos[0].src}
-              srcSet={photos[0].srcSet}
-              sizes="176px"
-              alt={photos[0].alt}
-              loading="lazy"
-              decoding="async"
-              className="h-auto w-full object-cover"
-            />
-          </figure>
+          <StoryFigure photo={lead} sizes="(min-width: 1024px) 192px, (min-width: 640px) 160px, 104px" captionClassName="text-xs" />
         </FadeInView>
-        <FadeInView delay={0.1}>
-          <p className="eyebrow text-primary mb-3">Our story</p>
-          <Heading className="font-heading text-3xl leading-tight text-foreground md:text-[2.5rem]">
+        <div className="min-w-0 lg:pb-7">
+          <p className="mark mb-4">Our story</p>
+          <Heading className="font-heading text-3xl leading-[0.98] text-foreground md:text-[2.75rem]">
             It started in the cab.
           </Heading>
-          <p className="mt-3 leading-relaxed text-muted-foreground md:text-lg">
+          <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground md:text-lg">
             Josiah grew up in his Uncle Donnie&rsquo;s excavator, learning that a job isn&rsquo;t
             finished until it&rsquo;s finished right. He runs Firm Foundation the same way.
           </p>
-          {showLink && (
-            <Link
-              to="/about"
-              className="mt-5 inline-block eyebrow text-primary hover:text-foreground border-b border-primary/40 hover:border-foreground pb-1 transition-colors"
-            >
-              More about Firm Foundation
-            </Link>
-          )}
-        </FadeInView>
+          {showLink && <MoreLink className="mt-5 lg:hidden" />}
+        </div>
+        {showLink && <MoreLink className="hidden lg:inline-flex lg:pb-8" />}
       </div>
     );
   }
 
-  const story = (
+  const heading = (
     <>
-      <p className="eyebrow text-primary mb-6">Our Story</p>
-      <Heading className="text-hero font-heading text-foreground mb-7 sm:mb-10">
-        It started
-        <br />
-        in the cab
-      </Heading>
-      <div className="space-y-5 sm:space-y-6 text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed">
-        <p>
-          Josiah was barely old enough to walk the first time his Uncle Donnie
-          sat him in an excavator.
-        </p>
-        <p>
-          He grew up around that work &mdash; moving dirt, learning grade,
-          learning from a man who believed a job wasn&rsquo;t finished until it
-          was finished right.
-        </p>
-        <p className="text-foreground text-xl sm:text-2xl md:text-3xl font-heading">
-          He runs Firm Foundation the same way.
-        </p>
-      </div>
-      {showLink && (
-        <Link
-          to="/about"
-          className="inline-block mt-10 eyebrow text-primary hover:text-foreground border-b border-primary/40 hover:border-foreground pb-1 transition-colors"
-        >
-          More about Firm Foundation
-        </Link>
-      )}
+      <p className="mark mb-5">Our story</p>
+      <Heading className="text-title font-heading text-foreground">It started in the cab</Heading>
     </>
+  );
+
+  const body = (
+    <div className="mt-8 max-w-[34rem] space-y-5 text-lg leading-relaxed text-muted-foreground md:text-xl md:leading-relaxed">
+      <p>
+        Josiah was barely old enough to walk the first time his Uncle Donnie
+        sat him in an excavator.
+      </p>
+      <p>
+        He grew up around that work &mdash; moving dirt, learning grade,
+        learning from a man who believed a job wasn&rsquo;t finished until it
+        was finished right.
+      </p>
+    </div>
+  );
+
+  // The story's last line, pulled out across the full width: the one sentence
+  // the whole page hangs on.
+  const pullLine = (
+    <p className="mt-14 border-t border-border pt-8 font-heading text-[clamp(2.25rem,6vw,5.25rem)] leading-[0.95] text-foreground text-balance md:mt-20 md:pt-10">
+      He runs Firm Foundation the same way.
+    </p>
   );
 
   // Without photos the story reads best as one narrow column — it looks
   // deliberate, rather than a two-column layout missing its left half.
-  if (!hasPhotos) {
+  if (!lead) {
     return (
-      <div className={cn("max-w-narrow mx-auto", className)}>
-        <FadeInView>{story}</FadeInView>
+      <div className={cn("max-w-narrow", className)}>
+        {heading}
+        {body}
+        {pullLine}
+        {showLink && <MoreLink className="mt-10" />}
       </div>
     );
   }
 
   return (
-    <div
-      className={cn(
-        "grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 items-center",
-        className
-      )}
-    >
-      <FadeInView direction="left">
-        {/* White mats and a drop shadow so the photos read as prints laid on a table. */}
-        <div className="relative mx-auto max-w-md pb-20 md:pb-24 pr-4 sm:pr-10">
-          <figure className="rotate-[-2deg] bg-white p-3 pb-4 shadow-2xl ring-1 ring-black/5">
-            <img
-              src={photos[0].src}
-              srcSet={photos[0].srcSet}
-              sizes="(min-width: 768px) 380px, 90vw"
-              alt={photos[0].alt}
-              loading="lazy"
-              decoding="async"
-              className="w-full h-auto object-cover"
-            />
-            {photos[0].caption && (
-              <figcaption className="mt-3 pl-1 text-left text-sm text-neutral-600 italic">
-                {photos[0].caption}
-              </figcaption>
-            )}
-          </figure>
+    <div className={className}>
+      <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-10">
+        <FadeInView className="lg:col-span-5">
+          <StoryFigure photo={lead} sizes="(min-width: 1024px) 34vw, (min-width: 640px) 28rem, 90vw" className="max-w-md lg:max-w-none" />
+        </FadeInView>
 
-          {photos[1] && (
-            <figure className="absolute -bottom-10 -right-3 sm:-right-8 w-[44%] rotate-[4deg] bg-white p-2 pb-3 shadow-2xl ring-1 ring-black/5">
-              <img
-                src={photos[1].src}
-                srcSet={photos[1].srcSet}
-                sizes="(min-width: 768px) 170px, 40vw"
-                alt={photos[1].alt}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-auto object-cover"
+        <div className="lg:col-span-6 lg:col-start-7 lg:pt-2">
+          {heading}
+          {body}
+          {inset && (
+            <FadeInView delay={0.1}>
+              <StoryFigure
+                photo={inset}
+                sizes="(min-width: 1024px) 15rem, 55vw"
+                className="mt-10 w-[62%] max-w-[16rem] md:mt-12"
               />
-              {photos[1].caption && (
-                <figcaption className="mt-2 text-center text-xs text-neutral-600 italic">
-                  {photos[1].caption}
-                </figcaption>
-              )}
-            </figure>
+            </FadeInView>
           )}
         </div>
-      </FadeInView>
+      </div>
 
-      <FadeInView direction="right" delay={0.15}>
-        {story}
-      </FadeInView>
+      {pullLine}
+      {showLink && <MoreLink className="mt-10" />}
     </div>
   );
 };

@@ -27,13 +27,19 @@ interface ServiceImageProps {
   fill?: boolean;
 }
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+
 /**
  * A service's photo, or its section drawing when there is no photo yet.
  *
  * Dropping a real photo in later is a one-line change in `services.ts`, and
  * the drawing steps aside on its own. Three services show licensed stock for now
  * (rules in `src/assets/stock/CREDITS.md`); each is replaced the moment Josiah
- * has a real photo of that work.
+ * has a real photo of that work. That is also why nothing here captions a
+ * photo: a stock picture must never read as one of his jobs.
+ *
+ * Corners are 3px, the same as every photo and button on the site: a printed
+ * plate, not a rounded app card.
  */
 const ServiceImage = ({
   service,
@@ -58,7 +64,7 @@ const ServiceImage = ({
         decorative={decorative}
         fill={fill}
         label={plateDescriptions[service.plate]}
-        className={className}
+        className={cn("rounded-[3px]", className)}
       />
     );
   }
@@ -78,11 +84,11 @@ const ServiceImage = ({
 
   return (
     <motion.div
-      className={cn(aspect, "rounded-lg overflow-hidden", className)}
+      className={cn(aspect, "overflow-hidden rounded-[3px] bg-muted", className)}
       initial={reveal ? { clipPath: "inset(100% 0% 0% 0%)" } : false}
       whileInView={reveal ? { clipPath: "inset(0% 0% 0% 0%)" } : undefined}
       viewport={{ once: true, margin: "-8% 0px" }}
-      transition={shouldReduceMotion ? instant : { duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+      transition={shouldReduceMotion ? instant : { duration: 1.1, ease: EASE }}
     >
       <motion.img
         src={service.image}
@@ -90,7 +96,7 @@ const ServiceImage = ({
         // anything that doesn't understand srcset still gets a photo.
         srcSet={service.imageSrcSet}
         sizes={sizes}
-        alt={service.alt ?? ""}
+        alt={decorative ? "" : (service.alt ?? "")}
         loading={eager ? "eager" : "lazy"}
         decoding="async"
         width={1200}
@@ -98,8 +104,8 @@ const ServiceImage = ({
         initial={reveal ? { scale: 1.14 } : undefined}
         whileInView={reveal ? { scale: 1 } : undefined}
         viewport={{ once: true, margin: "-8% 0px" }}
-        transition={shouldReduceMotion ? instant : { duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
-        className="w-full h-full object-cover will-change-transform"
+        transition={shouldReduceMotion ? instant : { duration: 1.6, ease: EASE }}
+        className="h-full w-full object-cover will-change-transform"
       />
     </motion.div>
   );

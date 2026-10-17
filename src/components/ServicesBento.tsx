@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
+import type { ReactNode } from "react";
 import FadeInView from "@/components/animations/FadeInView";
 import ServiceImage from "@/components/ServiceImage";
 import BeforeAfterPair from "@/components/BeforeAfterPair";
@@ -9,204 +10,248 @@ import { cn } from "@/lib/utils";
 
 /** The photo a card shows: its own `cardImage` if it has one, else the service photo. */
 const cardPhoto = (s: Service) =>
-  s.beforeAfter
-    ? { src: s.beforeAfter.after, srcSet: s.beforeAfter.afterSrcSet, alt: "" }
-    : s.cardImage
-    ? { src: s.cardImage, srcSet: s.cardImageSrcSet, alt: s.cardAlt ?? "" }
+  s.cardImage
+    ? { src: s.cardImage, srcSet: s.cardImageSrcSet }
     : s.image
-      ? { src: s.image, srcSet: s.imageSrcSet, alt: s.alt ?? "" }
+      ? { src: s.image, srcSet: s.imageSrcSet }
       : null;
 
 /** Halve every width in a `sizes` string: each half of a pair is half the card. */
 const halfSizes = (sizes: string) => sizes.replace(/(\d+)vw/g, (_, n) => `${Math.round(+n / 2)}vw`);
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+
 /**
- * A card's picture. A photo when there is one, uncovered once as it scrolls
- * in; the section drawing when there isn't. Decorative either way: the card's
- * link text already names the service.
+ * Uncovers a picture bottom-up, once, as it scrolls in: the same curtain as
+ * every other photo on the site. `eager` pictures are the first screen, so
+ * they skip it and simply paint. That depends on a prop only; reduced motion
+ * may zero the transition but never change the start state, or prerendered
+ * markup stops matching (CLAUDE.md, "Reduced motion").
  */
-const CardVisual = ({
-  service,
-  number,
-  sizes,
-  className,
-  lead = false,
-}: {
-  service: Service;
-  number: number;
-  sizes: string;
-  className?: string;
-  lead?: boolean;
-}) => {
+const Curtain = ({ eager, delay, className, children }: { eager: boolean; delay: number; className?: string; children: ReactNode }) => {
   const reduce = useReducedMotion();
-  const photo = cardPhoto(service);
-  const pair = service.beforeAfter;
-
-  if (!photo) {
-    return (
-      <ServiceImage
-        service={service}
-        preferPlate
-        decorative
-        compact={!lead}
-        number={number}
-        fill={lead}
-        className={cn("rounded-none border-0 border-b", className)}
-      />
-    );
-  }
-
+  if (eager) return <div className={className}>{children}</div>;
   return (
     <motion.div
-      className={cn("relative overflow-hidden bg-muted", className)}
+      className={className}
       initial={{ clipPath: "inset(100% 0% 0% 0%)" }}
       whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
       viewport={{ once: true, margin: "-8% 0px" }}
-      transition={reduce ? { duration: 0 } : { duration: 1.1, delay: 0.05 * number, ease: [0.22, 1, 0.36, 1] }}
+      transition={reduce ? { duration: 0 } : { duration: 1.1, delay, ease: EASE }}
     >
-      {pair ? (
-        <BeforeAfterPair
-          pair={pair}
-          sizes={halfSizes(sizes)}
-          className="absolute inset-0"
-          imgClassName="transition-transform duration-700 ease-editorial group-hover:scale-[1.04]"
-        />
-      ) : (
-        <>
-          <img
-            src={photo.src}
-            srcSet={photo.srcSet}
-            sizes={sizes}
-            alt=""
-            loading="lazy"
-            decoding="async"
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-editorial group-hover:scale-[1.04]"
-          />
-          <span className="absolute left-3 top-3 rounded-full bg-background/85 px-2.5 py-1 eyebrow text-[0.625rem] text-primary backdrop-blur-sm">
-            {String(number).padStart(2, "0")}
-          </span>
-        </>
-      )}
+      {children}
     </motion.div>
   );
 };
 
 /**
- * The five core services as one composed grid, plus a tile for the rest.
- *
- * The first core service gets the big tile, in the order of Josiah's own flyer
- * and business card (2026-10-17): landscaping first. The sixth cell lists the
- * other work he takes on, linked and findable without competing for the lead.
- *
- * On a phone the four smaller cards become compact rows with a thumbnail:
- * five stacked image cards was once the biggest block on the homepage.
+ * A card's picture: the same-spot before and after where Josiah has one, his
+ * photo where there is one, and the section drawing where there isn't.
+ * Decorative in the last two cases: the caption under it names the service.
  */
-const ServicesBento = () => {
-  const [lead, ...rest] = coreServices;
+const Picture = ({
+  service,
+  sizes,
+  aspect,
+  eager,
+  delay,
+}: {
+  service: Service;
+  sizes: string;
+  aspect: string;
+  eager: boolean;
+  delay: number;
+}) => {
+  const photo = cardPhoto(service);
+  const zoom = "transition-transform duration-700 ease-editorial group-hover:scale-[1.035]";
+
+  if (service.beforeAfter) {
+    return (
+      <Curtain eager={eager} delay={delay} className={cn(aspect, "overflow-hidden rounded-[3px]")}>
+        <BeforeAfterPair
+          pair={service.beforeAfter}
+          eager={eager}
+          sizes={halfSizes(sizes)}
+          className="h-full"
+          imgClassName={zoom}
+        />
+      </Curtain>
+    );
+  }
+
+  if (!photo) {
+    return (
+      <div className={aspect}>
+        <ServiceImage service={service} preferPlate decorative compact fill className="h-full" />
+      </div>
+    );
+  }
 
   return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
-      <FadeInView className="sm:col-span-2 lg:row-span-2">
-        <Link
-          to={`/services/${lead.slug}`}
-          className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-[border-color,transform] duration-500 hover:-translate-y-0.5 hover:border-primary/60"
-        >
-          <CardVisual
-            service={lead}
-            number={1}
-            lead
-            sizes="(min-width: 1024px) 66vw, 100vw"
-            className="aspect-[4/3] sm:aspect-[16/9] lg:aspect-auto lg:min-h-[22rem] lg:flex-1"
+    <Curtain eager={eager} delay={delay} className={cn(aspect, "relative overflow-hidden rounded-[3px] bg-muted")}>
+      <img
+        src={photo.src}
+        srcSet={photo.srcSet}
+        sizes={sizes}
+        alt=""
+        width={1200}
+        height={900}
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+        className={cn("absolute inset-0 h-full w-full object-cover", zoom)}
+      />
+    </Curtain>
+  );
+};
+
+/**
+ * One service as a printed plate: the picture, a hairline, and a caption set
+ * under it. The numeral is the order on Josiah's card, in the serif, the way
+ * the homepage list numbers them. Nothing is laid over the photograph.
+ */
+const ServiceFigure = ({
+  service,
+  index,
+  sizes,
+  aspect,
+  blurb,
+  eager = false,
+  large = false,
+  className,
+}: {
+  service: Service;
+  index: number;
+  sizes: string;
+  aspect: string;
+  blurb: string;
+  eager?: boolean;
+  large?: boolean;
+  className?: string;
+}) => (
+  <li className={cn("min-w-0", className)}>
+    <Link
+      to={`/services/${service.slug}`}
+      className="group block rounded-[3px] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+    >
+      <Picture service={service} sizes={sizes} aspect={aspect} eager={eager} delay={0.06 * index} />
+      <FadeInView immediate={eager} delay={0.06 * index + 0.1}>
+        <div className="mt-4 grid grid-cols-[1.75rem_minmax(0,1fr)_auto] items-baseline gap-x-3 border-t border-border pt-4 md:mt-5 md:grid-cols-[2.25rem_minmax(0,1fr)_auto] md:pt-5">
+          <span className="font-serif text-sm tabular-nums text-muted-foreground">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <h3
+            className={cn(
+              "font-heading leading-none text-foreground underline decoration-transparent decoration-1 underline-offset-[6px] transition-colors duration-300 group-hover:decoration-foreground/35",
+              large ? "text-[1.75rem] md:text-[2.25rem]" : "text-2xl md:text-[1.75rem]",
+            )}
+          >
+            {service.title}
+          </h3>
+          <ArrowUpRight
+            className="h-5 w-5 self-center text-muted-foreground transition-[transform,color] duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground"
+            aria-hidden="true"
           />
-          <div className="flex items-end justify-between gap-6 border-t border-border p-6 md:p-8">
-            <div className="min-w-0">
-              <span className="eyebrow text-primary">Service 01</span>
-              <h3 className="mt-3 font-heading text-3xl leading-none text-card-foreground md:text-[2.75rem]">
-                {lead.title}
-              </h3>
-              <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
-                {lead.summary}
-              </p>
-            </div>
-            <span className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-full border border-border text-primary transition-colors duration-500 group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground sm:flex">
-              <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
-            </span>
-          </div>
-        </Link>
+          <p
+            className={cn(
+              "col-start-2 col-end-4 mt-2.5 leading-relaxed text-muted-foreground",
+              large ? "max-w-lg md:text-[1.0625rem]" : "text-[0.9375rem]",
+            )}
+          >
+            {blurb}
+          </p>
+        </div>
       </FadeInView>
+    </Link>
+  </li>
+);
 
-      {rest.map((service, i) => {
-        const photo = cardPhoto(service);
-        return (
-          <FadeInView key={service.slug} delay={0.06 * (i + 1)}>
-            <Link
-              to={`/services/${service.slug}`}
-              className="group flex h-full items-center gap-4 overflow-hidden rounded-lg border border-border bg-card p-3 transition-[border-color,transform] duration-500 hover:-translate-y-0.5 hover:border-primary/60 sm:flex-col sm:items-stretch sm:gap-0 sm:p-0"
-            >
-              {/* Phone: a small square thumbnail beside the text. */}
-              {photo && (
-                <img
-                  src={photo.src}
-                  srcSet={photo.srcSet}
-                  sizes="80px"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                  className="h-[4.5rem] w-[4.5rem] shrink-0 rounded-md object-cover sm:hidden"
-                />
-              )}
-              {/* Wider: the full card picture on top. */}
-              <div className="hidden sm:block">
-                <CardVisual
-                  service={service}
-                  number={i + 2}
-                  sizes="(min-width: 1024px) 33vw, 50vw"
-                  className="aspect-[16/10]"
-                />
-              </div>
-              <div className="flex flex-1 items-start justify-between gap-4 sm:p-6">
-                <div className="min-w-0">
-                  <h3 className="font-heading text-xl leading-tight text-card-foreground md:text-2xl">
-                    {service.title}
-                  </h3>
-                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground sm:mt-2">
-                    {service.navBlurb}
-                  </p>
-                </div>
-                <ArrowUpRight
-                  className="mt-1 h-5 w-5 shrink-0 text-primary transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                  aria-hidden="true"
-                />
-              </div>
-            </Link>
-          </FadeInView>
-        );
-      })}
+/**
+ * Every service on one sheet, for `/services`. (The homepage sets the same
+ * list as type, in `ServicesIndex`, because its hero already carries the
+ * photographs.)
+ *
+ * The five services on Josiah's own flyer and card lead, in his order
+ * (2026-10-17). Landscaping and hardscapes, the two he has a same-spot before
+ * and after for, take the first row at full size, because that pair is the
+ * proof a homeowner trusts most. The three dirt-work services follow, three
+ * across. The rest of the work he takes on is a ruled list under them,
+ * present and linked, without competing for the lead.
+ *
+ * No boxes and no badges: a picture, a hairline, a caption. The first row is
+ * the first screen, so it loads eagerly and does not animate.
+ */
+const ServicesBento = () => {
+  const [first, second, ...rest] = coreServices;
 
-      <FadeInView delay={0.3}>
-        <div className="flex h-full flex-col justify-between rounded-lg border border-dashed border-border p-5 md:p-6">
-          <div>
-            <p className="eyebrow text-muted-foreground">Also from Firm Foundation</p>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              The jobs that come up around the ones above, and the one-offs that fit no list.
-            </p>
-          </div>
-          <ul className="mt-5 divide-y divide-border border-y border-border">
+  return (
+    <>
+      <ul className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 sm:gap-y-14 lg:grid-cols-6 lg:gap-x-8 lg:gap-y-20">
+        {[first, second].map((service, i) => (
+          <ServiceFigure
+            key={service.slug}
+            service={service}
+            index={i}
+            eager
+            large
+            blurb={service.summary}
+            sizes="(min-width: 1024px) 45vw, (min-width: 640px) 50vw, 100vw"
+            aspect="aspect-[4/3] lg:aspect-[5/4]"
+            className="lg:col-span-3"
+          />
+        ))}
+        {rest.map((service, i) => {
+          // The odd one out at two-up spans the row, so the grid never ends on
+          // a hole; at three-up it falls back into line.
+          const last = i === rest.length - 1 && rest.length % 2 === 1;
+          return (
+            <ServiceFigure
+              key={service.slug}
+              service={service}
+              index={i + 2}
+              blurb={service.navBlurb}
+              sizes={last ? "(min-width: 1024px) 30vw, 100vw" : "(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"}
+              aspect={cn("aspect-[16/10] lg:aspect-[4/3]", last ? "sm:aspect-[21/9]" : "sm:aspect-[4/3]")}
+              className={cn("lg:col-span-2", last && "sm:col-span-2")}
+            />
+          );
+        })}
+      </ul>
+
+      {/* The rest of the work: the same rule, set as a list beside a note. */}
+      <div className="mt-20 grid grid-cols-1 gap-8 md:mt-28 lg:grid-cols-12 lg:gap-10">
+        <FadeInView className="lg:col-span-4">
+          <h3 className="font-heading text-[1.75rem] leading-none text-foreground md:text-[2.25rem]">
+            Also from Firm Foundation
+          </h3>
+          <p className="mt-4 max-w-sm leading-relaxed text-muted-foreground">
+            The jobs that come up around the ones above, and the one-offs that fit no list.
+          </p>
+        </FadeInView>
+        <FadeInView delay={0.08} className="lg:col-span-8">
+          <ul className="border-t border-border">
             {moreServices.map((service) => (
-              <li key={service.slug}>
+              <li key={service.slug} className="border-b border-border">
                 <Link
                   to={`/services/${service.slug}`}
-                  className="group flex min-h-[44px] items-center justify-between gap-3 py-2.5 text-sm text-foreground/80 transition-colors hover:text-primary"
+                  className="group grid min-h-[44px] grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-4 py-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background md:grid-cols-[minmax(0,15rem)_minmax(0,1fr)_auto] md:gap-x-8 md:py-6"
                 >
-                  {service.title}
-                  <ArrowUpRight className="h-4 w-4 shrink-0 opacity-50 transition-opacity group-hover:opacity-100" aria-hidden="true" />
+                  <span className="font-heading text-xl leading-tight text-foreground underline decoration-transparent decoration-1 underline-offset-[5px] transition-colors duration-300 group-hover:decoration-foreground/35 md:text-2xl">
+                    {service.title}
+                  </span>
+                  <span className="col-start-1 row-start-2 mt-1.5 text-sm leading-relaxed text-muted-foreground md:col-start-2 md:row-start-1 md:mt-0 md:text-base">
+                    {service.navBlurb}
+                  </span>
+                  <ArrowUpRight
+                    className="col-start-2 row-start-1 h-5 w-5 self-center text-muted-foreground transition-[transform,color] duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground md:col-start-3"
+                    aria-hidden="true"
+                  />
                 </Link>
               </li>
             ))}
           </ul>
-        </div>
-      </FadeInView>
-    </div>
+        </FadeInView>
+      </div>
+    </>
   );
 };
 

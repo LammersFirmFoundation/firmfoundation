@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Section from "@/components/layout/Section";
@@ -32,6 +30,9 @@ type Project = {
   image: string;
   srcSet?: string;
   alt: string;
+  /** Intrinsic size, so the page doesn't jump as each photo arrives. */
+  width: number;
+  height: number;
 };
 
 /**
@@ -44,7 +45,8 @@ type Project = {
  *
  * Two to a row, and each row pairs like shapes (4:3 with 4:3, portrait with
  * portrait), because the grid aligns to the top and a short picture beside a
- * tall one leaves a hole.
+ * tall one leaves a hole. The odd one out (the pantry) takes the last row's
+ * left half, and the closing note sits in the right half on purpose.
  */
 const projects: Project[] = [
   {
@@ -54,6 +56,8 @@ const projects: Project[] = [
     place: "Mount Pleasant, SC",
     image: landscapingBed,
     alt: "Before and after: overgrown front yard transformed with fresh mulch beds and plantings, Mount Pleasant SC",
+    width: 1069,
+    height: 1600,
   },
   {
     title: "Front Walkway & Lawn Renovation",
@@ -62,6 +66,8 @@ const projects: Project[] = [
     place: "Mount Pleasant, SC",
     image: landscapingWalkway,
     alt: "Before and after: bare mulch bed transformed into a flagstone walkway with fresh sod, Mount Pleasant SC",
+    width: 1024,
+    height: 1536,
   },
   {
     title: "Timber & Lot Clearing",
@@ -70,6 +76,8 @@ const projects: Project[] = [
     place: "Lowcountry, SC",
     image: landClearing,
     alt: "Firm Foundation's tracked excavator working through felled timber on a Lowcountry clearing job",
+    width: 1206,
+    height: 904,
   },
   {
     title: "Stumps Out, Root Ball and All",
@@ -78,6 +86,8 @@ const projects: Project[] = [
     image: stumpRootBall,
     srcSet: stumpRootBallSet,
     alt: "An excavator bucket lifting a stump out of the ground with its whole root ball, a second excavator working behind it",
+    width: 1600,
+    height: 1200,
   },
   {
     title: "Clearing a Wooded Tract",
@@ -86,6 +96,8 @@ const projects: Project[] = [
     image: clearingCab,
     srcSet: clearingCabSet,
     alt: "From the excavator cab: the bucket working a pile of roots and brush across a cleared tract, with a second excavator at the tree line",
+    width: 1200,
+    height: 1600,
   },
   {
     title: "Forestry Mulching",
@@ -94,6 +106,8 @@ const projects: Project[] = [
     image: forestryMulching,
     srcSet: forestryMulchingSet,
     alt: "From the cab of a forestry mulcher: the mulching head working through underbrush between standing pines",
+    width: 1200,
+    height: 1600,
   },
   {
     title: "Butler's Pantry Build",
@@ -102,8 +116,17 @@ const projects: Project[] = [
     place: "Mount Pleasant, SC",
     image: customPantry,
     alt: "Custom butler's pantry: painted shaker cabinetry, brass hardware, patterned tile backsplash, and a quartz counter, Mount Pleasant SC",
+    width: 1200,
+    height: 1600,
   },
 ];
+
+/**
+ * Display casing for a caption. The data keeps its Title Case (it is also the
+ * schema `name`); the page sets titles in sentence case like every other
+ * heading on the site.
+ */
+const sentenceCase = (text: string) => text.charAt(0) + text.slice(1).toLowerCase();
 
 const Gallery = () => {
   return (
@@ -137,63 +160,93 @@ const Gallery = () => {
           ]}
         />
 
-        {/* Page header */}
-        <section className="px-5 sm:px-6 md:px-10 py-16 md:py-24">
-          <div className="mx-auto max-w-content">
-            <FadeInView immediate>
-              <p className="eyebrow text-primary mb-6">Portfolio</p>
-              <h1 className="text-hero md:text-display font-heading max-w-4xl">
-                Recent work in
-                <br />
-                <span className="text-highlight">Mount Pleasant</span>
+        {/* ── Page header ─────────────────────────────────────────────────
+            Pure CSS entrance (above the fold), lede set beside the title. */}
+        <section className="px-5 pb-12 pt-10 sm:px-6 md:px-10 md:pb-16 md:pt-16">
+          <div className="mx-auto grid max-w-content grid-cols-1 gap-7 lg:grid-cols-12 lg:items-end lg:gap-10">
+            <div className="lg:col-span-8">
+              <p className="mark mb-6 hero-rise">Portfolio</p>
+              <h1 className="text-hero font-heading text-foreground text-balance">
+                <span className="hero-line">
+                  <span style={{ animationDelay: "40ms" }}>Recent work in Mount Pleasant</span>
+                </span>
               </h1>
-              <p className="text-subtitle text-muted-foreground mt-8 max-w-xl leading-relaxed">
-                Real jobs, photographed on site, from the dirt work to the
-                finished yard.
-              </p>
-            </FadeInView>
+            </div>
+            <p
+              className="hero-rise max-w-md text-subtitle leading-relaxed text-muted-foreground lg:col-span-4 lg:pb-2"
+              style={{ animationDelay: "160ms" }}
+            >
+              Real jobs, photographed on site, from the dirt work to the
+              finished yard.
+            </p>
           </div>
         </section>
 
-        <Section className="pt-0">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 items-start">
-            {projects.map((project, index) => (
-              <FadeInView key={project.title} delay={index * 0.08}>
-                <figure className="group">
-                  <div className="overflow-hidden rounded-lg bg-muted">
-                    <img
-                      src={project.image}
-                      srcSet={project.srcSet}
-                      sizes={project.srcSet ? "(min-width: 768px) 50vw, 100vw" : undefined}
-                      alt={project.alt}
-                      loading={index === 0 ? "eager" : "lazy"}
-                      decoding="async"
-                      className="w-full h-auto object-cover transition-transform duration-700 ease-editorial group-hover:scale-[1.03]"
-                    />
-                  </div>
-                  <figcaption className="mt-6 flex items-start justify-between gap-6 border-t border-border pt-5">
-                    <div>
-                      <h2 className="font-heading text-xl md:text-2xl text-foreground">
-                        {project.title}
+        {/* ── The plates ──────────────────────────────────────────────────
+            Set like a printed portfolio: each photo whole, at its own shape,
+            with a plate number, title, kind of work and place underneath. No
+            hover zoom: nothing here is a link, so nothing should act like one. */}
+        <Section className="pt-0 md:pt-0">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2 md:gap-y-20 lg:gap-x-12">
+            {projects.map((project, index) => {
+              // The first row is on screen at load: no reveal, eager, so the
+              // prerendered HTML is the finished picture.
+              const aboveFold = index < 2;
+              const figure = (
+                <figure>
+                  <img
+                    src={project.image}
+                    srcSet={project.srcSet}
+                    sizes={project.srcSet ? "(min-width: 768px) 50vw, 100vw" : undefined}
+                    alt={project.alt}
+                    width={project.width}
+                    height={project.height}
+                    loading={aboveFold ? "eager" : "lazy"}
+                    decoding="async"
+                    className="h-auto w-full rounded-[3px] bg-muted"
+                  />
+                  <figcaption className="mt-5 grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-3 border-t border-border pt-4 sm:grid-cols-[2.75rem_minmax(0,1fr)]">
+                    <span className="pt-1.5 font-serif text-sm tabular-nums text-muted-foreground">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div className="min-w-0">
+                      <h2 className="font-heading text-2xl leading-[1.02] text-foreground md:text-[1.75rem]">
+                        {sentenceCase(project.title)}
                       </h2>
-                      <p className="eyebrow text-muted-foreground mt-2.5">
+                      <p className="mt-2 text-sm text-muted-foreground">
+                        {sentenceCase(project.category)}
+                        <span aria-hidden="true" className="mx-2 text-foreground/30">
+                          /
+                        </span>
                         {project.label}
                       </p>
                     </div>
-                    <span className="eyebrow text-primary shrink-0 pt-1">
-                      {project.category}
-                    </span>
                   </figcaption>
                 </figure>
-              </FadeInView>
-            ))}
-          </div>
+              );
 
-          <FadeInView delay={0.1}>
-            <p className="text-center eyebrow text-muted-foreground mt-20">
+              return aboveFold ? (
+                <div key={project.title}>{figure}</div>
+              ) : (
+                <FadeInView key={project.title} delay={(index % 2) * 0.08}>
+                  {figure}
+                </FadeInView>
+              );
+            })}
+
+            {/* An odd last plate leaves the row's right half empty. The closing
+                note takes it on purpose, ruled level with the caption beside
+                it, rather than leaving an accidental hole. */}
+            <p
+              className={
+                projects.length % 2 === 1
+                  ? "border-t border-border pt-4 text-sm text-muted-foreground md:self-end md:pb-[2.3rem]"
+                  : "border-t border-border pt-4 text-sm text-muted-foreground md:col-span-2"
+              }
+            >
               More projects added regularly
             </p>
-          </FadeInView>
+          </div>
         </Section>
 
         <CtaSection
