@@ -286,7 +286,7 @@ const ContactUs = () => {
   /** The six tiles of step 1: the five core jobs, then the way out. */
   const jobOptions = [
     ...coreServices.map((s) => ({ key: s.slug, title: s.title, blurb: s.navBlurb })),
-    { key: OTHER, title: "Something else", blurb: "A patio, beds, a build, or not sure" },
+    { key: OTHER, title: "Something else", blurb: "Trees, drainage, mulching, a build, or not sure" },
   ];
 
   return (
@@ -334,12 +334,12 @@ const ContactUs = () => {
           </div>
         </section>
 
-        <Section className="pt-10 md:pt-12 lg:pt-14">
+        <Section className="pt-10 md:pt-12 lg:pt-0">
           <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-0 [&>*]:min-w-0">
             {/* Contact details — beside the form on desktop (left, sticky), but
                 AFTER it on a phone: someone who tapped "Get a free quote" should
                 land on the form, not scroll past an email address to find it. */}
-            <div className="order-2 border-t border-border pt-10 lg:order-1 lg:col-span-4 lg:sticky lg:top-28 lg:self-start lg:border-t-0 lg:pt-0 lg:pr-12 xl:pr-16">
+            <div className="order-2 border-t border-border pt-10 lg:order-1 lg:col-span-4 lg:sticky lg:top-14 lg:self-start lg:border-t-0 lg:pt-14 lg:pr-12 xl:pr-16">
               <h2 className="font-heading text-[1.75rem] leading-tight text-foreground md:text-[2rem]">
                 Rather talk?
               </h2>
@@ -406,10 +406,12 @@ const ContactUs = () => {
             </div>
 
             {/* The quote form. No box around it: the vertical rule is the
-                divider on Josiah's business card, and the page is the paper. */}
-            <div className="order-1 lg:order-2 lg:col-span-8 lg:border-l lg:border-border lg:pl-12 xl:pl-16">
+                divider on Josiah's business card, and the page is the paper.
+                On desktop it runs up to meet the header's rule, so the two
+                read as one ruled sheet. */}
+            <div className="order-1 lg:order-2 lg:col-span-8 lg:border-l lg:border-border lg:pl-12 lg:pt-14 xl:pl-16">
               {sent ? (
-                <div role="status" className="border-t-2 border-foreground pt-8 md:pt-10">
+                <div role="status" className="lg:border-t-2 lg:border-foreground lg:pt-10">
                   <span
                     aria-hidden="true"
                     className="flex h-9 w-9 items-center justify-center rounded-[3px] bg-primary text-primary-foreground"
@@ -467,7 +469,15 @@ const ContactUs = () => {
                   )}
 
                   <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="mt-9" noValidate>
+                    {/* The job check also runs when the name or phone is missing,
+                        so every problem shows at once instead of in two rounds. */}
+                    <form
+                      onSubmit={form.handleSubmit(onSubmit, () => {
+                        if (!serviceTitle) setJobError(true);
+                      })}
+                      className="mt-9"
+                      noValidate
+                    >
                       {/* ── 1 The job ──────────────────────────────── */}
                       <fieldset
                         ref={jobRef}

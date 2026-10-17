@@ -84,9 +84,9 @@ const Header = ({ transparent = false }: HeaderProps) => {
           </Link>
 
           {/* Desktop navigation */}
-          <div className="hidden md:flex items-center gap-7 lg:gap-10">
+          <div className="hidden lg:flex items-center gap-7 xl:gap-10">
             <NavigationMenu.Root value={menu} onValueChange={setMenu} delayDuration={60} aria-label="Main">
-              <NavigationMenu.List className="flex items-center gap-7 lg:gap-10">
+              <NavigationMenu.List className="flex items-center gap-7 xl:gap-10">
                 <NavigationMenu.Item value="services" className="relative">
                   <NavigationMenu.Trigger className={`group inline-flex items-center gap-1.5 ${linkStyle} data-[state=open]:text-foreground`}>
                     Services
@@ -157,7 +157,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
           </div>
 
           {/* Mobile: tap-to-call plus the menu */}
-          <div className="flex items-center gap-1 md:hidden">
+          <div className="flex items-center gap-1 lg:hidden">
             <a
               href={BUSINESS.phoneHref}
               data-analytics-where="header-mobile"
