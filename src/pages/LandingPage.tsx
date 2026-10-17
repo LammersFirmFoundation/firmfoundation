@@ -18,6 +18,8 @@ import ReviewsGrid from "@/components/ReviewsGrid";
 import HeroMosaic from "@/components/HeroMosaic";
 import OurStory from "@/components/OurStory";
 import { useReviews, type ApiResponse } from "@/lib/useReviews";
+import { useInstagram, type InstagramFeed } from "@/lib/useInstagram";
+import InstagramStrip from "@/components/InstagramStrip";
 import { ACCEPTS_SMS, BUSINESS, howAJobRuns, smsHref } from "@/data/business";
 import { localBusinessSchema, websiteSchema } from "@/lib/schema";
 import { services } from "@/data/services";
@@ -45,8 +47,13 @@ const beforeAfterServices = services.filter((s) => s.beforeAfter);
  * footer. The areas now sit in one line inside the closing CTA.
  */
 const LandingPage = () => {
-  const loaderData = useLoaderData() as ApiResponse | undefined;
-  const { reviews, aggregateRating, totalReviewCount } = useReviews(loaderData);
+  const loaderData = useLoaderData() as (ApiResponse & { instagram?: InstagramFeed }) | undefined;
+  // The loader returns an empty review list when only Instagram answered;
+  // that must fall back to the snapshot, not count as "no reviews".
+  const { reviews, aggregateRating, totalReviewCount } = useReviews(
+    loaderData?.reviews?.length ? loaderData : undefined,
+  );
+  const instagramPosts = useInstagram(loaderData?.instagram);
   const shouldReduceMotion = useReducedMotion();
 
   // Hero copy drifts up and dissolves as the page moves off it, so the hero
@@ -208,6 +215,10 @@ const LandingPage = () => {
           <SectionHeader eyebrow="How it works" title="What happens when you call" />
           <ProcessSteps steps={howAJobRuns} />
         </Section>
+
+        {/* ── Instagram: what Josiah has been doing lately. Renders nothing
+            until the feed is connected (see api/instagram.ts). */}
+        <InstagramStrip posts={instagramPosts} />
 
         {/* ── 6. Who ───────────────────────────────────────────────────── */}
         <Section variant="cream" className="py-14 md:py-20">

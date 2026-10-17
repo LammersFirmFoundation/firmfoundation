@@ -6,6 +6,7 @@ import { Outlet } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { ClientOnly, type RouteRecord } from "vite-react-ssg";
 import type { ApiResponse } from "./lib/useReviews";
+import type { InstagramFeed } from "./lib/useInstagram";
 import { services } from "./data/services";
 import { guides } from "./data/guides";
 import ScrollToTop from "./components/ScrollToTop";
@@ -52,6 +53,29 @@ async function reviewsLoader(): Promise<ApiResponse | undefined> {
   }
 }
 
+/**
+ * The homepage needs the reviews and Josiah's Instagram posts. Same rules as
+ * the reviews: our own public endpoint, cache-busted at build time only. A
+ * failure on either side just leaves that half undefined, and the page falls
+ * back as it would in a browser.
+ */
+async function homeLoader(): Promise<(ApiResponse & { instagram?: InstagramFeed }) | undefined> {
+  const instagramFeed = async (): Promise<InstagramFeed | undefined> => {
+    try {
+      const url = import.meta.env.SSR
+        ? `https://firmfoundationsc.com/api/instagram?build=${Date.now()}`
+        : "/api/instagram";
+      const res = await fetch(url, import.meta.env.SSR ? { cache: "no-store" } : undefined);
+      return res.ok ? ((await res.json()) as InstagramFeed) : undefined;
+    } catch {
+      return undefined;
+    }
+  };
+  const [reviews, instagram] = await Promise.all([reviewsLoader(), instagramFeed()]);
+  if (!reviews && !instagram) return undefined;
+  return { ...(reviews ?? { reviews: [], aggregateRating: null, totalReviewCount: null }), instagram };
+}
+
 // Shared layout: wraps every route with app-wide providers. vite-react-ssg
 // supplies the router (and the Helmet head provider used by <Head>), so we no
 // longer mount BrowserRouter or HelmetProvider here.
@@ -84,7 +108,7 @@ export const routes: RouteRecord[] = [
     path: "/",
     element: <RootLayout />,
     children: [
-      { index: true, element: <LandingPage />, loader: reviewsLoader },
+      { index: true, element: <LandingPage />, loader: homeLoader },
       { path: "services", element: <ServicesPage /> },
       {
         // One prerendered page per service. `getStaticPaths` is what makes

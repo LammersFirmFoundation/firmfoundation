@@ -120,7 +120,7 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   className="hover:text-primary transition-colors break-all"
                 >
-                  @firmfoundation_chs
+                  {BUSINESS.instagramHandle}
                 </a>
               </li>
             </ul>
