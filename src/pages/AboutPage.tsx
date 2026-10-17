@@ -45,9 +45,9 @@ const AboutPage = () => {
       <main id="main" className="flex-1 pt-24">
         <SEO
           title="About Firm Foundation | Mount Pleasant, SC"
-          description="A family-run land clearing and excavation company based in Mount Pleasant, SC. Meet founder Josiah Lammers and see how Firm Foundation works."
+          description="A family-run landscaping, hardscape and excavation company based in Mount Pleasant, SC. Meet owner-operator Josiah Lammers and see how Firm Foundation works."
           canonical="/about"
-          keywords="family owned land clearing Mount Pleasant SC, local excavation contractor Charleston, Josiah Lammers, about Firm Foundation"
+          keywords="family owned landscaping Mount Pleasant SC, local hardscape contractor Charleston, excavation contractor Mount Pleasant, Josiah Lammers, about Firm Foundation"
           jsonLd={[
             {
               "@context": "https://schema.org",
@@ -68,13 +68,13 @@ const AboutPage = () => {
               <h1 className="text-hero md:text-display font-heading max-w-4xl">
                 A family business
                 <br />
-                <span className="text-primary">in Mount Pleasant</span>
+                <span className="text-highlight">in Mount Pleasant</span>
               </h1>
               <p className="text-subtitle text-muted-foreground mt-8 max-w-xl leading-relaxed">
-                Firm Foundation Property Services is a family-run land clearing
-                and excavation company in Mount Pleasant, South Carolina, run by{" "}
-                {BUSINESS.owner}. The work goes back a lot further than the
-                company does.
+                Firm Foundation Property Services is a family-run landscaping,
+                hardscape and excavation company in Mount Pleasant, South
+                Carolina, run by {BUSINESS.owner}. The dirt work goes back a lot
+                further than the company does.
               </p>
             </FadeInView>
           </div>
@@ -107,7 +107,7 @@ const AboutPage = () => {
               <h2 className="text-hero font-heading text-foreground mb-8">
                 Built on
                 <br />
-                <span className="text-primary">solid rock</span>
+                <span className="text-highlight">solid rock</span>
               </h2>
               <div className="space-y-5 text-muted-foreground leading-relaxed">
                 <p>
@@ -157,7 +157,7 @@ const AboutPage = () => {
                       <span className="eyebrow text-primary block mb-5">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <h3 className="font-heading text-3xl md:text-[2.5rem] font-extralight leading-[1.05] text-foreground">
+                      <h3 className="font-heading text-3xl md:text-[2.5rem] leading-[1.05] text-foreground">
                         {principle.title}
                       </h3>
                     </div>

@@ -101,16 +101,16 @@ export const postalAddressSchema = {
 export const howAJobRuns = [
   {
     label: "Call, text or send the form",
-    detail: "Tell us what you're looking at. A photo of the ground says more than a paragraph.",
+    detail: "Tell us what you're looking at. A photo of the yard says more than a paragraph.",
   },
   {
     label: "A free walk-through",
     detail:
-      "Josiah walks it with you and gives you a straight number: what goes, what stays, and where the debris ends up.",
+      "Josiah walks it with you and gives you a straight number: what the job takes, what's included, and what happens to whatever comes out.",
   },
   {
     label: "Done right, cleaned up",
     detail:
-      "Utilities marked through SC811 before any digging. Debris hauled off, ground left graded, not rutted.",
+      "Utilities marked through SC811 before any digging. The base built properly, the site left clean, the ground left graded.",
   },
 ];

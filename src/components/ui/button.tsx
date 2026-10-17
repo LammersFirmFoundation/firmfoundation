@@ -6,11 +6,11 @@ import { cn } from "@/lib/utils";
 
 /**
  * Pill-shaped, uppercase, wide-tracked — the reference design's button language.
- * Colours come from the semantic tokens, so a button inside an `.on-cream`
- * section flips to the light palette without any per-call-site overrides.
+ * Colours come from the semantic tokens, so a button inside an `.on-forest`
+ * band turns cream on green without any per-call-site overrides.
  */
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-sans text-xs font-semibold uppercase tracking-[0.14em] ring-offset-background transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-label text-xs font-semibold uppercase tracking-[0.14em] ring-offset-background transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {

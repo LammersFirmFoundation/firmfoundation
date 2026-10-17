@@ -5,12 +5,13 @@ interface SectionProps {
   children: ReactNode;
   className?: string;
   /**
-   * `default` and `muted` sit on the dark charcoal ground; `cream` is the light
-   * relief tone. `cream` re-maps the semantic colour tokens for its whole
-   * subtree, so nested buttons, borders, and muted text follow without
-   * per-call-site overrides.
+   * `default` is the cream paper of the business card, `muted` a sand step
+   * darker, `cream` the lighter paper used for long reading (answers, guides,
+   * the story), and `forest` the deep-green band of the flyer. `forest`
+   * re-maps the semantic colour tokens for its whole subtree, so nested
+   * buttons, borders and muted text follow without per-call-site overrides.
    */
-  variant?: "default" | "muted" | "cream";
+  variant?: "default" | "muted" | "cream" | "forest";
   id?: string;
   /** Drop the container so children can run edge to edge. */
   bleed?: boolean;
@@ -25,7 +26,8 @@ interface SectionProps {
 const variantStyles: Record<NonNullable<SectionProps["variant"]>, string> = {
   default: "bg-background text-foreground",
   muted: "bg-muted text-foreground",
-  cream: "on-cream bg-cream text-cream-foreground",
+  cream: "bg-paper text-foreground",
+  forest: "on-forest bg-background text-foreground",
 };
 
 const Section = ({

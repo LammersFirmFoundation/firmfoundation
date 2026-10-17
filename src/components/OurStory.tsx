@@ -76,7 +76,7 @@ const OurStory = ({
         </FadeInView>
         <FadeInView delay={0.1}>
           <p className="eyebrow text-primary mb-3">Our story</p>
-          <Heading className="font-heading text-3xl font-extralight leading-tight text-foreground md:text-[2.5rem]">
+          <Heading className="font-heading text-3xl leading-tight text-foreground md:text-[2.5rem]">
             It started in the cab.
           </Heading>
           <p className="mt-3 leading-relaxed text-muted-foreground md:text-lg">
@@ -104,7 +104,7 @@ const OurStory = ({
         <br />
         in the cab
       </Heading>
-      <div className="space-y-5 sm:space-y-6 text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed font-light">
+      <div className="space-y-5 sm:space-y-6 text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed">
         <p>
           Josiah was barely old enough to walk the first time his Uncle Donnie
           sat him in an excavator.

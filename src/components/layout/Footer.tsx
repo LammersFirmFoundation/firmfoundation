@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Instagram } from "lucide-react";
 import { BUSINESS, serviceAreaNames } from "@/data/business";
 import { coreServices, moreServices } from "@/data/services";
-import logoLockup from "@/assets/logo-lockup.png";
+import logoBadge from "@/assets/brand/logo-badge.svg";
 
 const companyLinks = [
   { label: "About", path: "/about" },
@@ -14,17 +14,17 @@ const companyLinks = [
 
 const Footer = () => {
   return (
-    <footer className="mt-auto bg-charcoal-deep text-foreground border-t border-border">
+    <footer className="on-forest mt-auto bg-forest-deep text-foreground border-t border-border">
       <div className="mx-auto max-w-content px-5 sm:px-6 md:px-10 pt-14 pb-10 md:pt-16">
-        {/* The full logo lockup signs the page off. It carries white type, so
-            it only ever appears on the dark footer. */}
+        {/* The full badge signs the page off, on the forest ground it was
+            drawn to sit on. */}
         <img
-          src={logoLockup}
+          src={logoBadge}
           alt={BUSINESS.name}
-          width={340}
-          height={249}
+          width={780}
+          height={543}
           loading="lazy"
-          className="w-[160px] md:w-[200px] h-auto mb-10 md:mb-12"
+          className="w-[180px] md:w-[220px] h-auto mb-10 md:mb-12"
         />
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 sm:gap-x-8 gap-y-10">
@@ -44,7 +44,7 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-            <h3 className="eyebrow text-muted-foreground mt-7 mb-3">Also on request</h3>
+            <h3 className="eyebrow text-muted-foreground mt-7 mb-3">Also</h3>
             <ul className="space-y-2 text-sm text-foreground/55">
               {moreServices.map((service) => (
                 <li key={service.slug}>

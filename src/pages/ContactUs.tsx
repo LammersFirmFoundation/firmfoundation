@@ -126,7 +126,7 @@ const Step = ({ n, title, note }: { n: number; title: string; note?: string }) =
   <div className="mb-6 flex items-baseline gap-4">
     <span className="eyebrow text-primary">{String(n).padStart(2, "0")}</span>
     <div>
-      <h3 className="font-heading text-2xl font-extralight text-card-foreground">{title}</h3>
+      <h3 className="font-heading text-2xl text-card-foreground">{title}</h3>
       {note && <p className="mt-1 text-sm text-muted-foreground">{note}</p>}
     </div>
   </div>
@@ -254,9 +254,9 @@ const ContactUs = () => {
       <main id="main" className="flex-1 pt-24">
         <SEO
           title="Free Quote | Firm Foundation, Mount Pleasant SC"
-          description={`Get a free on-site quote for land clearing, tree and stump removal, grading, pool and pond digs, or drainage in Mount Pleasant and greater Charleston, SC. Call ${BUSINESS.phone}.`}
+          description={`Get a free on-site quote for landscaping, a patio or walkway, grading, pool and pond prep, or land clearing in Mount Pleasant and greater Charleston, SC. Call ${BUSINESS.phone}.`}
           canonical="/contact"
-          keywords="land clearing quote Charleston SC, free estimate land clearing, excavation quote Mount Pleasant, stump removal quote, drainage quote"
+          keywords="landscaping quote Mount Pleasant SC, paver patio estimate Charleston, free estimate hardscapes, excavation quote Mount Pleasant, land clearing quote, drainage quote"
           jsonLd={[
             {
               "@context": "https://schema.org",
@@ -277,7 +277,7 @@ const ContactUs = () => {
               <h1 className="text-hero font-heading max-w-4xl">
                 Get a free quote
                 <br />
-                <span className="text-primary">in Mount Pleasant</span>
+                <span className="text-highlight">in Mount Pleasant</span>
               </h1>
               <p className="text-subtitle text-muted-foreground mt-8 max-w-xl leading-relaxed">
                 Tell us about the ground and what you want it to be. Josiah will
@@ -366,7 +366,7 @@ const ContactUs = () => {
                     <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground">
                       <Check className="h-6 w-6" aria-hidden="true" />
                     </span>
-                    <h2 className="mt-7 font-heading text-3xl font-extralight text-card-foreground md:text-4xl">
+                    <h2 className="mt-7 font-heading text-3xl text-card-foreground md:text-4xl">
                       Got it, {sent}.
                     </h2>
                     <p className="mx-auto mt-4 max-w-sm leading-relaxed text-muted-foreground">
@@ -390,7 +390,7 @@ const ContactUs = () => {
                   </div>
                 ) : (
                   <>
-                    <h2 className="font-heading text-3xl md:text-4xl font-extralight text-card-foreground">
+                    <h2 className="font-heading text-3xl md:text-4xl text-card-foreground">
                       Request a quote
                     </h2>
                     <p className="mt-3 text-sm text-muted-foreground">

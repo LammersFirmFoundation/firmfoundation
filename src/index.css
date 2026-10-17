@@ -3,13 +3,20 @@
 @tailwind utilities;
 
 /**
- * Palette taken from the Firm Foundation logo: the black of the excavator, the
- * equipment yellow (#fcc832), and white — sat on the near-black charcoal ground
- * and generous section rhythm of the reference site.
+ * Palette sampled from the new Firm Foundation badge (2026-10-17): the green
+ * ink (#20472c) and the cream it is printed on (#fbedc9), plus the deep green
+ * of the flyer's bottom band (#12351f). Two colours, used the way the flyer and
+ * the business card use them: cream paper with green ink, and a few deep-green
+ * bands where the page needs weight (how a job runs, the closing call, the
+ * footer).
  *
- * The site is dark-dominant, so the dark values live on :root. The .dark block
- * mirrors them so a system/theme toggle can never flip the site into a
- * half-finished light mode.
+ * Every pair here was measured, not eyeballed: body text 12.4:1 on paper,
+ * green ink 9.2:1, muted text 5.9:1, the highlight green 4.5:1 (it only ever
+ * sets display-size type), cream on green 9.0:1, and on the deep-green bands
+ * cream 11.6:1, muted 7.8:1, sage highlight 8.1:1.
+ *
+ * The site is light now, so the light values live on :root and the .dark
+ * block mirrors them: a stray theme toggle can never half-dark the site.
  */
 @layer base {
   /**
@@ -32,84 +39,82 @@
   }
 
   :root {
-    --background: 216 17% 12%;
-    --foreground: 30 20% 96%;
+    --background: 44 59% 91%;
+    --foreground: 141 41% 13%;
 
-    --card: 216 15% 15%;
-    --card-foreground: 30 20% 96%;
+    --card: 44 65% 95%;
+    --card-foreground: 141 41% 13%;
 
-    --popover: 216 16% 14%;
-    --popover-foreground: 30 20% 96%;
+    --popover: 44 65% 95%;
+    --popover-foreground: 141 41% 13%;
 
-    /* Equipment yellow — buttons, links, eyebrows, active states */
-    --primary: 45 96% 59%;
-    --primary-foreground: 216 17% 12%;
+    /* The badge's green ink: buttons, links, eyebrows, icons. */
+    --primary: 138 38% 20%;
+    --primary-foreground: 43 86% 89%;
 
-    --secondary: 216 14% 18%;
-    --secondary-foreground: 30 20% 96%;
+    /* A brighter leaf green for the accent line of a two-tone headline. 4.5:1
+       on paper, so it is for display-size type only, never body copy. */
+    --highlight: 135 33% 36%;
 
-    --muted: 216 15% 16%;
-    --muted-foreground: 28 9% 68%;
+    --secondary: 44 49% 85%;
+    --secondary-foreground: 141 41% 13%;
 
-    --accent: 216 14% 20%;
-    --accent-foreground: 30 20% 96%;
+    --muted: 44 49% 85%;
+    --muted-foreground: 134 13% 34%;
 
-    --destructive: 0 62% 48%;
+    --accent: 44 45% 87%;
+    --accent-foreground: 141 41% 13%;
+
+    --destructive: 0 62% 40%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 216 11% 22%;
-    /* Deliberately lighter than --border: form-control boundaries need 3:1
-       (WCAG 1.4.11), while decorative section rules do not. */
-    --input: 216 11% 46%;
-    --ring: 45 96% 59%;
+    --border: 44 37% 76%;
+    /* Deliberately darker than --border: form-control boundaries need 3:1
+       (WCAG 1.4.11), while decorative section rules do not. 3.3:1 on paper. */
+    --input: 91 9% 48%;
+    --ring: 138 38% 20%;
 
-    /* Named brand tones, for sections that step outside the semantic scale */
-    --cream: 40 30% 96%;
-    --cream-foreground: 216 17% 12%;
-    --charcoal: 216 17% 12%;
-    --charcoal-deep: 216 21% 8%;
-    --brand-yellow: 45 96% 59%;
+    /* Named brand tones, for sections that step outside the semantic scale. */
+    --cream: 43 86% 89%;
+    --cream-foreground: 138 38% 20%;
+    --paper: 44 65% 95%;
+    --sand: 44 49% 85%;
+    --forest: 142 49% 14%;
+    --forest-deep: 143 52% 10%;
 
     --radius: 0.25rem;
 
-    --sidebar-background: 216 17% 12%;
-    --sidebar-foreground: 30 20% 96%;
-    --sidebar-primary: 45 96% 59%;
-    --sidebar-primary-foreground: 216 17% 12%;
-    --sidebar-accent: 216 14% 18%;
-    --sidebar-accent-foreground: 30 20% 96%;
-    --sidebar-border: 216 11% 22%;
-    --sidebar-ring: 45 96% 59%;
+    --sidebar-background: 44 59% 91%;
+    --sidebar-foreground: 141 41% 13%;
+    --sidebar-primary: 138 38% 20%;
+    --sidebar-primary-foreground: 43 86% 89%;
+    --sidebar-accent: 44 45% 87%;
+    --sidebar-accent-foreground: 141 41% 13%;
+    --sidebar-border: 44 37% 76%;
+    --sidebar-ring: 138 38% 20%;
   }
 
   .dark {
-    --background: 216 17% 12%;
-    --foreground: 30 20% 96%;
-
-    --card: 216 15% 15%;
-    --card-foreground: 30 20% 96%;
-
-    --popover: 216 16% 14%;
-    --popover-foreground: 30 20% 96%;
-
-    --primary: 45 96% 59%;
-    --primary-foreground: 216 17% 12%;
-
-    --secondary: 216 14% 18%;
-    --secondary-foreground: 30 20% 96%;
-
-    --muted: 216 15% 16%;
-    --muted-foreground: 28 9% 68%;
-
-    --accent: 216 14% 20%;
-    --accent-foreground: 30 20% 96%;
-
-    --destructive: 0 62% 48%;
+    --background: 44 59% 91%;
+    --foreground: 141 41% 13%;
+    --card: 44 65% 95%;
+    --card-foreground: 141 41% 13%;
+    --popover: 44 65% 95%;
+    --popover-foreground: 141 41% 13%;
+    --primary: 138 38% 20%;
+    --primary-foreground: 43 86% 89%;
+    --highlight: 135 33% 36%;
+    --secondary: 44 49% 85%;
+    --secondary-foreground: 141 41% 13%;
+    --muted: 44 49% 85%;
+    --muted-foreground: 134 13% 34%;
+    --accent: 44 45% 87%;
+    --accent-foreground: 141 41% 13%;
+    --destructive: 0 62% 40%;
     --destructive-foreground: 0 0% 100%;
-
-    --border: 216 11% 22%;
-    --input: 216 11% 46%;
-    --ring: 45 96% 59%;
+    --border: 44 37% 76%;
+    --input: 91 9% 48%;
+    --ring: 138 38% 20%;
   }
 }
 
@@ -126,49 +131,70 @@
 
   body {
     @apply bg-background text-foreground font-sans;
-    font-weight: 300;
+    font-weight: 400;
   }
 
-  /* Display type is set ultra-light and tight — the single strongest signal
-     in the reference design. Weight and tracking live here so every heading
-     inherits them without each page restating the classes. */
+  /* Display type is a heavy condensed grotesk, the voice of the flyer and the
+     business card ("DIRT WORK DONE RIGHT.", "SERVICES"). Archivo's width axis
+     gives that condensed cut from one variable file. Weight, width and
+     tracking live here so every heading inherits them; nothing should set a
+     light weight on a heading any more. */
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading;
-    font-weight: 200;
-    letter-spacing: -0.03em;
+  }
+  h1, h2, h3, h4, h5, h6,
+  .font-heading {
+    font-weight: 800;
+    font-stretch: 78%;
+    letter-spacing: -0.005em;
+  }
+  h3, h4, h5, h6 {
+    font-weight: 700;
+    font-stretch: 85%;
+  }
+}
+
+@layer utilities {
+  /* The two display sizes are always set in capitals, like the flyer's
+     headline. Smaller headings (cards, questions) stay in sentence case: a
+     long question in condensed capitals is hard to read. */
+  .text-display,
+  .text-hero {
+    text-transform: uppercase;
   }
 }
 
 @layer components {
   /* Small uppercase label that sits above a display heading. */
   .eyebrow {
-    @apply font-sans text-[0.6875rem] font-medium uppercase tracking-[0.22em];
+    @apply font-label text-[0.6875rem] font-semibold uppercase tracking-[0.2em];
   }
 }
 
-/* Light and yellow sections sit inside a dark page, so each re-maps the
-   semantic tokens for its whole subtree — nested buttons, borders, and muted
-   text then follow without any per-call-site overrides. */
-.on-cream {
-  --background: 40 30% 96%;
-  --foreground: 216 17% 12%;
-  /* Brand yellow is only 1.5:1 on a light ground. This dark amber reads as the
-     same brand colour and clears 5.9:1, so eyebrow-size text still passes AA. */
-  --primary: 40 75% 27%;
-  --primary-foreground: 40 30% 96%;
-  --ring: 40 75% 27%;
-  --card: 0 0% 100%;
-  --card-foreground: 216 17% 12%;
-  --muted: 40 20% 92%;
-  --muted-foreground: 216 10% 38%;
-  --border: 40 16% 87%;
-  --input: 40 12% 45%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 216 17% 12%;
-  --secondary: 40 20% 92%;
-  --secondary-foreground: 216 17% 12%;
-  --accent: 40 20% 90%;
-  --accent-foreground: 216 17% 12%;
+/* The deep-green bands (how a job runs, the closing call, the footer, the
+   section drawings) re-map the semantic tokens for their whole subtree, so
+   nested buttons, borders and muted text follow with no per-call-site
+   overrides. Buttons turn cream with green lettering, like the flyer's
+   bottom band. */
+.on-forest {
+  --background: 142 49% 14%;
+  --foreground: 43 86% 89%;
+  --primary: 43 86% 89%;
+  --primary-foreground: 138 38% 20%;
+  --highlight: 93 37% 72%;
+  --ring: 43 86% 89%;
+  --card: 143 45% 17%;
+  --card-foreground: 43 86% 89%;
+  --muted: 143 45% 17%;
+  --muted-foreground: 56 24% 72%;
+  --border: 141 28% 24%;
+  --input: 56 15% 60%;
+  --popover: 143 45% 17%;
+  --popover-foreground: 43 86% 89%;
+  --secondary: 143 45% 17%;
+  --secondary-foreground: 43 86% 89%;
+  --accent: 143 40% 20%;
+  --accent-foreground: 43 86% 89%;
 }
 
 /* ── Hero entrance ────────────────────────────────────────────────────────
@@ -209,17 +235,4 @@
   }
 }
 
-/* The inverse: a subtree that must stay on the dark palette wherever it is
-   placed. The section drawings are dark sheets drawn in the dark tokens; set
-   inside a cream section, `.on-cream` would otherwise turn every line of them
-   charcoal on charcoal. */
-.on-dark {
-  --background: 216 17% 12%;
-  --foreground: 30 20% 96%;
-  --primary: 45 96% 59%;
-  --primary-foreground: 216 17% 12%;
-  --muted-foreground: 28 9% 68%;
-  --border: 216 11% 22%;
-  --ring: 45 96% 59%;
-}
 

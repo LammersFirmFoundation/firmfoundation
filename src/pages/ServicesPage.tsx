@@ -14,12 +14,12 @@ import { businessRef, breadcrumbSchema } from "@/lib/schema";
 const faqs = [
   {
     question: "What does Firm Foundation do?",
-    answer: `Land clearing and excavation: lot and underbrush clearing, tree and stump removal, grading and site prep, pool and pond digs, and drainage, across Mount Pleasant and greater Charleston. Smaller hardscape, landscaping and custom jobs are still taken on by request, usually alongside bigger ground work.`,
+    answer: `Landscaping, hardscapes and the dirt work under them: new beds, planting and sod, patios, walkways and retaining walls, grading and site prep, pool and pond prep, and land clearing, across Mount Pleasant and greater Charleston. Tree and stump removal, drainage, forestry mulching and one-off builds too. Most jobs are more than one of these.`,
   },
   {
-    question: "Can you clear a lot and keep the good trees?",
+    question: "Can you do the whole job, from the dirt work to the planting?",
     answer:
-      "Yes, and on most wooded Lowcountry lots that is the better job. Selective clearing takes out the brush, vines and scrub trees and leaves the oaks and pines you choose, with the machine kept off their roots. Big trees are worth checking with the town before anything comes down: Mount Pleasant protects most trees 16 inches and up on a single-family lot.",
+      "Yes, and that is usually the better way to do it. A patio, a new bed or a fresh lawn is only as good as the ground under it, so the same crew that clears, grades and compacts the base is the one that lays the stone or sets the plants. Nothing gets handed off halfway, and nobody blames the last trade when something settles.",
   },
   {
     question: "Can you fix standing water in my yard?",
@@ -41,13 +41,13 @@ const faqs = [
 ];
 
 /**
- * The services hub. Its title is deliberately broad: `/services/land-clearing`
- * and `/services/excavation` exist to own those terms, and a hub that led on
- * one of them would compete with its own child page.
+ * The services hub. Its title is deliberately broad: each service has its own
+ * page to own its terms, and a hub that led on one of them would compete with
+ * its own child page.
  *
- * Two tiers, as Josiah asked (2026-09-29): the five core services lead, and
- * the smaller work he still takes on sits in one tile — present and findable,
- * never leading.
+ * Two tiers: the five services on Josiah's own flyer and business card lead
+ * (2026-10-17), and the rest of the work he takes on sits in one tile, present
+ * and findable.
  */
 const ServicesPage = () => {
   return (
@@ -57,14 +57,14 @@ const ServicesPage = () => {
       <main id="main" className="flex-1 pt-24">
         <SEO
           title="Our Services, Mount Pleasant & Charleston SC | Firm Foundation"
-          description="Land clearing, tree and stump removal, grading and site prep, pool and pond excavation, and drainage for properties across Mount Pleasant and greater Charleston, SC."
+          description="Landscaping, hardscapes, excavation and grading, pool and pond prep, and land clearing for homes across Mount Pleasant and greater Charleston, SC."
           canonical="/services"
-          keywords="land clearing Charleston SC, excavation Mount Pleasant SC, lot clearing, stump removal, grading, site prep, pool excavation, pond digging, French drains, yard drainage"
+          keywords="landscaping Mount Pleasant SC, hardscapes Charleston SC, paver patio, retaining wall, sod installation, excavation Mount Pleasant SC, grading, pool excavation, land clearing, stump removal, drainage, forestry mulching"
           jsonLd={[
             {
               "@context": "https://schema.org",
               "@type": "ItemList",
-              name: "Land Clearing & Excavation Services",
+              name: "Landscaping, Hardscape & Excavation Services",
               itemListElement: services.map((service, index) => ({
                 "@type": "ListItem",
                 position: index + 1,
@@ -98,21 +98,20 @@ const ServicesPage = () => {
             <FadeInView immediate>
               <p className="eyebrow text-primary mb-6">What We Do</p>
               <h1 className="text-hero md:text-display font-heading max-w-4xl">
-                Land clearing
+                From the ground
                 <br />
-                <span className="text-primary">&amp; excavation</span>
+                <span className="text-highlight">up</span>
               </h1>
               <p className="text-subtitle text-muted-foreground mt-8 max-w-xl leading-relaxed">
-                Five kinds of ground work, often more than one on the same job.
+                Landscaping, hardscapes and the dirt work under them. Most jobs
+                are more than one of these, done by the same crew.
               </p>
             </FadeInView>
           </div>
         </section>
 
         {/* The same grid as the homepage: one way of showing the services,
-            everywhere. This page used to run five long alternating rows plus a
-            second section for the smaller jobs; each service already has its
-            own page for the long version. */}
+            everywhere. Each service has its own page for the long version. */}
         <Section className="pt-0">
           {/* The cards are h3s; the page needs an h2 above them for a sane outline. */}
           <h2 className="sr-only">All services</h2>
@@ -132,7 +131,7 @@ const ServicesPage = () => {
 
         <CtaSection
           title="Tell us about"
-          accent="the ground"
+          accent="the yard"
           blurb="What you're dealing with, and what you want it to be. We'll come look."
         />
       </main>

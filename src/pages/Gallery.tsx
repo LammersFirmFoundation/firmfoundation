@@ -35,9 +35,8 @@ type Project = {
 };
 
 /**
- * Order is the business's order: clearing first. The finish-work projects stay
- * — they are real and they are good — but they no longer lead the portfolio of
- * a land clearing and excavation company.
+ * Order is the business's order (2026-10-17): landscaping and hardscapes first,
+ * then the dirt work, then the one-offs.
  *
  * The three cab photos are Josiah's own, sent 2026-10-09 "to show more
  * experience". He didn't say where each job was, so they carry no place: the
@@ -48,6 +47,22 @@ type Project = {
  * tall one leaves a hole.
  */
 const projects: Project[] = [
+  {
+    title: "Planting Bed Installation",
+    category: "Landscaping",
+    label: "Mount Pleasant, SC",
+    place: "Mount Pleasant, SC",
+    image: landscapingBed,
+    alt: "Before and after: overgrown front yard transformed with fresh mulch beds and plantings, Mount Pleasant SC",
+  },
+  {
+    title: "Front Walkway & Lawn Renovation",
+    category: "Hardscapes",
+    label: "Mount Pleasant, SC",
+    place: "Mount Pleasant, SC",
+    image: landscapingWalkway,
+    alt: "Before and after: bare mulch bed transformed into a flagstone walkway with fresh sod, Mount Pleasant SC",
+  },
   {
     title: "Timber & Lot Clearing",
     category: "Land Clearing",
@@ -74,27 +89,11 @@ const projects: Project[] = [
   },
   {
     title: "Forestry Mulching",
-    category: "Land Clearing",
+    category: "Forestry Mulching",
     label: "From the operator's seat",
     image: forestryMulching,
     srcSet: forestryMulchingSet,
     alt: "From the cab of a forestry mulcher: the mulching head working through underbrush between standing pines",
-  },
-  {
-    title: "Front Walkway & Lawn Renovation",
-    category: "Landscaping",
-    label: "Mount Pleasant, SC",
-    place: "Mount Pleasant, SC",
-    image: landscapingWalkway,
-    alt: "Before and after: bare mulch bed transformed into a flagstone walkway with fresh sod, Mount Pleasant SC",
-  },
-  {
-    title: "Planting Bed Installation",
-    category: "Landscaping",
-    label: "Mount Pleasant, SC",
-    place: "Mount Pleasant, SC",
-    image: landscapingBed,
-    alt: "Before and after: overgrown front yard transformed with fresh mulch beds and plantings, Mount Pleasant SC",
   },
   {
     title: "Butler's Pantry Build",
@@ -114,9 +113,9 @@ const Gallery = () => {
       <main id="main" className="flex-1 pt-24">
         <SEO
           title="Project Gallery | Firm Foundation, Mount Pleasant"
-          description="Recent land clearing, excavation and finish work from Firm Foundation in Mount Pleasant and the greater Charleston area."
+          description="Recent landscaping, hardscape, excavation and clearing work from Firm Foundation in Mount Pleasant and the greater Charleston area, before and after."
           canonical="/gallery"
-          keywords="land clearing photos Charleston SC, lot clearing Mount Pleasant, excavation project photos, before and after Mount Pleasant"
+          keywords="landscaping before and after Mount Pleasant, flagstone walkway Charleston SC, landscape installation photos, excavation project photos, land clearing photos Charleston SC"
           jsonLd={[
             {
               "@context": "https://schema.org",
@@ -146,11 +145,11 @@ const Gallery = () => {
               <h1 className="text-hero md:text-display font-heading max-w-4xl">
                 Recent work in
                 <br />
-                <span className="text-primary">Mount Pleasant</span>
+                <span className="text-highlight">Mount Pleasant</span>
               </h1>
               <p className="text-subtitle text-muted-foreground mt-8 max-w-xl leading-relaxed">
-                Real jobs, photographed on site, from clearing and dirt work
-                to the finish on top.
+                Real jobs, photographed on site, from the dirt work to the
+                finished yard.
               </p>
             </FadeInView>
           </div>

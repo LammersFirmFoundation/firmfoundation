@@ -37,7 +37,7 @@ const ProcessSteps = ({ steps }: { steps: ServiceItem[] }) => {
               </span>
             </FadeInView>
             <FadeInView delay={0.15 * i + 0.05}>
-              <h3 className="font-heading text-2xl font-extralight leading-tight text-foreground md:mt-7 md:text-[1.75rem]">
+              <h3 className="font-heading text-2xl leading-tight text-foreground md:mt-7 md:text-[1.75rem]">
                 {step.label}
               </h3>
               <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground md:text-[0.9375rem]">

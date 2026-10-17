@@ -8,7 +8,7 @@ import {
   SheetClose,
   SheetTitle,
 } from "@/components/ui/sheet";
-import logoMark from "@/assets/logo-mark.png";
+import logoLockup from "@/assets/brand/logo-lockup.svg";
 import { ArrowRight, ChevronDown, Menu, Phone } from "lucide-react";
 import { useState, useEffect } from "react";
 import { BUSINESS } from "@/data/business";
@@ -28,12 +28,6 @@ const navLinks = [
 const linkStyle =
   "relative whitespace-nowrap eyebrow text-foreground/75 hover:text-foreground transition-colors py-1 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full";
 
-/**
- * The tagline under the wordmark reads "Land Clearing & Excavation", not the
- * legal name's "Property Services": it is the headline of Josiah's Instagram
- * ad, and the header is on every page. The full legal name still carries NAP
- * everywhere it counts — the footer, the schema, the contact page.
- */
 const Header = ({ transparent = false }: HeaderProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -75,25 +69,18 @@ const Header = ({ transparent = false }: HeaderProps) => {
     >
       <div className="mx-auto max-w-content px-4 sm:px-6 md:px-10 py-4 sm:py-5">
         <div className="flex items-center justify-between gap-6">
-          <Link to="/" className="flex items-center gap-2 sm:gap-3 group min-w-0">
-            {/* Full-colour mark — no knock-out filter, the yellow is the brand. */}
+          <Link to="/" className="shrink-0" aria-label={`${BUSINESS.name}, home`}>
+            {/* Josiah's own badge, recomposed side by side: the FF-and-excavator
+                mark beside the script, the same artwork as the full badge in
+                the footer. A stacked badge at header height would shrink the
+                script past reading. */}
             <img
-              src={logoMark}
-              alt={BUSINESS.name}
-              width={51}
-              height={40}
-              className="h-8 sm:h-10 w-auto shrink-0 transition-transform duration-500 group-hover:scale-105"
+              src={logoLockup}
+              alt=""
+              width={1443}
+              height={255}
+              className="h-[34px] min-[375px]:h-9 sm:h-10 lg:h-11 w-auto"
             />
-            <span className="leading-none min-w-0">
-              <span className="block font-heading text-[0.9375rem] sm:text-lg font-light tracking-[0.08em] sm:tracking-[0.14em] text-foreground whitespace-nowrap">
-                FIRM FOUNDATION
-              </span>
-              {/* Dropped below `sm` so the lockup can't push the header wider
-                  than the viewport on a phone; the hero says it anyway. */}
-              <span className="mt-1.5 hidden sm:block eyebrow text-muted-foreground whitespace-nowrap">
-                Land Clearing &amp; Excavation
-              </span>
-            </span>
           </Link>
 
           {/* Desktop navigation */}
@@ -109,7 +96,8 @@ const Header = ({ transparent = false }: HeaderProps) => {
                     />
                   </NavigationMenu.Trigger>
                   {/* A plain dropdown, not a mega menu: NN/g reserves those for
-                      big sites, and five services fit in one short list. */}
+                      big sites, and five services fit in one short list. The
+                      rest are one tap further, on /services and in the footer. */}
                   <NavigationMenu.Content className="absolute left-0 top-full mt-4 w-[21rem] data-[motion^=from-]:animate-in data-[motion^=from-]:fade-in data-[motion^=from-]:slide-in-from-top-1 data-[motion^=to-]:animate-out data-[motion^=to-]:fade-out">
                     <div className="overflow-hidden rounded-lg border border-border bg-background shadow-2xl">
                       <ul className="py-2">
@@ -120,7 +108,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                 to={`/services/${service.slug}`}
                                 className="group block px-5 py-3 transition-colors hover:bg-card focus:bg-card focus:outline-none"
                               >
-                                <span className="block font-heading text-lg font-light text-foreground group-hover:text-primary">
+                                <span className="block font-heading text-lg text-foreground group-hover:text-primary">
                                   {service.title}
                                 </span>
                                 <span className="mt-0.5 block text-xs text-muted-foreground">{service.navBlurb}</span>
@@ -136,7 +124,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                           </Link>
                         </NavigationMenu.Link>
-                        <span className="text-xs text-muted-foreground">+ patios, beds, builds</span>
+                        <span className="text-xs text-muted-foreground">+ trees, drainage, mulching</span>
                       </div>
                     </div>
                   </NavigationMenu.Content>
@@ -197,7 +185,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                         <SheetClose asChild>
                           <Link
                             to={`/services/${service.slug}`}
-                            className="flex min-h-[48px] items-center justify-between gap-3 py-2.5 font-heading text-xl font-light text-foreground hover:text-primary"
+                            className="flex min-h-[48px] items-center justify-between gap-3 py-2.5 font-heading text-xl text-foreground hover:text-primary"
                           >
                             {service.title}
                             <ArrowRight className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
@@ -211,7 +199,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                       <SheetClose key={link.path} asChild>
                         <Link
                           to={link.path}
-                          className="font-heading text-3xl font-light tracking-tight text-foreground hover:text-primary transition-colors"
+                          className="font-heading text-3xl tracking-tight text-foreground hover:text-primary transition-colors"
                         >
                           {link.label}
                         </Link>

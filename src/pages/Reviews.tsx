@@ -31,7 +31,7 @@ const Reviews = () => {
             1
           )} average from ${totalReviewCount} verified Google reviews.`}
           canonical="/reviews"
-          keywords="land clearing reviews Charleston SC, excavation contractor reviews Mount Pleasant, Firm Foundation reviews"
+          keywords="landscaping reviews Mount Pleasant SC, hardscape contractor reviews Charleston, excavation contractor reviews Mount Pleasant, Firm Foundation reviews"
           jsonLd={[
             {
               "@context": "https://schema.org",
@@ -52,7 +52,7 @@ const Reviews = () => {
               <h1 className="text-hero md:text-display font-heading max-w-4xl">
                 Client
                 <br />
-                <span className="text-primary">reviews</span>
+                <span className="text-highlight">reviews</span>
               </h1>
               <div className="mt-10 flex flex-wrap items-center gap-5">
                 <StarRating
@@ -91,7 +91,7 @@ const Reviews = () => {
                     size="h-4 w-4"
                     className="mb-6 gap-1 text-primary"
                   />
-                  <p className="text-lg font-heading font-light text-card-foreground leading-snug mb-8">
+                  <p className="text-lg font-heading text-card-foreground leading-snug mb-8">
                     &ldquo;{review.review}&rdquo;
                   </p>
 

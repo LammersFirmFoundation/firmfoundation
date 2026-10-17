@@ -19,13 +19,23 @@ import hardscapes from "@/assets/services/hardscapes.jpg";
 import hardscapesSet from "@/assets/services/hardscapes.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
 import landscaping from "@/assets/services/landscaping.jpg";
 import landscapingSet from "@/assets/services/landscaping.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
+// Josiah's before-and-after pairs, split out of the composites in the gallery
+// so a card can show the two halves side by side with real labels.
+import landscapingBefore from "@/assets/services/landscaping-before.jpg";
+import landscapingBeforeSet from "@/assets/services/landscaping-before.jpg?w=480;800&format=webp&quality=68&as=srcset";
+import landscapingAfter from "@/assets/services/landscaping-after.jpg";
+import landscapingAfterSet from "@/assets/services/landscaping-after.jpg?w=480;800&format=webp&quality=68&as=srcset";
+import hardscapesBefore from "@/assets/services/hardscapes-before.jpg";
+import hardscapesBeforeSet from "@/assets/services/hardscapes-before.jpg?w=480;800&format=webp&quality=68&as=srcset";
+import hardscapesAfter from "@/assets/services/hardscapes-after.jpg";
+import hardscapesAfterSet from "@/assets/services/hardscapes-after.jpg?w=480;800&format=webp&quality=68&as=srcset";
 import customProjects from "@/assets/services/custom-projects.jpg";
 import customProjectsSet from "@/assets/services/custom-projects.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
 
 export type ServiceItem = { label: string; detail: string };
 
 /** One of the section drawings in `ServicePlate` — see that file for why they exist. */
-export type PlateId = "clearing" | "trees" | "grading" | "pools" | "drainage";
+export type PlateId = "clearing" | "trees" | "grading" | "pools" | "drainage" | "beds" | "pavers" | "mulching";
 
 /**
  * `core` is what the business is: land clearing and excavation. `more` is work
@@ -60,6 +70,21 @@ export type Service = {
   cardImage?: string;
   cardImageSrcSet?: string;
   cardAlt?: string;
+  /**
+   * The same spot before and after one of Josiah's jobs. Where it exists, the
+   * service card shows the pair instead of `image`: the homepage hero already
+   * shows the finished photo, and the "before" is the half that proves it.
+   */
+  beforeAfter?: {
+    before: string;
+    beforeSrcSet: string;
+    after: string;
+    afterSrcSet: string;
+    /** One sentence for the pair, read once rather than twice. */
+    alt: string;
+    /** Crop focus for each half, which is narrower than the photo. */
+    position?: string;
+  };
   /** The section drawing. Every core service has one; it stands in for a photo we don't have yet. */
   plate?: PlateId;
   /**
@@ -480,6 +505,14 @@ export const services: Service[] = [
     image: hardscapes,
     imageSrcSet: hardscapesSet,
     alt: "Paver patio and stone walkway installation in Mount Pleasant, SC",
+    beforeAfter: {
+      before: hardscapesBefore,
+      beforeSrcSet: hardscapesBeforeSet,
+      after: hardscapesAfter,
+      afterSrcSet: hardscapesAfterSet,
+      alt: "Before and after beside a front porch: a bare strip of dirt, then a flagstone walkway set in new sod",
+      position: "45% 60%",
+    },
     summary:
       "Patios, walkways and retaining walls, built on a base that was excavated and compacted properly first.",
     description1:
@@ -506,6 +539,14 @@ export const services: Service[] = [
     image: landscaping,
     imageSrcSet: landscapingSet,
     alt: "Fresh mulch beds and seasonal plantings at a Mount Pleasant, SC home",
+    beforeAfter: {
+      before: landscapingBefore,
+      beforeSrcSet: landscapingBeforeSet,
+      after: landscapingAfter,
+      afterSrcSet: landscapingAfterSet,
+      alt: "Before and after at a Mount Pleasant home: tired beds along the front walk, then new mulch beds and shrubs",
+      position: "38% 60%",
+    },
     summary:
       "Bed installs, fresh mulch, planting and yard cleanups, usually as the finish on a clearing or grading job.",
     description1:

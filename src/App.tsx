@@ -57,7 +57,7 @@ async function reviewsLoader(): Promise<ApiResponse | undefined> {
 // longer mount BrowserRouter or HelmetProvider here.
 const RootLayout = () => (
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark">
+    <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light">
       <TooltipProvider>
         <a
           href="#main"

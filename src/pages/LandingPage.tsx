@@ -14,26 +14,17 @@ import StarRating from "@/components/StarRating";
 import ServicesBento from "@/components/ServicesBento";
 import ProcessSteps from "@/components/ProcessSteps";
 import ReviewsGrid from "@/components/ReviewsGrid";
-import HeroVideo from "@/components/HeroVideo";
-import RelitHero from "@/components/RelitHero";
+import HeroMosaic from "@/components/HeroMosaic";
 import OurStory from "@/components/OurStory";
 import { useReviews, type ApiResponse } from "@/lib/useReviews";
 import { ACCEPTS_SMS, BUSINESS, howAJobRuns, smsHref } from "@/data/business";
 import { localBusinessSchema, websiteSchema } from "@/lib/schema";
-import heroPoster from "@/assets/services/excavation.jpg";
-import heroPosterSet from "@/assets/services/excavation.jpg?w=640;1024;1600;2000&format=webp&quality=68&as=srcset";
-// The colour texture for the relit hero. Deliberately ONE of the srcset
-// candidates above rather than a separate export, so on a desktop the browser
-// has usually already fetched this exact file for the <img> and the canvas
-// costs nothing more than the 16 KB depth map.
-import heroRelitPhoto from "@/assets/services/excavation.jpg?w=1600&format=webp&quality=68&as=url";
-import heroDepth from "@/assets/services/excavation-depth.webp";
 
 /**
- * The homepage, in six blocks, each answering one question a visitor arriving
- * from the "Land Clearing & Excavation" ad actually has:
+ * The homepage, in six blocks, each answering one question a visitor actually
+ * has:
  *
- *   1. Hero — is this the thing I tapped, is it any good, how do I reach them?
+ *   1. Hero — what do they do, is it any good, how do I reach them?
  *   2. Reviews — says who?
  *   3. Services — do they do my job?
  *   4. Not sure? — the escape hatch: text a photo.
@@ -64,73 +55,52 @@ const LandingPage = () => {
       <Header transparent />
 
       <SEO
-        title="Land Clearing &amp; Excavation, Charleston SC | Firm Foundation"
-        description="Family-run land clearing and excavation in Mount Pleasant and greater Charleston, SC: lot clearing, tree and stump removal, grading, pool and pond digs, and drainage."
+        title="Landscaping, Hardscapes &amp; Excavation, Mount Pleasant | Firm Foundation"
+        description="Family-run landscaping, hardscapes and excavation in Mount Pleasant and greater Charleston, SC: new beds and sod, patios and walls, pool and pond prep, and land clearing."
         canonical="/"
-        keywords="land clearing Charleston SC, land clearing Mount Pleasant SC, lot clearing, excavation contractor Mount Pleasant, stump removal, grading, pool excavation, pond digging, yard drainage, French drains, Lowcountry"
+        keywords="landscaping Mount Pleasant SC, hardscapes Charleston SC, paver patio Mount Pleasant, landscape installation Charleston, excavation contractor Mount Pleasant, pool excavation, land clearing, grading, Lowcountry"
         jsonLd={[localBusinessSchema, websiteSchema]}
       />
 
       <main id="main" className="flex-1">
         {/* ── 1. Hero ──────────────────────────────────────────────────────
-            A SPLIT hero: copy on solid charcoal, Josiah's own photograph at full
-            strength beside it (stacked on a phone). A full-bleed photo under
-            the copy needed a wash so heavy it reduced the picture to a texture;
-            measured, opening the wash took the h1 to 2.18:1. Splitting them
-            removed the compromise. */}
+            Copy on the cream ground, three of Josiah's own job photos beside it
+            (above it on a phone), one per word of the headline. The photos sit
+            below the header rather than under it, so the nav never crosses a
+            picture and needs no wash to stay legible. */}
         <section className="relative overflow-hidden bg-background lg:min-h-[100svh]">
-          <div className="relative h-[30svh] min-h-[13rem] w-full lg:absolute lg:inset-y-0 lg:left-[56%] lg:right-0 lg:h-auto lg:w-auto">
-            <HeroVideo
-              poster={heroPoster}
-              posterSrcSet={heroPosterSet}
-              posterAlt="Firm Foundation's excavator clearing timber on a Lowcountry site"
-              overlay={<RelitHero photoUrl={heroRelitPhoto} depthUrl={heroDepth} />}
-            />
-            {/* Feathered into the charcoal rather than butted against it. */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background to-transparent lg:hidden"
-            />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 left-0 hidden w-44 bg-gradient-to-r from-background to-transparent lg:block"
-            />
-          </div>
-
-          {/* The header is transparent over the hero; this band keeps the nav
-              legible where it crosses the bright sky (measured 1.27:1 without it). */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 top-0 z-[5] h-36 bg-gradient-to-b from-background via-background/85 to-transparent"
-          />
+          <HeroMosaic className="h-[34svh] min-h-[14rem] max-h-[22rem] px-4 pt-[4.5rem] sm:px-6 sm:pt-20 lg:absolute lg:bottom-8 lg:left-[54%] lg:right-6 lg:top-24 lg:h-auto lg:max-h-none lg:px-0 lg:pt-0 xl:right-10" />
 
           <div className="relative z-10 mx-auto flex max-w-content items-center px-5 sm:px-6 md:px-10 lg:min-h-[100svh]">
             <motion.div
               style={shouldReduceMotion ? undefined : { opacity: heroOpacity, y: heroLift }}
-              className="w-full pb-12 pt-6 will-change-transform lg:w-[52%] lg:py-32 lg:pr-10"
+              className="w-full pb-12 pt-8 will-change-transform lg:w-[50%] lg:py-32 lg:pr-12"
             >
               <p className="eyebrow text-primary mb-6 hero-rise" style={{ animationDelay: "0ms" }}>
                 Mount Pleasant &middot; Greater Charleston
               </p>
-              {/* The same words as the Instagram ad, on purpose: someone who
-                  taps "Land Clearing & Excavation" should land on "Land
-                  Clearing & Excavation". Each line rises out of a mask once,
-                  in CSS (see .hero-line in index.css), so the prerendered HTML
-                  is already the finished headline for crawlers and no-JS. */}
-              <h1 className="text-hero font-heading text-foreground lg:text-[clamp(2.6rem,4.6vw,4.75rem)] lg:leading-[0.9] lg:tracking-[-0.035em]">
+              {/* The three services Josiah leads with on his own flyer and
+                  business card, in his order. Each line rises out of a mask
+                  once, in CSS (see .hero-line in index.css), so the prerendered
+                  HTML is already the finished headline for crawlers and no-JS. */}
+              <h1 className="text-hero font-heading text-foreground lg:text-[clamp(2.6rem,4.4vw,4.6rem)] lg:leading-[0.9]">
                 <span className="hero-line">
-                  <span style={{ animationDelay: "40ms" }}>Land Clearing</span>
+                  <span style={{ animationDelay: "40ms" }}>Landscaping,</span>
                 </span>
-                <span className="hero-line text-primary">
-                  <span style={{ animationDelay: "110ms" }}>&amp; Excavation</span>
+                <span className="hero-line">
+                  <span style={{ animationDelay: "100ms" }}>Hardscapes &amp;</span>
+                </span>
+                <span className="hero-line text-highlight">
+                  <span style={{ animationDelay: "160ms" }}>Excavation</span>
                 </span>
               </h1>
               <p
                 className="text-subtitle text-foreground/70 mt-6 max-w-lg leading-relaxed hero-rise"
-                style={{ animationDelay: "180ms" }}
+                style={{ animationDelay: "220ms" }}
               >
-                Lots cleared, stumps out, ground graded, pools and ponds dug,
-                drainage fixed. Family run, out of Mount Pleasant.
+                New beds and lawns, patios and walls, pool and pond prep, and the
+                dirt work under all of it, done right. Family run, out of Mount
+                Pleasant.
               </p>
 
               {/* Proof sits between the promise and the ask, so the first phone
@@ -142,20 +112,20 @@ const LandingPage = () => {
                   document.getElementById("reviews")?.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
                 className="mt-6 inline-flex flex-wrap items-center gap-x-2.5 gap-y-1 rounded-full hero-rise focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                style={{ animationDelay: "240ms" }}
+                style={{ animationDelay: "280ms" }}
               >
                 <StarRating rating={aggregateRating} size="h-4 w-4" className="text-primary" />
                 <span className="text-sm text-foreground/75 inline-flex items-center gap-1.5">
                   <GoogleIcon className="h-3.5 w-3.5" />
                   {aggregateRating.toFixed(1)} from {totalReviewCount} Google reviews
                 </span>
-                <span className="hidden text-sm text-foreground/50 sm:inline">&middot; Free on-site quotes</span>
+                <span className="hidden text-sm text-foreground/60 sm:inline">&middot; Free on-site quotes</span>
               </a>
 
               <div
                 id="hero-actions"
                 className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4 hero-rise"
-                style={{ animationDelay: "300ms" }}
+                style={{ animationDelay: "340ms" }}
               >
                 <Button asChild size="lg">
                   <Link to="/contact">Get a Free Quote</Link>
@@ -167,7 +137,6 @@ const LandingPage = () => {
                   </a>
                 </Button>
               </div>
-
             </motion.div>
           </div>
         </section>
@@ -183,7 +152,7 @@ const LandingPage = () => {
 
         {/* ── 3. Services ──────────────────────────────────────────────── */}
         <Section>
-          <SectionHeader eyebrow="What we do" title="From overgrown lot" accent="to finished grade" />
+          <SectionHeader eyebrow="What we do" title="From the dirt work" accent="to the finished yard" />
           <ServicesBento />
         </Section>
 
@@ -195,11 +164,11 @@ const LandingPage = () => {
         <section className="border-y border-border bg-muted px-5 py-12 sm:px-6 md:px-10 md:py-14">
           <FadeInView className="mx-auto flex max-w-content flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
             <div>
-              <h2 className="font-heading text-3xl font-extralight leading-tight text-foreground md:text-4xl">
-                Not sure what you need? <span className="text-primary">Send a photo.</span>
+              <h2 className="font-heading text-3xl leading-tight text-foreground md:text-4xl">
+                Not sure what you need? <span className="text-highlight">Send a photo.</span>
               </h2>
               <p className="mt-3 max-w-xl text-muted-foreground">
-                {ACCEPTS_SMS ? "Text" : "Send"} Josiah a picture of the ground and he&rsquo;ll tell you
+                {ACCEPTS_SMS ? "Text" : "Send"} Josiah a picture of the yard and he&rsquo;ll tell you
                 what it usually takes. No obligation.
               </p>
             </div>
@@ -223,7 +192,7 @@ const LandingPage = () => {
         </section>
 
         {/* ── 5. How it works ──────────────────────────────────────────── */}
-        <Section variant="muted" className="py-16 md:py-20">
+        <Section variant="forest" className="py-16 md:py-20">
           <p className="eyebrow text-primary mb-10 text-center md:mb-12">How it works</p>
           <ProcessSteps steps={howAJobRuns} />
         </Section>
@@ -234,7 +203,7 @@ const LandingPage = () => {
         </Section>
 
         <CtaSection
-          title="Got ground"
+          title="Got a yard"
           accent="that needs work?"
           blurb="Call Josiah for a free walk-through and an honest quote, usually the same week."
         />

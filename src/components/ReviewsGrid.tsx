@@ -12,8 +12,8 @@ import type { Review } from "@/data/fallbackReviews";
  * shows first — the rating is still computed from every review, and every
  * review is still on /reviews.
  */
-const RELEVANT = /clear|tree|stump|dirt|grad|drain|excavat|land|lot\b|property|professional|hard[- ]?work|efficient|detail|recommend|job|count on/gi;
-/** Reviews for work the business no longer offers shouldn't lead a land-clearing homepage. */
+const RELEVANT = /landscap|mulch|bed|plant|sod|patio|walk|paver|stone|yard|clear|tree|stump|dirt|grad|drain|excavat|land|lot\b|property|professional|hard[- ]?work|efficient|detail|recommend|job|count on/gi;
+/** Reviews for work the business no longer offers shouldn't lead the homepage. */
 const RETIRED = /pressure wash|power wash|window/i;
 
 /**
@@ -51,7 +51,7 @@ const ReviewsGrid = ({
           <FadeInView key={review.name} delay={i * 0.08} className="h-full">
             <figure className="flex h-full flex-col rounded-lg border border-border bg-card p-6 md:p-8">
               <StarRating rating={review.rating} size="h-4 w-4" className="text-primary" />
-              <blockquote className="mt-5 flex-1 font-heading text-lg font-light leading-snug text-card-foreground md:text-xl">
+              <blockquote className="mt-5 flex-1 font-heading text-lg leading-snug text-card-foreground md:text-xl">
                 <p className="line-clamp-6">&ldquo;{review.review.trim()}&rdquo;</p>
               </blockquote>
               <figcaption className="mt-6 flex items-center gap-3 border-t border-border pt-5">

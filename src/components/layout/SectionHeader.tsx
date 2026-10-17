@@ -69,7 +69,7 @@ const SectionHeader = ({
       )}
       <Heading className={cn("text-hero md:text-display font-heading", centered && "text-center")}>
         <Line delay={0}>{title}</Line>
-        {accent && <Line delay={0.08} className="text-primary">{accent}</Line>}
+        {accent && <Line delay={0.08} className="text-highlight">{accent}</Line>}
       </Heading>
       {subtitle && (
         <FadeInView delay={0.2}>

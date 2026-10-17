@@ -22,7 +22,7 @@ import {
 import { ACCEPTS_SMS, BUSINESS, smsHref } from "@/data/business";
 import { businessRef } from "@/lib/schema";
 
-const headingClass = "font-heading text-2xl font-light leading-snug text-foreground md:text-[1.75rem]";
+const headingClass = "font-heading text-2xl leading-tight text-foreground md:text-[1.875rem]";
 
 /** The small bar bullet the service pages use, so lists read the same everywhere. */
 const Bullet = () => <span aria-hidden="true" className="mt-2.5 h-1 w-3 shrink-0 rounded-full bg-primary" />;
@@ -62,7 +62,7 @@ const GuideBlock = ({ section }: { section: GuideSection }) => {
         <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
           {options.map((option) => (
             <div key={option.name} className="flex flex-col rounded-lg border border-border p-5">
-              <h3 className="font-heading text-xl font-light text-foreground">{option.name}</h3>
+              <h3 className="font-heading text-xl text-foreground">{option.name}</h3>
               <p className="mt-2 flex-1 text-[0.95rem]">{option.detail}</p>
               <p className="mt-4 border-t border-border pt-3 text-sm text-foreground/85">
                 <span className="eyebrow mr-2 text-muted-foreground">Best for</span>
@@ -162,7 +162,7 @@ const GuidePage = () => {
                 url: `${BUSINESS.url}/services/${service.slug}`,
               },
               citation: guide.sources.filter((s) => s.url).map((s) => s.url),
-              image: `${BUSINESS.url}/og-land-clearing.jpg`,
+              image: `${BUSINESS.url}/og-firm-foundation.jpg`,
             },
             {
               "@context": "https://schema.org",
@@ -201,7 +201,7 @@ const GuidePage = () => {
 
             <div className="max-w-4xl">
               <p className="eyebrow text-primary mb-6">{service.title}</p>
-              <h1 className="font-heading text-[2.1rem] font-extralight leading-[1.05] tracking-[-0.02em] text-foreground sm:text-5xl md:text-[3.5rem]">
+              <h1 className="font-heading text-[2.1rem] leading-[1.05] tracking-[-0.02em] text-foreground sm:text-5xl md:text-[3.5rem]">
                 {guide.question}
               </h1>
 
@@ -270,7 +270,7 @@ const GuidePage = () => {
               {/* Desktop only: on a phone the sticky Call/Text/Quote bar and the
                   closing CTA already make this ask, two screens apart. */}
               <div className="mt-5 hidden rounded-lg border border-border p-6 lg:block">
-                <p className="font-heading text-xl font-light leading-snug text-foreground">
+                <p className="font-heading text-xl leading-snug text-foreground">
                   Want Josiah to look at yours?
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">

@@ -7,6 +7,7 @@ import Section from "@/components/layout/Section";
 import SectionHeader from "@/components/layout/SectionHeader";
 import FadeInView from "@/components/animations/FadeInView";
 import ServiceImage from "@/components/ServiceImage";
+import BeforeAfterPair from "@/components/BeforeAfterPair";
 import ServicePlate, { plateDescriptions } from "@/components/ServicePlate";
 import FaqList, { type FaqEntry } from "@/components/FaqList";
 import SEO from "@/components/SEO";
@@ -230,7 +231,7 @@ const ServiceDetailPage = () => {
               </nav>
 
               <p className="eyebrow text-primary mb-6">
-                {isCore ? `Service ${String(coreIndex + 1).padStart(2, "0")}` : "Also on request"}
+                {isCore ? `Service ${String(coreIndex + 1).padStart(2, "0")}` : "Also from Firm Foundation"}
               </p>
               {/* Sized for a half-width column, like the homepage hero: the
                   full `text-hero` scale breaks a service name plus the locality
@@ -238,7 +239,7 @@ const ServiceDetailPage = () => {
               <h1 className="text-hero font-heading lg:text-[clamp(2.5rem,4.2vw,4.25rem)] lg:leading-[0.92]">
                 {service.title}
                 <br />
-                <span className="text-primary">
+                <span className="text-highlight">
                   in Mount Pleasant <span className="whitespace-nowrap">&amp; Charleston</span>
                 </span>
               </h1>
@@ -259,12 +260,28 @@ const ServiceDetailPage = () => {
             </FadeInView>
 
             <FadeInView immediate>
-              <ServiceImage
-                service={service}
-                eager
-                number={isCore ? coreIndex + 1 : undefined}
-                sizes="(min-width: 1024px) 48vw, 100vw"
-              />
+              {/* Where Josiah has the same spot before and after, that pair is
+                  the picture: it shows the work rather than only the result. */}
+              {service.beforeAfter ? (
+                <figure>
+                  <BeforeAfterPair
+                    pair={service.beforeAfter}
+                    eager
+                    sizes="(min-width: 1024px) 24vw, 50vw"
+                    className="aspect-[4/3] overflow-hidden rounded-lg sm:aspect-[16/10] lg:aspect-[4/3]"
+                  />
+                  <figcaption className="mt-3 text-sm text-muted-foreground">
+                    One of Josiah&rsquo;s jobs in Mount Pleasant.
+                  </figcaption>
+                </figure>
+              ) : (
+                <ServiceImage
+                  service={service}
+                  eager
+                  number={isCore ? coreIndex + 1 : undefined}
+                  sizes="(min-width: 1024px) 48vw, 100vw"
+                />
+              )}
             </FadeInView>
           </div>
         </section>
@@ -274,7 +291,7 @@ const ServiceDetailPage = () => {
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20">
             <FadeInView>
               <p className="eyebrow text-primary mb-6">The work</p>
-              <p className="font-heading text-2xl font-light leading-snug text-foreground md:text-[1.75rem]">
+              <p className="font-heading text-2xl leading-snug text-foreground md:text-[1.75rem]">
                 {service.description1}
               </p>
               <p className="mt-6 hidden leading-relaxed text-muted-foreground md:block">{service.description2}</p>
@@ -332,7 +349,7 @@ const ServiceDetailPage = () => {
                 <FadeInView key={option.name} delay={i * 0.08} className="h-full">
                   <article className="flex h-full flex-col rounded-lg border border-border bg-card p-6 md:p-8">
                     <span className="eyebrow text-primary">{String.fromCharCode(65 + i)}</span>
-                    <h3 className="mt-4 font-heading text-3xl font-extralight leading-none text-card-foreground">
+                    <h3 className="mt-4 font-heading text-3xl leading-none text-card-foreground">
                       {option.name}
                     </h3>
                     <p className="mt-4 flex-1 leading-relaxed text-muted-foreground">{option.detail}</p>
@@ -368,7 +385,7 @@ const ServiceDetailPage = () => {
         <Section className="border-t border-border">
           <FadeInView>
             <p className="eyebrow text-primary mb-6">
-              {isCore ? "Often part of the same job" : "What we mostly do"}
+              {isCore ? "Often part of the same job" : "The main work"}
             </p>
             <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {others.map((other) => (

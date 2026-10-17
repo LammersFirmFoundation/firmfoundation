@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import type { PlateId } from "@/data/services";
 
 /**
- * Section drawings — one per core service — drawn the way a grading plan or a
+ * Section drawings — one per service — drawn the way a grading plan or a
  * civil detail sheet is drawn: hairlines, hatched earth, a dashed existing
  * grade, the water-table symbol, a title block.
  *
@@ -23,8 +23,10 @@ import type { PlateId } from "@/data/services";
  * Rules that keep them honest and legible:
  * - **Not to scale, and labelled so.** "N.T.S." is the drafting convention for
  *   exactly this, and it stops a drawing reading as a measured claim.
- * - **The one number drawn is the code's, not ours**: 6 in. of fall in the
- *   first 10 ft is IRC R401.3's minimum for grade away from a foundation.
+ * - **Every number drawn is a published standard's, not ours**, and is cited
+ *   where it is drawn: 6 in. of fall in the first 10 ft (IRC R401.3), a 4 in.
+ *   minimum paver base (CMHA PAV-TEC-002), 2–3 in. of mulch (Clemson HGIC
+ *   1052). Anything without a source is a label, never a dimension.
  * - **Labels only when there's room.** At card size a 10px label renders at
  *   7px, so `compact` drops them and keeps the drawing.
  * - **One pass, never a loop.** Lines draw in once when scrolled into view and
@@ -674,7 +676,7 @@ const ServicePlate = ({
   return (
     <figure
       className={cn(
-        "on-dark flex flex-col overflow-hidden rounded-lg border border-border bg-charcoal-deep text-foreground",
+        "on-forest flex flex-col overflow-hidden rounded-lg border border-border bg-forest text-foreground",
         className
       )}
     >

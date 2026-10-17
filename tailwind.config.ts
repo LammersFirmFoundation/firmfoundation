@@ -14,19 +14,22 @@ export default {
     },
     extend: {
       fontFamily: {
-        // Manrope for everything readable, Outfit for display type. Outfit is
-        // the closest free stand-in for the reference site's Nohemi: geometric,
-        // flat-terminalled, and usable all the way down to weight 200.
+        // Manrope for everything readable. Archivo for display type and for the
+        // small tracked capitals (eyebrows, buttons): its width axis gives the
+        // heavy condensed cut of the flyer's headline and the business card's
+        // "SERVICES" from one variable file, and at full width the same family
+        // sets the spaced capitals of "PROPERTY SERVICES" under the badge.
         'sans': ['Manrope', 'system-ui', 'sans-serif'],
-        'heading': ['Outfit', 'Manrope', 'system-ui', 'sans-serif'],
+        'heading': ['Archivo', 'Arial Narrow', 'system-ui', 'sans-serif'],
+        'label': ['Archivo', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         // Fluid so the huge display sizes shrink gracefully instead of needing
         // a breakpoint override at every call site.
-        'display': ['clamp(3rem, 8.6vw, 8rem)', { lineHeight: '0.88', letterSpacing: '-0.035em' }],
-        'hero': ['clamp(2.35rem, 6.4vw, 5.25rem)', { lineHeight: '0.92', letterSpacing: '-0.03em' }],
-        'title': ['clamp(1.875rem, 4.2vw, 3.5rem)', { lineHeight: '0.98', letterSpacing: '-0.025em' }],
-        'subtitle': ['clamp(1.125rem, 1.8vw, 1.5rem)', { lineHeight: '1.4', letterSpacing: '-0.01em' }],
+        'display': ['clamp(2.75rem, 7.2vw, 6.75rem)', { lineHeight: '0.9', letterSpacing: '-0.005em' }],
+        'hero': ['clamp(2.25rem, 5.6vw, 4.75rem)', { lineHeight: '0.92', letterSpacing: '-0.005em' }],
+        'title': ['clamp(1.75rem, 3.6vw, 3rem)', { lineHeight: '0.98', letterSpacing: '-0.005em' }],
+        'subtitle': ['clamp(1.0625rem, 1.6vw, 1.375rem)', { lineHeight: '1.5', letterSpacing: '0' }],
       },
       letterSpacing: {
         'eyebrow': '0.22em',
@@ -77,11 +80,13 @@ export default {
           DEFAULT: "hsl(var(--cream))",
           foreground: "hsl(var(--cream-foreground))",
         },
-        charcoal: {
-          DEFAULT: "hsl(var(--charcoal))",
-          deep: "hsl(var(--charcoal-deep))",
+        highlight: "hsl(var(--highlight))",
+        paper: "hsl(var(--paper))",
+        sand: "hsl(var(--sand))",
+        forest: {
+          DEFAULT: "hsl(var(--forest))",
+          deep: "hsl(var(--forest-deep))",
         },
-        "brand-yellow": "hsl(var(--brand-yellow))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

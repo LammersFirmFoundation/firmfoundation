@@ -2,13 +2,15 @@
 
 Marketing site for a family-run property services company in Mount Pleasant, SC (greater Charleston / Lowcountry). Owner is **Josiah Lammers**; Will owns the repo. **The entire point of this site is phone calls and quote requests** — optimise for that, not for time-on-page.
 
-**Land clearing & excavation is the business (Josiah, 2026-09-29).** His words: make land clearing the main focus and feature tree and stump removal, grading, site prep for pools and ponds, and larger drainage projects; move small irrigation, landscaping and hardscapes out of the main messaging. His Instagram bio and ad now lead with the headline **"Land Clearing & Excavation"**, so the homepage H1, the header tagline and the share card use exactly those words: someone who taps the ad should land on the same sentence.
+**Landscaping, hardscapes and the dirt work under them is the business (Josiah, 2026-10-17).** His new flyer and business card list, in this order: **Excavation, Landscaping, Hardscapes, Pool & Pond Prep, Land Clearing**, with the line "Dirt work done right." He asked to bring hardscapes back and to focus on new landscape installs and hardscapes, with only occasional *small* land clearing, and not to box the site in while the business is still growing. This **supersedes the 2026-09-29 positioning** ("Land Clearing & Excavation" as the headline, landscaping and hardscapes demoted to a "smaller jobs" tier). Don't drift back to it.
 
-So `services.ts` has two tiers. **`core`** (land-clearing, tree-removal, excavation, pools-and-ponds, drainage) leads everywhere, in that order. **`more`** (hardscapes, landscaping, custom-projects) keeps its pages, because they are indexed and still bring work, but it never leads: it sits in a dashed "smaller jobs, still on request" tile, a menu sidebar, and a muted footer list. Irrigation is gone from the copy entirely; he said it isn't him long-term. `/services/tree-services` became `/services/tree-removal` with a permanent redirect in `vercel.json`. Rename any other slug the same way.
+So `services.ts` still has two tiers, re-cut. **`core`**, in this order: landscaping, hardscapes, excavation, pools-and-ponds ("Pool & Pond Prep", his card's words), land-clearing. **`more`**: tree-removal, drainage, forestry-mulching, custom-projects. They are linked and indexed, sit in the sixth tile of the services grid and the footer, and are never labelled "smaller" or "on request". The homepage H1 is **"Landscaping, Hardscapes & Excavation"**. Irrigation is still gone from the copy; he said it isn't him long-term. Renamed slugs get a permanent redirect in `vercel.json` (as `/services/tree-services` → `/services/tree-removal` did).
+
+**The brand is Josiah's own badge** (the FF letters under a roofline, an excavator arm, a plant, a brick foundation, "Firm Foundation" in script). Will asked for new logo options on 2026-10-17, then chose to keep Josiah's: "we like the logo that he sent more." Don't redesign it. `src/assets/brand/` holds a vector trace of it: `logo-badge.svg` (the whole badge, footer) and `logo-lockup.svg` (mark beside the script, header), recomposed from the same traced paths. Favicons crop the FF; the 180/192 icons carry the full mark.
 
 ## Stack
 - **Vite + React 18 + TypeScript strict + Tailwind 3** with a shadcn-style kit in `src/components/ui/`.
-- **`vite-react-ssg`** prerenders every route to static HTML at build time: 20 pages, including `/services/<slug>` for all eight services and `/guides/<slug>` for all five guides via `getStaticPaths`. This is the whole SEO story — crawlers get full HTML, not an empty `#root`.
+- **`vite-react-ssg`** prerenders every route to static HTML at build time: every route, including `/services/<slug>` for every service and `/guides/<slug>` for every guide, via `getStaticPaths`. This is the whole SEO story — crawlers get full HTML, not an empty `#root`.
 - **Vercel** hosting. One serverless function: `api/reviews.ts`.
 - `framer-motion` for scroll reveals. **The Leaflet service-area map was deleted on 2026-10-05** (`ServiceAreaMap.tsx` and its CSS). It had been unrendered since the homepage map became the coverage directory, but `index.css` still imported `leaflet.css`, so every visitor downloaded ~240 Leaflet rules in the render-blocking stylesheet; tree-shaking only ever removed the JS. `leaflet`, `react-leaflet` and `@types/leaflet` are still listed in `package.json` because the repo carries both `package-lock.json` and a binary `bun.lockb`, and removing them means regenerating both together. They ship nothing. The coordinates in `business.ts` are what a future map would read.
 
@@ -31,69 +33,34 @@ The site previously wrote these out by hand in five to seven files, which is how
 `neighborhoods` (Dunes West, Park West…) is deliberately separate from `serviceAreas`: those are neighbourhoods inside Mount Pleasant, not municipalities, and listing them as schema `City` nodes was simply wrong.
 
 ## Design system
-Palette is **sampled from Josiah's logo PNG**, not invented — brand yellow `#fcc832` = `hsl(45 96% 59%)`, charcoal ground `#191d23`. Fonts are **Outfit** (display, weight 200, huge and tight) + **Manrope**. The whole thing is modelled on **atkinsonpools.com**, whose real design tokens were read out of their stylesheet: near-black ground, one warm accent used *only* on buttons/eyebrows/hover, oversized ultra-light type, two-line section headings, pill buttons, generous section rhythm.
+**Two colours, both from Josiah's badge and flyer** (2026-10-17): green ink `#20472c` = `hsl(138 38% 20%)` on cream paper, plus the flyer's deep-green band `#12351f`. Cream paper with green ink is the default page; deep-green bands (`<Section variant="forest">`, the closing CTA, the footer) give the page weight. Fonts are **Archivo** (display, condensed via `font-stretch: 78%`, weight 800, uppercase at hero/display sizes) + **Manrope** (body). The layout language survives from the earlier atkinsonpools.com study: one accent, two-line section headings, pill buttons, generous section rhythm.
 
-- **Section colour comes from `<Section variant>`** — `default`/`muted` (charcoal), `cream` (light relief). `.on-cream` in `index.css` remaps the semantic tokens for its whole subtree so nested shadcn components follow automatically. **Never hardcode a colour inside a cream section.**
-- **There is no yellow section variant any more.** A full-yellow CTA block forced its heading into charcoal-on-charcoal and read muddy; the reference site keeps its CTA on the dark ground and never uses its accent as a large fill. Same here.
-- **`--border` and `--input` diverge on purpose.** Form-control boundaries need 3:1 (WCAG 1.4.11); decorative section rules don't. `--input` is much lighter than `--border` for exactly that reason — don't "unify" them.
-- **Yellow is 1.5:1 on cream**, so `.on-cream` remaps `--primary` to a dark amber. That's what keeps eyebrow-size text passing AA. Don't collapse it back.
-- The theme is **forced dark** (`forcedTheme="dark"` in `App.tsx`); the `.dark` block mirrors `:root` so a stray toggle can't half-light the site.
+- **The site is light now.** `:root` holds the light values and `.dark` mirrors them, and `App.tsx` forces `light`, so a stray toggle can't half-dark it. (Until 2026-10-17 it was forced dark on charcoal with equipment yellow, sampled from his old logo.)
+- **Section colour comes from `<Section variant>`**: `default` (paper), `muted` (sand), `cream` (lighter paper, for long reading), `forest` (deep green). `.on-forest` in `index.css` remaps the semantic tokens for its whole subtree, so nested buttons, borders and muted text follow. **Never hardcode a colour inside a forest band.**
+- **`text-highlight` is the second line of a two-tone heading** (leaf green, `hsl(135 33% 36%)`). It is **4.5:1 on paper, so display-size type only**, never body copy. On forest it remaps to a sage that measures 8.1:1.
+- **`--border` and `--input` diverge on purpose.** Form-control boundaries need 3:1 (WCAG 1.4.11); decorative section rules don't. `--input` is much darker than `--border` (3.3:1 on paper) for exactly that reason. Don't "unify" them.
+- Every token pair is measured in the comment at the top of `index.css`. Re-measure any new pair, including opacity-modified ones.
 
-## The relit hero
-`src/lib/relit-hero.ts` gives the hero photograph real surface relief: a depth map turns it into a
-height field, normals come from the depth gradient, and a 12-step ray-march through the same map
-produces soft self-shadowing under a light that follows the pointer.
+## The homepage hero: three photographs, one per word
+The H1 names three trades, so the hero shows three of Josiah's own jobs (`HeroMosaic.tsx`): the new beds at a Mount Pleasant house front (large), the flagstone walkway, and his excavator. **Each tile is a link to that service**, so the pictures double as the first menu a visitor sees. A single excavator photo under "Landscaping" would contradict the headline's first word.
 
-- **Adapted from Dominik Fojcik's "Relighting Images with Depth Maps and Three.js"** (Codrops,
-  2026-08-19, https://github.com/DGFX/codrops-relightning-images). The README states MIT; keep the
-  attribution in the file header. Re-implemented in plain WebGL2 rather than his TSL/WebGPU
-  original — the effect is one fragment shader over one quad either way, and `three/webgpu` costs
-  ~150 KB brotli that this does not. Shipped cost: **3.7 KB brotli + a 16 KB depth map**, desktop only.
-- **Licensing, checked so it isn't re-checked:** Codrops demos are **MIT** and fine for client work.
-  **Shadertoy's default is CC BY-NC-SA 3.0 — no commercial use** — so shaders lifted from there are
-  off the table for this site unless the author states otherwise.
-- **The depth map is generated locally**, not by hand or a paid service:
-  `@huggingface/transformers` + `onnx-community/depth-anything-v2-small`, then blurred ~3px and
-  saved as near-lossless WebP. Both steps matter — at 1.6px blur / q88 the 8-bit terracing survived
-  and showed as blocky steps across the sky and down the boom.
-- **The light is masked to the subject** (`smoothstep(0.18, 0.52, depth)`). The far background sits
-  near zero in the depth map where the gradient is flat and noisy; lighting it produced most of the
-  artifacting and bought nothing.
+- **Copy on the paper, photos beside it (above it on a phone), never text over a photo.** The split was the fix that made the old hero legible (a full-bleed photo needed a wash so heavy that the h1 measured 2.18:1 when it was opened up). Nothing about that has changed: axe cannot evaluate text over images, so don't reintroduce it.
+- **The mosaic sits BELOW the header, not under it.** The header is transparent over the hero, and the old full-height photo needed an `h-36` cream band to keep the nav legible where it crossed the sky (1.27:1 without it). Starting the photos at `lg:top-24` removes the problem rather than masking it.
+- **The copy column is measured from the centred `max-w-content` container; the mosaic is positioned against the VIEWPORT** (`lg:left-[54%]`). Different origins, so they can overlap even when the percentages look like they add up. Re-measure `copyRight < mosaicLeft` across 1024 to 1920 if either moves.
+- **Nothing in the mosaic animates and all three load eagerly**; the large tile is the LCP element and carries `fetchpriority="high"`, written lowercase via a spread because React 18 warns on the camelCase prop.
+- **Retired 2026-10-17:** the WebGL relit hero (`relit-hero.ts`, `RelitHero.tsx`, its depth map) and `HeroVideo.tsx` with `public/hero-excavator.mp4`. They lit one photograph of one machine, which no longer leads. Both are in git history before that date. The licensing notes from that work still hold: **Codrops demos are MIT; Shadertoy's default is CC BY-NC-SA 3.0, no commercial use.**
 
-### The hero is SPLIT, and that is what made the photograph usable
-The hero was a full-bleed still with the copy laid over it under a charcoal wash. That wash was
-load-bearing — measured against the real composited pixels, opening it into a directional gradient
-took the h1 from 3.34:1 to **2.18:1** and the eyebrow to **1.58:1**, both failing AA — but it also
-reduced a real photograph to a texture and crushed anything happening inside it.
-
-Splitting them removed the compromise instead of trading against it. Copy on solid charcoal,
-photograph at full strength beside it, stacked rather than overlaid below `lg`. Measured after:
-**h1 14.88:1, eyebrow 10.74:1, sub 14.88:1, nav 10.91:1**, no horizontal overflow 320–1920, axe 0
-across all six routes.
-
-Three things that are easy to break here:
-- **The copy column is measured from the centred `max-w-content` container; the photo is positioned
-  against the VIEWPORT.** Different origins, so the two can overlap even though the percentages look
-  like they add up — at 54%/46% the column's box ran onto the picture. The current 52%/56% pair
-  keeps a gap at every width from 1024 to 1920; re-measure `copyRight < photoLeft` if either moves.
-- **The h1 needs its own clamp** (`lg:text-[clamp(2.4rem,4vw,4.1rem)]`). `text-hero` and
-  `text-display` are sized for a full-width hero and both wrap "the Lowcountry's" onto its own line
-  in a half-width column, turning three lines into five.
-- **The header is transparent over the hero**, so the right-hand nav now sits on the photograph —
-  measured at **1.27:1** before the `h-36` top band was added. Any change to that band needs the nav
-  re-measured, not just axe re-run.
-
-**axe cannot catch any of this** — it does not evaluate text over images. Sample the real pixels
-with the text hidden.
+### Before and after, side by side
+`BeforeAfterPair.tsx` shows two photos of the same spot with real "Before" / "After" labels: on the landscaping and hardscapes cards in the services grid, and as the hero picture of those two service pages. The halves are split out of Josiah's gallery composites (`src/assets/services/*-before.jpg`, `*-after.jpg`). **Side by side only, never a slider or an overlay**: they are phone photos from roughly the same spot, not a tripod, and anything implying one frame would show the seams. The pair is one `role="img"` with one label, so a screen reader hears it once.
 
 ## The survey layer — and why it is NOT three.js
 `src/lib/survey-layer.ts` draws topographic contour lines in ~120 lines of raw WebGL. Contour
 lines are the literal visual language of grading and drainage, so the motif comes from Josiah's
 trade rather than from a demo. Two modes, both a single finite pass: `ambient` (crosses the CTA
 band once, then settles into a still survey sheet that stays) and `reveal` (one sweep, canvas
-dropped afterwards). **`reveal` currently has no caller** — it drove the hero until the relit hero
-replaced it, because a single bright line crossing a photograph reads as a lightning flash rather
-than a survey. Keep it or delete it; don't leave it as a third state.
+dropped afterwards). **`reveal` currently has no caller**: it drove the hero until 2026-09, because
+a single bright line crossing a photograph reads as a lightning flash rather than a survey. Keep it
+or delete it; don't leave it as a third state.
 
 - **three.js was evaluated and rejected on measurement, 2026-08-20 — don't re-open it without new
   numbers.** Built against this repo's own toolchain, a realistic tree-shaken three.js hero scene
@@ -115,7 +82,7 @@ than a survey. Keep it or delete it; don't leave it as a third state.
 - **Phones get no WebGL context at all** (`minWidth`, default 768). At 390px the copy fills the
   band, so the cleared title-block zone that keeps type legible covers essentially the whole canvas
   — the layer was invisible while still costing a context, a shader compile and GPU time on the
-  device least able to spare it. Same call `HeroVideo` already makes about the hero clip.
+  device least able to spare it.
 - **The centre is cleared, like a title block.** A real survey sheet doesn't print contours through
   its own labelling. `ink` drops to 14% behind the middle of the band and returns to full at the
   margins, which is what makes it safe to put live copy — including a small yellow eyebrow — on top.
@@ -145,7 +112,7 @@ than a survey. Keep it or delete it; don't leave it as a third state.
   layer holds a designed still frame instead.
 
 ## Photos and drawings — which does what
-**Photos carry the cards and the heroes; drawings explain.** The homepage hero and the land-clearing page are **Josiah's own machine** (`src/assets/services/excavation.jpg`). **Josiah sent three more on 2026-10-09** (from the cab, portrait phone shots): a stump coming out root ball and all is now the Tree & Stump Removal photo, a cleared tract seen over the bucket is the land-clearing card, and all three are in the Gallery (a forestry-mulching shot only there). Gallery rows pair like shapes, so the stump photo uses its landscape crop there too. He didn't say where the jobs were, so their gallery label reads "From the operator's seat" and their schema carries no place. One shows a decal reading "The Perry Company": that is a Texas maker of cab accessories, not another contractor, so nothing was retouched. The crops for the service slots stop above it anyway. Grading, pools & ponds and drainage still use **licensed stock** (`src/assets/stock/`, Unsplash/Pexels, no attribution required, sources and rules in `CREDITS.md`), added 2026-09-29 at Will's request for "professional, authentic land clearing images". Stock rules:
+**Photos carry the cards and the heroes; drawings explain.** The homepage hero is three of Josiah's own photos (above), and the land-clearing page leads with **his own machine** (`src/assets/services/excavation.jpg`). The landscaping and hardscapes photos are his Mount Pleasant jobs, and their before-and-after halves come from the gallery composites. **Josiah sent three more on 2026-10-09** (from the cab, portrait phone shots): a stump coming out root ball and all is now the Tree & Stump Removal photo, a cleared tract seen over the bucket is the land-clearing card, and all three are in the Gallery (a forestry-mulching shot only there). Gallery rows pair like shapes, so the stump photo uses its landscape crop there too. He didn't say where the jobs were, so their gallery label reads "From the operator's seat" and their schema carries no place. One shows a decal reading "The Perry Company": that is a Texas maker of cab accessories, not another contractor, so nothing was retouched. The crops for the service slots stop above it anyway. Grading, pools & ponds and drainage still use **licensed stock** (`src/assets/stock/`, Unsplash/Pexels, no attribution required, sources and rules in `CREDITS.md`), added 2026-09-29 at Will's request for "professional, authentic land clearing images". Stock rules:
 - **never** in the Gallery, never captioned as a job, and alt text says only what is in frame;
 - nothing showing another contractor's name or phone number (the photo search rejected several, and one dealer sticker was retouched off);
 - replace each photo the moment Josiah has a real one.
@@ -153,7 +120,7 @@ than a survey. Keep it or delete it; don't leave it as a third state.
 NN/g and the Harrington Movers test (+45% for a real truck photo over stock) are the reason: **his own photos will outperform all of these.** No licensed pool-dig photo exists, so a real one is the most valuable ask.
 
 Each core service also has a **section drawing** (`ServicePlate.tsx`) in the language of a civil detail sheet: hatched earth, dashed existing grade, the water-table symbol, a title block marked "N.T.S.". On service pages it sits beside the choice it illustrates ("grind it or pull it", "a pool dig or a pond"). It shows the underground half of the work that no photo can.
-- **`ServiceImage` shows the photo when `image` exists, else the plate.** `cardImage` lets a grid card use a different photo from the page hero. Land clearing uses it so the homepage never shows Josiah's photo twice in one scroll.
+- **`ServiceImage` shows the photo when `image` exists, else the plate.** `cardImage` lets a grid card use a different photo from the page hero, and `beforeAfter` replaces both with the pair. Both exist so the homepage doesn't show the same photo twice in one scroll: the hero already has the finished landscaping, walkway and excavator shots.
 - **The one dimension drawn is the code's, not ours:** 6 in. of fall in the first 10 ft is IRC R401.3. Don't add numbers that are ours.
 - **Never add `vectorEffect="non-scaling-stroke"` to a drawn path.** It breaks framer-motion's `pathLength` normalisation, and lines stop drawing partway. That cost an iteration.
 - **Callouts hide in `compact` mode and below `sm`.** At card size or phone width the 8.6-unit labels render at 6–7px. `.on-dark` (in `index.css`) keeps a plate's dark palette when it sits inside a cream section.
@@ -187,9 +154,9 @@ Re-measure with a scripted section audit rather than by eye — section heights 
 unit that matters, and it differs a lot between desktop and mobile.
 
 ## Deliberate omissions — these are decisions, not oversights
-- **No licensing / insurance / bonding / permitting claims anywhere.** These are verifiable legal claims, not marketing copy, and Will explicitly chose to leave them off (2026-08-19). **Corrected 2026-09-29, from the statute text:** the $500 residential-specialty threshold (S.C. Code §40-59-20(7)) covers a list of trades (plumbing, electrical, HVAC, roofing, masonry, carpentry…) that **does not include grading, excavation, land clearing or tree work**. **"Grading" is a Contractor's Licensing Board subclassification** (§40-11-410(2)(d)), and CLB licensing starts at **$10,000** total cost (§40-11-30, raised from $5,000 in 2023). Using the words "licensed contractor" without a CLB licence is itself unlawful (§40-11-370). **Unresolved:** whether a stand-alone residential grading or pool-dig job over $10,000 needs a CLB Grading licence. That is a question for LLR, not for this site, and it matters more now that grading and pool digs are core work. Same reason the Custom Projects copy doesn't advertise **electrical** even though he did the electrical on the pantry job.
+- **No licensing / insurance / bonding / permitting claims anywhere.** These are verifiable legal claims, not marketing copy, and Will explicitly chose to leave them off (2026-08-19). **Corrected 2026-09-29, from the statute text:** the $500 residential-specialty threshold (S.C. Code §40-59-20(7)) covers a list of trades (plumbing, electrical, HVAC, roofing, masonry, carpentry…) that **does not include grading, excavation, land clearing or tree work**. **"Grading" is a Contractor's Licensing Board subclassification** (§40-11-410(2)(d)), and CLB licensing starts at **$10,000** total cost (§40-11-30, raised from $5,000 in 2023). Using the words "licensed contractor" without a CLB licence is itself unlawful (§40-11-370). **Unresolved:** whether a stand-alone residential grading or pool-dig job over $10,000 needs a CLB Grading licence. That is a question for LLR, not for this site, and it matters more now that grading and pool digs are core work. **Also unresolved since hardscapes became core (2026-10-17): "masonry" IS on the §40-59-20 residential-specialty list**, so whether paver, stone-walkway or segmental retaining-wall work over $500 needs a residential specialty registration is another LLR question. Until someone has asked, the site makes no claim either way. Same reason the Custom Projects copy doesn't advertise **electrical** even though he did the electrical on the pantry job.
 - **No `aggregateRating` / `Review` nodes in JSON-LD.** Google makes a business republishing reviews about itself ineligible for the star rich result, so the markup can never pay off. Real ratings still render for visitors — they're just not claimed as schema.
-- **`public/hero-excavator.mp4` exists but the hero doesn't use it.** All of Josiah's clips are portrait phone video (`rotation=-90`); cropped to a landscape band and put behind a headline it read as noise. Pass `src` back to `<HeroVideo>` when there's stabilised landscape footage. **Tell them to turn the phone sideways.**
+- **No hero video.** All of Josiah's clips were portrait phone video (`rotation=-90`); cropped to a landscape band behind a headline they read as noise, and the clip and its player were deleted on 2026-10-17. If stabilised landscape footage ever arrives, it would have to earn a place against the three-photo hero. **Tell them to turn the phone sideways.**
 
 ## Josiah's mission portrait — what was used and what wasn't
 He shared a Wildfire Leadership "mission portrait" (2026-08-19): core values *Courageous, Witty, Life-Giving, Hardworking, Warrior*; ID *Live it out*; mission *Live a life of integrity*; vision *To speak life and change the atmosphere*; anchored on **Matthew 7:24** ("…builds a house on solid rock").
@@ -227,7 +194,6 @@ There's no browser extension here, but Playwright with system Chrome works and i
 - **Screenshots** — scroll the page in ~0.6vh steps before capturing, or `FadeInView`'s IntersectionObserver never fires and full-page shots come back with huge empty sections.
 - **axe-core** — **0 violations** on every route, guides included (re-checked 2026-10-05). Keep it there.
 - **Horizontal overflow** — check 320/375/414/768/1024/1440/1920. **Clean at every width** (re-checked 2026-09-29): `html, body { overflow-x: clip }` in `index.css` contains the tilted `OurStory` polaroid without clipping its composition. The overflow check also flags any element inside `<main>` wider than the viewport, which is how the non-wrapping "More on pool & pond excavation" button at 320px was caught.
-- **The relit hero's checkerboard was real, and it is fixed (2026-09-29).** Found by switching each shader term off in turn: it vanished only with `NORMAL_SCALE` at 0. The 8-bit depth map stores smooth slopes as one-level steps, and a 3-texel gradient turned each step into a hard lighting edge. That is the data, not the GPU. The gradient now spans 12 texels and averages three taps per side. **If the depth map is ever regenerated, keep the gradient wide or store 16-bit.**
 - **Contrast** — compute WCAG ratios for real token pairs including opacity-modified ones (`text-charcoal/55` etc.) rather than eyeballing.
 
 ## Open items

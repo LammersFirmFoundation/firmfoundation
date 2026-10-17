@@ -39,8 +39,8 @@ export interface SurveyHandle {
   destroy: () => void;
 }
 
-/** Equipment yellow (#fcc832) in linear 0–1, matching `--brand-yellow`. */
-const INK: [number, number, number] = [0.988, 0.784, 0.196];
+/** The badge's cream (#fbedc9) in 0–1, matching `--cream`: contour lines drawn on the deep-green band, the way the flyer's bottom band draws them. */
+const INK: [number, number, number] = [0.984, 0.929, 0.788];
 
 const VERT = "attribute vec2 p; void main(){ gl_Position = vec4(p, 0.0, 1.0); }";
 

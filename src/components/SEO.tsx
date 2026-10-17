@@ -15,10 +15,10 @@ const SITE_URL = "https://firmfoundationsc.com";
 const SITE_NAME = "Firm Foundation Property Services";
 // A new filename rather than overwriting og-logo.jpg: iMessage, Slack and
 // Facebook cache og:image by URL, so reusing the path would keep serving the
-// old card to everyone who has already shared the link. og-logo.jpg stays in
-// public/ so those old shares still resolve.
-const DEFAULT_OG_IMAGE = `${SITE_URL}/og-land-clearing.jpg`;
-const DEFAULT_OG_ALT = "Firm Foundation: Land Clearing & Excavation, Mount Pleasant and Charleston, SC";
+// old card to everyone who has already shared the link. og-logo.jpg and
+// og-land-clearing.jpg stay in public/ so those old shares still resolve.
+const DEFAULT_OG_IMAGE = `${SITE_URL}/og-firm-foundation.jpg`;
+const DEFAULT_OG_ALT = "Firm Foundation Property Services: landscaping, hardscapes and excavation in Mount Pleasant and Charleston, SC";
 
 const SEO = ({
   title,

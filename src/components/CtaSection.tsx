@@ -18,15 +18,12 @@ interface CtaSectionProps {
 /**
  * The closing block on every page.
  *
- * This was a full brand-yellow panel, which forced the heading's two tones to
- * be charcoal-on-charcoal and read muddy. The reference site keeps its own
- * closing CTA on the dark ground and never uses its accent as a large fill —
- * so this does the same, and the yellow goes back to being an accent.
- *
- * The contour layer lives here rather than on the hero: over a photograph it
- * reads as dirt on the lens, because the photograph is already carrying the
- * whole visual load. On the bare charcoal it reads as a survey sheet, which is
- * the right note directly above a phone number.
+ * A deep-green band with cream contour lines, which is exactly what the
+ * bottom of Josiah's flyer is ("LET'S TALK ABOUT YOUR NEXT PROJECT" over topo
+ * lines). The contour layer lives here rather than on the hero: over a
+ * photograph it reads as dirt on the lens, because the photograph is already
+ * carrying the whole visual load. On the bare green it reads as a survey
+ * sheet, which is the right note directly above a phone number.
  */
 const CtaSection = ({
   title,
@@ -35,8 +32,9 @@ const CtaSection = ({
   eyebrow = "Free On-Site Quotes",
 }: CtaSectionProps) => (
   <Section
-    className="text-center border-t border-border"
-    backdrop={<SurveyLayer mode="ambient" density={9} alpha={1} />}
+    variant="forest"
+    className="text-center"
+    backdrop={<SurveyLayer mode="ambient" density={9} alpha={0.55} />}
   >
     <SectionHeader
       eyebrow={eyebrow}
