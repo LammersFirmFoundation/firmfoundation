@@ -33,12 +33,35 @@ The site previously wrote these out by hand in five to seven files, which is how
 `neighborhoods` (Dunes West, Park West…) is deliberately separate from `serviceAreas`: those are neighbourhoods inside Mount Pleasant, not municipalities, and listing them as schema `City` nodes was simply wrong.
 
 ## Design system
-**Two colours, both from Josiah's badge and flyer** (2026-10-17): green ink `#20472c` = `hsl(138 38% 20%)` on cream paper, plus the flyer's deep-green band `#12351f`. Cream paper with green ink is the default page; deep-green bands (`<Section variant="forest">`, the closing CTA, the footer) give the page weight. Fonts are **Archivo** (display, condensed via `font-stretch: 78%`, weight 800, uppercase at hero/display sizes) + **Manrope** (body). The layout language survives from the earlier atkinsonpools.com study: one accent, two-line section headings, pill buttons, generous section rhythm.
+**Two colours, both from Josiah's badge and flyer** (2026-10-17): green ink `#20472c` = `hsl(138 38% 20%)` on cream paper, plus the flyer's deep-green band `#12351f`. Cream paper with green ink is the default page; deep-green bands (`<Section variant="forest">`, the closing CTA, the footer) give the page weight.
 
+**The brief is "designed, not generated"** (Will, 2026-10-17: "creative, clean, I don't want it to look vibe coded and like AI"). Everything below comes from Josiah's own printed pieces, the business card and the flyer, rather than from a landing-page template. Before adding anything, check it against this list of patterns that were removed as template tells, and don't bring them back:
+- giant two-tone ALL-CAPS section headings (a dark line over a green line) on every section;
+- tiny letterspaced uppercase eyebrows on every label, nav item and button;
+- uppercase pill buttons;
+- numbered chips and labels laid over photographs;
+- arrow-in-a-circle icons, numbered circles joined by a line;
+- boxed cards for everything, and every section centred.
+
+**Type.** Three faces, each with one job:
+- **Archivo**, condensed (`font-stretch: 78%`), weight 800, for headings. **Sentence case everywhere except the homepage H1**, which is the one place set in capitals, the way the flyer sets "DIRT WORK DONE RIGHT."
+- **Manrope** for everything readable, including buttons, nav and labels.
+- **Besley** (a Clarendon revival, the face the flyer sets its service names and phone number in) for **quotes and numerals only**: review quotes in italic, the big phone number in the CTA, step numerals, list numbers. One warm note, never body copy.
+
+**The section opening** is `<SectionHeader>`: a `.mark` (the badge's spaced capitals behind a short rule, "— PROPERTY SERVICES"), a sentence-case `text-title` heading in one ink, and the subtitle set beside it on desktop rather than centred under it. `accent` is still accepted but renders in the same ink. **One `.mark` per section at most**; everywhere else a label is `.eyebrow`, which is now plain sentence-case Manrope semibold, not tracked capitals.
+
+**Components.**
+- **Buttons are square-cornered (3px), sentence case**, Manrope semibold ("Get a free quote", never "GET A FREE QUOTE"). Primary is solid ink; secondary is a thin outline. Text links are underlined with a faint rule that darkens on hover.
+- **Rules, not boxes.** Hairline `border-border` rules divide lists, columns and sections (the business card's vertical divider). Reach for a bordered card only when the thing really is a separate object.
+- **Photos are captioned underneath, never labelled on top.** Corners are 3px. The before/after labels are the one exception, because they name the half.
+- **Left-aligned by default.** Centre only something short and singular.
+
+**Tokens.**
 - **The site is light now.** `:root` holds the light values and `.dark` mirrors them, and `App.tsx` forces `light`, so a stray toggle can't half-dark it. (Until 2026-10-17 it was forced dark on charcoal with equipment yellow, sampled from his old logo.)
 - **Section colour comes from `<Section variant>`**: `default` (paper), `muted` (sand), `cream` (lighter paper, for long reading), `forest` (deep green). `.on-forest` in `index.css` remaps the semantic tokens for its whole subtree, so nested buttons, borders and muted text follow. **Never hardcode a colour inside a forest band.**
-- **`text-highlight` is the second line of a two-tone heading** (leaf green, `hsl(135 33% 36%)`). It is **4.5:1 on paper, so display-size type only**, never body copy. On forest it remaps to a sage that measures 8.1:1.
+- **`text-highlight`** (leaf green, `hsl(135 33% 36%)`) is **4.5:1 on paper, so display-size type only**, never body copy. On forest it remaps to a sage that measures 8.1:1. It is no longer used for the second line of headings.
 - **`--border` and `--input` diverge on purpose.** Form-control boundaries need 3:1 (WCAG 1.4.11); decorative section rules don't. `--input` is much darker than `--border` (3.3:1 on paper) for exactly that reason. Don't "unify" them.
+- **`cn()` knows the custom font sizes.** `src/lib/utils.ts` extends tailwind-merge with `display`/`hero`/`title`/`subtitle`; without it `cn("text-title text-foreground")` silently drops the size, which once rendered every section heading at body size. Add any new `fontSize` key there too.
 - Every token pair is measured in the comment at the top of `index.css`. Re-measure any new pair, including opacity-modified ones.
 
 ## The homepage hero: three photographs, one per word
@@ -121,7 +144,7 @@ NN/g and the Harrington Movers test (+45% for a real truck photo over stock) are
 
 Each core service also has a **section drawing** (`ServicePlate.tsx`) in the language of a civil detail sheet: hatched earth, dashed existing grade, the water-table symbol, a title block marked "N.T.S.". On service pages it sits beside the choice it illustrates ("grind it or pull it", "a pool dig or a pond"). It shows the underground half of the work that no photo can.
 - **`ServiceImage` shows the photo when `image` exists, else the plate.** `cardImage` lets a grid card use a different photo from the page hero, and `beforeAfter` replaces both with the pair. Both exist so the homepage doesn't show the same photo twice in one scroll: the hero already has the finished landscaping, walkway and excavator shots.
-- **The one dimension drawn is the code's, not ours:** 6 in. of fall in the first 10 ft is IRC R401.3. Don't add numbers that are ours.
+- **Every dimension drawn is a published one, cited in a code comment, never ours:** 6 in. of fall in the first 10 ft (IRC R401.3) on the grading plate, a 4 in. minimum compacted base under a patio (CMHA Tech Note PAV-TEC-002) on the paver plate, and 2 to 3 in. of mulch kept off the stems (Clemson HGIC 1052 and 1604) on the bed plate. Don't add numbers that are ours.
 - **Never add `vectorEffect="non-scaling-stroke"` to a drawn path.** It breaks framer-motion's `pathLength` normalisation, and lines stop drawing partway. That cost an iteration.
 - **Callouts hide in `compact` mode and below `sm`.** At card size or phone width the 8.6-unit labels render at 6–7px. `.on-dark` (in `index.css`) keeps a plate's dark palette when it sits inside a cream section.
 - **They draw once and stay drawn** (WCAG 2.2.2, the same rule as the survey layer), and render finished under reduced motion.

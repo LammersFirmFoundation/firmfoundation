@@ -873,10 +873,11 @@ function beds(id: string): Drawing {
   const mulchRight: [number, number][] = [[X + GAP, TB], [X + GAP + 4, G - M + 3]];
   for (let x = X + GAP + 14; x < EDGE - 22; x += 12) mulchRight.push([x, G - M + jit()]);
   mulchRight.push([EDGE - 18, G - M + 2], [EDGE - 10, G + 4]);
-  const mulchTop = (pts: [number, number][]) => curve(pts);
+  const mulchTopLeft = curve(mulchLeft);
+  const mulchTopRight = curve(mulchRight);
   const mulchArea =
-    `${mulchTop(mulchLeft)} L${X - GAP} ${TB} L${BL} ${TB} L${BL} ${G} L24 ${G} Z ` +
-    `${mulchTop(mulchRight)} L${EDGE - 10} ${G + 4} L${EDGE - 20} ${G} L${BR} ${G} L${BR} ${TB} L${X + GAP} ${TB} Z`;
+    `${mulchTopLeft} L${X - GAP} ${TB} L${BL} ${TB} L${BL} ${G} L24 ${G} Z ` +
+    `${mulchTopRight} L${EDGE - 10} ${G + 4} L${EDGE - 20} ${G} L${BR} ${G} L${BR} ${TB} L${X + GAP} ${TB} Z`;
   const mulchChips = chips(24, EDGE - 10, () => G - M - 1, under, 260, 101, 2.6);
 
   // The shrub: a crown of stems out of the top of the ball under a low,
@@ -900,7 +901,6 @@ function beds(id: string): Drawing {
   for (let x = EDGE + 4; x < 476; x += 3 + r() * 1.6) {
     turf += `M${f(x)} ${G} l${f((r() - 0.5) * 2.4)} ${f(-(2.4 + r() * 3))}`;
   }
-
 
   return {
     art: (
@@ -945,8 +945,8 @@ function beds(id: string): Drawing {
         <L d={canopy} tone="strong" step={2.6} w={1.2} />
 
         {/* Mulch, pulled back from the stems. */}
-        <L d={mulchTop(mulchLeft)} step={3} w={1} />
-        <L d={mulchTop(mulchRight)} step={3} w={1} />
+        <L d={mulchTopLeft} step={3} w={1} />
+        <L d={mulchTopRight} step={3} w={1} />
         <g clipPath={`url(#${id}-mulch)`}>
           {mulchChips.map((d, i) => (
             <Grain key={i} d={d} step={3.2 + i * 0.1} w={0.8} className="text-foreground/45" />

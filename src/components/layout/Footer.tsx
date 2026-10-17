@@ -76,7 +76,7 @@ const Footer = () => {
           </div>
 
           <div className="min-w-0">
-            <h2 className="eyebrow text-muted-foreground mb-4">Service Areas</h2>
+            <h2 className="eyebrow text-muted-foreground mb-4">Service areas</h2>
             <ul className="space-y-2 text-sm text-foreground/70">
               {serviceAreaNames.map((area) => (
                 <li key={area}>{area}</li>
@@ -85,7 +85,7 @@ const Footer = () => {
           </div>
 
           <div className="min-w-0">
-            <h2 className="eyebrow text-muted-foreground mb-4">Get in Touch</h2>
+            <h2 className="eyebrow text-muted-foreground mb-4">Get in touch</h2>
             <ul className="space-y-3 text-sm text-foreground/70 min-w-0">
               <li className="flex items-start gap-3 min-w-0 break-words">
                 <Phone className="h-4 w-4 mt-0.5 shrink-0 text-primary" aria-hidden="true" />

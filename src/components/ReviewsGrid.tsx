@@ -33,6 +33,39 @@ function featuredReviews(reviews: Review[], count = 3): Review[] {
     .map(({ r }) => r);
 }
 
+/** Who said it, and where. Shared by the featured quote and the two beside it. */
+const Byline = ({ review }: { review: Review }) => (
+  <figcaption className="mt-5 flex items-center gap-3">
+    {review.avatarUrl ? (
+      <img
+        src={sizedPhoto(review.avatarUrl, 80)}
+        alt=""
+        loading="lazy"
+        width={36}
+        height={36}
+        referrerPolicy="no-referrer"
+        className="h-9 w-9 rounded-full object-cover"
+      />
+    ) : (
+      <span aria-hidden="true" className="flex h-9 w-9 items-center justify-center rounded-full bg-muted font-serif text-foreground">
+        {review.name.charAt(0)}
+      </span>
+    )}
+    <span className="min-w-0">
+      <span className="block truncate text-sm font-semibold text-foreground">{review.name}</span>
+      <span className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
+        <GoogleIcon className="h-3 w-3" />
+        Google review{review.date ? ` · ${review.date}` : ""}
+      </span>
+    </span>
+  </figcaption>
+);
+
+/**
+ * One review set large as a pull quote, two more beside it, ruled rather
+ * than boxed. The quotes are in the serif: it is someone else's voice, and
+ * setting it apart from the site's own type says so.
+ */
 const ReviewsGrid = ({
   reviews,
   rating,
@@ -42,58 +75,47 @@ const ReviewsGrid = ({
   rating: number;
   total: number;
 }) => {
-  const shown = featuredReviews(reviews);
+  const [lead, ...rest] = featuredReviews(reviews);
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
-        {shown.map((review, i) => (
-          <FadeInView key={review.name} delay={i * 0.08} className="h-full">
-            <figure className="flex h-full flex-col rounded-lg border border-border bg-card p-6 md:p-8">
-              <StarRating rating={review.rating} size="h-4 w-4" className="text-primary" />
-              <blockquote className="mt-5 flex-1 font-heading text-lg leading-snug text-card-foreground md:text-xl">
-                <p className="line-clamp-6">&ldquo;{review.review.trim()}&rdquo;</p>
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
+        {lead && (
+          <FadeInView className="lg:col-span-7">
+            <figure>
+              <StarRating rating={lead.rating} size="h-4 w-4" className="text-primary" />
+              <blockquote className="mt-5 font-serif text-[1.375rem] italic leading-[1.45] text-foreground md:text-[1.75rem]">
+                <p className="line-clamp-[9]">&ldquo;{lead.review.trim()}&rdquo;</p>
               </blockquote>
-              <figcaption className="mt-6 flex items-center gap-3 border-t border-border pt-5">
-                {review.avatarUrl ? (
-                  <img
-                    src={sizedPhoto(review.avatarUrl, 80)}
-                    alt=""
-                    loading="lazy"
-                    width={40}
-                    height={40}
-                    referrerPolicy="no-referrer"
-                    className="h-10 w-10 rounded-full object-cover"
-                  />
-                ) : (
-                  <span aria-hidden="true" className="flex h-10 w-10 items-center justify-center rounded-full bg-muted font-heading text-foreground">
-                    {review.name.charAt(0)}
-                  </span>
-                )}
-                <span className="min-w-0">
-                  <span className="block truncate text-sm font-medium text-foreground">{review.name}</span>
-                  <span className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
-                    <GoogleIcon className="h-3 w-3" />
-                    Google review{review.date ? ` · ${review.date}` : ""}
-                  </span>
-                </span>
-              </figcaption>
+              <Byline review={lead} />
             </figure>
           </FadeInView>
-        ))}
+        )}
+        <div className="divide-y divide-border border-y border-border lg:col-span-5">
+          {rest.map((review, i) => (
+            <FadeInView key={review.name} delay={0.08 * (i + 1)}>
+              <figure className="py-7">
+                <blockquote className="font-serif text-[1.0625rem] italic leading-relaxed text-foreground">
+                  <p className="line-clamp-5">&ldquo;{review.review.trim()}&rdquo;</p>
+                </blockquote>
+                <Byline review={review} />
+              </figure>
+            </FadeInView>
+          ))}
+        </div>
       </div>
 
       <FadeInView delay={0.2}>
-        <div className="mt-8 flex flex-col items-center justify-center gap-4 text-center sm:flex-row sm:gap-6">
+        <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
           <span className="inline-flex items-center gap-2.5 text-sm text-muted-foreground">
             <StarRating rating={rating} size="h-4 w-4" className="text-primary" />
             <span>
-              <span className="font-medium text-foreground">{rating.toFixed(1)}</span> average from {total} Google reviews
+              <span className="font-semibold text-foreground">{rating.toFixed(1)}</span> average from {total} Google reviews
             </span>
           </span>
           <Link
             to="/reviews"
-            className="group inline-flex items-center gap-2 eyebrow text-primary hover:text-foreground"
+            className="group inline-flex items-center gap-2 text-sm font-semibold text-foreground underline decoration-foreground/25 underline-offset-[5px] hover:decoration-foreground"
           >
             Read them all
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />

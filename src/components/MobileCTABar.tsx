@@ -67,7 +67,7 @@ const MobileCTABar = () => {
         to="/contact"
         className="flex items-center justify-center py-4 eyebrow bg-primary text-primary-foreground active:opacity-90 transition-opacity"
       >
-        Free Quote
+        Free quote
       </Link>
     </div>
   );

@@ -152,7 +152,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
               {BUSINESS.phone}
             </a>
             <Button asChild size="sm">
-              <Link to="/contact">Get a Quote</Link>
+              <Link to="/contact">Get a quote</Link>
             </Button>
           </div>
 
@@ -208,7 +208,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                   </div>
                   <SheetClose asChild>
                     <Button asChild className="w-full mt-9" size="lg">
-                      <Link to="/contact">Get a Free Quote</Link>
+                      <Link to="/contact">Get a free quote</Link>
                     </Button>
                   </SheetClose>
                   <a

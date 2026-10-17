@@ -11,7 +11,8 @@ import SectionHeader from "@/components/layout/SectionHeader";
 import FadeInView from "@/components/animations/FadeInView";
 import GoogleIcon from "@/components/icons/GoogleIcon";
 import StarRating from "@/components/StarRating";
-import ServicesBento from "@/components/ServicesBento";
+import ServicesIndex from "@/components/ServicesIndex";
+import BeforeAfterPair from "@/components/BeforeAfterPair";
 import ProcessSteps from "@/components/ProcessSteps";
 import ReviewsGrid from "@/components/ReviewsGrid";
 import HeroMosaic from "@/components/HeroMosaic";
@@ -19,6 +20,10 @@ import OurStory from "@/components/OurStory";
 import { useReviews, type ApiResponse } from "@/lib/useReviews";
 import { ACCEPTS_SMS, BUSINESS, howAJobRuns, smsHref } from "@/data/business";
 import { localBusinessSchema, websiteSchema } from "@/lib/schema";
+import { services } from "@/data/services";
+
+/** The services Josiah has a same-spot before and after for. */
+const beforeAfterServices = services.filter((s) => s.beforeAfter);
 
 /**
  * The homepage, in six blocks, each answering one question a visitor actually
@@ -76,21 +81,23 @@ const LandingPage = () => {
               style={shouldReduceMotion ? undefined : { opacity: heroOpacity, y: heroLift }}
               className="w-full pb-12 pt-8 will-change-transform lg:w-[50%] lg:py-32 lg:pr-12"
             >
-              <p className="eyebrow text-primary mb-6 hero-rise" style={{ animationDelay: "0ms" }}>
-                Mount Pleasant &middot; Greater Charleston
+              <p className="mark mb-6 hero-rise" style={{ animationDelay: "0ms" }}>
+                Mount Pleasant &amp; Charleston, SC
               </p>
               {/* The three services Josiah leads with on his own flyer and
                   business card, in his order. Each line rises out of a mask
                   once, in CSS (see .hero-line in index.css), so the prerendered
                   HTML is already the finished headline for crawlers and no-JS. */}
-              <h1 className="text-hero font-heading text-foreground lg:text-[clamp(2.6rem,4.4vw,4.6rem)] lg:leading-[0.9]">
+              {/* The one place on the site set in capitals, the way the flyer
+                  sets "DIRT WORK DONE RIGHT." Everything else is sentence case. */}
+              <h1 className="text-hero font-heading uppercase text-foreground lg:text-[clamp(2.6rem,4.4vw,4.6rem)] lg:leading-[0.9]">
                 <span className="hero-line">
                   <span style={{ animationDelay: "40ms" }}>Landscaping,</span>
                 </span>
                 <span className="hero-line">
                   <span style={{ animationDelay: "100ms" }}>Hardscapes &amp;</span>
                 </span>
-                <span className="hero-line text-highlight">
+                <span className="hero-line">
                   <span style={{ animationDelay: "160ms" }}>Excavation</span>
                 </span>
               </h1>
@@ -128,12 +135,12 @@ const LandingPage = () => {
                 style={{ animationDelay: "340ms" }}
               >
                 <Button asChild size="lg">
-                  <Link to="/contact">Get a Free Quote</Link>
+                  <Link to="/contact">Get a free quote</Link>
                 </Button>
                 <Button asChild size="lg" variant="outline">
                   <a href={BUSINESS.phoneHref} data-analytics-where="hero">
                     <Phone aria-hidden="true" />
-                    {BUSINESS.phone}
+                    Call {BUSINESS.phone}
                   </a>
                 </Button>
               </div>
@@ -146,54 +153,59 @@ const LandingPage = () => {
             visitor from an ad is missing. */}
         {/* ── 2. Reviews ───────────────────────────────────────────────── */}
         <Section id="reviews" className="scroll-mt-24">
-          <SectionHeader eyebrow="Google reviews" title="What people" accent="say about the work" />
+          <SectionHeader
+            eyebrow="Google reviews"
+            title="What people say about the work"
+            subtitle="From the people Josiah has worked for, word for word."
+          />
           <ReviewsGrid reviews={reviews} rating={aggregateRating} total={totalReviewCount} />
         </Section>
 
         {/* ── 3. Services ──────────────────────────────────────────────── */}
-        <Section>
-          <SectionHeader eyebrow="What we do" title="From the dirt work" accent="to the finished yard" />
-          <ServicesBento />
+        <Section className="pt-0 md:pt-0">
+          <SectionHeader
+            eyebrow="What we do"
+            title="From the dirt work to the finished yard"
+            subtitle="Most jobs are more than one of these, and the same crew does all of it, so nothing gets handed off halfway."
+          />
+          <ServicesIndex />
         </Section>
 
-        {/* ── 4. Not sure? Send a photo ─────────────────────────────────
-            One line where a six-item diagnostic accordion used to be. The
-            accordion earned its place by naming a problem the visitor couldn't
-            name; a photo does that faster, and it is how most of these jobs
-            start anyway. */}
-        <section className="border-y border-border bg-muted px-5 py-12 sm:px-6 md:px-10 md:py-14">
-          <FadeInView className="mx-auto flex max-w-content flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
-            <div>
-              <h2 className="font-heading text-3xl leading-tight text-foreground md:text-4xl">
-                Not sure what you need? <span className="text-highlight">Send a photo.</span>
-              </h2>
-              <p className="mt-3 max-w-xl text-muted-foreground">
-                {ACCEPTS_SMS ? "Text" : "Send"} Josiah a picture of the yard and he&rsquo;ll tell you
-                what it usually takes. No obligation.
-              </p>
-            </div>
-            <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-              {ACCEPTS_SMS && (
-                <Button asChild size="lg">
-                  <a href={smsHref} data-analytics-where="photo-band-text">
-                    <MessageSquare aria-hidden="true" />
-                    Text a photo
-                    {/* A laptop can't always send a text, so wider screens get
-                        the number itself to copy onto a phone. */}
-                    <span className="hidden sm:inline">to {BUSINESS.phone}</span>
-                  </a>
-                </Button>
-              )}
-              <Button asChild size="lg" variant="outline">
-                <Link to="/contact">Use the quote form</Link>
-              </Button>
-            </div>
-          </FadeInView>
-        </section>
+        {/* ── 4. Before and after ─────────────────────────────────────────
+            Proof in the one form a homeowner trusts most: the same spot, twice. */}
+        <Section variant="cream">
+          <SectionHeader
+            eyebrow="Before and after"
+            title="The same spot, before and after"
+            subtitle={`Two of Josiah's jobs in Mount Pleasant. ${ACCEPTS_SMS ? "Text" : "Send"} him a photo of yours and he'll tell you what it usually takes.`}
+          />
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-8">
+            {beforeAfterServices.map((service, i) => (
+              <FadeInView key={service.slug} delay={0.08 * i}>
+                <figure>
+                  <BeforeAfterPair
+                    pair={service.beforeAfter!}
+                    sizes="(min-width: 768px) 25vw, 50vw"
+                    className="aspect-[4/3] overflow-hidden rounded-[3px]"
+                  />
+                  <figcaption className="mt-4 flex items-baseline justify-between gap-4 border-t border-border pt-4">
+                    <span className="font-heading text-xl text-foreground md:text-2xl">{service.title}</span>
+                    <Link
+                      to={`/services/${service.slug}`}
+                      className="shrink-0 text-sm font-semibold text-foreground underline decoration-foreground/25 underline-offset-[5px] hover:decoration-foreground"
+                    >
+                      About {service.title.toLowerCase()}
+                    </Link>
+                  </figcaption>
+                </figure>
+              </FadeInView>
+            ))}
+          </div>
+        </Section>
 
         {/* ── 5. How it works ──────────────────────────────────────────── */}
-        <Section variant="forest" className="py-16 md:py-20">
-          <p className="eyebrow text-primary mb-10 text-center md:mb-12">How it works</p>
+        <Section variant="forest">
+          <SectionHeader eyebrow="How it works" title="What happens when you call" />
           <ProcessSteps steps={howAJobRuns} />
         </Section>
 
