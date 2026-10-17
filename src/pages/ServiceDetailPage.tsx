@@ -335,7 +335,7 @@ const ServiceDetailPage = () => {
               <FadeInView className="mx-auto mb-10 max-w-4xl md:mb-14">
                 <ServicePlate
                   plate={service.plate}
-                  number={coreIndex + 1}
+                  number={isCore ? coreIndex + 1 : undefined}
                   label={plateDescriptions[service.plate]}
                 />
               </FadeInView>

@@ -154,6 +154,79 @@ function roots(x: number, y: number, spread: number, depth: number, seed: number
   return strokes;
 }
 
+/** An open, smoothed line through points — Catmull-Rom, as cubic Béziers. */
+function curve(pts: (readonly [number, number])[]) {
+  let d = `M${f(pts[0][0])} ${f(pts[0][1])}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[Math.max(i - 1, 0)];
+    const p1 = pts[i];
+    const p2 = pts[i + 1];
+    const p3 = pts[Math.min(i + 2, pts.length - 1)];
+    const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+    const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+    d += ` C${f(c1[0])} ${f(c1[1])} ${f(c2[0])} ${f(c2[1])} ${f(p2[0])} ${f(p2[1])}`;
+  }
+  return d;
+}
+
+/** Points along y = fn(x), every `step` units, for `curve`. */
+const along = (fn: (x: number) => number, x0: number, x1: number, step = 10) => {
+  const pts: [number, number][] = [];
+  for (let x = x0; x < x1; x += step) pts.push([x, fn(x)]);
+  pts.push([x1, fn(x1)]);
+  return pts;
+};
+
+/**
+ * Mulch in section: short strokes scattered between two edges, lying mostly
+ * flat the way chips settle. Split into `groups` so they can fade in staggered
+ * without one path per chip.
+ */
+function chips(x0: number, x1: number, top: (x: number) => number, bottom: (x: number) => number, count: number, seed: number, size = 3.2, groups = 3) {
+  const r = rng(seed);
+  const out = Array.from({ length: groups }, () => "");
+  for (let i = 0; i < count; i++) {
+    const x = x0 + r() * (x1 - x0);
+    const t = top(x);
+    const y = t + 1.2 + r() * Math.max(bottom(x) - t - 2.4, 0);
+    const len = size * (0.6 + r() * 0.7);
+    const a = (r() - 0.5) * 1.1;
+    out[i % groups] += `M${f(x - (Math.cos(a) * len) / 2)} ${f(y - (Math.sin(a) * len) / 2)} l${f(Math.cos(a) * len)} ${f(Math.sin(a) * len)}`;
+  }
+  return out;
+}
+
+/**
+ * Crushed stone in section: small angular outlines on a loose grid between two
+ * edges. Angular, not round: a compacted base is crusher run that locks
+ * together, where the washed stone in a French drain is round so water passes.
+ */
+function aggregate(x0: number, x1: number, top: (x: number) => number, bottom: (x: number) => number, seed: number, groups = 4) {
+  const r = rng(seed);
+  const out = Array.from({ length: groups }, () => "");
+  let n = 0;
+  for (let x = x0 + 4; x < x1 - 3; x += 8) {
+    const t = top(x);
+    const b = bottom(x);
+    for (let y = t + 4.5; y < b - 3; y += 7) {
+      if (r() < 0.14) continue;
+      const cx = x + (r() - 0.5) * 3.4;
+      const cy = y + (r() - 0.5) * 2.6;
+      const rad = 1.5 + r() * 1.4;
+      const k = r() < 0.55 ? 3 : 4;
+      const rot = r() * Math.PI * 2;
+      let d = "";
+      for (let j = 0; j < k; j++) {
+        const a = rot + (j / k) * Math.PI * 2 + (r() - 0.5) * 0.5;
+        const rr = rad * (0.75 + r() * 0.45);
+        d += `${j ? "L" : "M"}${f(cx + Math.cos(a) * rr)} ${f(cy + Math.sin(a) * rr)}`;
+      }
+      out[n++ % groups] += d + "Z";
+    }
+  }
+  return out;
+}
+
 // ── Motion ──────────────────────────────────────────────────────────────────
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -227,6 +300,21 @@ const D = ({ d, tone = "base", step = 0, w = 1.1, dash = "5 4" }: { d: string; t
 /** A filled region — hatching, stone, water. */
 const Fill = ({ d, fill, step = 0, className }: { d: string; fill: string; step?: number; className?: string }) => (
   <motion.path d={d} variants={fade} custom={step} fill={fill} stroke="none" className={className} />
+);
+
+/** Texture drawn as strokes — mulch chips, crushed stone. Fades in, like hatching. */
+const Grain = ({ d, step = 0, w = 0.8, className = "text-foreground/40" }: { d: string; step?: number; w?: number; className?: string }) => (
+  <motion.path
+    d={d}
+    variants={fade}
+    custom={step}
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={w}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  />
 );
 
 /**
@@ -305,7 +393,7 @@ const Patterns = ({ id }: { id: string }) => (
   </defs>
 );
 
-// ── The five drawings ───────────────────────────────────────────────────────
+// ── The drawings ────────────────────────────────────────────────────────────
 // Each is a viewBox of 480 × 300, and each returns its drawing plus its notes
 // separately so `compact` can drop the notes.
 
@@ -610,12 +698,447 @@ function drainage(id: string): Drawing {
   };
 }
 
+function pavers(id: string): Drawing {
+  // A patio against the house, in section. The finished surface falls away
+  // from the wall and every layer under it runs parallel to it. The base is
+  // drawn deep on purpose: the pavers are the part people see, the base is
+  // the part that decides whether they stay flat, and it is the dirt work.
+  const W = 60; // outside face of the foundation wall
+  const E = 352; // open edge of the patio: inside face of the edge restraint
+  const X2 = 392; // the base runs on past the restraint
+  const top = (x: number) => 126 + ((x - W) / (E - W)) * 8; // finished surface
+  const P = 13; // paver
+  const S = 5; // bedding sand
+  const B = 40; // aggregate base
+  const sandTop = (x: number) => top(x) + P;
+  const baseTop = (x: number) => sandTop(x) + S;
+  const exc = (x: number) => baseTop(x) + B; // geotextile on the compacted subgrade
+  const lawn = f(top(E) + 3); // turf sits just below the pavers, so water leaves the patio
+  const seg = (fn: (x: number) => number, x0: number, x1: number) => `M${x0} ${f(fn(x0))} L${x1} ${f(fn(x1))}`;
+
+  // Eleven pavers, chamfered on their top edges, with a sand-swept joint between each.
+  const n = 11;
+  const pitch = (E - W - 2) / n;
+  const gap = 1.8;
+  const bev = 1.6;
+  let units = "";
+  const joints: number[] = [];
+  for (let i = 0; i < n; i++) {
+    const x0 = f(W + 1 + i * pitch + (i ? gap / 2 : 0));
+    const x1 = f(W + 1 + (i + 1) * pitch - (i < n - 1 ? gap / 2 : 0));
+    if (i) joints.push(W + 1 + i * pitch);
+    units += `M${x0} ${f(sandTop(x0))} L${x0} ${f(top(x0) + bev)} L${f(x0 + bev)} ${f(top(x0 + bev))} L${f(x1 - bev)} ${f(top(x1 - bev))} L${x1} ${f(top(x1) + bev)} L${x1} ${f(sandTop(x1))} Z`;
+  }
+  const jointSand = joints
+    .map((x) => [3.6, 7, 10.4].map((dy) => `M${f(x + 0.55)} ${f(top(x) + dy)} A0.55 0.55 0 1 0 ${f(x - 0.55)} ${f(top(x) + dy)} A0.55 0.55 0 1 0 ${f(x + 0.55)} ${f(top(x) + dy)}`).join(""))
+    .join("");
+
+  const stone = aggregate(W, X2, baseTop, exc, 83);
+  const base = `M${W} ${f(baseTop(W))} L${X2} ${f(baseTop(X2))} L${X2} ${f(exc(X2))} L${W} ${f(exc(W))} Z`;
+
+  // Edge restraint: a vertical leg against the last paver and a flange spiked
+  // into the base, set below the paver surface so the turf can cover it.
+  const rt = f(top(E) + 3);
+  const rb = f(baseTop(E));
+  const restraint = `M${E} ${rb} L${E} ${rt} L${E + 3} ${rt} L${E + 3} ${f(rb - 3)} L${E + 20} ${f(baseTop(E + 20) - 3)} L${E + 20} ${f(baseTop(E + 20))} Z`;
+  const SP = E + 12;
+  const spike = `M${SP - 3} ${f(baseTop(SP) - 5)} L${SP + 3} ${f(baseTop(SP) - 5)} M${SP} ${f(baseTop(SP) - 5)} L${SP} ${f(baseTop(SP) + 24)}`;
+
+  const r = rng(89);
+  let turf = "";
+  for (let x = E + 6; x < 476; x += 3 + r() * 1.6) {
+    turf += `M${f(x)} ${lawn} l${f((r() - 0.5) * 2.4)} ${f(-(2.4 + r() * 3))}`;
+  }
+
+  // The base thickness, dimensioned past the end of the base.
+  // 4 in. min. after compaction for "sidewalks, patios and pedestrian areas …
+  // over well-drained soils": CMHA Tech Note PAV-TEC-002-22 (formerly ICPI
+  // Tech Spec 2), "Construction of Interlocking Concrete Pavements", Base
+  // section. Wetter or weaker soils need more, so it is drawn as a minimum.
+  const DX = X2 + 10;
+  const by1 = f(baseTop(X2));
+  const by2 = f(exc(X2));
+
+  return {
+    art: (
+      <>
+        <defs>
+          <pattern id={`${id}-sand`} width="3" height="3" patternUnits="userSpaceOnUse">
+            <circle cx="1.5" cy="1.5" r="0.6" fill="currentColor" className="text-foreground/55" />
+          </pattern>
+          <clipPath id={`${id}-base`}>
+            <path d={base} />
+          </clipPath>
+        </defs>
+
+        {/* Native soil and the topsoil over the base past the edge. */}
+        <Fill
+          d={`M${E + 3} ${lawn} L480 ${lawn} L480 300 L${W} 300 L${W} 254 L${W + 18} 254 L${W + 18} 236 L${W} 236 L${W} ${f(exc(W))} L${X2} ${by2} L${X2} ${by1} L${E + 3} ${f(baseTop(E + 3))} Z`}
+          fill={`url(#${id}-earth)`}
+          step={0}
+        />
+
+        {/* House, in section: footing, stem wall, sill, wall, eave. */}
+        <L d={`M${W - 46} 236 L${W + 18} 236 L${W + 18} 254 L${W - 46} 254 Z`} tone="strong" step={0.3} />
+        <L d={`M${W - 30} 236 L${W - 30} 110 M${W} 236 L${W} 110`} tone="strong" step={0.4} />
+        <L d={`M${W - 34} 110 L${W + 2} 110 M${W - 34} 104 L${W + 2} 104`} step={0.5} w={1} />
+        <L d={`M${W - 30} 104 L${W - 30} 40 M${W} 104 L${W} 40`} tone="strong" step={0.6} />
+        <L d={`M${W - 44} 26 L${W + 34} 52 L${W + 34} 60`} tone="strong" step={0.7} />
+        <L d={`M${W - 22} 52 L${W - 8} 52 M${W - 22} 82 L${W - 8} 82 M${W - 22} 52 L${W - 22} 82 M${W - 8} 52 L${W - 8} 82`} tone="faint" step={0.8} w={0.9} />
+
+        {/* The excavation: geotextile on the compacted subgrade, then the base. */}
+        <L d={`M${W} ${f(exc(W))} L${X2} ${by2} L${X2} ${by1}`} tone="strong" step={1} />
+        <D d={`M${W + 3} ${f(exc(W + 3) - 2.6)} L${X2 - 3} ${f(exc(X2 - 3) - 2.6)} L${X2 - 3} ${f(baseTop(X2) + 6)}`} tone="accent" step={1.4} dash="4 3" />
+        <g clipPath={`url(#${id}-base)`}>
+          {stone.map((d, i) => (
+            <Grain key={i} d={d} step={1.8 + i * 0.08} w={0.75} />
+          ))}
+        </g>
+        <L d={seg(baseTop, W, X2)} step={2} w={1} />
+
+        {/* Bedding sand, the pavers, and sand swept into the joints. */}
+        <Fill d={`${seg(sandTop, W, E)} L${E} ${f(baseTop(E))} L${W} ${f(baseTop(W))} Z`} fill={`url(#${id}-sand)`} step={2.4} />
+        <L d={units} tone="strong" step={2.6} w={1.2} />
+        <motion.path d={jointSand} variants={fade} custom={3} fill="currentColor" className="text-foreground/60" />
+
+        {/* Edge restraint, spiked into the base; turf beyond it. */}
+        <L d={restraint} tone="accent" step={3} w={1.2} />
+        <L d={spike} tone="accent" step={3.2} w={1.1} />
+        <L d={`M${E + 3} ${lawn} L480 ${lawn}`} tone="strong" step={3} w={1.3} />
+        <L d={turf} step={3.4} w={0.8} />
+
+        {/* Water off the surface, away from the house. */}
+        <L d={arrow(168, f(top(168) - 11), 300, f(top(300) - 11), 6)} tone="accent" step={3.8} w={1.3} />
+
+        {/* Dimension: the depth of the base. */}
+        <D d={`M${X2 + 2} ${by1} L${DX + 5} ${by1} M${X2 + 2} ${by2} L${DX + 5} ${by2}`} tone="faint" step={4} dash="2 3" w={0.8} />
+        <L d={`M${DX} ${by1} L${DX} ${by2} M${DX - 5} ${by1} L${DX + 5} ${by1} M${DX - 5} ${by2} L${DX + 5} ${by2}`} step={4} w={0.9} />
+      </>
+    ),
+    notes: (
+      <>
+        <motion.text variants={fade} custom={4.4} x={234} y={f(top(234) - 19)} textAnchor="middle" fill="currentColor" className="font-sans text-foreground/90" style={{ fontSize: 8.6, fontWeight: 600, letterSpacing: "0.12em" }}>
+          FALLS AWAY FROM THE HOUSE
+        </motion.text>
+        <motion.text variants={fade} custom={4.4} x={DX + 9} y={f((by1 + by2) / 2 + 3.2)} fill="currentColor" className="font-sans text-foreground/90" style={{ fontSize: 8.6, fontWeight: 600, letterSpacing: "0.12em" }}>
+          4 IN. MIN.
+        </motion.text>
+        <Note at={[joints[2], f(top(joints[2]) + 2)]} to={[joints[2], 66]}>PAVERS · SAND-SWEPT JOINTS</Note>
+        <Note at={[E + 1.5, f(top(E) + 9)]} to={[456, 86]} anchor="end">EDGE RESTRAINT</Note>
+        <Note at={[150, f(sandTop(150) + 2.5)]} to={[150, 214]} anchor="end">BEDDING SAND</Note>
+        <Note at={[222, f(baseTop(222) + 21)]} to={[222, 236]} anchor="end">COMPACTED BASE</Note>
+        <Note at={[296, f(exc(296) - 2.6)]} to={[296, 258]} anchor="end">GEOTEXTILE ON COMPACTED SUBGRADE</Note>
+      </>
+    ),
+  };
+}
+
+function beds(id: string): Drawing {
+  // A shrub planted the way Clemson Extension says to (HGIC 1052, "Planting
+  // Shrubs Correctly"): the hole dug two to five times wider than the root
+  // ball but never deeper, the ball sitting on undisturbed soil with its top
+  // at grade or a little above, the hole backfilled with the same soil that
+  // came out of it, and mulch kept off the stems.
+  const G = 172; // native grade
+  const X = 196; // the shrub's crown
+  const BL = X - 46;
+  const BR = X + 46;
+  const TB = G - 3; // top of the root ball: at grade or a touch above, never buried
+  const BB = G + 54; // bottom of the ball
+  const HL = X - 110;
+  const HR = X + 110;
+  const EDGE = 360; // the spade-cut bed edge, turf beyond it
+  const TR = 16; // depth of the edge trench
+  const M = 12; // mulch, drawn deep: N.T.S.
+  const GAP = 13; // mulch pulled back from the stems
+
+  const hole = `M${HL} ${G} C${HL + 30} ${G + 6} ${BL - 10} ${BB - 16} ${BL + 18} ${BB} L${BR - 18} ${BB} C${BR + 10} ${BB - 16} ${HR - 30} ${G + 6} ${HR} ${G}`;
+  const ball = `M${BL + 4} ${TB} L${BR - 4} ${TB} Q${BR} ${TB} ${BR} ${TB + 4} C${BR + 1} ${G + 26} ${BR - 5} ${BB - 5} ${BR - 24} ${BB} L${BL + 24} ${BB} C${BL + 5} ${BB - 5} ${BL - 1} ${G + 26} ${BL} ${TB + 4} Q${BL} ${TB} ${BL + 4} ${TB} Z`;
+  // Backfill: the hole less the ball, either side.
+  const backfill =
+    `M${HL} ${G} C${HL + 30} ${G + 6} ${BL - 10} ${BB - 16} ${BL + 18} ${BB} L${BL + 24} ${BB} C${BL + 5} ${BB - 5} ${BL - 1} ${G + 26} ${BL} ${TB + 4} L${BL} ${G} Z ` +
+    `M${HR} ${G} C${HR - 30} ${G + 6} ${BR + 10} ${BB - 16} ${BR - 18} ${BB} L${BR - 24} ${BB} C${BR - 5} ${BB - 5} ${BR + 1} ${G + 26} ${BR} ${TB + 4} L${BR} ${G} Z`;
+
+  // Mulch: 2–3 in. deep per Clemson HGIC 1052 ("Apply 2 to 3 inches of
+  // natural, organic mulch over the planted area") and HGIC 1604, "Mulch"
+  // ("Keep mulch 2 to 3 inches away from the stems of woody plants"). The
+  // depth is dimensioned; the gap at the stems is labelled, not measured.
+  const under = (x: number) => (x > BL && x < BR ? TB : G);
+  const r = rng(97);
+  const jit = () => (r() - 0.5) * 2.2;
+  const mulchLeft: [number, number][] = [[24, G], [32, G - M + 3]];
+  for (let x = 44; x < X - GAP - 8; x += 12) mulchLeft.push([x, G - M + jit()]);
+  mulchLeft.push([X - GAP - 4, G - M + 3], [X - GAP, TB]);
+  const mulchRight: [number, number][] = [[X + GAP, TB], [X + GAP + 4, G - M + 3]];
+  for (let x = X + GAP + 14; x < EDGE - 22; x += 12) mulchRight.push([x, G - M + jit()]);
+  mulchRight.push([EDGE - 18, G - M + 2], [EDGE - 10, G + 4]);
+  const mulchTop = (pts: [number, number][]) => curve(pts);
+  const mulchArea =
+    `${mulchTop(mulchLeft)} L${X - GAP} ${TB} L${BL} ${TB} L${BL} ${G} L24 ${G} Z ` +
+    `${mulchTop(mulchRight)} L${EDGE - 10} ${G + 4} L${EDGE - 20} ${G} L${BR} ${G} L${BR} ${TB} L${X + GAP} ${TB} Z`;
+  const mulchChips = chips(24, EDGE - 10, () => G - M - 1, under, 260, 101, 2.6);
+
+  // The shrub: a crown of stems out of the top of the ball under a low,
+  // spreading mound, wider than it is tall.
+  const stems = [
+    `M${X - 3} ${TB} C${X - 5} ${TB - 12} ${X - 14} ${TB - 22} ${X - 26} ${TB - 34}`,
+    `M${X} ${TB} C${X + 1} ${TB - 16} ${X - 2} ${TB - 30} ${X + 1} ${TB - 46}`,
+    `M${X + 3} ${TB} C${X + 6} ${TB - 12} ${X + 15} ${TB - 21} ${X + 27} ${TB - 32}`,
+  ];
+  const flare = `M${X - 8} ${TB} Q${X - 3} ${TB - 1} ${X - 3} ${TB - 7} M${X + 8} ${TB} Q${X + 3} ${TB - 1} ${X + 3} ${TB - 7}`;
+  const canopy = scallop(X, G - 52, 60, 32, 103, 22, 0.62);
+  const rootStrokes = roots(X, TB + 3, 30, 40, 107);
+
+  let turf = "";
+  for (let x = EDGE + 4; x < 476; x += 3 + r() * 1.6) {
+    turf += `M${f(x)} ${G} l${f((r() - 0.5) * 2.4)} ${f(-(2.4 + r() * 3))}`;
+  }
+
+  const DX = EDGE - 34; // mulch depth dimension
+
+  return {
+    art: (
+      <>
+        <defs>
+          <clipPath id={`${id}-ball`}>
+            <path d={ball} />
+          </clipPath>
+          <clipPath id={`${id}-mulch`}>
+            <path d={mulchArea} />
+          </clipPath>
+        </defs>
+
+        {/* Native soil, less the planting hole and the edge trench. */}
+        <Fill
+          d={`M0 ${G} L${HL} ${G} ${hole.replace(/^M\S+ \S+/, "")} L${EDGE - 20} ${G} L${EDGE} ${G + TR} L${EDGE} ${G} L480 ${G} L480 300 L0 300 Z`}
+          fill={`url(#${id}-earth)`}
+          step={0}
+        />
+        <L d={`M0 ${G} L${BL} ${G} M${BR} ${G} L${EDGE - 20} ${G} L${EDGE} ${G + TR} L${EDGE} ${G} L480 ${G}`} tone="strong" step={0} w={1.4} />
+
+        {/* The hole, dug wide; the same soil back in around the ball. */}
+        <D d={hole} step={1} dash="6 4" w={1.2} />
+        <Fill d={backfill} fill={`url(#${id}-fill)`} step={1.6} />
+
+        {/* The root ball, its top at grade, on undisturbed soil. */}
+        <L d={ball} tone="strong" step={1.2} w={1.4} />
+        <g clipPath={`url(#${id}-ball)`}>
+          {rootStrokes.map((d, i) => (
+            <L key={i} d={d} step={1.8 + (i % 7) * 0.08} w={0.9} />
+          ))}
+        </g>
+
+        {/* The shrub. */}
+        {stems.map((d, i) => (
+          <L key={i} d={d} tone="strong" step={2.2 + i * 0.1} w={1.3} />
+        ))}
+        <L d={flare} tone="strong" step={2.2} w={1.1} />
+        <L d={canopy} tone="strong" step={2.6} w={1.2} />
+
+        {/* Mulch, pulled back from the stems. */}
+        <L d={mulchTop(mulchLeft)} step={3} w={1} />
+        <L d={mulchTop(mulchRight)} step={3} w={1} />
+        <g clipPath={`url(#${id}-mulch)`}>
+          {mulchChips.map((d, i) => (
+            <Grain key={i} d={d} step={3.2 + i * 0.1} w={0.8} className="text-foreground/45" />
+          ))}
+        </g>
+
+        {/* Turf beyond the edge. */}
+        <L d={turf} step={3.4} w={0.8} />
+
+        {/* Dimension: the mulch. */}
+        <L d={`M${DX} ${G - M} L${DX} ${G} M${DX - 5} ${G - M} L${DX + 5} ${G - M} M${DX - 5} ${G} L${DX + 5} ${G}`} step={4} w={0.9} />
+      </>
+    ),
+    notes: (
+      <>
+        <motion.text variants={fade} custom={4.4} x={DX} y={G - M - 8} textAnchor="middle" fill="currentColor" className="font-sans text-foreground/90" style={{ fontSize: 8.6, fontWeight: 600, letterSpacing: "0.12em" }}>
+          2–3 IN. MULCH
+        </motion.text>
+        <Note at={[X - 5, TB]} to={[118, 152]} anchor="end">ROOT FLARE AT GRADE</Note>
+        <Note at={[X + GAP + 2, G - 7]} to={[276, 130]}>MULCH KEPT OFF THE STEMS</Note>
+        <Note at={[HL + 34, G + 16]} to={[HL + 26, 254]}>HOLE DUG WIDE · NATIVE SOIL BACK IN</Note>
+        <Note at={[X, BB + 1]} to={[300, 236]}>BALL ON UNDISTURBED SOIL</Note>
+        <Note at={[EDGE - 2, G + TR - 3]} to={[470, 200]} anchor="end">SPADE-CUT BED EDGE</Note>
+      </>
+    ),
+  };
+}
+
+function mulching(id: string): Drawing {
+  // Forestry mulching, read left to right: keepers standing, the ground
+  // already mulched (the brush that was there drawn as a ghost), the head
+  // working, and brush still standing ahead of it. The point of the drawing
+  // is what stays: the trees, the stumps, the roots and the mulch itself.
+  const G = 216;
+  const ground = (x: number) => G + Math.sin(x / 58) * 1.4 + Math.sin(x / 21 + 1) * 0.5;
+  const groundLine = curve(along(ground, 0, 480, 10));
+  const H = 384; // the mulching head's drum
+  const DR = 11; // drum radius
+  const CY = G - DR - 2;
+  const END = H - 20; // where the mulch layer ends, just behind the head
+
+  const r = rng(113);
+  const mulchPts = along((x) => ground(x) - 9 + (r() - 0.5) * 2.4, 0, END - 8, 12);
+  mulchPts.push([END, ground(END) - 3]);
+  const mulchTopLine = curve(mulchPts);
+  const mulchArea = `${mulchTopLine} L${END} ${f(ground(END))} ${curve(along(ground, 0, END, 10).reverse()).replace(/^M/, "L")} Z`;
+  const mulchChips = chips(0, END, (x) => ground(x) - 11, ground, 320, 127, 3.4);
+
+  const keepers = [
+    { x: 34, h: 182, s: 19 },
+    { x: 94, h: 196, s: 29 },
+  ].map((p) => ({ ...p, ...pine(p.x, G, p.h, p.s) }));
+  const FLAG = G - 58;
+  const flag = (x: number) => `M${x - 3.5} ${FLAG} L${x + 3.5} ${FLAG} M${x + 3.5} ${FLAG} l5 5 M${x + 3.5} ${FLAG} l2.5 7.5`;
+
+  // What was there: brush and saplings, as a ghost over the mulch.
+  const ghostBrush = thicket(126, END - 24, G - 4, 131);
+  const saplings = [
+    { x: 236, h: 74, s: 139 },
+    { x: 306, h: 64, s: 149 },
+  ];
+  const stumps = [{ x: 168, s: 137 }, ...saplings];
+
+  // Ahead of the head: brush still standing.
+  const ahead = thicket(H + 26, 478, G, 151);
+  const SAP = 448;
+
+  // The head: a drum of teeth under a hood, pushed on arms from a carrier
+  // that is not drawn — the arms end in a break line, the drafting mark for
+  // "continues, not shown".
+  const teeth = Array.from({ length: 12 }, (_, i) => {
+    const a = (i / 12) * Math.PI * 2 + 0.26;
+    return `M${f(H + Math.cos(a) * DR)} ${f(CY + Math.sin(a) * DR)} L${f(H + Math.cos(a) * (DR + 3.2))} ${f(CY + Math.sin(a) * (DR + 3.2))}`;
+  }).join(" ");
+  const hood = `M${H - 22} ${G - 6} L${H - 22} ${G - 28} Q${H - 22} ${G - 34} ${H - 16} ${G - 34} L${H + 4} ${G - 34} C${H + 16} ${G - 34} ${H + 23} ${G - 28} ${H + 23} ${G - 14}`;
+  const u = [-0.77, -0.64] as const; // up and back, toward the carrier
+  const v = [0.64, -0.77] as const; // across the arm
+  const A0 = [H - 22, G - 21] as const;
+  const LEN = 44;
+  const armEnd = (s: number) => [A0[0] + v[0] * s + u[0] * LEN, A0[1] + v[1] * s + u[1] * LEN] as const;
+  const arms = [-4.5, 4.5]
+    .map((s) => `M${f(A0[0] + v[0] * s)} ${f(A0[1] + v[1] * s)} L${f(armEnd(s)[0])} ${f(armEnd(s)[1])}`)
+    .join(" ");
+  const e = armEnd(0);
+  const brk = [
+    [e[0] - v[0] * 10, e[1] - v[1] * 10],
+    [e[0] - v[0] * 2.5, e[1] - v[1] * 2.5],
+    [e[0] - v[0] * 1 + u[0] * 3.5, e[1] - v[1] * 1 + u[1] * 3.5],
+    [e[0] + v[0] * 1 - u[0] * 3.5, e[1] + v[1] * 1 - u[1] * 3.5],
+    [e[0] + v[0] * 2.5, e[1] + v[1] * 2.5],
+    [e[0] + v[0] * 10, e[1] + v[1] * 10],
+  ]
+    .map(([x, y], i) => `${i ? "L" : "M"}${f(x)} ${f(y)}`)
+    .join("");
+  // Rotation: the arc runs most of the way round, ending at the bottom.
+  const spin = `M${H + 6.5} ${CY} A6.5 6.5 0 1 0 ${H} ${CY + 6.5} M${H - 3} ${f(CY + 4)} L${H} ${CY + 6.5} L${H - 3} ${f(CY + 9)}`;
+  // Chips thrown back onto the ground behind the head.
+  let spray = "";
+  for (let i = 0; i < 9; i++) {
+    const x = H - 26 - r() * 12;
+    const y = G - 12 - r() * 12;
+    const a = Math.PI + 0.5 + (r() - 0.5) * 0.9;
+    spray += `M${f(x)} ${f(y)} l${f(Math.cos(a) * 3)} ${f(Math.sin(a) * 3)}`;
+  }
+
+  return {
+    art: (
+      <>
+        <defs>
+          <clipPath id={`${id}-mulch`}>
+            <path d={mulchArea} />
+          </clipPath>
+        </defs>
+
+        <Fill d={`${groundLine} L480 300 L0 300 Z`} fill={`url(#${id}-earth)`} step={0} />
+        <L d={groundLine} tone="strong" step={0} w={1.4} />
+
+        {/* The brush that was there, ghosted. */}
+        {ghostBrush.map((d, i) => (
+          <D key={i} d={d} tone="faint" step={0.6 + (i % 4) * 0.08} />
+        ))}
+        {saplings.map((s) => (
+          <g key={s.x}>
+            <D d={`M${s.x} ${G - 4} L${s.x + 1} ${G - s.h}`} tone="faint" step={0.8} />
+            <D d={scallop(s.x + 1, G - s.h - 6, 14, 11, s.s, 8, 0.7)} tone="faint" step={0.9} />
+          </g>
+        ))}
+
+        {/* Keepers, flagged. */}
+        {keepers.map((p, i) => (
+          <g key={p.x}>
+            <L d={p.trunk} tone="strong" step={1 + i * 0.15} w={1.3} />
+            {p.limbs.map((d, j) => (
+              <L key={j} d={d} tone="strong" step={1.4 + i * 0.15} w={1} />
+            ))}
+            {p.tufts.map((d, j) => (
+              <L key={`t${j}`} d={d} tone="strong" step={1.7 + i * 0.15} w={1} />
+            ))}
+            <L d={flag(p.x)} tone="accent" step={2.2} w={1.3} />
+          </g>
+        ))}
+
+        {/* Stumps cut low, roots left where they are. */}
+        {stumps.map((s, i) => (
+          <g key={s.x}>
+            <L d={`M${s.x - 5.5} ${f(ground(s.x) + 1)} L${s.x - 3.5} ${G - 12} L${s.x + 3.5} ${G - 12} L${s.x + 5.5} ${f(ground(s.x) + 1)}`} tone="strong" step={2.4 + i * 0.1} w={1.2} />
+            {roots(s.x, f(ground(s.x) + 1), 15, 26, s.s * 3).map((d, j) => (
+              <L key={j} d={d} step={2.6 + i * 0.1 + (j % 7) * 0.05} w={0.85} />
+            ))}
+          </g>
+        ))}
+
+        {/* The mulch layer, left on the ground. */}
+        <L d={mulchTopLine} step={3} w={1} />
+        <g clipPath={`url(#${id}-mulch)`}>
+          {mulchChips.map((d, i) => (
+            <Grain key={i} d={d} step={3.2 + i * 0.1} w={0.9} className="text-foreground/45" />
+          ))}
+        </g>
+
+        {/* Brush still standing ahead of the head. */}
+        {ahead.map((d, i) => (
+          <L key={i} d={d} step={1.2 + (i % 4) * 0.1} w={0.9} />
+        ))}
+        <L d={`M${SAP} ${G} L${SAP + 1} ${G - 58}`} step={1.2} w={1} />
+        <L d={scallop(SAP + 1, G - 64, 15, 12, 157, 8, 0.7)} step={1.4} w={0.9} />
+
+        {/* The mulching head. */}
+        <L d={`M${H + DR} ${CY} A${DR} ${DR} 0 1 0 ${H - DR} ${CY} A${DR} ${DR} 0 1 0 ${H + DR} ${CY}`} tone="accent" step={3.4} w={1.6} />
+        <L d={teeth} tone="accent" step={3.6} w={1.4} />
+        <L d={spin} tone="accent" step={3.8} w={1} />
+        <L d={hood} tone="strong" step={3.4} w={1.4} />
+        <L d={arms} tone="strong" step={3.6} w={1.3} />
+        <L d={brk} step={3.8} w={1} />
+        <Grain d={spray} step={4} w={1} className="text-foreground/60" />
+
+        {/* Working forward, into the brush. */}
+        <L d={arrow(H - 6, G - 50, H + 28, G - 50, 6)} tone="accent" step={4.2} w={1.3} />
+      </>
+    ),
+    notes: (
+      <>
+        <Note at={[97.5, FLAG]} to={[112, FLAG]}>FLAGGED KEEPERS STAY</Note>
+        <Note at={[270, G - 18]} to={[270, 112]} anchor="middle">UNDERBRUSH · GROUND WHERE IT STOOD</Note>
+        <Note at={[H + 9, G - 5]} to={[470, 262]} anchor="end">MULCHING HEAD</Note>
+        <Note at={[172, f(ground(172) + 18)]} to={[180, 256]}>STUMPS CUT LOW · ROOTS LEFT IN</Note>
+        <Note at={[124, f(ground(124) - 4)]} to={[118, 282]}>MULCH STAYS · NOTHING HAULED OFF</Note>
+      </>
+    ),
+  };
+}
+
 const drawings: Record<PlateId, (id: string) => Drawing> = {
   clearing,
   trees,
   grading,
   pools,
   drainage,
+  beds,
+  pavers,
+  mulching,
 };
 
 /** What each drawing shows, for screen readers when the drawing carries meaning on its own. */
@@ -630,6 +1153,12 @@ export const plateDescriptions: Record<PlateId, string> = {
     "Section drawing of a pool dig to the builder's layout and a pond dug down to groundwater, with banks built from the spoils and the rest hauled off.",
   drainage:
     "Section drawing of a surface swale and a French drain: a trench lined with filter fabric, filled with washed stone, around a perforated pipe running to an outlet.",
+  beds:
+    "Section drawing of a planted shrub: the top of the root ball at grade, set on undisturbed soil in a hole dug much wider than the ball and backfilled with the native soil, 2 to 3 inches of mulch kept off the stems, and a spade-cut edge where the bed meets the lawn.",
+  pavers:
+    "Section drawing of a paver patio against a house: pavers with sand-swept joints on a thin layer of bedding sand, over a compacted aggregate base at least 4 inches thick, geotextile on the compacted subgrade, an edge restraint at the open end, and the surface falling away from the house.",
+  mulching:
+    "Section drawing of forestry mulching: flagged keeper trees left standing, underbrush ground in place by a mulching head into a layer of mulch left on the ground, stumps cut low with their roots left in the soil, and nothing hauled off.",
 };
 
 /** Title-block text for each plate. */
@@ -639,6 +1168,9 @@ export const plateTitles: Record<PlateId, { view: string; caption: string }> = {
   grading: { view: "Section", caption: "Grade at the foundation" },
   pools: { view: "Section", caption: "Pool dig & pond" },
   drainage: { view: "Section", caption: "Swale & French drain" },
+  beds: { view: "Section", caption: "Shrub & planting bed" },
+  pavers: { view: "Section", caption: "Paver patio & base" },
+  mulching: { view: "Section", caption: "Forestry mulching" },
 };
 
 interface ServicePlateProps {

@@ -29,6 +29,11 @@ import hardscapesBefore from "@/assets/services/hardscapes-before.jpg";
 import hardscapesBeforeSet from "@/assets/services/hardscapes-before.jpg?w=480;800&format=webp&quality=68&as=srcset";
 import hardscapesAfter from "@/assets/services/hardscapes-after.jpg";
 import hardscapesAfterSet from "@/assets/services/hardscapes-after.jpg?w=480;800&format=webp&quality=68&as=srcset";
+// Josiah's own photo (sent 2026-10-09): a 4:3 crop of the portrait gallery
+// shot, so the page's object-cover lands on the mulching head and not on the
+// cab interior. Widths stop at 1200 because the crop is 1200 wide.
+import forestryMulching from "@/assets/services/forestry-mulching.jpg";
+import forestryMulchingSet from "@/assets/services/forestry-mulching.jpg?w=640;1024;1200&format=webp&quality=68&as=srcset";
 import customProjects from "@/assets/services/custom-projects.jpg";
 import customProjectsSet from "@/assets/services/custom-projects.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
 
@@ -38,10 +43,11 @@ export type ServiceItem = { label: string; detail: string };
 export type PlateId = "clearing" | "trees" | "grading" | "pools" | "drainage" | "beds" | "pavers" | "mulching";
 
 /**
- * `core` is what the business is: land clearing and excavation. `more` is work
- * Josiah still takes on but asked (2026-09-29) to move out of the main
- * messaging — the pages stay live, because they are indexed and they still
- * bring in jobs, but they never lead and never sit in the main grid.
+ * `core` is the five services on Josiah's own flyer and business card
+ * (2026-10-17): landscaping, hardscapes, excavation, pool and pond prep, land
+ * clearing. `more` is the rest of the work he takes on. Those pages are just as
+ * real and indexed; they sit in the grid's sixth tile and the footer rather
+ * than leading, and are never labelled "smaller" or "on request".
  */
 export type ServiceTier = "core" | "more";
 
@@ -134,24 +140,223 @@ export type Service = {
  * adding or renaming a service can't leave one corner of the site
  * contradicting another.
  *
- * Order is the order it appears everywhere. Land clearing leads because that is
- * the direction Josiah is taking the business (2026-09-29) and the headline his
- * Instagram ad now runs — "Land Clearing & Excavation" — so someone arriving
- * from that ad lands on the same words.
+ * Order is the order it appears everywhere. Landscaping and hardscapes lead,
+ * then the dirt work under them, matching the homepage H1 "Landscaping,
+ * Hardscapes & Excavation" (2026-10-17). This replaced the 2026-09-29 order,
+ * which led with land clearing.
  */
 export const services: Service[] = [
   {
+    slug: "landscaping",
+    tier: "core",
+    title: "Landscaping",
+    navBlurb: "Beds, mulch and planting",
+    pageTitle: "Landscaping in Mount Pleasant, SC | Firm Foundation",
+    pageDescription:
+      "Bed installation, mulching, planting and yard cleanups across Mount Pleasant and greater Charleston, SC. Free on-site quotes.",
+    pageKeywords:
+      "landscaping Mount Pleasant SC, mulch installation Charleston, planting beds, sod installation, yard cleanup Lowcountry",
+    image: landscaping,
+    imageSrcSet: landscapingSet,
+    alt: "Fresh mulch beds and seasonal plantings at a Mount Pleasant, SC home",
+    beforeAfter: {
+      before: landscapingBefore,
+      beforeSrcSet: landscapingBeforeSet,
+      after: landscapingAfter,
+      afterSrcSet: landscapingAfterSet,
+      alt: "Before and after at a Mount Pleasant home: tired beds along the front walk, then new mulch beds and shrubs",
+      position: "38% 60%",
+    },
+    summary:
+      "Bed installs, fresh mulch, planting and yard cleanups, usually as the finish on a clearing or grading job.",
+    description1:
+      "Once the ground is right, beds and planting are what make it look finished. We cut and mulch beds, plant, lay sod and clean up yards across Mount Pleasant.",
+    description2:
+      "Most of our landscaping now comes at the end of bigger ground work, putting a yard back together after clearing, grading or drainage.",
+    items: [
+      { label: "Mulching & Bed Edging", detail: "Fresh mulch installation, crisp bed edges, and weed control" },
+      { label: "Planting", detail: "Shrubs, color and bed design suited to the Lowcountry" },
+      { label: "Sod", detail: "New sod laid on properly graded ground" },
+      { label: "Yard Cleanups", detail: "Leaf, branch and storm cleanup" },
+    ],
+  },
+  {
+    slug: "hardscapes",
+    tier: "core",
+    title: "Hardscapes",
+    navBlurb: "Patios, walkways and retaining walls",
+    pageTitle: "Paver Patios & Walkways, Mount Pleasant | Firm Foundation",
+    pageDescription:
+      "Paver patios, stone walkways and retaining walls in Mount Pleasant and greater Charleston, SC, built on a base that is excavated and compacted properly.",
+    pageKeywords:
+      "paver patio Mount Pleasant SC, stone walkway Charleston, retaining wall installation, hardscapes Lowcountry, outdoor living space",
+    image: hardscapes,
+    imageSrcSet: hardscapesSet,
+    alt: "Paver patio and stone walkway installation in Mount Pleasant, SC",
+    beforeAfter: {
+      before: hardscapesBefore,
+      beforeSrcSet: hardscapesBeforeSet,
+      after: hardscapesAfter,
+      afterSrcSet: hardscapesAfterSet,
+      alt: "Before and after beside a front porch: a bare strip of dirt, then a flagstone walkway set in new sod",
+      position: "45% 60%",
+    },
+    summary:
+      "Patios, walkways and retaining walls, built on a base that was excavated and compacted properly first.",
+    description1:
+      "From patios and walkways to retaining walls and outdoor living spaces, Firm Foundation delivers durable, carefully built hardscape installations designed to hold up.",
+    description2:
+      "We work with pavers, natural stone and concrete. Hardscape lives or dies on what is under it, which is why the dirt work comes first.",
+    items: [
+      { label: "Paver Patios", detail: "Patios built on a proper excavated and compacted base" },
+      { label: "Stone Walkways", detail: "Decorative walkways using natural stone and pavers" },
+      { label: "Retaining Walls", detail: "Sturdy walls for erosion control and elevated landscapes" },
+      { label: "Outdoor Living Spaces", detail: "Complete backyard hardscape layouts" },
+    ],
+  },
+  {
+    slug: "excavation",
+    tier: "core",
+    title: "Excavation & Grading",
+    navBlurb: "The dirt work under every patio, pool, bed and drive",
+    plate: "grading",
+    image: gradingBackyard,
+    imageSrcSet: gradingBackyardSet,
+    alt: "A compact excavator beside a freshly graded dirt pad behind a brick house",
+    pageTitle: "Excavation & Grading, Mount Pleasant SC | Firm Foundation",
+    pageDescription:
+      "Grading, site prep, patio and walkway bases, pads, gravel drives, fill and trenching in Mount Pleasant and Charleston, SC. Utilities marked through SC811 first.",
+    pageKeywords:
+      "excavation Mount Pleasant SC, grading contractor Charleston SC, site prep, yard grading, patio base excavation, pool site prep, building pad, shed pad prep, gravel driveway, fill dirt Mount Pleasant, trenching, SC811",
+    summary:
+      "The dirt work under everything else: grading, site prep, bases for patios and walkways, pads and driveways, set so the ground sits level and water runs where it should.",
+    description1:
+      "Everything built outside sits on dirt that someone graded, or didn't. A patio on a soft base shifts. A pad that wasn't compacted settles. A driveway without a crown washes out. A yard that falls toward the house puts water against the foundation. Our excavation work is getting that ground right before anything goes on top of it.",
+    description2:
+      "This is the work Firm Foundation was built on, and it sits under nearly everything else we do: the base under a patio, the grade under a new bed, the dig for a pool. Josiah grew up running a tractor alongside his Uncle Donnie, and that same dirt work is what we bring to every job today. We locate utilities through SC811 before any digging starts.",
+    items: [
+      { label: "Yard Grading & Leveling", detail: "Low spots filled and slopes corrected so the yard drains and mows level" },
+      { label: "Site Prep", detail: "Ground cleared, cut and filled to the grade the next trade needs" },
+      { label: "Patio & Walkway Bases", detail: "Dug out and compacted so the stone or pavers on top stay where they're set" },
+      { label: "Bed & Planting Prep", detail: "Ground cut, shaped and graded before the beds and sod go in" },
+      { label: "Driveway Prep & Gravel Drives", detail: "Cut, crowned and based so the stone stays where it's put" },
+      { label: "Shed & Equipment Pads", detail: "Level, compacted pads that shed water instead of sitting in it" },
+      { label: "Trenching", detail: "Trenches for drain lines and conduit, backfilled and packed" },
+      { label: "Fill Dirt & Topsoil", detail: "Brought in, spread and graded" },
+      { label: "Haul-Off", detail: "Spoils loaded out so the site is clean when we leave" },
+    ],
+    priceFactors: [
+      { label: "How much dirt moves", detail: "The volume cut from the high spots and filled into the low ones." },
+      { label: "What comes in", detail: "Fill, stone or topsoil trucked to the site." },
+      { label: "What goes out", detail: "Spoils that have to be loaded and hauled away." },
+      { label: "Access", detail: "How easily a machine and a truck can reach the work." },
+      { label: "The finish", detail: "A rough grade, or a finish grade ready for sod or stone." },
+    ],
+    faqs: [
+      {
+        question: "Do you call 811 before digging?",
+        answer:
+          "Yes. South Carolina puts that on whoever does the digging: notice goes in 3 to 12 working days before work starts, and it is free (S.C. Code §58-36-60). 811 only marks public lines up to the meter, so tell us about anything private: irrigation, a gas line to a pool heater, power run out to a shed.",
+      },
+      {
+        question: "How much should the yard slope away from the house?",
+        answer:
+          "The residential building code's minimum is 6 inches of fall within the first 10 feet out from the foundation (IRC R401.3). Where the lot is too tight or too flat to get that, a swale or a drain has to carry the water away instead.",
+      },
+      {
+        question: "Do I need a permit to grade my lot?",
+        answer:
+          "In Mount Pleasant, clearing, excavating or filling a lot needs a zoning permit first (Zoning Code §156.1171), and unincorporated Charleston County requires a stormwater permit once land disturbance passes 5,000 square feet. Near the marsh, state stormwater rules can apply to jobs well under an acre.",
+      },
+    ],
+  },
+  {
+    slug: "pools-and-ponds",
+    tier: "core",
+    priceQuestion: "How much does a pool dig or a pond cost?",
+    title: "Pool & Pond Prep",
+    navBlurb: "Site prep for pools and ponds, from access to final grade",
+    plate: "pools",
+    image: pondExcavation,
+    imageSrcSet: pondExcavationSet,
+    alt: "An excavator beside a newly dug pond on flat open ground",
+    pageTitle: "Pool & Pond Prep, Mount Pleasant & Charleston | Firm Foundation",
+    pageDescription:
+      "Site prep for in-ground pools and ponds in Mount Pleasant and Charleston, SC: access, clearing the footprint, the dig, haul-off, backfill and final grade.",
+    pageKeywords:
+      "pool site prep Charleston SC, pool excavation Mount Pleasant, pool dig, pool backfill and grading, pond digging Charleston SC, pond excavation Lowcountry, spoils haul-off, backyard pond",
+    summary:
+      "The ground work around a pool or a pond: a way in, the footprint cleared, the dig to plan, the spoils hauled off, and the backfill and final grade after.",
+    description1:
+      "A pool starts as a hole in the ground and a lot of dirt that has to go somewhere. We handle the ground work around it: clearing the way in and the footprint, digging to the builder's layout, getting the spoils off the property, and coming back for backfill and final grade once the shell is in.",
+    description2:
+      "Ponds are their own kind of dig. In the Lowcountry the water table often sits close to the surface, which can help a pond and complicate a pool. We look at that on the first visit, before anyone commits to a shape.",
+    items: [
+      { label: "Access & Site Prep", detail: "A path in for the machine cleared before dig day" },
+      { label: "Clearing the Footprint", detail: "Trees, stumps and roots out of the way first" },
+      { label: "Pool Excavation", detail: "Dug to the pool builder's layout and depths" },
+      { label: "Pond Excavation", detail: "Dug and shaped, with the spoils used to build up the banks or hauled off" },
+      { label: "Spoils Haul-Off", detail: "Dirt loaded out, or spread and graded on site where there's room" },
+      { label: "Backfill & Final Grade", detail: "Graded so water runs away from the pool once the builder is done" },
+    ],
+    approaches: {
+      title: "A pool dig,",
+      accent: "or a pond",
+      options: [
+        {
+          name: "Pool dig",
+          detail: "Precise work: the pool builder sets the layout and depths, we dig to them and get the dirt gone.",
+          bestFor: "In-ground pools, alongside your pool builder",
+        },
+        {
+          name: "Pond",
+          detail: "Shaped to the land: where water already collects, how deep it needs to be, and where the spoils go.",
+          bestFor: "Larger lots, and low ground that already holds water",
+        },
+      ],
+    },
+    priceFactors: [
+      { label: "Size and depth", detail: "How much ground comes out of the hole." },
+      { label: "Where the dirt goes", detail: "Trucking spoils away is often the biggest part of a pool dig." },
+      { label: "Access", detail: "How a machine gets to the backyard, and how tight the path is." },
+      { label: "Groundwater", detail: "Digging near the water table can mean pumping water out as you go." },
+      { label: "Clearing first", detail: "Trees or stumps sitting in the footprint." },
+    ],
+    faqs: [
+      {
+        question: "Do you work directly with pool builders?",
+        answer:
+          "Yes. Send the layout and depths and we dig to them, haul the spoils, and come back for backfill and final grade when the shell is in and the builder is ready.",
+      },
+      {
+        question: "Why does groundwater matter for a pool dig?",
+        answer:
+          "In much of the Lowcountry the water table sits only a few feet down. A dig that goes below it can take on water as it goes, which means pumping, and it is something the pool builder designs the shell around. Better found on the first visit than on dig day.",
+      },
+      {
+        question: "Do I need a permit to dig a backyard pond?",
+        answer:
+          "Not from the state's dam-safety program, which only reaches dams 25 feet or taller or ponds holding back 50 acre-feet or more (S.C. Code §49-11-120). A pond still needs the local clearing, grading and stormwater permits any other dig would, and a federal permit if it is dug in a wetland. SCDNR notes a pond sited entirely on upland needs no Army Corps permit.",
+      },
+      {
+        question: "How deep should a pond be?",
+        answer:
+          "Coastal ponds are usually dug down into the groundwater rather than held back by a dam, and Clemson Extension puts them at typically 4 to 6 feet deep. A pond meant for fish wants more: SCDNR suggests 5 to 10 feet at the deepest point.",
+      },
+    ],
+  },
+  {
     slug: "land-clearing",
     tier: "core",
-    priceQuestion: "How much does it cost to clear an acre?",
+    priceQuestion: "How much does it cost to clear a lot?",
     title: "Land Clearing",
-    navBlurb: "Lots, underbrush and fence lines, cleared and hauled off",
+    navBlurb: "Backyards, lots and fence lines, cleared and cleaned up",
     plate: "clearing",
-    pageTitle: "Land Clearing, Charleston & Mount Pleasant SC | Firm Foundation",
+    pageTitle: "Land Clearing, Mount Pleasant & Charleston SC | Firm Foundation",
     pageDescription:
-      "Lot clearing, underbrush and selective clearing, stump removal and debris haul-off in Mount Pleasant and greater Charleston, SC. The good trees stay. Free on-site quotes.",
+      "Backyard, lot and underbrush clearing in Mount Pleasant and Charleston, SC. The good trees stay, stumps come out, and debris is hauled off or mulched in place.",
     pageKeywords:
-      "land clearing Mount Pleasant SC, lot clearing Charleston SC, underbrush clearing, selective clearing, brush clearing, clearing for new construction, stump removal, debris haul-off, Lowcountry land clearing",
+      "land clearing Mount Pleasant SC, lot clearing Charleston SC, backyard clearing, overgrown yard clearing, underbrush clearing, selective clearing, brush removal, clearing for a pool or shed, stump removal, debris haul-off",
     image: landClearing,
     imageSrcSet: landClearingSet,
     alt: "Firm Foundation's tracked excavator clearing timber on a Lowcountry lot",
@@ -159,46 +364,48 @@ export const services: Service[] = [
     cardImageSrcSet: clearingCardSet,
     cardAlt: "From the excavator cab: the bucket working a pile of roots and brush across a cleared tract",
     summary:
-      "Overgrown lots, underbrush and small trees cleared down to usable ground, with the trees worth keeping left standing and the debris hauled off.",
+      "Overgrown backyards, lots and fence lines cleared down to usable ground, with the trees worth keeping left standing and the brush hauled off or mulched in place.",
     description1:
-      "Most clearing in the Lowcountry isn't about flattening everything. It's about getting back ground the undergrowth took: a back acre gone to vines and sweetgum, a lot that has to open up before a build, a fence line nobody can walk anymore.",
+      "Most clearing in the Lowcountry isn't about flattening everything. It's about getting back ground the undergrowth took: a back corner gone to vines and sweetgum, a lot that has to open up before a build, room for a pool or a shed, a fence line nobody can walk anymore.",
     description2:
-      "We clear with a tracked excavator, take out the brush, scrub trees and stumps, and leave the good trees standing. Before a machine moves, we walk the lot with you and mark what stays, and where the debris goes is settled in the quote rather than after.",
+      "We clear with a tracked excavator, take out the brush, scrub trees and stumps, and leave the good trees standing. A backyard or a few wooded acres, it starts the same way: we walk it with you, mark what stays, and settle where the debris goes in the quote rather than after.",
     items: [
-      { label: "Lot Clearing", detail: "Open up a lot for a new build, a pool, a driveway, or simply usable ground" },
+      { label: "Backyard Clearing", detail: "Overgrown corners, vines and scrub cleared so the yard is usable again" },
+      { label: "Lot Clearing", detail: "A lot opened up for a new house, a driveway, or simply usable ground" },
+      { label: "Room for a Pool, Shed or Patio", detail: "The footprint cleared and the stumps pulled before the next trade arrives" },
       { label: "Underbrush & Selective Clearing", detail: "Vines, briars and scrub trees out; the oaks and pines worth keeping stay" },
-      { label: "Fence-Line & Perimeter Clearing", detail: "Edges cut back so you can walk, fence, or survey the property line" },
-      { label: "View & Access Clearing", detail: "Sightlines opened toward the water or the road, and a way in cut for equipment" },
+      { label: "Fence Lines & Access", detail: "Edges cut back so you can walk, fence or survey the line, and a way in cut for equipment" },
       { label: "Stump Removal", detail: "Stumps pulled or ground out so the ground can actually be used" },
       { label: "Debris Haul-Off", detail: "Brush, logs and stumps loaded out so the site is clean when we leave" },
+      { label: "Mulching in Place", detail: "Where the ground will stay natural, brush ground into chips and left as cover instead" },
       { label: "Rough Grading After Clearing", detail: "Ruts and root holes knocked down, ground left ready for the next step" },
     ],
     approaches: {
       title: "Three ways",
-      accent: "to clear a lot",
+      accent: "to clear ground",
       options: [
         {
           name: "Full clear",
           detail: "Everything comes out: brush, trees and stumps, down to bare, workable ground.",
-          bestFor: "House pads, pools, driveways",
+          bestFor: "Pools, sheds, patios and house pads",
         },
         {
           name: "Selective clear",
           detail: "The brush and scrub trees come out. The trees you pick stay, and the machine works around their roots rather than over them.",
-          bestFor: "Wooded lots you want to live on",
+          bestFor: "Wooded lots and yards you want to live on",
         },
         {
           name: "Underbrush clear",
           detail: "Only the understory goes: vines, briars and saplings. The canopy overhead is left alone.",
-          bestFor: "Reclaiming a back acre, trails, fence lines",
+          bestFor: "Back corners, trails and fence lines",
         },
       ],
     },
     priceFactors: [
-      { label: "How thick it is", detail: "Density matters more than acreage. A quarter acre of scrub and vines can take longer than an acre of open pines." },
+      { label: "How thick it is", detail: "Density matters more than size. A small yard thick with vines and scrub can take longer than a bigger stretch of open pines." },
       { label: "What's on it", detail: "Brush and saplings go quickly. Big trees and stumps are what add time." },
       { label: "What stays", detail: "Clearing around keeper trees is slower, more careful work than clearing everything." },
-      { label: "Where the debris goes", detail: "Loading and hauling everything off is one of the larger parts of most clearing jobs." },
+      { label: "Where the debris goes", detail: "Loading and hauling everything off is one of the larger parts of most clearing jobs. Where the ground will stay natural, mulching the brush in place is the other option." },
       { label: "Access", detail: "Whether a machine can drive straight in, or has to come through a gate or a side yard." },
       { label: "Ground conditions", detail: "Wet Lowcountry ground sometimes means waiting for it to dry out enough to carry a machine." },
     ],
@@ -221,7 +428,7 @@ export const services: Service[] = [
       {
         question: "Can the brush be burned instead of hauled off?",
         answer:
-          "Not in town. Mount Pleasant only allows burning inside an approved, screened, non-combustible container (Town Code §92.30), and South Carolina's open-burning rules keep land-clearing fires at least 1,000 feet from homes and public roads. On a residential lot, the debris gets hauled off.",
+          "Not in town. Mount Pleasant only allows burning inside an approved, screened, non-combustible container (Town Code §92.30), and South Carolina's open-burning rules keep land-clearing fires at least 1,000 feet from homes and public roads. On a residential lot, the brush gets hauled off, or mulched in place where the ground will stay natural.",
       },
       {
         question: "Will the town pick up the debris?",
@@ -232,7 +439,7 @@ export const services: Service[] = [
   },
   {
     slug: "tree-removal",
-    tier: "core",
+    tier: "more",
     title: "Tree & Stump Removal",
     navBlurb: "Trees down, stumps ground or pulled, cleanup included",
     plate: "trees",
@@ -241,7 +448,7 @@ export const services: Service[] = [
     alt: "An excavator bucket lifting a stump out of the ground with its whole root ball, a second excavator working behind it",
     pageTitle: "Tree & Stump Removal, Mount Pleasant SC | Firm Foundation",
     pageDescription:
-      "Tree removal, stump grinding and full stump and root-ball removal with an excavator, plus storm cleanup, in Mount Pleasant and greater Charleston, SC. Free on-site quotes.",
+      "Tree removal, stump grinding and full stump and root-ball removal with an excavator, plus storm cleanup, in Mount Pleasant and greater Charleston, SC.",
     pageKeywords:
       "tree removal Mount Pleasant SC, stump removal Charleston SC, stump grinding, root ball removal, storm cleanup, fallen tree removal, Lowcountry tree removal",
     summary:
@@ -300,137 +507,8 @@ export const services: Service[] = [
     ],
   },
   {
-    slug: "excavation",
-    tier: "core",
-    title: "Excavation & Grading",
-    navBlurb: "Site prep, pads, driveways and regrading",
-    plate: "grading",
-    image: gradingBackyard,
-    imageSrcSet: gradingBackyardSet,
-    alt: "A compact excavator beside a freshly graded dirt pad behind a brick house",
-    pageTitle: "Excavation & Grading, Mount Pleasant SC | Firm Foundation",
-    pageDescription:
-      "Grading, site prep, building and shed pads, gravel driveways and trenching in Mount Pleasant and greater Charleston, SC. Utilities located through SC811 before any digging.",
-    pageKeywords:
-      "excavation Mount Pleasant SC, grading contractor Charleston SC, site prep, yard grading, building pad, shed pad prep, gravel driveway, trenching, fill dirt, SC811",
-    summary:
-      "Grading, site prep and dirt work: pads, driveways and yards set so the ground sits level and water runs where it should.",
-    description1:
-      "Everything built outside sits on dirt that someone graded, or didn't. A pad that wasn't compacted settles. A driveway without a crown washes out. A yard that falls toward the house puts water against the foundation. Our excavation work is getting that ground right before anything goes on top of it.",
-    description2:
-      "This is the work Firm Foundation was built on. Josiah grew up running a tractor alongside his Uncle Donnie, and that same dirt work is what we bring to every job today. We locate utilities through SC811 before any digging starts.",
-    items: [
-      { label: "Yard Grading & Leveling", detail: "Low spots filled and slopes corrected so the yard drains and mows level" },
-      { label: "Site Prep", detail: "Ground cleared, cut and filled to the grade the next trade needs" },
-      { label: "Driveway Prep & Gravel Drives", detail: "Cut, crowned and based so the stone stays where it's put" },
-      { label: "Shed & Equipment Pads", detail: "Level, compacted pads that shed water instead of sitting in it" },
-      { label: "Trenching", detail: "Trenches for drain lines and conduit, backfilled and packed" },
-      { label: "Fill Dirt & Topsoil", detail: "Brought in, spread and graded" },
-      { label: "Haul-Off", detail: "Spoils loaded out so the site is clean when we leave" },
-    ],
-    priceFactors: [
-      { label: "How much dirt moves", detail: "The volume cut from the high spots and filled into the low ones." },
-      { label: "What comes in", detail: "Fill, stone or topsoil trucked to the site." },
-      { label: "What goes out", detail: "Spoils that have to be loaded and hauled away." },
-      { label: "Access", detail: "How easily a machine and a truck can reach the work." },
-      { label: "The finish", detail: "A rough grade, or a finish grade ready for sod or stone." },
-    ],
-    faqs: [
-      {
-        question: "Do you call 811 before digging?",
-        answer:
-          "Yes. South Carolina puts that on whoever does the digging: notice goes in 3 to 12 working days before work starts, and it is free (S.C. Code §58-36-60). 811 only marks public lines up to the meter, so tell us about anything private: irrigation, a gas line to a pool heater, power run out to a shed.",
-      },
-      {
-        question: "How much should the yard slope away from the house?",
-        answer:
-          "The residential building code's minimum is 6 inches of fall within the first 10 feet out from the foundation (IRC R401.3). Where the lot is too tight or too flat to get that, a swale or a drain has to carry the water away instead.",
-      },
-      {
-        question: "Do I need a permit to grade my lot?",
-        answer:
-          "In Mount Pleasant, clearing, excavating or filling a lot needs a zoning permit first (Zoning Code §156.1171), and unincorporated Charleston County requires a stormwater permit once land disturbance passes 5,000 square feet. Near the marsh, state stormwater rules can apply to jobs well under an acre.",
-      },
-    ],
-  },
-  {
-    slug: "pools-and-ponds",
-    tier: "core",
-    priceQuestion: "How much does a pool dig or a pond cost?",
-    title: "Pool & Pond Excavation",
-    navBlurb: "Pool digs and ponds, spoils hauled off",
-    plate: "pools",
-    image: pondExcavation,
-    imageSrcSet: pondExcavationSet,
-    alt: "An excavator beside a newly dug pond on flat open ground",
-    pageTitle: "Pool & Pond Excavation, Mount Pleasant | Firm Foundation",
-    pageDescription:
-      "Site prep and excavation for in-ground pools and ponds in Mount Pleasant and greater Charleston, SC: access, clearing, digging to plan and spoils haul-off.",
-    pageKeywords:
-      "pool excavation Charleston SC, pool dig Mount Pleasant, pool site prep, pond digging Charleston SC, pond excavation Lowcountry, spoils haul-off, backyard pond",
-    summary:
-      "Site prep and digs for in-ground pools and ponds: a way in cleared, the ground dug to plan, the spoils hauled off, and the yard put back after.",
-    description1:
-      "A pool starts as a hole in the ground and a lot of dirt that has to go somewhere. We handle the part before the pool crew arrives: clearing the way in, digging to the builder's layout, and getting the spoils off the property.",
-    description2:
-      "Ponds are their own kind of dig. In the Lowcountry the water table often sits close to the surface, which can help a pond and complicate a pool. We look at that on the first visit, before anyone commits to a shape.",
-    items: [
-      { label: "Pool Excavation", detail: "Dug to the pool builder's layout and depths" },
-      { label: "Access & Site Prep", detail: "A path in for the machine cleared before dig day" },
-      { label: "Clearing the Footprint", detail: "Trees, stumps and roots out of the way first" },
-      { label: "Spoils Haul-Off", detail: "Dirt loaded out, or spread and graded on site where there's room" },
-      { label: "Pond Excavation", detail: "Dug and shaped, with the spoils used to build up the banks or hauled off" },
-      { label: "Backfill & Final Grade", detail: "Graded so water runs away from the pool once the builder is done" },
-    ],
-    approaches: {
-      title: "A pool dig,",
-      accent: "or a pond",
-      options: [
-        {
-          name: "Pool dig",
-          detail: "Precise work: the pool builder sets the layout and depths, we dig to them and get the dirt gone.",
-          bestFor: "In-ground pools, alongside your pool builder",
-        },
-        {
-          name: "Pond",
-          detail: "Shaped to the land: where water already collects, how deep it needs to be, and where the spoils go.",
-          bestFor: "Acreage, and low ground that already holds water",
-        },
-      ],
-    },
-    priceFactors: [
-      { label: "Size and depth", detail: "How much ground comes out of the hole." },
-      { label: "Where the dirt goes", detail: "Trucking spoils away is often the biggest part of a pool dig." },
-      { label: "Access", detail: "How a machine gets to the backyard, and how tight the path is." },
-      { label: "Groundwater", detail: "Digging near the water table can mean pumping water out as you go." },
-      { label: "Clearing first", detail: "Trees or stumps sitting in the footprint." },
-    ],
-    faqs: [
-      {
-        question: "Do you work directly with pool builders?",
-        answer:
-          "Yes. Send the layout and depths and we dig to them, haul the spoils, and come back for backfill and final grade when the shell is in and the builder is ready.",
-      },
-      {
-        question: "Why does groundwater matter for a pool dig?",
-        answer:
-          "In much of the Lowcountry the water table sits only a few feet down. A dig that goes below it can take on water as it goes, which means pumping, and it is something the pool builder designs the shell around. Better found on the first visit than on dig day.",
-      },
-      {
-        question: "Do I need a permit to dig a backyard pond?",
-        answer:
-          "Not from the state's dam-safety program, which only reaches dams 25 feet or taller or ponds holding back 50 acre-feet or more (S.C. Code §49-11-120). A pond still needs the local clearing, grading and stormwater permits any other dig would, and a federal permit if it is dug in a wetland. SCDNR notes a pond sited entirely on upland needs no Army Corps permit.",
-      },
-      {
-        question: "How deep should a pond be?",
-        answer:
-          "Coastal ponds are usually dug down into the groundwater rather than held back by a dam, and Clemson Extension puts them at typically 4 to 6 feet deep. A pond meant for fish wants more: SCDNR suggests 5 to 10 feet at the deepest point.",
-      },
-    ],
-  },
-  {
     slug: "drainage",
-    tier: "core",
+    tier: "more",
     title: "Drainage",
     navBlurb: "French drains, swales, ditches and culverts",
     plate: "drainage",
@@ -439,7 +517,7 @@ export const services: Service[] = [
     alt: "A mini excavator next to a coil of perforated drain pipe",
     pageTitle: "Drainage & French Drains, Mount Pleasant | Firm Foundation",
     pageDescription:
-      "French drains, swales, regrading, ditch and culvert work for yards that hold water in Mount Pleasant and greater Charleston, SC. Planned around the high water table.",
+      "French drains, swales, regrading, ditch and culvert work for yards that hold water in Mount Pleasant and Charleston, SC, planned around the high water table.",
     pageKeywords:
       "yard drainage Mount Pleasant SC, French drain installation Charleston SC, standing water in yard, swale, regrading, ditch cleanout, culvert, drainage contractor Lowcountry",
     summary:
@@ -493,71 +571,87 @@ export const services: Service[] = [
     ],
   },
   {
-    slug: "hardscapes",
+    slug: "forestry-mulching",
     tier: "more",
-    title: "Hardscapes",
-    navBlurb: "Patios, walkways and retaining walls",
-    pageTitle: "Paver Patios & Walkways, Mount Pleasant | Firm Foundation",
+    title: "Forestry Mulching",
+    navBlurb: "Brush and small trees ground in place, nothing hauled off",
+    plate: "mulching",
+    image: forestryMulching,
+    imageSrcSet: forestryMulchingSet,
+    alt: "From the cab of a forestry mulcher: the mulching head over a fresh layer of wood chips, with tall pines standing beyond it",
+    pageTitle: "Forestry Mulching, Mount Pleasant & Charleston | Firm Foundation",
     pageDescription:
-      "Paver patios, stone walkways and retaining walls in Mount Pleasant and greater Charleston, SC, built on a base that is excavated and compacted properly.",
+      "Forestry mulching in Mount Pleasant and Charleston, SC: brush, vines and small trees ground in place and left as cover. Nothing to haul off, nothing to burn.",
     pageKeywords:
-      "paver patio Mount Pleasant SC, stone walkway Charleston, retaining wall installation, hardscapes Lowcountry, outdoor living space",
-    image: hardscapes,
-    imageSrcSet: hardscapesSet,
-    alt: "Paver patio and stone walkway installation in Mount Pleasant, SC",
-    beforeAfter: {
-      before: hardscapesBefore,
-      beforeSrcSet: hardscapesBeforeSet,
-      after: hardscapesAfter,
-      afterSrcSet: hardscapesAfterSet,
-      alt: "Before and after beside a front porch: a bare strip of dirt, then a flagstone walkway set in new sod",
-      position: "45% 60%",
-    },
+      "forestry mulching Charleston SC, forestry mulching Mount Pleasant, brush mulching, underbrush mulching, land clearing without hauling, mulching overgrown land, trail clearing, fence line clearing, Lowcountry forestry mulching",
     summary:
-      "Patios, walkways and retaining walls, built on a base that was excavated and compacted properly first.",
+      "Brush, vines and small trees ground up where they stand and left on the ground as a layer of wood chips: nothing to haul off, nothing to burn.",
     description1:
-      "From patios and walkways to retaining walls and outdoor living spaces, Firm Foundation delivers durable, carefully built hardscape installations designed to hold up.",
+      "Some ground doesn't need to be stripped bare. It needs the thicket gone: the vines, briars and sweetgum saplings that make a back lot or a wooded edge impossible to walk. A forestry mulcher grinds that growth where it stands and leaves it on the ground as chips.",
     description2:
-      "We work with pavers, natural stone and concrete. Hardscape lives or dies on what is under it, which is why the dirt work comes first.",
+      "Mulching suits ground that will stay natural: a wooded lot you want open underneath, a trail, a fence line. It isn't the right tool for ground that's about to be built on or sodded, because the chips and the stumps stay behind. We'll tell you which one your ground needs on the first visit.",
     items: [
-      { label: "Paver Patios", detail: "Patios built on a proper excavated and compacted base" },
-      { label: "Stone Walkways", detail: "Decorative walkways using natural stone and pavers" },
-      { label: "Retaining Walls", detail: "Sturdy walls for erosion control and elevated landscapes" },
-      { label: "Outdoor Living Spaces", detail: "Complete backyard hardscape layouts" },
+      { label: "Underbrush Mulching", detail: "Vines, briars and saplings ground down under the trees you're keeping" },
+      { label: "Overgrown Lots & Back Corners", detail: "Ground that has gone to thicket opened up and left walkable" },
+      { label: "Trails & Paths", detail: "A way through the woods cut and mulched" },
+      { label: "Fence Lines & Edges", detail: "Property lines ground back so you can walk, fence or survey them" },
+      { label: "Small Trees & Saplings", detail: "Brought down and ground in place, with the stumps left in the ground" },
+      { label: "Mulch Left as Cover", detail: "The chips stay on the ground, covering the soil instead of leaving it bare" },
     ],
-  },
-  {
-    slug: "landscaping",
-    tier: "more",
-    title: "Landscaping",
-    navBlurb: "Beds, mulch and planting",
-    pageTitle: "Landscaping in Mount Pleasant, SC | Firm Foundation",
-    pageDescription:
-      "Bed installation, mulching, planting and yard cleanups across Mount Pleasant and greater Charleston, SC. Free on-site quotes.",
-    pageKeywords:
-      "landscaping Mount Pleasant SC, mulch installation Charleston, planting beds, sod installation, yard cleanup Lowcountry",
-    image: landscaping,
-    imageSrcSet: landscapingSet,
-    alt: "Fresh mulch beds and seasonal plantings at a Mount Pleasant, SC home",
-    beforeAfter: {
-      before: landscapingBefore,
-      beforeSrcSet: landscapingBeforeSet,
-      after: landscapingAfter,
-      afterSrcSet: landscapingAfterSet,
-      alt: "Before and after at a Mount Pleasant home: tired beds along the front walk, then new mulch beds and shrubs",
-      position: "38% 60%",
+    approaches: {
+      title: "Mulch it in place,",
+      accent: "or clear and haul",
+      options: [
+        {
+          name: "Mulch in place",
+          detail: "The mulcher grinds brush and small trees where they stand. The chips stay on the ground as a layer of cover, and the stumps and roots stay under it.",
+          bestFor: "Ground that will stay natural: wooded lots, trails, fence lines",
+        },
+        {
+          name: "Clear and haul",
+          detail: "Brush, trees and stumps come out and the debris is loaded off the property, down to bare, workable ground.",
+          bestFor: "Anywhere you'll build, pour, dig or lay sod",
+        },
+      ],
     },
-    summary:
-      "Bed installs, fresh mulch, planting and yard cleanups, usually as the finish on a clearing or grading job.",
-    description1:
-      "Once the ground is right, beds and planting are what make it look finished. We cut and mulch beds, plant, lay sod and clean up yards across Mount Pleasant.",
-    description2:
-      "Most of our landscaping now comes at the end of bigger ground work, putting a yard back together after clearing, grading or drainage.",
-    items: [
-      { label: "Mulching & Bed Edging", detail: "Fresh mulch installation, crisp bed edges, and weed control" },
-      { label: "Planting", detail: "Shrubs, color and bed design suited to the Lowcountry" },
-      { label: "Sod", detail: "New sod laid on properly graded ground" },
-      { label: "Yard Cleanups", detail: "Leaf, branch and storm cleanup" },
+    priceFactors: [
+      { label: "How thick it is", detail: "A dense thicket of vines and saplings takes longer to grind through than open ground with scattered brush." },
+      { label: "Size of what's growing", detail: "Brush and saplings go quickly. The bigger the trees, the slower the work." },
+      { label: "How much ground", detail: "The area to be mulched, and how much of it means working around trees you're keeping." },
+      { label: "Access", detail: "Whether the machine can drive straight in, or has to come through a gate or a side yard." },
+      { label: "Ground conditions", detail: "Soft, wet ground has to dry out before a machine can work it without rutting." },
+    ],
+    faqs: [
+      {
+        question: "What is forestry mulching?",
+        answer:
+          "One machine that cuts and cleans up at the same time. A mulching head, a spinning drum or disk fitted with teeth or blades, grinds brush, vines and small trees where they stand and leaves them on the ground as wood chips. Forest Service researchers call it mastication, and forest managers use it to grind down competing brush, free up young trees and prepare ground for new growth (USDA Forest Service, RMRS-GTR-381, 2018).",
+      },
+      {
+        question: "Is forestry mulching better than clearing and hauling?",
+        answer:
+          "For some ground. Mulching leaves nothing to haul off and nothing to burn, and the chips cover the soil instead of leaving it bare. A 2018 Forest Service review of the research found ground under mulched chips lost less soil than bare ground, with erosion slight as long as the chip layer stayed (RMRS-GTR-381). The trade-off is that the chips, stumps and roots all stay too, so for anything you'll build on, pour, dig or sod, clearing and hauling is the better call.",
+      },
+      {
+        question: "Can I lay sod or build right after forestry mulching?",
+        answer:
+          "Not on top of it. Clemson Extension's lawn guide calls for removing all debris from the area to be planted, large roots and old tree trunks included (HGIC 1203), and the residential building code requires vegetation and topsoil to be removed from under a concrete slab (IRC R506.2). If a lawn or a building is the plan, the stumps get pulled and the ground gets cleared properly. Mulching is for ground that will stay natural.",
+      },
+      {
+        question: "Does forestry mulching get rid of stumps?",
+        answer:
+          "Not out of the ground. A mulching head leaves a stump behind, ragged or clean-cut depending on the type of head (USDA Forest Service, RMRS-GTR-381), and the roots stay where they are. Roots left in the ground can come back: sweet gum in particular regrows from its roots (USDA Forest Service, Silvics of North America). Where a stump will be in the way, it gets pulled with the excavator instead.",
+      },
+      {
+        question: "Can you mulch on wet ground or in a wetland?",
+        answer:
+          "Have it looked at first. Federal rules leave out cutting vegetation above the ground, like mowing or rotary cutting, as long as it doesn't substantially disturb the root system or push soil around (33 CFR 323.2(d)(2)(ii)). Mechanized land clearing that does disturb the soil can count as a regulated discharge in a wetland, which can need an Army Corps of Engineers permit (33 CFR 323.2(d)(1)(iii)). Rutting soft ground is soil disturbance, so on low, wet ground a wetland delineation comes first, and the work waits for the ground to dry.",
+      },
+      {
+        question: "Do I need a permit for forestry mulching in Mount Pleasant?",
+        answer:
+          "Treat it like any other clearing and ask before it's scheduled. The Town says clearing and grading that disturbs or alters land on a single-family lot needs its stormwater management and tree preservation permit first. Protected trees need their own approval whatever takes them down, and trees in a buffer, a critical area, an easement or a right-of-way can be protected at any size or species.",
+      },
     ],
   },
   {

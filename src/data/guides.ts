@@ -219,7 +219,7 @@ export const guides: Guide[] = [
           "Permits in hand before work starts.",
           "Utilities marked through SC811 before any stumps are pulled, because pulling a stump is digging.",
           "Clear with a tracked excavator, working around the keeper trees' roots rather than driving over them.",
-          "Haul the debris off and knock down the ruts and root holes, so the ground is ready for whatever comes next.",
+          "Haul the debris off and knock down the ruts and root holes, so the ground is ready for whatever comes next. Where the ground will stay natural, the brush can be mulched in place instead.",
         ],
       },
     ],
@@ -322,7 +322,7 @@ export const guides: Guide[] = [
         heading: "Who does what",
         bullets: [
           "The pool builder sets the layout, depths and elevations, and normally handles the pool's own permit.",
-          "The excavator clears a way in, digs to the builder's layout, and gets the dirt off the property.",
+          "The excavation contractor clears a way in, digs to the builder's layout, and gets the dirt off the property.",
           "Once the shell is in: backfill around it and a final grade, so water runs away from the pool and the house.",
         ],
       },

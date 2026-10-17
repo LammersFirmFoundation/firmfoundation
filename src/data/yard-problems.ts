@@ -62,12 +62,12 @@ export const yardProblems: YardProblem[] = [
   {
     id: "overgrown",
     group: "Land and trees",
-    label: "Brush and undergrowth have taken over the property",
+    label: "Brush and vines have taken over the backyard or the lot",
     question: "Can you clear overgrown brush and small trees?",
     cause:
       "Lowcountry undergrowth reclaims unused ground quickly, and once sweetgum, wax myrtle and vines establish in it, clearing by hand stops being realistic.",
     fix:
-      "Clearing the brush, undergrowth and small trees down to usable ground, pulling the stumps that are in the way, and hauling the debris off so you can see what you actually have.",
+      "Clearing the brush, undergrowth and small trees down to usable ground, pulling the stumps that are in the way, and hauling the debris off so you can see what you actually have. Where the ground will stay natural, the brush can be mulched in place instead.",
     visit:
       "How much there is, what is worth keeping, and whether a machine can get to it.",
     serviceSlug: "land-clearing",
@@ -103,6 +103,36 @@ export const yardProblems: YardProblem[] = [
     serviceSlug: "land-clearing",
     service: "Land Clearing",
     note: "I'm building on a lot that needs clearing first. The lot is about ",
+  },
+  {
+    id: "mulch-in-place",
+    group: "Land and trees",
+    label: "I want the brush gone, but not hauled off or burned in a pile",
+    question: "Can brush be cleared without hauling it off or burning it?",
+    cause:
+      "Most clearing leaves a pile behind: brush, limbs and small trees that have to be loaded out. On ground that is going to stay natural, that pile is the part nobody needed.",
+    fix:
+      "Forestry mulching: a mulching head grinds the brush and small trees where they stand and leaves them as a layer of wood chips over the ground. Nothing to haul and nothing to burn. It suits ground you want open and walkable, not ground that is about to be built on or sodded, because the chips and stumps stay.",
+    visit:
+      "What is growing there, how big the trees are, what you plan to do with the ground next, and whether any of it is low or wet.",
+    serviceSlug: "forestry-mulching",
+    service: "Forestry Mulching",
+    note: "I'd like brush cleared and mulched in place rather than hauled off. The area is about ",
+  },
+  {
+    id: "trail",
+    group: "Land and trees",
+    label: "I want a path cut through the woods",
+    question: "Can you cut a trail through wooded land?",
+    cause:
+      "Not a problem so much as a job: the woods are there, but the undergrowth means nobody can walk them.",
+    fix:
+      "Mulching a path through the understory. The brush and saplings along the line are ground into chips that stay on the ground, and the trees on either side are left alone.",
+    visit:
+      "Where you want the path to go, which trees it has to wind around, and whether any of the route crosses low, wet ground.",
+    serviceSlug: "forestry-mulching",
+    service: "Forestry Mulching",
+    note: "I'd like a path cut through the woods on my property. It would run roughly ",
   },
   {
     id: "tree-problem",
@@ -226,6 +256,21 @@ export const yardProblems: YardProblem[] = [
     service: "Excavation & Grading",
     note: "I need a level pad prepped. It's for ",
   },
+  {
+    id: "low-spot-fill",
+    group: "Water and ground",
+    label: "Part of the yard sits low and needs building up",
+    question: "Can you bring in fill dirt to raise a low part of the yard?",
+    cause:
+      "Usually ground that has settled over the years, or was never brought up to grade when the house went in. Filling it without thinking about where the water goes only moves the puddle.",
+    fix:
+      "Bringing in fill or topsoil, spreading it, and grading it so it ties into the rest of the yard and still sheds water away from the house.",
+    visit:
+      "How low it sits, where water goes now, and how a truck can get the dirt to it.",
+    serviceSlug: "excavation",
+    service: "Excavation & Grading",
+    note: "Part of my yard sits low and needs building up. It's about ",
+  },
 
   // ── Something to dig or build ───────────────────────────────────────────
   {
@@ -240,8 +285,8 @@ export const yardProblems: YardProblem[] = [
     visit:
       "The layout, how a machine gets to the backyard, what's in the footprint, and where the trucks can load.",
     serviceSlug: "pools-and-ponds",
-    service: "Pool & Pond Excavation",
-    note: "We're putting in a pool and need the excavation. Our pool builder is ",
+    service: "Pool & Pond Prep",
+    note: "We're putting in a pool and need the dig and the site prep. Our pool builder is ",
   },
   {
     id: "pond",
@@ -255,7 +300,7 @@ export const yardProblems: YardProblem[] = [
     visit:
       "Where water already collects, how big and deep you're picturing it, and whether any of the ground could be wetland, which is worth checking before anything is dug.",
     serviceSlug: "pools-and-ponds",
-    service: "Pool & Pond Excavation",
+    service: "Pool & Pond Prep",
     note: "I'm interested in a pond. What I'm picturing is ",
   },
   {

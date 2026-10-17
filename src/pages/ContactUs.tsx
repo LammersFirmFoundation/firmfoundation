@@ -160,9 +160,12 @@ const ContactUs = () => {
 
   const serviceTitle =
     job === OTHER ? otherPick || NOT_SURE : coreServices.find((s) => s.slug === job)?.title ?? "";
+  // The services under "Something else" have their own questions too: once a
+  // visitor names one, its chips appear just as a core job's do.
+  const questionKey = job === OTHER ? moreServices.find((s) => s.title === otherPick)?.slug : job;
   const questions = useMemo(
-    () => [...(job && job !== OTHER ? questionsByService[job] ?? [] : []), ...(job ? commonQuestions : [])],
-    [job]
+    () => [...(questionKey ? questionsByService[questionKey] ?? [] : []), ...(job ? commonQuestions : [])],
+    [questionKey, job]
   );
 
   const form = useForm<ContactFormData>({
@@ -479,7 +482,10 @@ const ContactUs = () => {
                                   options: [...moreServices.map((s) => s.title), "Not sure"],
                                 }}
                                 value={otherPick ? [otherPick === NOT_SURE ? "Not sure" : otherPick] : []}
-                                onChange={(v) => setOtherPick(v[0] === "Not sure" ? NOT_SURE : v[0] ?? "")}
+                                onChange={(v) => {
+                                  setOtherPick(v[0] === "Not sure" ? NOT_SURE : v[0] ?? "");
+                                  setAnswers({});
+                                }}
                               />
                             </div>
                           )}
@@ -492,7 +498,7 @@ const ContactUs = () => {
                             <div className="space-y-8">
                               {questions.map((q) => (
                                 <ChipGroup
-                                  key={`${job}-${q.id}`}
+                                  key={`${questionKey ?? job}-${q.id}`}
                                   question={q}
                                   value={answers[q.id] ?? []}
                                   onChange={(v) => setAnswers((a) => ({ ...a, [q.id]: v }))}

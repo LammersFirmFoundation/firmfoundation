@@ -28,41 +28,23 @@ export type QuoteQuestion = {
 };
 
 export const questionsByService: Record<string, QuoteQuestion[]> = {
-  "land-clearing": [
-    {
-      id: "area",
-      label: "Roughly how much ground?",
-      options: ["Under ¼ acre", "¼ to 1 acre", "1 to 5 acres", "5+ acres", "Not sure"],
-      hint: "Just the part to be cleared. An acre is about a football field without the end zones.",
-    },
-    {
-      id: "onIt",
-      label: "What's on it?",
-      options: ["Brush & vines", "Small trees", "Big trees", "Stumps", "Old debris"],
-      multi: true,
-    },
-    { id: "keep", label: "Keeping any trees?", options: ["Yes, some", "No, clear it all", "Not sure yet"] },
-    {
-      id: "purpose",
-      label: "What's it for?",
-      options: ["New build", "Pool", "Driveway or pad", "Usable yard", "View or fence line", "Something else"],
-    },
-  ],
-  "tree-removal": [
-    { id: "trees", label: "How many trees?", options: ["Just stumps", "1", "2 to 5", "6 or more"] },
-    { id: "stumps", label: "The stumps?", options: ["Grind them", "Pull them out", "Not sure", "Leave them"] },
-    {
-      id: "near",
-      label: "What's close by?",
-      options: ["The house", "A fence", "A driveway", "Open ground"],
-      multi: true,
-    },
-  ],
   excavation: [
     {
       id: "purpose",
       label: "What's it for?",
-      options: ["Driveway", "Shed or equipment pad", "Regrade the yard", "Site prep for a build", "Trenching", "Something else"],
+      options: [
+        "Patio or walkway base",
+        "New beds or sod",
+        "Pool",
+        "Driveway",
+        "Shed or equipment pad",
+        "Regrade the yard",
+        "Bring in fill",
+        "Site prep for a build",
+        "Trenching",
+        "Something else",
+      ],
+      multi: true,
     },
     {
       id: "size",
@@ -78,6 +60,53 @@ export const questionsByService: Record<string, QuoteQuestion[]> = {
       label: "Can a machine get to the back?",
       options: ["Wide open", "Through a gate or side yard", "Not sure"],
     },
+    {
+      id: "footprint",
+      label: "Anything where it's going?",
+      options: ["Open lawn", "Trees or stumps", "A fence, shed or slab", "Not sure"],
+      multi: true,
+    },
+    {
+      id: "spoils",
+      label: "Where should the dirt go?",
+      options: ["Haul it off", "Spread it on site", "Not sure"],
+    },
+  ],
+  "land-clearing": [
+    {
+      id: "area",
+      label: "Roughly how much ground?",
+      options: ["A backyard", "Under ¼ acre", "¼ to 1 acre", "More than an acre", "Not sure"],
+      hint: "Just the part to be cleared. A quarter acre is a little over 100 by 100 feet.",
+    },
+    {
+      id: "onIt",
+      label: "What's on it?",
+      options: ["Brush & vines", "Small trees", "Big trees", "Stumps", "Old debris"],
+      multi: true,
+    },
+    { id: "keep", label: "Keeping any trees?", options: ["Yes, some", "No, clear it all", "Not sure yet"] },
+    {
+      id: "purpose",
+      label: "What's it for?",
+      options: ["New build", "Pool", "Shed, patio or pad", "Driveway", "Usable yard", "Fence line or trail", "Something else"],
+    },
+    {
+      id: "debris",
+      label: "Where should the brush go?",
+      options: ["Hauled off", "Mulched in place", "Not sure"],
+      hint: "Mulching leaves the chips and stumps on the ground, so it suits ground that will stay natural.",
+    },
+  ],
+  "tree-removal": [
+    { id: "trees", label: "How many trees?", options: ["Just stumps", "1", "2 to 5", "6 or more"] },
+    { id: "stumps", label: "The stumps?", options: ["Grind them", "Pull them out", "Not sure", "Leave them"] },
+    {
+      id: "near",
+      label: "What's close by?",
+      options: ["The house", "A fence", "A driveway", "Open ground"],
+      multi: true,
+    },
   ],
   drainage: [
     {
@@ -92,6 +121,31 @@ export const questionsByService: Record<string, QuoteQuestion[]> = {
         "Something else",
       ],
       multi: true,
+    },
+  ],
+  "forestry-mulching": [
+    {
+      id: "area",
+      label: "Roughly how much ground?",
+      options: ["A backyard", "Under ¼ acre", "¼ to 1 acre", "More than an acre", "Not sure"],
+      hint: "Just the part to be mulched. A quarter acre is a little over 100 by 100 feet.",
+    },
+    {
+      id: "onIt",
+      label: "What's growing on it?",
+      options: ["Brush & vines", "Saplings", "Some bigger trees", "Not sure"],
+      multi: true,
+    },
+    {
+      id: "after",
+      label: "What's the ground for after?",
+      options: ["Leave it natural", "A trail or path", "Lawn or garden later", "Build on it later", "Not sure"],
+      hint: "If it's going to be lawn or built on, the stumps need pulling, so it's worth saying.",
+    },
+    {
+      id: "wet",
+      label: "Is any of it low or wet?",
+      options: ["Dry ground", "Some low spots", "It stays wet", "Not sure"],
     },
   ],
 };
