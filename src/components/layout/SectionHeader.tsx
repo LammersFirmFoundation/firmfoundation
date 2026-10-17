@@ -44,7 +44,13 @@ const SectionHeader = ({
   const text = accent ? `${title} ${accent}` : title;
   const centered = align === "center";
 
-  const heading = (
+  // A page title is above the fold, and a scroll-triggered rise would bake its
+  // hidden start state into the prerendered HTML. Only section headings move.
+  const heading = Heading === "h1" ? (
+    <Heading className={cn("text-title font-heading text-foreground text-balance", centered && "mx-auto max-w-3xl")}>
+      {text}
+    </Heading>
+  ) : (
     <Heading className={cn("text-title font-heading text-foreground text-balance", centered && "mx-auto max-w-3xl")}>
       {/* pb/-mb keep descenders from being clipped by the mask. */}
       <span className="block overflow-hidden pb-[0.15em] -mb-[0.15em]">

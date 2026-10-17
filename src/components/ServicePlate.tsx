@@ -1216,7 +1216,7 @@ const ServicePlate = ({
   return (
     <figure
       className={cn(
-        "on-forest flex flex-col overflow-hidden rounded-lg border border-border bg-forest text-foreground",
+        "on-forest flex flex-col overflow-hidden rounded-[3px] border border-border bg-forest text-foreground",
         className
       )}
     >
