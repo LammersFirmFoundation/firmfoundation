@@ -84,7 +84,7 @@ const ReviewsGrid = ({
           <FadeInView className="lg:col-span-7">
             <figure>
               <StarRating rating={lead.rating} size="h-4 w-4" className="text-primary" />
-              <blockquote className="mt-5 font-serif text-[1.375rem] italic leading-[1.45] text-foreground md:text-[1.75rem]">
+              <blockquote className="mt-5 font-serif text-[1.25rem] italic leading-[1.5] text-foreground md:text-[1.75rem] md:leading-[1.45]">
                 <p className="line-clamp-[9]">&ldquo;{lead.review.trim()}&rdquo;</p>
               </blockquote>
               <Byline review={lead} />

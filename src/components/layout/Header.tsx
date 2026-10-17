@@ -12,7 +12,7 @@ import logoLockup from "@/assets/brand/logo-lockup.svg";
 import { ArrowRight, ChevronDown, Menu, Phone } from "lucide-react";
 import { useState, useEffect } from "react";
 import { BUSINESS } from "@/data/business";
-import { coreServices } from "@/data/services";
+import { coreServices, moreServices } from "@/data/services";
 
 interface HeaderProps {
   transparent?: boolean;
@@ -179,7 +179,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                 <SheetTitle className="sr-only">Site navigation</SheetTitle>
                 <nav className="flex flex-col">
                   <p className="eyebrow text-primary mb-3">Services</p>
-                  <ul className="mb-8 divide-y divide-border border-y border-border">
+                  <ul className="divide-y divide-border border-y border-border">
                     {coreServices.map((service) => (
                       <li key={service.slug}>
                         <SheetClose asChild>
@@ -194,6 +194,22 @@ const Header = ({ transparent = false }: HeaderProps) => {
                       </li>
                     ))}
                   </ul>
+                  <p className="mb-8 mt-4 text-sm leading-relaxed text-muted-foreground">
+                    Also:{" "}
+                    {moreServices.map((service, i) => (
+                      <span key={service.slug}>
+                        <SheetClose asChild>
+                          <Link
+                            to={`/services/${service.slug}`}
+                            className="text-foreground underline decoration-foreground/25 underline-offset-4"
+                          >
+                            {service.title}
+                          </Link>
+                        </SheetClose>
+                        {i < moreServices.length - 1 ? ", " : ""}
+                      </span>
+                    ))}
+                  </p>
                   <div className="flex flex-col gap-5">
                     {navLinks.map((link) => (
                       <SheetClose key={link.path} asChild>
