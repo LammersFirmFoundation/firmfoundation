@@ -125,21 +125,41 @@ const OurStory = ({
 
   // The homepage strip: the photo at a size where a face reads (it was a
   // 190px thumbnail), and the link right under the paragraph it continues,
-  // at every width. It used to float at the far right edge on a desktop,
-  // 450px from the sentence it belonged to. No mark: the heading opens it.
+  // at every width. No mark: the heading opens it.
+  //
+  // On a desktop the two family photos are laid out the way the hero lays
+  // out the jobs: the cab photo large, the toy tractor smaller and set lower
+  // beside it, with the story centred against the pair. A single 272px photo
+  // left most of the band empty. Phones keep the one photo beside the text;
+  // the second is `hidden` there, so a lazy image never loads.
   if (compact && lead) {
     return (
       <div
         className={cn(
-          "grid grid-cols-[6.5rem_minmax(0,1fr)] items-start gap-6 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-10 lg:grid-cols-[17rem_minmax(0,1fr)] lg:items-end lg:gap-14",
+          "grid grid-cols-[6.5rem_minmax(0,1fr)] items-start gap-6 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-10 lg:grid-cols-12 lg:items-center lg:gap-10",
           className
         )}
       >
-        <FadeInView direction="none">
-          <StoryFigure photo={lead} sizes="(min-width: 1024px) 272px, (min-width: 640px) 176px, 104px" captionClassName="text-xs" />
+        <FadeInView direction="none" className="lg:col-span-5">
+          <div className="lg:flex lg:items-start lg:gap-5">
+            <StoryFigure
+              photo={lead}
+              sizes="(min-width: 1024px) 18rem, (min-width: 640px) 176px, 104px"
+              captionClassName="text-xs"
+              className="lg:w-[58%] lg:shrink-0"
+            />
+            {inset && (
+              <StoryFigure
+                photo={inset}
+                sizes="13rem"
+                captionClassName="text-xs"
+                className="hidden lg:mt-[38%] lg:block lg:min-w-0 lg:flex-1"
+              />
+            )}
+          </div>
         </FadeInView>
-        <div className="min-w-0 lg:pb-8">
-          <Heading className="font-heading text-3xl leading-[0.98] text-foreground text-balance md:text-[2.75rem]">
+        <div className="min-w-0 lg:col-span-6 lg:col-start-7">
+          <Heading className="font-heading text-3xl leading-[0.98] text-foreground text-balance md:text-[2.75rem] lg:text-[3.25rem]">
             It started in the cab.
           </Heading>
           <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground text-pretty md:text-lg">
