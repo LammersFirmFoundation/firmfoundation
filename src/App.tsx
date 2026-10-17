@@ -11,7 +11,6 @@ import { services } from "./data/services";
 import { guides } from "./data/guides";
 import ScrollToTop from "./components/ScrollToTop";
 import MobileCTABar from "./components/MobileCTABar";
-import ScrollProgress from "./components/ScrollProgress";
 import Analytics from "./components/Analytics";
 import LandingPage from "./pages/LandingPage";
 import ServicesPage from "./pages/ServicesPage";
@@ -92,7 +91,6 @@ const RootLayout = () => (
         <Toaster />
         <Sonner />
         <ScrollToTop />
-        <ScrollProgress />
         <ClientOnly>{() => <Analytics />}</ClientOnly>
         <Outlet />
         {/* Spacer so the fixed mobile bar never covers footer content */}

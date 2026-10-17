@@ -30,8 +30,13 @@ export default {
       fontSize: {
         // Fluid so the huge display sizes shrink gracefully instead of needing
         // a breakpoint override at every call site.
-        'display': ['clamp(2.75rem, 7.2vw, 6.75rem)', { lineHeight: '0.9', letterSpacing: '-0.005em' }],
-        'hero': ['clamp(2.25rem, 5.6vw, 4.75rem)', { lineHeight: '0.92', letterSpacing: '-0.005em' }],
+        // Three steps, largest first, and nothing on the site is set bigger
+        // than the homepage H1 (the review of 2026-10-17 found it was the
+        // smallest headline on the site, under its own closing CTA).
+        // display: the homepage H1 only. hero: interior page H1s. title:
+        // section headings and the closing CTA.
+        'display': ['clamp(2.5rem, 5.8vw, 5.5rem)', { lineHeight: '0.9', letterSpacing: '-0.005em' }],
+        'hero': ['clamp(2.25rem, 5vw, 4.5rem)', { lineHeight: '0.94', letterSpacing: '-0.008em' }],
         'title': ['clamp(2rem, 3.8vw, 3.5rem)', { lineHeight: '0.96', letterSpacing: '-0.012em' }],
         'subtitle': ['clamp(1.0625rem, 1.6vw, 1.375rem)', { lineHeight: '1.5', letterSpacing: '0' }],
       },

@@ -372,9 +372,11 @@ const ContactUs = () => {
                   <dd className="min-w-0">
                     <a
                       href={`mailto:${BUSINESS.email}`}
-                      className="text-foreground underline decoration-foreground/25 underline-offset-[5px] transition-colors [overflow-wrap:anywhere] hover:decoration-foreground"
+                      className="text-foreground underline decoration-foreground/25 underline-offset-[5px] transition-colors hover:decoration-foreground"
                     >
-                      {BUSINESS.email}
+                      {/* If it has to wrap, wrap at the @, never mid-word. */}
+                      {BUSINESS.email.split("@")[0]}@<wbr />
+                      {BUSINESS.email.split("@")[1]}
                     </a>
                   </dd>
                 </div>

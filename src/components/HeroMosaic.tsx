@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import landscaping from "@/assets/services/landscaping.jpg";
 import landscapingSet from "@/assets/services/landscaping.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
@@ -39,7 +39,8 @@ const tiles: Tile[] = [
     src: landscaping,
     srcSet: landscapingSet,
     alt: "New mulch beds and shrubs along the front walk of a two-story Mount Pleasant home",
-    position: "50% 62%",
+    // Toward the new beds and away from the leaf-littered lawn below them.
+    position: "50% 38%",
     sizes: "(min-width: 1024px) 44vw, 64vw",
     className: "col-span-2 row-span-2 lg:row-span-1",
   },
@@ -100,10 +101,10 @@ const HeroMosaic = ({ className }: { className?: string }) => (
         </span>
         {/* A caption under the picture, never a chip on it: nothing laid
             over the photograph, and it reads like a printed plate. */}
-        <span className="flex items-baseline justify-between gap-2 text-[0.6875rem] font-semibold text-foreground sm:text-sm">
+        <span className="flex items-center justify-between gap-2 text-[0.8125rem] font-semibold text-foreground sm:text-sm">
           {t.label}
-          <ArrowUpRight
-            className="hidden h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform duration-300 group-hover:-translate-y-px group-hover:translate-x-px group-hover:text-foreground sm:block"
+          <ArrowRight
+            className="hidden h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:text-foreground sm:block"
             aria-hidden="true"
           />
         </span>

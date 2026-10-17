@@ -9,10 +9,6 @@ import stumpRootBallSet from "@/assets/services/stump-root-ball.jpg?w=640;1024;1
 // Stock photography: licenses and the rules for using it are in
 // src/assets/stock/CREDITS.md. None of these are Firm Foundation jobs; each is
 // a placeholder for one of Josiah's own photos.
-import gradingBackyard from "@/assets/stock/grading-backyard.jpg";
-import gradingBackyardSet from "@/assets/stock/grading-backyard.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
-import pondExcavation from "@/assets/stock/pond-excavation.jpg";
-import pondExcavationSet from "@/assets/stock/pond-excavation.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
 import drainagePipe from "@/assets/stock/drainage-pipe.jpg";
 import drainagePipeSet from "@/assets/stock/drainage-pipe.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
 import hardscapes from "@/assets/services/hardscapes.jpg";
@@ -68,11 +64,7 @@ export type Service = {
   imageSrcSet?: string;
   /** Describes the photo. Only needed alongside `image`; a drawing describes itself. */
   alt?: string;
-  /**
-   * A different photo for the service grid, when `image` would repeat something
-   * already on screen. Land clearing uses it: its `image` is Josiah's own
-   * machine, which the homepage hero already shows one screen up.
-   */
+  /** A different photo for the service grid, when `image` would repeat something already on screen. */
   cardImage?: string;
   cardImageSrcSet?: string;
   cardAlt?: string;
@@ -346,9 +338,12 @@ export const services: Service[] = [
     title: "Excavation & Grading",
     navBlurb: "The dirt work under every patio, pool, bed and drive",
     plate: "grading",
-    image: gradingBackyard,
-    imageSrcSet: gradingBackyardSet,
-    alt: "A compact excavator beside a freshly graded dirt pad behind a brick house",
+    // Josiah's own machine. It was a stock photo of a Texas subdivision until
+    // 2026-10-17, so the hero's "Excavation" tile, which shows this machine,
+    // landed on a different one.
+    image: landClearing,
+    imageSrcSet: landClearingSet,
+    alt: "Firm Foundation's tracked excavator at work on a Lowcountry site, with felled timber behind it",
     pageTitle: "Excavation & Grading, Mount Pleasant SC | Firm Foundation",
     pageDescription:
       "Grading, site prep, patio and walkway bases, pads, gravel drives, fill and trenching in Mount Pleasant and Charleston, SC. Utilities marked through SC811 first.",
@@ -403,9 +398,9 @@ export const services: Service[] = [
     title: "Pool & Pond Prep",
     navBlurb: "Site prep for pools and ponds, from access to final grade",
     plate: "pools",
-    image: pondExcavation,
-    imageSrcSet: pondExcavationSet,
-    alt: "An excavator beside a newly dug pond on flat open ground",
+    // No photo on purpose: the only licensed one was a reservoir-scale dig in
+    // the Netherlands, the wrong scale for a backyard pool. The section
+    // drawing leads until Josiah has a photo of one of his own digs.
     pageTitle: "Pool & Pond Prep, Mount Pleasant & Charleston | Firm Foundation",
     pageDescription:
       "Site prep for in-ground pools and ponds in Mount Pleasant and Charleston, SC: access, clearing the footprint, the dig, haul-off, backfill and final grade.",
@@ -483,12 +478,9 @@ export const services: Service[] = [
       "Backyard, lot and underbrush clearing in Mount Pleasant and Charleston, SC. The good trees stay, stumps come out, and debris is hauled off or mulched in place.",
     pageKeywords:
       "land clearing Mount Pleasant SC, lot clearing Charleston SC, backyard clearing, overgrown yard clearing, underbrush clearing, selective clearing, brush removal, clearing for a pool or shed, stump removal, debris haul-off",
-    image: landClearing,
-    imageSrcSet: landClearingSet,
-    alt: "Firm Foundation's tracked excavator clearing timber on a Lowcountry lot",
-    cardImage: clearingCard,
-    cardImageSrcSet: clearingCardSet,
-    cardAlt: "From the excavator cab: the bucket working a pile of roots and brush across a cleared tract",
+    image: clearingCard,
+    imageSrcSet: clearingCardSet,
+    alt: "From the excavator cab: the bucket working a pile of roots and brush across a cleared tract",
     summary:
       "Overgrown backyards, lots and fence lines cleared down to usable ground, with the trees worth keeping left standing and the brush hauled off or mulched in place.",
     description1:

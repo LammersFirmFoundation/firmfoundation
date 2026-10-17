@@ -6,8 +6,8 @@ interface SectionProps {
   className?: string;
   /**
    * `default` is the cream paper of the business card, `muted` a sand step
-   * darker, `cream` the lighter paper used for long reading (answers, guides,
-   * the story), and `forest` the deep-green band of the flyer. `forest`
+   * darker (use it once a page at most), `cream` the same paper opened by a
+   * hairline rule, and `forest` the deep-green band of the flyer. `forest`
    * re-maps the semantic colour tokens for its whole subtree, so nested
    * buttons, borders and muted text follow without per-call-site overrides.
    */
@@ -26,7 +26,10 @@ interface SectionProps {
 const variantStyles: Record<NonNullable<SectionProps["variant"]>, string> = {
   default: "bg-background text-foreground",
   muted: "bg-muted text-foreground",
-  cream: "bg-paper text-foreground",
+  // Was a second paper 2% lighter than the page, which made every band edge
+  // read as a rendering seam (review, 2026-10-17). It is now the same sheet,
+  // divided by a hairline: "rules, not boxes".
+  cream: "bg-background text-foreground border-t border-border",
   forest: "on-forest bg-background text-foreground",
 };
 

@@ -67,7 +67,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
           : "bg-background/90 backdrop-blur-md border-b border-border/60"
       }`}
     >
-      <div className="mx-auto max-w-content px-4 sm:px-6 md:px-10 py-4 sm:py-5">
+      <div className="frame py-4 sm:py-5">
         <div className="flex items-center justify-between gap-6">
           <Link to="/" className="shrink-0" aria-label={`${BUSINESS.name}, home`}>
             {/* Josiah's own badge, recomposed side by side: the FF-and-excavator
@@ -152,7 +152,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
               {BUSINESS.phone}
             </a>
             <Button asChild size="sm">
-              <Link to="/contact">Get a quote</Link>
+              <Link to="/contact">Get a free quote</Link>
             </Button>
           </div>
 
@@ -174,27 +174,34 @@ const Header = ({ transparent = false }: HeaderProps) => {
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="w-full max-w-sm overflow-y-auto bg-background border-border pt-16"
+                className="w-full overflow-y-auto border-border bg-background pt-5 sm:max-w-sm"
               >
                 <SheetTitle className="sr-only">Site navigation</SheetTitle>
-                <nav className="flex flex-col">
-                  <p className="eyebrow text-primary mb-3">Services</p>
+                {/* The lockup top left, opposite the close button, so the sheet
+                    is still plainly this business's. */}
+                <img src={logoLockup} alt="" width={1443} height={255} className="h-8 w-auto" />
+                <nav className="mt-8 flex flex-col">
+                  {/* Services first and at the same size as the pages: they
+                      are why most people open the menu. */}
                   <ul className="divide-y divide-border border-y border-border">
-                    {coreServices.map((service) => (
-                      <li key={service.slug}>
+                    {[
+                      ...coreServices.map((s) => ({ path: `/services/${s.slug}`, label: s.title })),
+                      ...navLinks.map((l) => ({ path: l.path, label: l.label })),
+                    ].map((item, i) => (
+                      <li key={item.path} className={i === coreServices.length ? "border-t-2 border-t-foreground/15" : undefined}>
                         <SheetClose asChild>
                           <Link
-                            to={`/services/${service.slug}`}
+                            to={item.path}
                             className="flex min-h-[48px] items-center justify-between gap-3 py-2.5 font-heading text-xl text-foreground hover:text-primary"
                           >
-                            {service.title}
-                            <ArrowRight className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                            {item.label}
+                            <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
                           </Link>
                         </SheetClose>
                       </li>
                     ))}
                   </ul>
-                  <p className="mb-8 mt-4 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                     Also:{" "}
                     {moreServices.map((service, i) => (
                       <span key={service.slug}>
@@ -210,30 +217,22 @@ const Header = ({ transparent = false }: HeaderProps) => {
                       </span>
                     ))}
                   </p>
-                  <div className="flex flex-col gap-5">
-                    {navLinks.map((link) => (
-                      <SheetClose key={link.path} asChild>
-                        <Link
-                          to={link.path}
-                          className="font-heading text-3xl tracking-tight text-foreground hover:text-primary transition-colors"
-                        >
-                          {link.label}
-                        </Link>
-                      </SheetClose>
-                    ))}
-                  </div>
-                  <SheetClose asChild>
-                    <Button asChild className="w-full mt-9" size="lg">
-                      <Link to="/contact">Get a free quote</Link>
+                  {/* The two ways in, side by side and the same size: the
+                      phone is the main conversion, not a footnote. */}
+                  <div className="mt-8 grid grid-cols-1 gap-3 min-[380px]:grid-cols-2">
+                    <SheetClose asChild>
+                      <Button asChild size="lg">
+                        <Link to="/contact">Get a free quote</Link>
+                      </Button>
+                    </SheetClose>
+                    <Button asChild size="lg" variant="outline">
+                      <a href={BUSINESS.phoneHref} data-analytics-where="menu">
+                        <Phone aria-hidden="true" />
+                        Call
+                      </a>
                     </Button>
-                  </SheetClose>
-                  <a
-                    href={BUSINESS.phoneHref}
-                    className="mt-6 inline-flex items-center gap-2 eyebrow text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    <Phone className="h-3.5 w-3.5" aria-hidden="true" />
-                    {BUSINESS.phone}
-                  </a>
+                  </div>
+                  <p className="mt-3 text-center font-serif text-lg text-foreground">{BUSINESS.phone}</p>
                 </nav>
               </SheetContent>
             </Sheet>

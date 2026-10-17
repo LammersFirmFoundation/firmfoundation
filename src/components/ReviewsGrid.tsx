@@ -3,7 +3,6 @@ import { ArrowRight } from "lucide-react";
 import FadeInView from "@/components/animations/FadeInView";
 import StarRating from "@/components/StarRating";
 import GoogleIcon from "@/components/icons/GoogleIcon";
-import { sizedPhoto } from "@/lib/reviewPhoto";
 import type { Review } from "@/data/fallbackReviews";
 
 /**
@@ -33,24 +32,16 @@ function featuredReviews(reviews: Review[], count = 3): Review[] {
     .map(({ r }) => r);
 }
 
-/** Who said it, and where. Shared by the featured quote and the two beside it. */
+/**
+ * Who said it, and where. Always a serif monogram, never Google's avatar:
+ * those are mostly coloured letter circles (teal, pink, purple), the only
+ * saturated colour that would appear on a two-colour site.
+ */
 const Byline = ({ review }: { review: Review }) => (
   <figcaption className="mt-5 flex items-center gap-3">
-    {review.avatarUrl ? (
-      <img
-        src={sizedPhoto(review.avatarUrl, 80)}
-        alt=""
-        loading="lazy"
-        width={36}
-        height={36}
-        referrerPolicy="no-referrer"
-        className="h-9 w-9 rounded-full object-cover"
-      />
-    ) : (
-      <span aria-hidden="true" className="flex h-9 w-9 items-center justify-center rounded-full bg-muted font-serif text-foreground">
-        {review.name.charAt(0)}
-      </span>
-    )}
+    <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border font-serif text-foreground">
+      {review.name.charAt(0)}
+    </span>
     <span className="min-w-0">
       <span className="block truncate text-sm font-semibold text-foreground">{review.name}</span>
       <span className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
@@ -85,7 +76,7 @@ const ReviewsGrid = ({
             <figure>
               <StarRating rating={lead.rating} size="h-4 w-4" className="text-primary" />
               <blockquote className="mt-5 font-serif text-[1.25rem] italic leading-[1.5] text-foreground md:text-[1.75rem] md:leading-[1.45]">
-                <p className="line-clamp-[9]">&ldquo;{lead.review.trim()}&rdquo;</p>
+                <p>&ldquo;{lead.review.trim()}&rdquo;</p>
               </blockquote>
               <Byline review={lead} />
             </figure>
@@ -96,7 +87,7 @@ const ReviewsGrid = ({
             <FadeInView key={review.name} delay={0.08 * (i + 1)}>
               <figure className="py-7">
                 <blockquote className="font-serif text-[1.0625rem] italic leading-relaxed text-foreground">
-                  <p className="line-clamp-5">&ldquo;{review.review.trim()}&rdquo;</p>
+                  <p>&ldquo;{review.review.trim()}&rdquo;</p>
                 </blockquote>
                 <Byline review={review} />
               </figure>

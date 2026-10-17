@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLoaderData } from "react-router-dom";
-import { MessageSquare, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import SEO from "@/components/SEO";
 import CtaSection from "@/components/CtaSection";
@@ -8,11 +8,9 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Section from "@/components/layout/Section";
 import SectionHeader from "@/components/layout/SectionHeader";
-import FadeInView from "@/components/animations/FadeInView";
 import GoogleIcon from "@/components/icons/GoogleIcon";
 import StarRating from "@/components/StarRating";
 import ServicesIndex from "@/components/ServicesIndex";
-import BeforeAfterPair from "@/components/BeforeAfterPair";
 import ProcessSteps from "@/components/ProcessSteps";
 import ReviewsGrid from "@/components/ReviewsGrid";
 import HeroMosaic from "@/components/HeroMosaic";
@@ -20,31 +18,29 @@ import OurStory from "@/components/OurStory";
 import { useReviews, type ApiResponse } from "@/lib/useReviews";
 import { useInstagram, type InstagramFeed } from "@/lib/useInstagram";
 import InstagramStrip from "@/components/InstagramStrip";
-import { ACCEPTS_SMS, BUSINESS, howAJobRuns, smsHref } from "@/data/business";
+import { BUSINESS, howAJobRuns } from "@/data/business";
 import { localBusinessSchema, websiteSchema } from "@/lib/schema";
-import { services } from "@/data/services";
 
-/** The services Josiah has a same-spot before and after for. */
-const beforeAfterServices = services.filter((s) => s.beforeAfter);
 
 /**
- * The homepage, in six blocks, each answering one question a visitor actually
- * has:
+ * The homepage, in order, each block answering one question a visitor has:
  *
- *   1. Hero — what do they do, is it any good, how do I reach them?
- *   2. Reviews — says who?
- *   3. Services — do they do my job?
- *   4. Not sure? — the escape hatch: text a photo.
- *   5. How it works — what happens if I call?
- *   6. Story + CTA — who is this, and where do they work?
+ *   1. Hero: what do they do, is it any good, how do I reach them?
+ *   2. Reviews: says who?
+ *   3. Services: do they do my job?
+ *   4. How it works: what happens if I call?
+ *   5. Instagram: what are they working on now? (only once the feed is live)
+ *   6. Story, then the CTA: who is this, and where do they work?
  *
- * What was cut on 2026-09-29, and why, so it isn't re-added by habit: a
- * desktop service strip that repeated the services grid directly under it; the
- * six-item "what are you looking at?" accordion (its answers live on the
- * service pages as FAQs and still deep-link into the form, and "text a photo"
- * does its job in one line); the auto-rotating review carousel; a four-step
- * process that fits in three; and an Areas We Serve block that repeated the
- * footer. The areas now sit in one line inside the closing CTA.
+ * Cut, and why, so nothing comes back by habit:
+ * - 2026-09-29: a service strip that repeated the grid under it; the six-item
+ *   "what are you looking at?" accordion (its answers are service-page FAQs);
+ *   the review carousel; a fourth process step; an areas grid that repeated
+ *   the footer (the areas are one line in the CTA).
+ * - 2026-10-17: the before-and-after section (the same two jobs already lead
+ *   the hero, /services and both service pages, so the homepage showed each
+ *   twice in two screens), the "send a photo" band (the CTA carries it), and a
+ *   spaced-capitals label over every section, which read as a template.
  */
 const LandingPage = () => {
   const loaderData = useLoaderData() as (ApiResponse & { instagram?: InstagramFeed }) | undefined;
@@ -81,9 +77,11 @@ const LandingPage = () => {
             below the header rather than under it, so the nav never crosses a
             picture and needs no wash to stay legible. */}
         <section className="relative overflow-hidden bg-background lg:min-h-[100svh]">
-          <HeroMosaic className="h-[34svh] min-h-[14rem] max-h-[22rem] px-4 pt-[4.5rem] sm:px-6 sm:pt-20 lg:absolute lg:bottom-8 lg:left-[54%] lg:right-6 lg:top-24 lg:h-auto lg:max-h-none lg:px-0 lg:pt-0 xl:right-10" />
+          {/* The mosaic's right edge is the frame's right edge (the same line as
+              the header's quote button and every section), never its own. */}
+          <HeroMosaic className="h-[34svh] min-h-[14rem] max-h-[22rem] px-5 pt-[4.5rem] sm:px-6 sm:pt-20 md:h-[42svh] md:max-h-[28rem] md:px-10 lg:absolute lg:bottom-8 lg:left-[54%] lg:right-[max(2.5rem,calc((100vw-1280px)/2))] lg:top-24 lg:h-auto lg:max-h-none lg:px-0 lg:pt-0" />
 
-          <div className="relative z-10 mx-auto flex max-w-content items-center px-5 sm:px-6 md:px-10 lg:min-h-[100svh]">
+          <div className="frame relative z-10 flex items-center lg:min-h-[100svh]">
             <motion.div
               style={shouldReduceMotion ? undefined : { opacity: heroOpacity, y: heroLift }}
               className="w-full pb-12 pt-8 will-change-transform lg:w-[50%] lg:py-32 lg:pr-12"
@@ -97,7 +95,7 @@ const LandingPage = () => {
                   HTML is already the finished headline for crawlers and no-JS. */}
               {/* The one place on the site set in capitals, the way the flyer
                   sets "DIRT WORK DONE RIGHT." Everything else is sentence case. */}
-              <h1 className="text-hero font-heading uppercase text-foreground lg:text-[clamp(2.6rem,4.4vw,4.6rem)] lg:leading-[0.9]">
+              <h1 className="font-heading text-display uppercase text-foreground md:text-[3.75rem] lg:text-display">
                 <span className="hero-line">
                   <span style={{ animationDelay: "40ms" }}>Landscaping,</span>
                 </span>{" "}
@@ -133,7 +131,6 @@ const LandingPage = () => {
                   <GoogleIcon className="h-3.5 w-3.5" />
                   {aggregateRating.toFixed(1)} from {totalReviewCount} Google reviews
                 </span>
-                <span className="hidden text-sm text-muted-foreground sm:inline">&middot; Free on-site quotes</span>
               </a>
 
               <div
@@ -160,59 +157,22 @@ const LandingPage = () => {
             visitor from an ad is missing. */}
         {/* ── 2. Reviews ───────────────────────────────────────────────── */}
         <Section id="reviews" className="scroll-mt-24">
-          <SectionHeader
-            eyebrow="Google reviews"
-            title="What people say about the work"
-            subtitle="From the people Josiah has worked for, word for word."
-          />
+          <SectionHeader title="What people say about the work" />
           <ReviewsGrid reviews={reviews} rating={aggregateRating} total={totalReviewCount} />
         </Section>
 
         {/* ── 3. Services ──────────────────────────────────────────────── */}
         <Section className="pt-0 md:pt-0">
           <SectionHeader
-            eyebrow="What we do"
             title="From the dirt work to the finished yard"
             subtitle="Most jobs are more than one of these, and the same crew does all of it, so nothing gets handed off halfway."
           />
           <ServicesIndex />
         </Section>
 
-        {/* ── 4. Before and after ─────────────────────────────────────────
-            Proof in the one form a homeowner trusts most: the same spot, twice. */}
-        <Section variant="cream">
-          <SectionHeader
-            eyebrow="Before and after"
-            title="The same spot, before and after"
-            subtitle={`Two of Josiah's jobs in Mount Pleasant. ${ACCEPTS_SMS ? "Text" : "Send"} him a photo of yours and he'll tell you what it usually takes.`}
-          />
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-8">
-            {beforeAfterServices.map((service, i) => (
-              <FadeInView key={service.slug} delay={0.08 * i}>
-                <figure>
-                  <BeforeAfterPair
-                    pair={service.beforeAfter!}
-                    sizes="(min-width: 768px) 25vw, 50vw"
-                    className="aspect-[4/3] overflow-hidden rounded-[3px]"
-                  />
-                  <figcaption className="mt-4 flex items-baseline justify-between gap-4 border-t border-border pt-4">
-                    <span className="font-heading text-xl text-foreground md:text-2xl">{service.title}</span>
-                    <Link
-                      to={`/services/${service.slug}`}
-                      className="shrink-0 text-sm font-semibold text-foreground underline decoration-foreground/25 underline-offset-[5px] hover:decoration-foreground"
-                    >
-                      About {service.title.toLowerCase()}
-                    </Link>
-                  </figcaption>
-                </figure>
-              </FadeInView>
-            ))}
-          </div>
-        </Section>
-
-        {/* ── 5. How it works ──────────────────────────────────────────── */}
+        {/* ── 4. How it works ──────────────────────────────────────────── */}
         <Section variant="forest">
-          <SectionHeader eyebrow="How it works" title="What happens when you call" />
+          <SectionHeader title="What happens when you call" />
           <ProcessSteps steps={howAJobRuns} />
         </Section>
 

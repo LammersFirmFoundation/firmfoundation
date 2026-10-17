@@ -67,10 +67,9 @@ const InstagramStrip = ({ posts }: { posts: InstagramPost[] }) => {
                     </span>
                   )}
                 </span>
-                <span className="mt-2 hidden items-baseline justify-between gap-2 text-xs text-muted-foreground lg:flex">
-                  <time dateTime={post.timestamp}>{postDate(post.timestamp)}</time>
-                  <span className="transition-colors group-hover:text-foreground">View post</span>
-                </span>
+                <time dateTime={post.timestamp} className="mt-2 hidden text-xs text-muted-foreground lg:block">
+                  {postDate(post.timestamp)}
+                </time>
                 <span className="sr-only">, opens on Instagram</span>
               </a>
             </li>

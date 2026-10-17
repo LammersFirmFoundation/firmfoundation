@@ -960,7 +960,7 @@ function beds(id: string): Drawing {
     ),
     notes: (
       <>
-        <Note at={[X - 5, TB]} to={[118, 152]} anchor="end">ROOT FLARE AT GRADE</Note>
+        <Note at={[X - 5, TB]} to={[138, 146]} anchor="end">ROOT FLARE AT GRADE</Note>
         <Note at={[X + GAP + 2, G - 7]} to={[268, 150]}>2–3 IN. MULCH · KEPT OFF THE STEMS</Note>
         <Note at={[HL + 34, G + 16]} to={[HL + 26, 254]}>HOLE DUG WIDE · NATIVE SOIL BACK IN</Note>
         <Note at={[X, BB + 1]} to={[300, 236]}>BALL ON UNDISTURBED SOIL</Note>

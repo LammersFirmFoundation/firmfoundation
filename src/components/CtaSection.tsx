@@ -27,12 +27,13 @@ interface CtaSectionProps {
  * The contour layer lives here rather than on the hero: over a photograph it
  * reads as dirt on the lens. On the bare green it reads as a survey sheet.
  */
-const CtaSection = ({ title, accent, blurb, eyebrow = "Free on-site quotes" }: CtaSectionProps) => (
+// The mark is the flyer's own line over its phone number.
+const CtaSection = ({ title, accent, blurb, eyebrow = "Let's talk about your next project" }: CtaSectionProps) => (
   <Section variant="forest" backdrop={<SurveyLayer mode="ambient" density={9} alpha={0.55} />}>
     <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-end lg:gap-10">
       <FadeInView className="lg:col-span-7">
         <p className="mark mb-5">{eyebrow}</p>
-        <h2 className="text-title font-heading text-foreground text-balance md:text-[clamp(2.5rem,4.6vw,4.25rem)]">
+        <h2 className="text-title font-heading text-foreground text-balance">
           {accent ? `${title} ${accent}` : title}
         </h2>
         <p className="mt-5 max-w-md leading-relaxed text-muted-foreground md:text-lg">{blurb}</p>

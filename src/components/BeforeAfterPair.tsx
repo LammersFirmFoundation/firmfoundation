@@ -48,7 +48,7 @@ const BeforeAfterPair = ({
         <span
           aria-hidden="true"
           className={cn(
-            "absolute left-2.5 top-2.5 rounded-[3px] px-2.5 py-1 eyebrow text-[0.5625rem] sm:left-3 sm:top-3 sm:text-[0.625rem]",
+            "absolute left-2 top-2 rounded-[3px] px-2 py-0.5 eyebrow text-[0.6875rem] sm:left-3 sm:top-3 sm:text-xs",
             label === "After" ? "bg-primary text-primary-foreground" : "bg-background/90 text-foreground",
           )}
         >
