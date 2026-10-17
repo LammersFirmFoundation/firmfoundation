@@ -132,7 +132,12 @@ export const routes: RouteRecord[] = [
       { path: "about", element: <AboutPage /> },
       { path: "contact", element: <ContactUs /> },
       { path: "reviews", element: <Reviews />, loader: reviewsLoader },
-      // Catch-all 404 — must remain last.
+      // Prerendered to dist/404.html, which Vercel serves (with a 404 status)
+      // for any address that matches no file. Without it a mistyped link got
+      // Vercel's plain-text NOT_FOUND instead of this page. The page itself is
+      // noindex, so /404 never competes in search.
+      { path: "404", element: <NotFound /> },
+      // Catch-all 404 for client-side navigation. Must remain last.
       { path: "*", element: <NotFound /> },
     ],
   },
