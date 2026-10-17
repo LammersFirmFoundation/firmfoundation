@@ -296,7 +296,7 @@ const ContactUs = () => {
       <main id="main" className="flex-1 pt-20 md:pt-24">
         <SEO
           title="Free Quote | Firm Foundation, Mount Pleasant SC"
-          description={`Get a free on-site quote for landscaping, a patio or walkway, grading, pool and pond prep, or land clearing in Mount Pleasant and greater Charleston, SC. Call ${BUSINESS.phone}.`}
+          description={`Free on-site quotes for landscaping, patios and walkways, grading, pool prep and land clearing in Mount Pleasant and Charleston, SC. Call ${BUSINESS.phone}.`}
           canonical="/contact"
           keywords="landscaping quote Mount Pleasant SC, paver patio estimate Charleston, free estimate hardscapes, excavation quote Mount Pleasant, land clearing quote, drainage quote"
           jsonLd={[
@@ -321,7 +321,7 @@ const ContactUs = () => {
               <h1 className="text-hero font-heading text-foreground">
                 <span className="hero-line">
                   <span style={{ animationDelay: "0ms" }}>Get a free quote</span>
-                </span>
+                </span>{" "}
                 <span className="hero-line">
                   <span style={{ animationDelay: "60ms" }}>in Mount Pleasant</span>
                 </span>

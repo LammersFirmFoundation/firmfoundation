@@ -31,7 +31,7 @@ const NotFound = () => {
             <h1 className="text-hero font-heading leading-[1] text-foreground md:text-[clamp(3.5rem,6vw,5.75rem)] md:leading-[0.98]">
               <span className="hero-line">
                 <span style={{ animationDelay: "0ms" }}>This page</span>
-              </span>
+              </span>{" "}
               <span className="hero-line">
                 <span style={{ animationDelay: "60ms" }}>isn&rsquo;t here</span>
               </span>

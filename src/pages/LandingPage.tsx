@@ -68,7 +68,7 @@ const LandingPage = () => {
 
       <SEO
         title="Landscaping, Hardscapes &amp; Excavation, Mount Pleasant | Firm Foundation"
-        description="Family-run landscaping, hardscapes and excavation in Mount Pleasant and greater Charleston, SC: new beds and sod, patios and walls, pool and pond prep, and land clearing."
+        description="Family-run landscaping, hardscapes and excavation in Mount Pleasant and Charleston, SC: beds and sod, patios and walls, pool and pond prep, land clearing."
         canonical="/"
         keywords="landscaping Mount Pleasant SC, hardscapes Charleston SC, paver patio Mount Pleasant, landscape installation Charleston, excavation contractor Mount Pleasant, pool excavation, land clearing, grading, Lowcountry"
         jsonLd={[localBusinessSchema, websiteSchema]}
@@ -100,10 +100,10 @@ const LandingPage = () => {
               <h1 className="text-hero font-heading uppercase text-foreground lg:text-[clamp(2.6rem,4.4vw,4.6rem)] lg:leading-[0.9]">
                 <span className="hero-line">
                   <span style={{ animationDelay: "40ms" }}>Landscaping,</span>
-                </span>
+                </span>{" "}
                 <span className="hero-line">
                   <span style={{ animationDelay: "100ms" }}>Hardscapes &amp;</span>
-                </span>
+                </span>{" "}
                 <span className="hero-line">
                   <span style={{ animationDelay: "160ms" }}>Excavation</span>
                 </span>
