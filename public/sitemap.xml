@@ -1,46 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- No <lastmod>: it was previously stamped with the build date on every
-     deploy, which is a claim we can't back. Absent is better than fabricated.
+<!-- <lastmod> is the date a page's own content last changed in a way a
+     reader would notice, set by hand, and only where that date is known. It
+     was once stamped with the build date on every deploy, a claim we couldn't
+     back, and Google stops trusting a sitemap whose dates lie. Bump a page's
+     date when its words change, never for a restyle. A page with no date has
+     not changed since the date was first tracked (2026-10-17).
      <priority>/<changefreq> are ignored by Google but harmless for others. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://firmfoundationsc.com/</loc>
+    <lastmod>2026-10-17</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://firmfoundationsc.com/services</loc>
+    <lastmod>2026-10-17</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://firmfoundationsc.com/services/landscaping</loc>
+    <lastmod>2026-10-17</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://firmfoundationsc.com/services/hardscapes</loc>
+    <lastmod>2026-10-17</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://firmfoundationsc.com/services/excavation</loc>
+    <lastmod>2026-10-17</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://firmfoundationsc.com/services/pools-and-ponds</loc>
+    <lastmod>2026-10-17</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://firmfoundationsc.com/services/land-clearing</loc>
+    <lastmod>2026-10-17</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://firmfoundationsc.com/services/tree-removal</loc>
+    <lastmod>2026-10-17</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://firmfoundationsc.com/services/drainage</loc>
+    <lastmod>2026-10-17</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://firmfoundationsc.com/services/forestry-mulching</loc>
+    <lastmod>2026-10-17</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -49,26 +63,32 @@
   </url>
   <url>
     <loc>https://firmfoundationsc.com/gallery</loc>
+    <lastmod>2026-10-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://firmfoundationsc.com/about</loc>
+    <lastmod>2026-10-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://firmfoundationsc.com/contact</loc>
+    <lastmod>2026-10-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://firmfoundationsc.com/reviews</loc>
+    <lastmod>2026-10-17</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://firmfoundationsc.com/guides</loc>
+    <lastmod>2026-10-21</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://firmfoundationsc.com/guides/best-grass-for-charleston</loc>
+    <lastmod>2026-10-17</lastmod>
     <priority>0.7</priority>
   </url>
   <url>

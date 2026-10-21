@@ -19,8 +19,8 @@ const GuidesPage = () => (
 
     <main id="main" className="flex-1 pt-24">
       <SEO
-        title="Guides: Land, Trees & Drainage in Mount Pleasant | Firm Foundation"
-        description="Straight answers to the questions people ask before clearing, digging or draining in Mount Pleasant and greater Charleston, SC, with the local rules and their sources."
+        title="Guides: Lawns, Land & Drainage in Mount Pleasant | Firm Foundation"
+        description="Straight answers to what people ask before laying sod, clearing, digging or draining a yard in Mount Pleasant and greater Charleston, SC, with sources."
         canonical="/guides"
         keywords="Mount Pleasant tree permit, clearing a lot Mount Pleasant, yard drainage Charleston SC, pool excavation, stump grinding vs removal"
         jsonLd={[
