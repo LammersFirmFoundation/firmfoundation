@@ -3,6 +3,7 @@ import { Mail, Phone, MapPin, Instagram } from "lucide-react";
 import { BUSINESS } from "@/data/business";
 import { coreServices, moreServices } from "@/data/services";
 import logoBadge from "@/assets/brand/logo-badge.svg";
+import HomeLink from "@/components/HomeLink";
 
 const companyLinks = [
   { label: "About", path: "/about" },
@@ -18,14 +19,16 @@ const Footer = () => {
       <div className="frame pt-14 pb-10 md:pt-16">
         {/* The full badge signs the page off, on the forest ground it was
             drawn to sit on. */}
-        <img
-          src={logoBadge}
-          alt={BUSINESS.name}
-          width={780}
-          height={543}
-          loading="lazy"
-          className="w-[180px] md:w-[220px] h-auto mb-10 md:mb-12"
-        />
+        <HomeLink className="mb-10 inline-block md:mb-12">
+          <img
+            src={logoBadge}
+            alt=""
+            width={780}
+            height={543}
+            loading="lazy"
+            className="h-auto w-[180px] md:w-[220px]"
+          />
+        </HomeLink>
 
         {/* No service-areas column: the closing CTA directly above lists the
             towns on every page, and the footer repeating them was about 300px

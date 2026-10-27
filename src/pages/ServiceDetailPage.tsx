@@ -354,6 +354,20 @@ const ServiceDetailPage = () => {
                     One of Josiah&rsquo;s jobs in Mount Pleasant.
                   </figcaption>
                 </figure>
+              ) : service.imageCaption ? (
+                // A photo of Josiah at work says so, the same way the pair
+                // above does; stock photos never carry a caption.
+                <figure>
+                  <ServiceImage
+                    service={service}
+                    eager
+                    aspect="aspect-[4/3] md:aspect-[16/10] lg:aspect-[4/3]"
+                    sizes="(min-width: 1024px) 46vw, 100vw"
+                  />
+                  <figcaption className="mt-4 border-t border-border pt-3 text-sm text-muted-foreground">
+                    {service.imageCaption}
+                  </figcaption>
+                </figure>
               ) : (
                 <ServiceImage
                   service={service}

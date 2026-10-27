@@ -64,6 +64,12 @@ export type Service = {
   imageSrcSet?: string;
   /** Describes the photo. Only needed alongside `image`; a drawing describes itself. */
   alt?: string;
+  /**
+   * A line under the page's main photo, only for a photo of Josiah at work, so
+   * a visitor knows it is him and not a stock picture (his ask, 2026-10-27).
+   * Never set it on stock: a caption is the claim "this is his work".
+   */
+  imageCaption?: string;
   /** A different photo for the service grid, when `image` would repeat something already on screen. */
   cardImage?: string;
   cardImageSrcSet?: string;
@@ -343,7 +349,8 @@ export const services: Service[] = [
     // landed on a different one.
     image: landClearing,
     imageSrcSet: landClearingSet,
-    alt: "Firm Foundation's tracked excavator at work on a Lowcountry site, with felled timber behind it",
+    alt: "A tracked excavator Josiah ran, at work on a Lowcountry clearing site with felled timber behind it",
+    imageCaption: "Josiah operating an excavator on a land-clearing job.",
     pageTitle: "Excavation & Grading, Mount Pleasant SC | Firm Foundation",
     pageDescription:
       "Grading, site prep, patio and walkway bases, pads, gravel drives, fill and trenching in Mount Pleasant and Charleston, SC. Utilities marked through SC811 first.",
@@ -480,13 +487,14 @@ export const services: Service[] = [
       "land clearing Mount Pleasant SC, lot clearing Charleston SC, backyard clearing, overgrown yard clearing, underbrush clearing, selective clearing, brush removal, clearing for a pool or shed, stump removal, debris haul-off",
     image: clearingCard,
     imageSrcSet: clearingCardSet,
-    alt: "From the excavator cab: the bucket working a pile of roots and brush across a cleared tract",
+    alt: "From Josiah's seat in the excavator cab: the bucket working a pile of roots and brush across a cleared tract",
+    imageCaption: "The view from Josiah's cab on a land-clearing job.",
     summary:
       "Overgrown backyards, lots and fence lines cleared down to usable ground, with the trees worth keeping left standing and the brush hauled off or mulched in place.",
     description1:
       "Most clearing in the Lowcountry isn't about flattening everything. It's about getting back ground the undergrowth took: a back corner gone to vines and sweetgum, a lot that has to open up before a build, room for a pool or a shed, a fence line nobody can walk anymore.",
     description2:
-      "We clear with a tracked excavator, take out the brush, scrub trees and stumps, and leave the good trees standing. A backyard or a few wooded acres, it starts the same way: we walk it with you, mark what stays, and settle where the debris goes in the quote rather than after.",
+      "Josiah has operated excavators on a land-clearing crew, clearing timber, stumps and wooded tracts. We clear with a tracked excavator, take out the brush, scrub trees and stumps, and leave the good trees standing. A backyard or a few wooded acres, it starts the same way: we walk it with you, mark what stays, and settle where the debris goes in the quote rather than after.",
     items: [
       { label: "Backyard Clearing", detail: "Overgrown corners, vines and scrub cleared so the yard is usable again" },
       { label: "Lot Clearing", detail: "A lot opened up for a new house, a driveway, or simply usable ground" },
@@ -563,7 +571,8 @@ export const services: Service[] = [
     plate: "trees",
     image: stumpRootBall,
     imageSrcSet: stumpRootBallSet,
-    alt: "An excavator bucket lifting a stump out of the ground with its whole root ball, a second excavator working behind it",
+    alt: "From Josiah's seat: an excavator bucket lifting a stump out of the ground with its whole root ball, a second excavator working behind it",
+    imageCaption: "Josiah removing a stump with its full root ball.",
     pageTitle: "Tree & Stump Removal, Mount Pleasant SC | Firm Foundation",
     pageDescription:
       "Tree removal, stump grinding and full stump and root-ball removal with an excavator, plus storm cleanup, in Mount Pleasant and greater Charleston, SC.",
@@ -696,7 +705,8 @@ export const services: Service[] = [
     plate: "mulching",
     image: forestryMulching,
     imageSrcSet: forestryMulchingSet,
-    alt: "From the cab of a forestry mulcher: the mulching head over a fresh layer of wood chips, with tall pines standing beyond it",
+    alt: "From Josiah's seat in a forestry mulcher: the mulching head over a fresh layer of wood chips, with tall pines standing beyond it",
+    imageCaption: "Josiah mulching a wooded tract.",
     pageTitle: "Forestry Mulching, Mount Pleasant & Charleston | Firm Foundation",
     pageDescription:
       "Forestry mulching in Mount Pleasant and Charleston, SC: brush, vines and small trees ground in place and left as cover. Nothing to haul off, nothing to burn.",

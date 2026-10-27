@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import HomeLink from "@/components/HomeLink";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { Button } from "@/components/ui/button";
 import {
@@ -67,21 +68,31 @@ const Header = ({ transparent = false }: HeaderProps) => {
           : "bg-background/90 backdrop-blur-md border-b border-border/60"
       }`}
     >
-      <div className="frame py-4 sm:py-5">
+      <div
+        className={`frame py-4 transition-[padding] duration-500 sm:py-5 ${scrolled ? "lg:py-3" : ""}`}
+      >
         <div className="flex items-center justify-between gap-6">
-          <Link to="/" className="shrink-0" aria-label={`${BUSINESS.name}, home`}>
+          <HomeLink className="shrink-0">
             {/* Josiah's own badge, recomposed side by side: the FF-and-excavator
                 mark beside the script, the same artwork as the full badge in
                 the footer. A stacked badge at header height would shrink the
-                script past reading. */}
+                script past reading.
+
+                As large as each width allows (Josiah, 2026-10-27: make the
+                name stand out more). On a phone the call and menu buttons set
+                the limit, and every step keeps at least ~24px between them. On
+                a desktop it is largest at the top of the page and eases down
+                once the bar turns solid, so it never crowds the reading. */}
             <img
               src={logoLockup}
               alt=""
               width={1443}
               height={255}
-              className="h-[34px] min-[375px]:h-9 sm:h-10 lg:h-11 w-auto"
+              className={`w-auto transition-[height] duration-500 ease-editorial h-[34px] min-[375px]:h-10 min-[390px]:h-[42px] min-[430px]:h-12 ${
+                scrolled ? "lg:h-12" : "lg:h-14"
+              }`}
             />
-          </Link>
+          </HomeLink>
 
           {/* Desktop navigation */}
           <div className="hidden lg:flex items-center gap-7 xl:gap-10">
@@ -156,8 +167,10 @@ const Header = ({ transparent = false }: HeaderProps) => {
             </Button>
           </div>
 
-          {/* Mobile: tap-to-call plus the menu */}
-          <div className="flex items-center gap-1 lg:hidden">
+          {/* Mobile: tap-to-call plus the menu. The negative margin puts the
+              menu icon itself on the frame's edge; its 44px tap target
+              overhangs into the margin, which buys the logo ~10px. */}
+          <div className="-mr-2.5 flex items-center gap-1 lg:hidden">
             <a
               href={BUSINESS.phoneHref}
               data-analytics-where="header-mobile"
@@ -179,7 +192,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                 <SheetTitle className="sr-only">Site navigation</SheetTitle>
                 {/* The lockup top left, opposite the close button, so the sheet
                     is still plainly this business's. */}
-                <img src={logoLockup} alt="" width={1443} height={255} className="h-8 w-auto" />
+                <img src={logoLockup} alt="" width={1443} height={255} className="h-9 w-auto" />
                 <nav className="mt-8 flex flex-col">
                   {/* Services first and at the same size as the pages: they
                       are why most people open the menu. */}

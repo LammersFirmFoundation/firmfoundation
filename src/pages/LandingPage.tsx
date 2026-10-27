@@ -79,7 +79,7 @@ const LandingPage = () => {
         <section className="relative overflow-hidden bg-background lg:min-h-[100svh]">
           {/* The mosaic's right edge is the frame's right edge (the same line as
               the header's quote button and every section), never its own. */}
-          <HeroMosaic className="px-5 pt-[5.25rem] sm:px-6 sm:pt-[6.5rem] md:px-10 lg:absolute lg:bottom-8 lg:left-[54%] lg:right-[max(2.5rem,calc((100vw-1280px)/2))] lg:top-24 lg:flex lg:items-center lg:justify-end lg:px-0 lg:pt-0" />
+          <HeroMosaic className="px-5 pt-[5.25rem] sm:px-6 sm:pt-[6.5rem] md:px-10 lg:absolute lg:bottom-8 lg:left-[54%] lg:right-[max(2.5rem,calc((100vw-1280px)/2))] lg:top-28 lg:flex lg:items-center lg:justify-end lg:px-0 lg:pt-0" />
 
           {/* On a desktop this frame spans the whole hero, photos included, and
               sits above them, so it must not take the clicks: until 2026-10-17

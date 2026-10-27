@@ -163,8 +163,9 @@ const OurStory = ({
             It started in the cab.
           </Heading>
           <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground text-pretty md:text-lg">
-            Josiah grew up in his Uncle Donnie&rsquo;s excavator, learning that a job isn&rsquo;t
-            finished until it&rsquo;s finished right. He runs Firm Foundation the same way.
+            Josiah grew up in his Uncle Donnie&rsquo;s excavator, then operated excavators on
+            a land-clearing crew. A job isn&rsquo;t finished until it&rsquo;s finished right,
+            and he runs Firm Foundation the same way.
           </p>
           {showLink && <MoreLink className="mt-5 md:mt-6" />}
         </div>
@@ -184,6 +185,18 @@ const OurStory = ({
       <p>
         He grew up around that work, moving dirt and learning grade from a man
         who believed a job wasn&rsquo;t finished until it was finished right.
+      </p>
+      <p>
+        He went on to operate excavators and forestry mulchers on a
+        land-clearing crew, clearing timber, removing stumps and mulching
+        wooded tracts; that work is on{" "}
+        <Link
+          to="/gallery"
+          className="text-foreground underline decoration-foreground/25 underline-offset-[5px] transition-colors hover:decoration-foreground"
+        >
+          Our Work
+        </Link>
+        . The standard Uncle Donnie taught him carried through all of it.
       </p>
     </div>
   );

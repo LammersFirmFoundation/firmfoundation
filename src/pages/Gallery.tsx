@@ -3,6 +3,7 @@ import Footer from "@/components/layout/Footer";
 import Section from "@/components/layout/Section";
 import FadeInView from "@/components/animations/FadeInView";
 import SEO from "@/components/SEO";
+import SectionHeader from "@/components/layout/SectionHeader";
 import CtaSection from "@/components/CtaSection";
 import InstagramStrip from "@/components/InstagramStrip";
 import BeforeAfterPair from "@/components/BeforeAfterPair";
@@ -39,6 +40,12 @@ const pairFor = (slug: string): Pair => {
 };
 
 type Project = {
+  /**
+   * `jobs`: Firm Foundation's own work. `seat`: land clearing Josiah did from
+   * the machine, much of it on another contractor's crew, shown as his
+   * experience rather than as the company's jobs.
+   */
+  group: "jobs" | "seat";
   title: string;
   category: string;
   /** The small line under the title. A place when we know it, otherwise what the picture is. */
@@ -73,17 +80,26 @@ type Project = {
  * whole row. Then two to a row, each row pairing like shapes, because the grid
  * aligns to the top and a short picture beside a tall one leaves a hole.
  *
- * The three cab photos are Josiah's own, sent 2026-10-09 "to show more
- * experience". He didn't say where each job was, so they carry no place: the
- * label says what they are instead. Two of them are portrait shots from the
- * seat, and whole they were the tallest pictures on the page, ahead of the
- * finished work. They are cut down to the view through the glass.
+ * Two groups. Firm Foundation's own jobs first. Then the machine photos,
+ * under their own heading: Josiah ran the machine in every one, and on
+ * 2026-10-27 he asked for them to read as his land-clearing experience ("this
+ * isn't my first rodeo"), real photos of him at work rather than general
+ * pictures. Much of that work was on another contractor's crew, which he asked
+ * not to name, so they are not captioned as the company's jobs. The section
+ * is titled plainly, "Land-clearing experience" (Will, same day: keep it
+ * professional).
  *
- * The odd one out (the pantry) takes a row of its own, with its caption
- * beside it rather than under it.
+ * The three cab photos were sent 2026-10-09 "to show more experience". He
+ * didn't say where each job was, so they carry no place: the label says who
+ * was operating instead. Two are portrait shots from the seat, cut down to the
+ * view through the glass.
+ *
+ * The odd one out in a group (the pantry) takes a row of its own, with its
+ * caption beside it rather than under it.
  */
 const projects: Project[] = [
   {
+    group: "jobs",
     title: "Planting Bed Installation",
     category: "Landscaping",
     label: "Mount Pleasant, SC",
@@ -95,6 +111,7 @@ const projects: Project[] = [
     height: 795,
   },
   {
+    group: "jobs",
     title: "Front Walkway & Lawn Renovation",
     category: "Hardscapes",
     label: "Mount Pleasant, SC",
@@ -106,53 +123,7 @@ const projects: Project[] = [
     height: 718,
   },
   {
-    title: "Timber & Lot Clearing",
-    category: "Land Clearing",
-    label: "Lowcountry, SC",
-    place: "Lowcountry, SC",
-    image: landClearing,
-    alt: "Firm Foundation's tracked excavator working through felled timber on a Lowcountry clearing job",
-    width: 1206,
-    height: 904,
-  },
-  {
-    title: "Stumps Out, Root Ball and All",
-    category: "Stump Removal",
-    label: "From the operator's seat",
-    image: stumpRootBall,
-    srcSet: stumpRootBallSet,
-    alt: "An excavator bucket lifting a stump out of the ground with its whole root ball, a second excavator working behind it",
-    width: 1600,
-    height: 1200,
-  },
-  {
-    title: "Clearing a Wooded Tract",
-    category: "Land Clearing",
-    label: "From the operator's seat",
-    image: clearingCab,
-    srcSet: clearingCabSet,
-    alt: "Through the excavator's windscreen: the bucket working a pile of roots and brush across a cleared tract, with a second excavator at the tree line",
-    width: 1200,
-    height: 1600,
-    // Sky, tree line, bucket and brush pile; stops above the cab's cross bar
-    // (and the accessory decal on it).
-    crop: { frame: "aspect-[3/2]", position: "50% 5%" },
-  },
-  {
-    title: "Forestry Mulching",
-    category: "Forestry Mulching",
-    label: "From the operator's seat",
-    image: forestryMulching,
-    srcSet: forestryMulchingSet,
-    alt: "Through the windscreen of a forestry mulcher: the mulching head working through underbrush between standing pines",
-    width: 1200,
-    height: 1600,
-    // The pines, the mulching head and the chips it leaves. The left quarter
-    // of the frame is the cab's door pillar and its panel, so the picture is
-    // drawn 1.38x about its top right to leave only the glass.
-    crop: { frame: "aspect-[3/2]", position: "50% 14%", zoom: { scale: 1.38, origin: "100% 12.7%" } },
-  },
-  {
+    group: "jobs",
     title: "Butler's Pantry Build",
     category: "Custom Projects",
     label: "Mount Pleasant, SC",
@@ -165,10 +136,61 @@ const projects: Project[] = [
     // tallest picture on a page about yards. Held on the counter and the tile.
     crop: { frame: "aspect-[3/2]", position: "62% 64%" },
   },
+  {
+    group: "seat",
+    title: "Timber & Lot Clearing",
+    category: "Land Clearing",
+    label: "Lowcountry, SC",
+    place: "Lowcountry, SC",
+    image: landClearing,
+    alt: "A tracked excavator Josiah ran, working through felled timber on a Lowcountry clearing job",
+    width: 1206,
+    height: 904,
+  },
+  {
+    group: "seat",
+    title: "Stumps Out, Root Ball and All",
+    category: "Stump Removal",
+    label: "Operated by Josiah",
+    image: stumpRootBall,
+    srcSet: stumpRootBallSet,
+    alt: "From Josiah's seat: an excavator bucket lifting a stump out of the ground with its whole root ball, a second excavator working behind it",
+    width: 1600,
+    height: 1200,
+  },
+  {
+    group: "seat",
+    title: "Clearing a Wooded Tract",
+    category: "Land Clearing",
+    label: "Operated by Josiah",
+    image: clearingCab,
+    srcSet: clearingCabSet,
+    alt: "Through the windscreen of the excavator Josiah was running: the bucket working a pile of roots and brush across a cleared tract, with a second excavator at the tree line",
+    width: 1200,
+    height: 1600,
+    // Sky, tree line, bucket and brush pile; stops above the cab's cross bar
+    // (and the accessory decal on it).
+    crop: { frame: "aspect-[3/2]", position: "50% 5%" },
+  },
+  {
+    group: "seat",
+    title: "Forestry Mulching",
+    category: "Forestry Mulching",
+    label: "Operated by Josiah",
+    image: forestryMulching,
+    srcSet: forestryMulchingSet,
+    alt: "Through the windscreen of the forestry mulcher Josiah was running: the mulching head working through underbrush between standing pines",
+    width: 1200,
+    height: 1600,
+    // The pines, the mulching head and the chips it leaves. The left quarter
+    // of the frame is the cab's door pillar and its panel, so the picture is
+    // drawn 1.38x about its top right to leave only the glass.
+    crop: { frame: "aspect-[3/2]", position: "50% 14%", zoom: { scale: 1.38, origin: "100% 12.7%" } },
+  },
 ];
 
-/** The plates that share rows two by two. A pair takes a row to itself. */
-const halves = projects.filter((p) => !p.pair);
+const jobs = projects.filter((p) => p.group === "jobs");
+const seat = projects.filter((p) => p.group === "seat");
 
 /**
  * Display casing for a caption. The data keeps its Title Case (it is also the
@@ -176,6 +198,105 @@ const halves = projects.filter((p) => !p.pair);
  * heading on the site.
  */
 const sentenceCase = (text: string) => text.charAt(0) + text.slice(1).toLowerCase();
+
+/**
+ * One group of plates. `first` is the group's position in the whole page, so
+ * only the very first plate loads eagerly and the first two never fade in.
+ */
+const Plates = ({ list, first, heading: Heading }: { list: Project[]; first: number; heading: "h2" | "h3" }) => {
+  /** The plates that share rows two by two. A pair takes a row to itself. */
+  const halves = list.filter((p) => !p.pair);
+  return (
+    <div className="grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2 md:gap-y-20 lg:gap-x-12">
+      {list.map((project, i) => {
+        const index = first + i;
+        // The first plate is on screen at load: eager, so the prerendered
+        // HTML is the finished picture. The second is close enough to the
+        // fold on a phone that it doesn't fade in either.
+        const eager = index === 0;
+        const reveal = index >= 2;
+        const halfIndex = halves.indexOf(project);
+        // An odd last plate has no partner of its shape. Rather than leave the
+        // row's right half as an accidental hole, it takes the whole row and
+        // its caption moves into that half, set against the foot of the photo
+        // like a side caption in a printed book.
+        const alone = !project.pair && halfIndex === halves.length - 1 && halves.length % 2 === 1;
+
+        const picture = project.pair ? (
+          <BeforeAfterPair
+            pair={project.pair}
+            eager={eager}
+            sizes="(min-width: 1360px) 640px, 50vw"
+            className="aspect-[4/3] overflow-hidden rounded-[3px] sm:aspect-[2/1] md:aspect-[8/3]"
+          />
+        ) : project.crop ? (
+          <div className={cn("relative overflow-hidden rounded-[3px] bg-muted", project.crop.frame)}>
+            <img
+              src={project.image}
+              srcSet={project.srcSet}
+              sizes={project.srcSet ? "(min-width: 768px) 50vw, 100vw" : undefined}
+              alt={project.alt}
+              width={project.width}
+              height={project.height}
+              loading={eager ? "eager" : "lazy"}
+              decoding="async"
+              style={{
+                objectPosition: project.crop.position,
+                ...(project.crop.zoom && {
+                  transform: `scale(${project.crop.zoom.scale})`,
+                  transformOrigin: project.crop.zoom.origin,
+                }),
+              }}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </div>
+        ) : (
+          <img
+            src={project.image}
+            srcSet={project.srcSet}
+            sizes={project.srcSet ? "(min-width: 768px) 50vw, 100vw" : undefined}
+            alt={project.alt}
+            width={project.width}
+            height={project.height}
+            loading={eager ? "eager" : "lazy"}
+            decoding="async"
+            className="h-auto w-full rounded-[3px] bg-muted"
+          />
+        );
+
+        const figure = (
+          <figure className={alone ? "md:grid md:grid-cols-2 md:gap-x-8 lg:gap-x-12" : undefined}>
+            {picture}
+            <figcaption className={cn("mt-5 min-w-0 border-t border-border pt-4", alone && "md:mt-0 md:self-end")}>
+              <Heading className="font-heading text-2xl leading-[1.02] text-foreground md:text-[1.75rem]">
+                {sentenceCase(project.title)}
+              </Heading>
+              <p className="mt-2 text-sm text-muted-foreground">
+                {sentenceCase(project.category)}
+                <span aria-hidden="true" className="mx-2 text-foreground/30">
+                  /
+                </span>
+                <span className="sr-only">, </span>
+                {project.label}
+              </p>
+            </figcaption>
+          </figure>
+        );
+
+        const span = project.pair || alone ? "md:col-span-2" : undefined;
+        return reveal ? (
+          <FadeInView key={project.title} delay={(halfIndex % 2) * 0.08} className={span}>
+            {figure}
+          </FadeInView>
+        ) : (
+          <div key={project.title} className={span}>
+            {figure}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
 
 const Gallery = () => {
   // The portfolio is curated; Instagram is what Josiah posted this month.
@@ -187,7 +308,7 @@ const Gallery = () => {
       <main id="main" className="flex-1 pt-24">
         <SEO
           title="Project Gallery | Firm Foundation, Mount Pleasant"
-          description="Recent landscaping, hardscape, excavation and clearing work from Firm Foundation in Mount Pleasant and the greater Charleston area, before and after."
+          description="Landscaping, hardscape and custom work from Firm Foundation in Mount Pleasant, SC, before and after, plus Josiah's land-clearing experience as an excavator operator."
           canonical="/gallery"
           keywords="landscaping before and after Mount Pleasant, flagstone walkway Charleston SC, landscape installation photos, excavation project photos, land clearing photos Charleston SC"
           jsonLd={[
@@ -225,108 +346,34 @@ const Gallery = () => {
               className="hero-rise max-w-md text-subtitle leading-relaxed text-muted-foreground lg:col-span-4 lg:pb-2"
               style={{ animationDelay: "160ms" }}
             >
-              Real jobs, photographed on site, from the dirt work to the
-              finished yard.
+              Real jobs, photographed on site: Firm Foundation&rsquo;s
+              projects first, then Josiah&rsquo;s land-clearing experience.
             </p>
           </div>
         </section>
 
-        {/* ── The plates ──────────────────────────────────────────────────
+        {/* ── Firm Foundation's own jobs ──────────────────────────────────
             Set like a printed portfolio: each photo at its own shape, with a
             title, kind of work and place underneath. No plate numbers: the
             order means nothing, so a number would only be decoration. No hover
             zoom: nothing here is a link, so nothing should act like one. */}
         <Section className="pt-0 md:pt-0">
-          <div className="grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2 md:gap-y-20 lg:gap-x-12">
-            {projects.map((project, index) => {
-              // The first plate is on screen at load: eager, so the
-              // prerendered HTML is the finished picture. The second is close
-              // enough to the fold on a phone that it doesn't fade in either.
-              const eager = index === 0;
-              const reveal = index >= 2;
-              const halfIndex = halves.indexOf(project);
-              // An odd last plate has no partner of its shape. Rather than
-              // leave the row's right half as an accidental hole, it takes the
-              // whole row and its caption moves into that half, set against
-              // the foot of the photo like a side caption in a printed book.
-              const alone =
-                !project.pair && halfIndex === halves.length - 1 && halves.length % 2 === 1;
+          <Plates list={jobs} first={0} heading="h2" />
+        </Section>
 
-              const picture = project.pair ? (
-                <BeforeAfterPair
-                  pair={project.pair}
-                  eager={eager}
-                  sizes="(min-width: 1360px) 640px, 50vw"
-                  className="aspect-[4/3] overflow-hidden rounded-[3px] sm:aspect-[2/1] md:aspect-[8/3]"
-                />
-              ) : project.crop ? (
-                <div className={cn("relative overflow-hidden rounded-[3px] bg-muted", project.crop.frame)}>
-                  <img
-                    src={project.image}
-                    srcSet={project.srcSet}
-                    sizes={project.srcSet ? "(min-width: 768px) 50vw, 100vw" : undefined}
-                    alt={project.alt}
-                    width={project.width}
-                    height={project.height}
-                    loading={eager ? "eager" : "lazy"}
-                    decoding="async"
-                    style={{
-                      objectPosition: project.crop.position,
-                      ...(project.crop.zoom && {
-                        transform: `scale(${project.crop.zoom.scale})`,
-                        transformOrigin: project.crop.zoom.origin,
-                      }),
-                    }}
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
-                </div>
-              ) : (
-                <img
-                  src={project.image}
-                  srcSet={project.srcSet}
-                  sizes={project.srcSet ? "(min-width: 768px) 50vw, 100vw" : undefined}
-                  alt={project.alt}
-                  width={project.width}
-                  height={project.height}
-                  loading={eager ? "eager" : "lazy"}
-                  decoding="async"
-                  className="h-auto w-full rounded-[3px] bg-muted"
-                />
-              );
-
-              const figure = (
-                <figure className={alone ? "md:grid md:grid-cols-2 md:gap-x-8 lg:gap-x-12" : undefined}>
-                  {picture}
-                  <figcaption
-                    className={cn("mt-5 min-w-0 border-t border-border pt-4", alone && "md:mt-0 md:self-end")}
-                  >
-                    <h2 className="font-heading text-2xl leading-[1.02] text-foreground md:text-[1.75rem]">
-                      {sentenceCase(project.title)}
-                    </h2>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      {sentenceCase(project.category)}
-                      <span aria-hidden="true" className="mx-2 text-foreground/30">
-                        /
-                      </span>
-                      <span className="sr-only">, </span>
-                      {project.label}
-                    </p>
-                  </figcaption>
-                </figure>
-              );
-
-              const span = project.pair || alone ? "md:col-span-2" : undefined;
-              return reveal ? (
-                <FadeInView key={project.title} delay={(halfIndex % 2) * 0.08} className={span}>
-                  {figure}
-                </FadeInView>
-              ) : (
-                <div key={project.title} className={span}>
-                  {figure}
-                </div>
-              );
-            })}
-          </div>
+        {/* ── Josiah's land-clearing experience ───────────────────────────
+            His ask, 2026-10-27: show that "this isn't my first rodeo", and that
+            these are photos of him at work, not general pictures. Will asked
+            for it to stay professional, so it is said plainly: what he has
+            operated, on what work, and that he is the operator in each photo.
+            NN/g's trust research is the reason it is worth saying: visitors
+            want to see the work being done and who does it. */}
+        <Section className="pt-4 md:pt-8">
+          <SectionHeader
+            title="Land-clearing experience"
+            subtitle="Josiah has operated excavators and forestry mulchers on a land-clearing crew, clearing timber, removing stumps and mulching wooded tracts. He is the operator in each of these photos."
+          />
+          <Plates list={seat} first={jobs.length} heading="h3" />
         </Section>
 
         <InstagramStrip posts={instagramPosts} />
