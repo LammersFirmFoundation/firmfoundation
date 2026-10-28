@@ -14,9 +14,11 @@ const quiet =
  * action on a phone, so Call, Text and Free Quote stay one thumb-tap away.
  * Hidden at md+ where the header already carries them.
  *
- * It slides in only once the page's own buttons have scrolled away — the
- * homepage hero's (`#hero-actions`), or the first 240px anywhere else — so the
- * first screen never shows the same three actions twice. Conversion Rate
+ * It shows whenever the page's own buttons are off screen: the homepage hero's
+ * (`#hero-actions`), above or below (on a short phone they start below the
+ * first screen, under the homepage's big logo), or after the first 240px
+ * anywhere else. So the actions are always in reach, and the same three are
+ * never on screen twice. Conversion Rate
  * Experts measured a sticky CTA that appears after scroll at +25%. While it is
  * off-screen it is `inert`, so keyboard and screen-reader users never land on
  * buttons nobody can see.
@@ -28,8 +30,11 @@ const MobileCTABar = () => {
   useEffect(() => {
     const target = document.getElementById("hero-actions");
     if (target && "IntersectionObserver" in window) {
-      const io = new IntersectionObserver(([entry]) =>
-        setShow(!entry.isIntersecting && entry.boundingClientRect.top < 0)
+      // "On screen" means at least half showing: a sliver of the hero's
+      // buttons at the bottom edge is not a way to call.
+      const io = new IntersectionObserver(
+        ([entry]) => setShow(entry.intersectionRatio < 0.5),
+        { threshold: [0, 0.5, 1] }
       );
       io.observe(target);
       return () => io.disconnect();

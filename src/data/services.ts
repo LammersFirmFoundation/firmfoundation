@@ -349,8 +349,8 @@ export const services: Service[] = [
     // landed on a different one.
     image: landClearing,
     imageSrcSet: landClearingSet,
-    alt: "A tracked excavator Josiah ran, at work on a Lowcountry clearing site with felled timber behind it",
-    imageCaption: "Josiah operating an excavator on a land-clearing job.",
+    alt: "A Cat 305 excavator operated by Josiah, at work on a Lowcountry clearing site with felled timber behind it",
+    imageCaption: "Josiah operating a Cat 305 on a land-clearing job.",
     pageTitle: "Excavation & Grading, Mount Pleasant SC | Firm Foundation",
     pageDescription:
       "Grading, site prep, patio and walkway bases, pads, gravel drives, fill and trenching in Mount Pleasant and Charleston, SC. Utilities marked through SC811 first.",

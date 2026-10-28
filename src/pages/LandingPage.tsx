@@ -14,6 +14,7 @@ import ServicesIndex from "@/components/ServicesIndex";
 import ProcessSteps from "@/components/ProcessSteps";
 import ReviewsGrid from "@/components/ReviewsGrid";
 import HeroMosaic from "@/components/HeroMosaic";
+import logoLockup from "@/assets/brand/logo-lockup.svg";
 import OurStory from "@/components/OurStory";
 import { useReviews, type ApiResponse } from "@/lib/useReviews";
 import { useInstagram, type InstagramFeed } from "@/lib/useInstagram";
@@ -60,7 +61,7 @@ const LandingPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header transparent />
+      <Header transparent brandInHero />
 
       <SEO
         title="Landscaping, Hardscapes &amp; Excavation, Mount Pleasant | Firm Foundation"
@@ -77,9 +78,28 @@ const LandingPage = () => {
             below the header rather than under it, so the nav never crosses a
             picture and needs no wash to stay legible. */}
         <section className="relative overflow-hidden bg-background lg:min-h-[100svh]">
+          {/* The logo as the page's focal point (Josiah, 2026-10-27: "my main
+              logo … bigger or just more emphasized … a little bit focal
+              point"). The header logo has no room to grow on a phone, so the
+              homepage shows it large here instead, and the header's own copy
+              waits out of sight until this one scrolls under the bar
+              (`brandInHero`). Phones get it above the photos, desktops at the
+              head of the copy column. The `data-hero-brand` attribute is what
+              the header watches. */}
+          <div className="px-5 pt-[4.5rem] sm:px-6 sm:pt-24 md:px-10 lg:hidden">
+            <img
+              data-hero-brand
+              src={logoLockup}
+              alt={BUSINESS.name}
+              width={1443}
+              height={255}
+              className="hero-rise h-auto w-full max-w-[21rem] sm:max-w-[24rem]"
+            />
+          </div>
+
           {/* The mosaic's right edge is the frame's right edge (the same line as
               the header's quote button and every section), never its own. */}
-          <HeroMosaic className="px-5 pt-[5.25rem] sm:px-6 sm:pt-[6.5rem] md:px-10 lg:absolute lg:bottom-8 lg:left-[54%] lg:right-[max(2.5rem,calc((100vw-1280px)/2))] lg:top-28 lg:flex lg:items-center lg:justify-end lg:px-0 lg:pt-0" />
+          <HeroMosaic className="px-5 pt-5 sm:px-6 sm:pt-8 md:px-10 lg:absolute lg:bottom-8 lg:left-[54%] lg:right-[max(2.5rem,calc((100vw-1280px)/2))] lg:top-28 lg:flex lg:items-center lg:justify-end lg:px-0 lg:pt-0" />
 
           {/* On a desktop this frame spans the whole hero, photos included, and
               sits above them, so it must not take the clicks: until 2026-10-17
@@ -88,9 +108,17 @@ const LandingPage = () => {
           <div className="frame pointer-events-none relative z-10 flex items-center lg:min-h-[100svh]">
             <motion.div
               style={shouldReduceMotion ? undefined : { opacity: heroOpacity, y: heroLift }}
-              className="pointer-events-auto w-full pb-12 pt-10 will-change-transform sm:pt-12 lg:w-[50%] lg:py-32 lg:pr-12"
+              className="pointer-events-auto w-full pb-12 pt-8 will-change-transform sm:pt-12 lg:w-[50%] lg:py-28 lg:pr-12"
             >
-              <p className="mark mb-6 hero-rise" style={{ animationDelay: "0ms" }}>
+              <img
+                data-hero-brand
+                src={logoLockup}
+                alt={BUSINESS.name}
+                width={1443}
+                height={255}
+                className="hero-rise mb-10 hidden h-auto w-[min(100%,26rem)] lg:block xl:w-[min(100%,28rem)]"
+              />
+              <p className="mark mb-6 hero-rise" style={{ animationDelay: "40ms" }}>
                 Mount Pleasant &amp; Charleston, SC
               </p>
               {/* The three services Josiah leads with on his own flyer and

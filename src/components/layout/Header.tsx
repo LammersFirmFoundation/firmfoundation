@@ -17,6 +17,13 @@ import { coreServices, moreServices } from "@/data/services";
 
 interface HeaderProps {
   transparent?: boolean;
+  /**
+   * The page shows the logo large in its own hero (the homepage, marked with
+   * `data-hero-brand`). The header's logo stays out of sight until that one
+   * has scrolled up under the bar, then takes over, so the two are never on
+   * screen together.
+   */
+  brandInHero?: boolean;
 }
 
 const navLinks = [
@@ -29,10 +36,35 @@ const navLinks = [
 const linkStyle =
   "relative whitespace-nowrap text-[0.9375rem] font-medium text-foreground/80 hover:text-foreground transition-colors py-1 after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-0 after:bg-foreground after:transition-all after:duration-300 hover:after:w-full";
 
-const Header = ({ transparent = false }: HeaderProps) => {
+const Header = ({ transparent = false, brandInHero = false }: HeaderProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [menu, setMenu] = useState("");
+  // Starts true on the server and on first paint, so the prerendered homepage
+  // never shows two logos.
+  const [heroBrandInView, setHeroBrandInView] = useState(brandInHero);
+
+  useEffect(() => {
+    if (!brandInHero) return;
+    const marks = document.querySelectorAll("[data-hero-brand]");
+    if (!marks.length) {
+      setHeroBrandInView(false);
+      return;
+    }
+    // Phones and desktops each show their own copy (the other is display:none
+    // and never intersects), so "in view" means any of them is.
+    const seen = new Map<Element, boolean>();
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) seen.set(e.target, e.isIntersecting);
+        setHeroBrandInView([...seen.values()].some(Boolean));
+      },
+      // Counted as gone once it has slid up under the bar.
+      { rootMargin: "-80px 0px 0px 0px" },
+    );
+    marks.forEach((m) => io.observe(m));
+    return () => io.disconnect();
+  }, [brandInHero]);
 
   useEffect(() => {
     let last = window.scrollY;
@@ -51,12 +83,15 @@ const Header = ({ transparent = false }: HeaderProps) => {
         last = y;
       }
     };
+    // A page restored part-way down (back button, reload) is already scrolled.
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   // An open menu needs a solid bar above it, or the panel hangs off nothing.
   const isTransparent = transparent && !scrolled && !menu;
+  const logoHidden = brandInHero && heroBrandInView && !menu;
 
   return (
     <header
@@ -72,7 +107,12 @@ const Header = ({ transparent = false }: HeaderProps) => {
         className={`frame py-4 transition-[padding] duration-500 sm:py-5 ${scrolled ? "lg:py-3" : ""}`}
       >
         <div className="flex items-center justify-between gap-6">
-          <HomeLink className="shrink-0">
+          <HomeLink
+            hidden={logoHidden}
+            className={`shrink-0 transition-[opacity,transform] duration-500 ease-editorial motion-reduce:transition-none ${
+              logoHidden ? "pointer-events-none -translate-y-1 opacity-0" : "opacity-100"
+            }`}
+          >
             {/* Josiah's own badge, recomposed side by side: the FF-and-excavator
                 mark beside the script, the same artwork as the full badge in
                 the footer. A stacked badge at header height would shrink the

@@ -73,7 +73,7 @@ const tiles: Tile[] = [
     label: "Excavation",
     src: machine,
     srcSet: machineSet,
-    alt: "An excavator Josiah ran, working a pile of cleared timber on a land-clearing job",
+    alt: "A Cat 305 excavator operated by Josiah, working a pile of cleared timber on a land-clearing job",
     position: "55% 55%",
     sizes: "(min-width: 1024px) 20vw, 40vw",
     box: "right-0 top-[55%] w-[39%] h-[33%] lg:top-[61%] lg:w-[47%] lg:h-[35%]",
@@ -86,7 +86,7 @@ const HeroMosaic = ({ className }: { className?: string }) => (
     {/* The artboard. Below lg it is as wide as the column; at lg it is as
         large as fits the space beside the copy, whichever of width or height
         runs out first, so the composition is never squashed. */}
-    <div className="relative w-full aspect-[1.17] sm:aspect-[1.4] sm:max-w-[44rem] lg:aspect-[0.825] lg:w-[min(100%,calc((100svh_-_9rem)*0.825))] lg:max-w-none">
+    <div className="relative w-full aspect-[1.25] sm:aspect-[1.4] sm:max-w-[44rem] lg:aspect-[0.825] lg:w-[min(100%,calc((100svh_-_9rem)*0.825))] lg:max-w-none">
       {tiles.map((t, i) => (
         <Link
           key={t.slug}

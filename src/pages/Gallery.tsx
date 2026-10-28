@@ -140,10 +140,12 @@ const projects: Project[] = [
     group: "seat",
     title: "Timber & Lot Clearing",
     category: "Land Clearing",
-    label: "Lowcountry, SC",
+    // Josiah, 2026-10-28: he is operating in every machine photo, this one
+    // (the Cat 305 in front of the log pile) included.
+    label: "Operated by Josiah",
     place: "Lowcountry, SC",
     image: landClearing,
-    alt: "A tracked excavator Josiah ran, working through felled timber on a Lowcountry clearing job",
+    alt: "A Cat 305 excavator operated by Josiah, working through felled timber on a Lowcountry clearing job",
     width: 1206,
     height: 904,
   },
