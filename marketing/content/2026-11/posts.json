@@ -1,12 +1,55 @@
 {
   "month": "2026-11-02 to 2026-12-01",
   "hashtagSets": {
-    "landscaping": ["#mountpleasantsc", "#charlestonsc", "#lowcountry", "#landscaping", "#landscapeinstallation"],
-    "hardscape": ["#mountpleasantsc", "#charlestonsc", "#hardscape", "#paverpatio", "#flagstone"],
-    "dirt": ["#mountpleasantsc", "#charlestonsc", "#excavation", "#grading", "#drainage"],
-    "trees": ["#mountpleasantsc", "#charlestonsc", "#lowcountry", "#treeremoval", "#stumpremoval"],
-    "pools": ["#mountpleasantsc", "#charlestonsc", "#poolconstruction", "#excavation", "#lowcountry"],
-    "local": ["#mountpleasantsc", "#charlestonsc", "#lowcountry", "#smallbusiness", "#familybusiness"]
+    "landscaping": [
+      "#mountpleasantsc",
+      "#charlestonsc",
+      "#lowcountry",
+      "#landscaping",
+      "#landscapeinstallation"
+    ],
+    "hardscape": [
+      "#mountpleasantsc",
+      "#charlestonsc",
+      "#hardscape",
+      "#paverpatio",
+      "#flagstone"
+    ],
+    "dirt": [
+      "#mountpleasantsc",
+      "#charlestonsc",
+      "#excavation",
+      "#grading",
+      "#drainage"
+    ],
+    "trees": [
+      "#mountpleasantsc",
+      "#charlestonsc",
+      "#lowcountry",
+      "#treeremoval",
+      "#stumpremoval"
+    ],
+    "pools": [
+      "#mountpleasantsc",
+      "#charlestonsc",
+      "#poolconstruction",
+      "#excavation",
+      "#lowcountry"
+    ],
+    "local": [
+      "#mountpleasantsc",
+      "#charlestonsc",
+      "#lowcountry",
+      "#smallbusiness",
+      "#familybusiness"
+    ],
+    "walkway": [
+      "#mountpleasantsc",
+      "#charlestonsc",
+      "#hardscape",
+      "#flagstone",
+      "#walkway"
+    ]
   },
   "posts": [
     {
@@ -21,12 +64,25 @@
         "From a job earlier this year. We cleaned out the beds, cut a clean edge along the lawn and the walk, and finished them with fresh mulch.",
         "Mulch goes on 2 to 3 inches deep and stays a few inches off the stems. Piled against them, it raises the chance of stem rot (Clemson Extension)."
       ],
-      "cta": "Want this at your house? Text a photo of your yard to (843) 998-5593 for a free quote.",
+      "cta": "Want this at your house? Send us a message here, or text a photo of your yard to (843) 998-5593 for a free quote.",
       "hashtags": "landscaping",
       "slides": [
-        {"type": "ba", "before": "services/landscaping-before.jpg", "after": "services/landscaping-after.jpg", "alt": "Front beds before and after: thin and faded above, edged and freshly mulched below."},
-        {"type": "mat", "photo": "services/landscaping.jpg", "caption": "Front beds, Mount Pleasant", "alt": "Finished front beds with dark mulch along a curved front walk."},
-        {"type": "cta", "alt": "Text a photo of your yard to (843) 998-5593 for a free on-site quote."}
+        {
+          "type": "ba",
+          "before": "services/landscaping-before.jpg",
+          "after": "services/landscaping-after.jpg",
+          "alt": "Front beds before and after: thin and faded above, edged and freshly mulched below."
+        },
+        {
+          "type": "mat",
+          "photo": "services/landscaping.jpg",
+          "caption": "Front beds, Mount Pleasant",
+          "alt": "Finished front beds with dark mulch along a curved front walk."
+        },
+        {
+          "type": "cta",
+          "alt": "Text a photo of your yard to (843) 998-5593 for a free on-site quote."
+        }
       ],
       "notes": "This job is already on the website. If you haven't asked the homeowner about Instagram, ask first."
     },
@@ -42,9 +98,15 @@
         "A job from earlier this year in Mount Pleasant: a curved flagstone walk where the dirt path was, with new lawn on both sides."
       ],
       "cta": "Free on-site quotes in Mount Pleasant and Charleston. Text (843) 998-5593.",
-      "hashtags": "hardscape",
+      "hashtags": "walkway",
       "slides": [
-        {"type": "reel", "before": "services/hardscapes-before.jpg", "after": "services/hardscapes-after.jpg", "file": "02-walkway-reveal.mp4", "alt": "Video: a bare dirt strip by a porch, then a flagstone walk with new lawn."}
+        {
+          "type": "reel",
+          "before": "services/hardscapes-before.jpg",
+          "after": "services/hardscapes-after.jpg",
+          "file": "02-walkway-reveal.mp4",
+          "alt": "Video: a bare dirt strip by a porch, then a flagstone walk with new lawn."
+        }
       ],
       "notes": "Add music from Instagram's library if you like. Already on the website; ask the homeowner about Instagram if you haven't."
     },
@@ -63,10 +125,26 @@
       "cta": "Thinking about a patio this winter? Text (843) 998-5593.",
       "hashtags": "hardscape",
       "slides": [
-        {"type": "drawing", "plate": "hardscapes", "title": "What's under a paver patio", "source": "Base depth: CMHA Tech Note PAV-TEC-002", "alt": "Section drawing: pavers, sand, a 4-inch compacted base and soil, sloping away from a house."},
-        {"type": "text", "title": "Four things that keep a patio flat", "items": ["A compacted stone base, at least 4 inches deep", "Fabric under the base where the ground stays wet", "An edge restraint at every open side", "A slope away from the house, so water runs off"], "alt": "List: a 4-inch compacted base, fabric on wet ground, edge restraints, a slope away from the house."}
+        {
+          "type": "drawing",
+          "plate": "hardscapes",
+          "title": "What's under a paver patio",
+          "source": "Base depth: CMHA Tech Note PAV-TEC-002",
+          "alt": "Section drawing: pavers, sand, a 4-inch compacted base and soil, sloping away from a house."
+        },
+        {
+          "type": "text",
+          "title": "Four things that keep a patio flat",
+          "items": [
+            "A compacted stone base, at least 4 inches deep",
+            "Fabric under the base where the ground stays wet",
+            "An edge restraint at every open side",
+            "A slope away from the house, so water runs off"
+          ],
+          "alt": "List: a 4-inch compacted base, fabric on wet ground, edge restraints, a slope away from the house."
+        }
       ],
-      "notes": "Wednesday post: also add it to the Google profile as an update (see the rules)."
+      "notes": "Google profile update (business.google.com, Add update): the first image and the caption without the hashtags, with a Learn more button to firmfoundationsc.com/services/hardscapes."
     },
     {
       "id": "04",
@@ -82,7 +160,11 @@
       "cta": "Have a job that needs a machine? Text (843) 998-5593.",
       "hashtags": "dirt",
       "slides": [
-        {"type": "film", "brief": "10 to 20 seconds, phone held upright: the new excavator coming off the trailer behind the truck, or its first bucket of dirt on a job. No talking needed. Keep house numbers, street signs and license plates out of the shot.", "alt": "Video: Firm Foundation's new excavator at work."}
+        {
+          "type": "film",
+          "brief": "10 to 20 seconds, phone held upright: the new excavator coming off the trailer behind the truck, or its first bucket of dirt on a job. No talking needed. Keep house numbers, street signs and license plates out of the shot.",
+          "alt": "Video: Firm Foundation's new excavator at work."
+        }
       ],
       "fallback": "If there's no clip by Thursday, post 12 (the family photos) today and this one on the 19th.",
       "notes": "While you're there, take a few still photos of the machine and truck with the phone turned sideways. They go on the website."
@@ -102,7 +184,13 @@
       "cta": "",
       "hashtags": "landscaping",
       "slides": [
-        {"type": "quote", "quote": "We just moved into our home a couple months ago and it was so overgrown and hard to look at! Because of Josiah, we are now excited to be outside and enjoy our gorgeous landscape!", "name": "Tricia H.", "meta": "Google review, April 2026", "alt": "Google review from Tricia H. about her overgrown yard and new landscape."}
+        {
+          "type": "quote",
+          "quote": "We just moved into our home a couple months ago and it was so overgrown and hard to look at! Because of Josiah, we are now excited to be outside and enjoy our gorgeous landscape!",
+          "name": "Tricia H.",
+          "meta": "Google review, April 2026",
+          "alt": "Google review from Tricia H. about her overgrown yard and new landscape."
+        }
       ],
       "fallback": "Post only after Tricia says yes. If she hasn't answered, post spare A4 (stump) today.",
       "notes": "The quote is word for word from Google. Text Tricia a week ahead to ask if she minds it being shared."
@@ -118,10 +206,14 @@
       "body": [
         "We do landscaping, patios and walkways, and the dirt work under them: grading, drainage, pool and pond digs and land clearing. I walk every job with you before anything starts, and quotes are free."
       ],
-      "cta": "Text a photo of your yard to (843) 998-5593 and I'll take a look.",
+      "cta": "Send me a message here, or text a photo of your yard to (843) 998-5593 and I'll take a look.",
       "hashtags": "local",
       "slides": [
-        {"type": "film", "brief": "15 to 30 seconds, phone held upright, on a job site with the new excavator behind you. Say your name, what you do, and that quotes are free. Talk the way you would to a neighbor.", "alt": "Video: Josiah introduces himself on a job site."}
+        {
+          "type": "film",
+          "brief": "15 to 30 seconds, phone held upright, on a job site with the new excavator behind you. Say your name, what you do, and that quotes are free. Talk the way you would to a neighbor.",
+          "alt": "Video: Josiah introduces himself on a job site."
+        }
       ],
       "fallback": "If there's no clip by Tuesday, post spare A1 (the front beds Reel) today and this one when it's ready.",
       "notes": ""
@@ -141,11 +233,30 @@
       "cta": "The full answer, with the Town's own rules, is on our website under Guides.",
       "hashtags": "trees",
       "slides": [
-        {"type": "question", "title": "Do you need a permit to cut down a tree in Mount Pleasant?", "sub": "Usually, yes. Here's how to tell.", "alt": "Do you need a permit to cut down a tree in Mount Pleasant? Usually, yes."},
-        {"type": "text", "title": "How to tell", "items": ["Measure across the trunk 4 1/2 feet off the ground", "16 inches or more: protected (pines from 24 inches)", "Sweet gum and a few other species never need a permit", "The request is $50 through the Town", "No permit: the Town fines the owner and the cutter"], "alt": "Measure the trunk 4.5 feet up; 16 inches or more is protected; the permit is $50."},
-        {"type": "cta", "alt": "Text a photo of your yard to (843) 998-5593 for a free on-site quote."}
+        {
+          "type": "question",
+          "title": "Do you need a permit to cut down a tree in Mount Pleasant?",
+          "sub": "Usually, yes. Here's how to tell.",
+          "alt": "Do you need a permit to cut down a tree in Mount Pleasant? Usually, yes."
+        },
+        {
+          "type": "text",
+          "title": "How to tell",
+          "items": [
+            "Measure across the trunk 4 1/2 feet off the ground",
+            "16 inches or more: protected (pines from 24 inches)",
+            "Sweet gum and a few other species never need a permit",
+            "The request is $50 through the Town",
+            "No permit: the Town fines the owner and the cutter"
+          ],
+          "alt": "Measure the trunk 4.5 feet up; 16 inches or more is protected; the permit is $50."
+        },
+        {
+          "type": "cta",
+          "alt": "Text a photo of your yard to (843) 998-5593 for a free on-site quote."
+        }
       ],
-      "notes": "Veterans Day: a short Story thanking veterans is fine the same day. Also add this post to the Google profile as an update."
+      "notes": "Veterans Day: a short Story thanking veterans is fine the same day. Google profile update (business.google.com, Add update): the first image and the caption without the hashtags, with a Learn more button to firmfoundationsc.com/guides/mount-pleasant-tree-permit."
     },
     {
       "id": "08",
@@ -161,7 +272,11 @@
       "cta": "Planning a patio? Text (843) 998-5593 for a free walk-through.",
       "hashtags": "hardscape",
       "slides": [
-        {"type": "drawreel", "file": "patio-drawing.mp4", "alt": "Video: a section drawing of a paver patio drawing itself in."}
+        {
+          "type": "drawreel",
+          "file": "patio-drawing.mp4",
+          "alt": "Video: a section drawing of a paver patio drawing itself in."
+        }
       ],
       "notes": "Add music from Instagram's library if you like."
     },
@@ -179,7 +294,13 @@
       "cta": "Have dirt work coming up? Text (843) 998-5593.",
       "hashtags": "dirt",
       "slides": [
-        {"type": "mat", "photo": "services/excavation.jpg", "caption": "Josiah operating a Cat 305 on a land-clearing crew", "nologo": true, "alt": "A Cat 305 excavator beside a log pile on a cleared lot, with Josiah at the controls."}
+        {
+          "type": "mat",
+          "photo": "services/excavation.jpg",
+          "caption": "Josiah operating a Cat 305 on a land-clearing crew",
+          "nologo": true,
+          "alt": "A Cat 305 excavator beside a log pile on a cleared lot, with Josiah at the controls."
+        }
       ],
       "notes": "This photo is from his time on another crew. Don't call it a Firm Foundation job, and don't name the crew."
     },
@@ -198,7 +319,11 @@
       "cta": "Not sure which way yours runs? Text us a photo after the next rain: (843) 998-5593.",
       "hashtags": "dirt",
       "slides": [
-        {"type": "drawreel", "file": "grading-drawing.mp4", "alt": "Video: a drawing of ground regraded to fall away from a house."}
+        {
+          "type": "drawreel",
+          "file": "grading-drawing.mp4",
+          "alt": "Video: a drawing of ground regraded to fall away from a house."
+        }
       ],
       "notes": ""
     },
@@ -217,10 +342,21 @@
       "cta": "Send us a photo of the standing water: (843) 998-5593.",
       "hashtags": "dirt",
       "slides": [
-        {"type": "question", "title": "Why does my yard flood after it rains?", "sub": "Usually, the ground is sending it there.", "alt": "Why does my yard flood after it rains? Usually, the ground is sending it there."},
-        {"type": "drawing", "plate": "drainage", "title": "A swale, or a French drain", "source": "Full answer: firmfoundationsc.com/guides", "alt": "Section drawing of a grassy swale beside a French drain with stone and a pipe."}
+        {
+          "type": "question",
+          "title": "Why does my yard flood after it rains?",
+          "sub": "Usually, the ground is sending it there.",
+          "alt": "Why does my yard flood after it rains? Usually, the ground is sending it there."
+        },
+        {
+          "type": "drawing",
+          "plate": "drainage",
+          "title": "A swale, or a French drain",
+          "source": "Full answer: firmfoundationsc.com/guides",
+          "alt": "Section drawing of a grassy swale beside a French drain with stone and a pipe."
+        }
       ],
-      "notes": "Also add this post to the Google profile as an update."
+      "notes": "Google profile update (business.google.com, Add update): the first image and the caption without the hashtags, with a Learn more button to firmfoundationsc.com/guides/yard-floods-after-rain."
     },
     {
       "id": "12",
@@ -237,8 +373,17 @@
       "cta": "Meet him on our website. The link is in our profile.",
       "hashtags": "local",
       "slides": [
-        {"type": "photo34", "photo": "story/josiah-and-uncle-donnie.jpg", "alt": "Josiah as a small child in an excavator cab, on his uncle's lap."},
-        {"type": "mat", "photo": "story/josiah-toy-tractor.jpg", "caption": "An early start", "alt": "Josiah as a young boy driving a toy tractor in the front yard."}
+        {
+          "type": "photo34",
+          "photo": "story/josiah-and-uncle-donnie.jpg",
+          "alt": "Josiah as a small child in an excavator cab, on his uncle's lap."
+        },
+        {
+          "type": "mat",
+          "photo": "story/josiah-toy-tractor.jpg",
+          "caption": "An early start",
+          "alt": "Josiah as a young boy driving a toy tractor in the front yard."
+        }
       ],
       "notes": "Check with Josiah that he's happy sharing both family photos."
     },
@@ -256,8 +401,25 @@
       "cta": "Planning new beds? Text (843) 998-5593 for a free walk-through.",
       "hashtags": "landscaping",
       "slides": [
-        {"type": "drawing", "plate": "landscaping", "title": "How a shrub should go in the ground", "source": "Clemson Extension, HGIC 1052", "alt": "Section drawing of a shrub set at ground level in a wide hole, with mulch off the stems."},
-        {"type": "text", "title": "How Clemson says to plant a shrub", "items": ["Hole two to five times wider than the root ball", "No deeper than the ball itself", "Top roots level with the ground or a little above", "Backfill with the soil that came out", "2 to 3 inches of mulch, kept off the stems"], "alt": "List: a wide hole no deeper than the ball, top roots at ground level, mulch off the stems."}
+        {
+          "type": "drawing",
+          "plate": "landscaping",
+          "title": "How a shrub should go in the ground",
+          "source": "Clemson Extension, HGIC 1052",
+          "alt": "Section drawing of a shrub set at ground level in a wide hole, with mulch off the stems."
+        },
+        {
+          "type": "text",
+          "title": "How Clemson says to plant a shrub",
+          "items": [
+            "Hole two to five times wider than the root ball",
+            "No deeper than the ball itself",
+            "Top roots level with the ground or a little above",
+            "Backfill with the soil that came out",
+            "2 to 3 inches of mulch, kept off the stems"
+          ],
+          "alt": "List: a wide hole no deeper than the ball, top roots at ground level, mulch off the stems."
+        }
       ],
       "notes": ""
     },
@@ -275,7 +437,13 @@
       "cta": "",
       "hashtags": "landscaping",
       "slides": [
-        {"type": "quote", "quote": "Josiah was responsive, efficient, and easy to work with from start to finish.", "name": "Margaret L.", "meta": "Google review, July 2026", "alt": "Google review from Margaret L.: responsive, efficient, easy to work with."}
+        {
+          "type": "quote",
+          "quote": "Josiah was responsive, efficient, and easy to work with from start to finish.",
+          "name": "Margaret L.",
+          "meta": "Google review, July 2026",
+          "alt": "Google review from Margaret L.: responsive, efficient, easy to work with."
+        }
       ],
       "fallback": "Post only after Margaret says yes. If she hasn't answered, post spare A5 (the drainage Reel) today.",
       "notes": "Word for word from her Google review. Text Margaret a week ahead to ask if she minds it being shared."
@@ -295,10 +463,25 @@
       "cta": "Planning a spring lawn? Text (843) 998-5593.",
       "hashtags": "landscaping",
       "slides": [
-        {"type": "question", "title": "When should sod go down in Charleston?", "sub": "Mid to late spring, or early fall.", "alt": "When should sod go down in Charleston? Mid to late spring, or early fall."},
-        {"type": "text", "title": "Which grass, by how much sun", "items": ["St. Augustine: most shade, still needs 4 to 6 hours of sun", "Zoysia: sun or part shade", "Centipede: low upkeep, open sun, away from salt", "Bermuda: full sun only"], "alt": "St. Augustine for shade, zoysia sun or part shade, centipede open sun, Bermuda full sun."}
+        {
+          "type": "question",
+          "title": "When should sod go down in Charleston?",
+          "sub": "Mid to late spring, or early fall.",
+          "alt": "When should sod go down in Charleston? Mid to late spring, or early fall."
+        },
+        {
+          "type": "text",
+          "title": "Which grass, by how much sun",
+          "items": [
+            "St. Augustine: most shade, still needs 4 to 6 hours of sun",
+            "Zoysia: sun or part shade",
+            "Centipede: low upkeep, open sun, away from salt",
+            "Bermuda: full sun only"
+          ],
+          "alt": "St. Augustine for shade, zoysia sun or part shade, centipede open sun, Bermuda full sun."
+        }
       ],
-      "notes": "Thanksgiving is tomorrow: no feed post on Thursday. Also add this post to the Google profile as an update."
+      "notes": "Thanksgiving is tomorrow: no feed post on Thursday. Google profile update (business.google.com, Add update): the first image and the caption without the hashtags, with a Learn more button to firmfoundationsc.com/guides/best-grass-for-charleston."
     },
     {
       "id": "16",
@@ -315,9 +498,23 @@
       "cta": "Planning a pool for spring? Text (843) 998-5593.",
       "hashtags": "pools",
       "slides": [
-        {"type": "question", "title": "Who digs the hole for an in-ground pool?", "sub": "It depends on your pool builder.", "alt": "Who digs the hole for an in-ground pool? It depends on your pool builder."},
-        {"type": "drawing", "plate": "pools-and-ponds", "title": "A pool dig, or a pond", "source": "Full answer: firmfoundationsc.com/guides", "alt": "Section drawing of a pool dug to the builder's layout and a pond dug to groundwater."},
-        {"type": "cta", "alt": "Text a photo of your yard to (843) 998-5593 for a free on-site quote."}
+        {
+          "type": "question",
+          "title": "Who digs the hole for an in-ground pool?",
+          "sub": "It depends on your pool builder.",
+          "alt": "Who digs the hole for an in-ground pool? It depends on your pool builder."
+        },
+        {
+          "type": "drawing",
+          "plate": "pools-and-ponds",
+          "title": "A pool dig, or a pond",
+          "source": "Full answer: firmfoundationsc.com/guides",
+          "alt": "Section drawing of a pool dug to the builder's layout and a pond dug to groundwater."
+        },
+        {
+          "type": "cta",
+          "alt": "Text a photo of your yard to (843) 998-5593 for a free on-site quote."
+        }
       ],
       "notes": ""
     },
@@ -332,10 +529,14 @@
       "body": [
         "[One line about this job, in your own words.]"
       ],
-      "cta": "Text a photo of your yard to (843) 998-5593 for a free quote.",
+      "cta": "Send us a message here, or text a photo of your yard to (843) 998-5593 for a free quote.",
       "hashtags": "dirt",
       "slides": [
-        {"type": "film", "brief": "Three short clips from one job, 5 seconds each, phone upright: the start, the machine working, and the finished result from the same spot as the start. Instagram's editor can join them. No customer faces, house numbers or street signs.", "alt": "Video: a Firm Foundation job from start to finish."}
+        {
+          "type": "film",
+          "brief": "Three short clips from one job, 5 seconds each, phone upright: the start, the machine working, and the finished result from the same spot as the start. Instagram's editor can join them. No customer faces, house numbers or street signs.",
+          "alt": "Video: a Firm Foundation job from start to finish."
+        }
       ],
       "fallback": "If there's no clip, post spare A3 (the walkway carousel).",
       "notes": "Get the customer's OK before showing their yard."
@@ -353,7 +554,13 @@
       "cta": "Free on-site quotes in Mount Pleasant and Charleston. Text (843) 998-5593.",
       "hashtags": "landscaping",
       "slides": [
-        {"type": "reel", "before": "services/landscaping-before.jpg", "after": "services/landscaping-after.jpg", "file": "A1-front-beds-reveal.mp4", "alt": "Video: thin front beds, then the same beds edged and mulched."}
+        {
+          "type": "reel",
+          "before": "services/landscaping-before.jpg",
+          "after": "services/landscaping-after.jpg",
+          "file": "A1-front-beds-reveal.mp4",
+          "alt": "Video: thin front beds, then the same beds edged and mulched."
+        }
       ]
     },
     {
@@ -367,7 +574,13 @@
       "cta": "",
       "hashtags": "landscaping",
       "slides": [
-        {"type": "quote", "quote": "Firm Foundation truly delivered exactly what I had asked and hoped for. Josiah was efficient, hard working and did a beautiful job with the landscaping projects I needed.", "name": "Andi A.", "meta": "Google review, April 2026", "alt": "Google review from Andi A. about her landscaping projects."}
+        {
+          "type": "quote",
+          "quote": "Firm Foundation truly delivered exactly what I had asked and hoped for. Josiah was efficient, hard working and did a beautiful job with the landscaping projects I needed.",
+          "name": "Andi A.",
+          "meta": "Google review, April 2026",
+          "alt": "Google review from Andi A. about her landscaping projects."
+        }
       ],
       "notes": "Only after Andi says yes."
     },
@@ -380,10 +593,20 @@
         "From a job earlier this year in Mount Pleasant: a curved flagstone walk with new lawn on both sides."
       ],
       "cta": "Free on-site quotes in Mount Pleasant and Charleston. Text (843) 998-5593.",
-      "hashtags": "hardscape",
+      "hashtags": "walkway",
       "slides": [
-        {"type": "ba", "before": "services/hardscapes-before.jpg", "after": "services/hardscapes-after.jpg", "alt": "A bare dirt strip by a porch above, the same spot with a flagstone walk below."},
-        {"type": "mat", "photo": "services/hardscapes.jpg", "caption": "Flagstone walk, Mount Pleasant", "alt": "A curved flagstone walk through new lawn beside a porch."}
+        {
+          "type": "ba",
+          "before": "services/hardscapes-before.jpg",
+          "after": "services/hardscapes-after.jpg",
+          "alt": "A bare dirt strip by a porch above, the same spot with a flagstone walk below."
+        },
+        {
+          "type": "mat",
+          "photo": "services/hardscapes.jpg",
+          "caption": "Flagstone walk, Mount Pleasant",
+          "alt": "A curved flagstone walk through new lawn beside a porch."
+        }
       ]
     },
     {
@@ -398,8 +621,23 @@
       "cta": "Have a stump in the way? Text a photo to (843) 998-5593.",
       "hashtags": "trees",
       "slides": [
-        {"type": "question", "title": "Grind the stump, or pull it out?", "sub": "It depends on what goes there next.", "alt": "Grind the stump, or pull it out? It depends on what goes there next."},
-        {"type": "text", "title": "The short version", "items": ["A lawn or a bed going there: grind it", "A patio, a pad or digging going there: pull it", "Grinding leaves the roots to rot in place", "Pulling takes the root ball out; the hole is backfilled and packed"], "alt": "Lawn or bed: grind it. Patio or digging: pull it, then backfill and pack."}
+        {
+          "type": "question",
+          "title": "Grind the stump, or pull it out?",
+          "sub": "It depends on what goes there next.",
+          "alt": "Grind the stump, or pull it out? It depends on what goes there next."
+        },
+        {
+          "type": "text",
+          "title": "The short version",
+          "items": [
+            "A lawn or a bed going there: grind it",
+            "A patio, a pad or digging going there: pull it",
+            "Grinding leaves the roots to rot in place",
+            "Pulling takes the root ball out; the hole is backfilled and packed"
+          ],
+          "alt": "Lawn or bed: grind it. Patio or digging: pull it, then backfill and pack."
+        }
       ]
     },
     {
@@ -413,23 +651,79 @@
       "cta": "Standing water in your yard? Text a photo to (843) 998-5593.",
       "hashtags": "dirt",
       "slides": [
-        {"type": "drawreel", "file": "drainage-drawing.mp4", "alt": "Video: a drawing of a swale and a French drain drawing itself in."}
+        {
+          "type": "drawreel",
+          "file": "drainage-drawing.mp4",
+          "alt": "Video: a drawing of a swale and a French drain drawing itself in."
+        }
       ]
     }
   ],
   "stories": [
-    {"date": "2026-11-06", "day": "Fri", "idea": "Share Thursday's excavator Reel to your Story with the words 'It's here.'"},
-    {"date": "2026-11-07", "day": "Sat", "idea": "Photo or 5-second clip from wherever you're working today. Text on it: 'Today in [town].' Never the street."},
-    {"date": "2026-11-08", "day": "Sun", "idea": "Poll sticker on a photo of a finished bed: 'Working on your yard this fall?' Yes / Waiting for spring."},
-    {"date": "2026-11-13", "day": "Fri", "idea": "Poll sticker on the walkway photo: 'Pavers or flagstone?'"},
-    {"date": "2026-11-14", "day": "Sat", "idea": "Question sticker: 'Ask me anything about your yard.' Answer one a day next week."},
-    {"date": "2026-11-15", "day": "Sun", "idea": "Answer a question from the box, on a photo of a real yard."},
-    {"date": "2026-11-20", "day": "Fri", "idea": "Share Thursday's family post to your Story."},
-    {"date": "2026-11-21", "day": "Sat", "idea": "Behind the scenes: checking the machine, loading the trailer, or the truck at the shop."},
-    {"date": "2026-11-22", "day": "Sun", "idea": "The review card with a link sticker to firmfoundationsc.com/review: 'If we've worked for you, a Google review helps your neighbors find us.'"},
-    {"date": "2026-11-26", "day": "Thu", "idea": "Thanksgiving: 'Happy Thanksgiving from our family to yours.' A family photo, nothing to sell."},
-    {"date": "2026-11-27", "day": "Fri", "idea": "Share Wednesday's sod post with a link sticker to the grass guide."},
-    {"date": "2026-11-28", "day": "Sat", "idea": "Small Business Saturday: 'Firm Foundation is one family in Mount Pleasant. If we've done work for you, tell a neighbor.'"},
-    {"date": "2026-11-29", "day": "Sun", "idea": "This week's work: two or three photos from jobs you finished, no addresses."}
+    {
+      "date": "2026-11-06",
+      "day": "Fri",
+      "idea": "Share Thursday's excavator Reel to your Story with the words 'It's here.'"
+    },
+    {
+      "date": "2026-11-07",
+      "day": "Sat",
+      "idea": "Photo or 5-second clip from wherever you're working today. Text on it: 'Today in [town].' Never the street."
+    },
+    {
+      "date": "2026-11-08",
+      "day": "Sun",
+      "idea": "Poll sticker on a photo of a finished bed: 'Working on your yard this fall?' Yes / Waiting for spring."
+    },
+    {
+      "date": "2026-11-13",
+      "day": "Fri",
+      "idea": "Poll sticker on the walkway photo: 'Pavers or flagstone?'"
+    },
+    {
+      "date": "2026-11-14",
+      "day": "Sat",
+      "idea": "Question sticker: 'Ask me anything about your yard.' Answer one a day next week."
+    },
+    {
+      "date": "2026-11-15",
+      "day": "Sun",
+      "idea": "Answer a question from the box, on a photo of a real yard."
+    },
+    {
+      "date": "2026-11-20",
+      "day": "Fri",
+      "idea": "Share Thursday's family post to your Story."
+    },
+    {
+      "date": "2026-11-21",
+      "day": "Sat",
+      "idea": "Behind the scenes: checking the machine, loading the trailer, or the truck at the shop."
+    },
+    {
+      "date": "2026-11-22",
+      "day": "Sun",
+      "idea": "The review card with a link sticker to firmfoundationsc.com/review: 'If we've worked for you, a Google review helps your neighbors find us.'"
+    },
+    {
+      "date": "2026-11-26",
+      "day": "Thu",
+      "idea": "Thanksgiving: 'Happy Thanksgiving from our family to yours.' A family photo, nothing to sell."
+    },
+    {
+      "date": "2026-11-27",
+      "day": "Fri",
+      "idea": "Share Wednesday's sod post with a link sticker to the grass guide."
+    },
+    {
+      "date": "2026-11-28",
+      "day": "Sat",
+      "idea": "Small Business Saturday: 'Firm Foundation is one family in Mount Pleasant. If we've done work for you, tell a neighbor.'"
+    },
+    {
+      "date": "2026-11-29",
+      "day": "Sun",
+      "idea": "This week's work: two or three photos from jobs you finished, no addresses."
+    }
   ]
 }

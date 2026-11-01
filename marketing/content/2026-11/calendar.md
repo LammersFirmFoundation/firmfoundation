@@ -43,7 +43,7 @@ From a job earlier this year. We cleaned out the beds, cut a clean edge along th
 
 Mulch goes on 2 to 3 inches deep and stays a few inches off the stems. Piled against them, it raises the chance of stem rot (Clemson Extension).
 
-Want this at your house? Text a photo of your yard to (843) 998-5593 for a free quote.
+Want this at your house? Send us a message here, or text a photo of your yard to (843) 998-5593 for a free quote.
 
 #mountpleasantsc #charlestonsc #lowcountry #landscaping #landscapeinstallation
 ```
@@ -65,7 +65,7 @@ A job from earlier this year in Mount Pleasant: a curved flagstone walk where th
 
 Free on-site quotes in Mount Pleasant and Charleston. Text (843) 998-5593.
 
-#mountpleasantsc #charlestonsc #hardscape #paverpatio #flagstone
+#mountpleasantsc #charlestonsc #hardscape #flagstone #walkway
 ```
 
 **Alt text:** (1) Video: a bare dirt strip by a porch, then a flagstone walk with new lawn.
@@ -92,7 +92,7 @@ Thinking about a patio this winter? Text (843) 998-5593.
 
 **Alt text:** (1) Section drawing: pavers, sand, a 4-inch compacted base and soil, sloping away from a house. / (2) List: a 4-inch compacted base, fabric on wet ground, edge restraints, a slope away from the house.
 
-**Note:** Wednesday post: also add it to the Google profile as an update (see the rules).
+**Note:** Google profile update (business.google.com, Add update): the first image and the caption without the hashtags, with a Learn more button to firmfoundationsc.com/services/hardscapes.
 
 ## 04. Thu 5 Nov, 12:30 PM · Reel (Josiah films) · Who we are
 
@@ -149,7 +149,7 @@ I'm Josiah, and I run Firm Foundation in Mount Pleasant.
 
 We do landscaping, patios and walkways, and the dirt work under them: grading, drainage, pool and pond digs and land clearing. I walk every job with you before anything starts, and quotes are free.
 
-Text a photo of your yard to (843) 998-5593 and I'll take a look.
+Send me a message here, or text a photo of your yard to (843) 998-5593 and I'll take a look.
 
 #mountpleasantsc #charlestonsc #lowcountry #smallbusiness #familybusiness
 ```
@@ -178,7 +178,7 @@ The full answer, with the Town's own rules, is on our website under Guides.
 
 **Alt text:** (1) Do you need a permit to cut down a tree in Mount Pleasant? Usually, yes. / (2) Measure the trunk 4.5 feet up; 16 inches or more is protected; the permit is $50. / (3) Text a photo of your yard to (843) 998-5593 for a free on-site quote.
 
-**Note:** Veterans Day: a short Story thanking veterans is fine the same day. Also add this post to the Google profile as an update.
+**Note:** Veterans Day: a short Story thanking veterans is fine the same day. Google profile update (business.google.com, Add update): the first image and the caption without the hashtags, with a Learn more button to firmfoundationsc.com/guides/mount-pleasant-tree-permit.
 
 ## 08. Thu 12 Nov, 12:30 PM · Reel · How it's built
 
@@ -260,7 +260,7 @@ Send us a photo of the standing water: (843) 998-5593.
 
 **Alt text:** (1) Why does my yard flood after it rains? Usually, the ground is sending it there. / (2) Section drawing of a grassy swale beside a French drain with stone and a pipe.
 
-**Note:** Also add this post to the Google profile as an update.
+**Note:** Google profile update (business.google.com, Add update): the first image and the caption without the hashtags, with a Learn more button to firmfoundationsc.com/guides/yard-floods-after-rain.
 
 ## 12. Thu 19 Nov, 12:30 PM · Carousel · Who we are
 
@@ -342,7 +342,7 @@ Planning a spring lawn? Text (843) 998-5593.
 
 **Alt text:** (1) When should sod go down in Charleston? Mid to late spring, or early fall. / (2) St. Augustine for shade, zoysia sun or part shade, centipede open sun, Bermuda full sun.
 
-**Note:** Thanksgiving is tomorrow: no feed post on Thursday. Also add this post to the Google profile as an update.
+**Note:** Thanksgiving is tomorrow: no feed post on Thursday. Google profile update (business.google.com, Add update): the first image and the caption without the hashtags, with a Learn more button to firmfoundationsc.com/guides/best-grass-for-charleston.
 
 ## 16. Mon 30 Nov, 2:30 PM · Carousel · Local answers
 
@@ -375,7 +375,7 @@ A day on the job in Mount Pleasant.
 
 [One line about this job, in your own words.]
 
-Text a photo of your yard to (843) 998-5593 for a free quote.
+Send us a message here, or text a photo of your yard to (843) 998-5593 for a free quote.
 
 #mountpleasantsc #charlestonsc #excavation #grading #drainage
 ```
@@ -435,7 +435,7 @@ From a job earlier this year in Mount Pleasant: a curved flagstone walk with new
 
 Free on-site quotes in Mount Pleasant and Charleston. Text (843) 998-5593.
 
-#mountpleasantsc #charlestonsc #hardscape #paverpatio #flagstone
+#mountpleasantsc #charlestonsc #hardscape #flagstone #walkway
 ```
 
 **Alt text:** (1) A bare dirt strip by a porch above, the same spot with a flagstone walk below. / (2) A curved flagstone walk through new lawn beside a porch.
