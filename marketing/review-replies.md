@@ -2,8 +2,8 @@
 
 Google lets the owner answer every review in public, and people deciding
 whether to call read the answers as closely as the reviews. Google's own
-advice: reply, keep it short, thank the reviewer, and never put personal
-details in a reply ([Google Business Profile Help](https://support.google.com/business/answer/3474050)).
+advice: reply, keep it short and specific to the review rather than one
+generic thank-you for everyone, and never put personal details in a reply ([Google Business Profile Help](https://support.google.com/business/answer/3474122)).
 Written 2026-11-01. The Google profile is managed from Will's Google account
 (business.google.com, then Reviews), so Will or Josiah can paste these.
 
@@ -14,8 +14,7 @@ Written 2026-11-01. The Google profile is managed from Will's Google account
 - Mention the actual job, so it reads like a person and not a template. Don't
   paste the same reply twice.
 - Never mention a price, an address, a last name or anything private.
-- Never offer anything in return for changing or removing a review. Google
-  and the FTC both treat that as buying a review.
+- Never offer anything in return for changing or removing a review.
 - A bad review gets one calm reply and a phone number. Never argue in public.
 - Only report a review to Google if it breaks Google's rules (spam, someone
   who was never a customer, off-topic or abusive). A negative review from a
@@ -29,7 +28,7 @@ Each one answers what that customer actually wrote.
 > Thank you, Tricia. That yard had a lot going on when we started, and I'm glad you're enjoying being outside now. It was a pleasure working for you. Josiah
 
 **Andi A., 5 stars, April 2026** (landscaping projects)
-> Thank you, Andi. Doing what you asked for, the way you hoped, is the whole job, and I'm glad the landscaping came out right. Josiah
+> Thank you, Andi. I'm glad the landscaping turned out the way you hoped, and I appreciate you writing this. Josiah
 
 **Terry W., 5 stars, April 2026** (property maintenance on commercial buildings in Mt. Pleasant)
 > Thank you, Terry. We appreciate the work on your buildings in Mount Pleasant and we're glad to keep helping with them. Josiah
