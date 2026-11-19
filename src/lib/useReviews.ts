@@ -36,7 +36,11 @@ export function useReviews(initialData?: ApiResponse): UseReviewsResult {
     initialDataUpdatedAt: initialData ? 0 : undefined,
   });
 
-  const live = data?.reviews?.length ? data.reviews : null;
+  // Family, not customers (Will Lammers is Josiah's brother): never quoted as a
+  // testimonial. api/reviews.ts drops it too; this covers a build that read
+  // the feed before that change was live. Google's total still counts it.
+  const customers = data?.reviews?.filter((r) => !/^will lammers$/i.test(r.name.trim()));
+  const live = customers?.length ? customers : null;
   const reviews = live ?? fallbackReviews;
 
   // Derived from whatever reviews are actually on screen. The old default of a

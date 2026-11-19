@@ -54,6 +54,31 @@ Each one answers what that customer actually wrote.
 **Jessica W., 5 stars, October 2026** (kitchen: old tile out, drywall, new tile, cabinet hardware)
 > Thank you, Jessica. I'm glad the kitchen came together the way you wanted, from the new tile to the cabinet hardware. We'd be glad to help again. Josiah
 
+## Replies to the reviews from November 2026
+
+Short reviews get short replies. Will's own review gets no reply (family).
+
+**Benjamin T., 5 stars, November 2026** (hard workers, detail focused)
+> Thank you, Benjamin. Paying attention to the details is how we try to do every job, and I appreciate you noticing. Josiah
+
+**jcboksa, 5 stars, November 2026** (pricing, honest, reliable)
+> Thank you. Fair pricing and doing what we say we'll do matter to us, and I'm glad that came through. Josiah
+
+**Lee E., 5 stars, November 2026** (went smoothly)
+> Thank you, Lee. I'm glad everything went smoothly, and it was a pleasure working with you too. Josiah
+
+**Jack B., 5 stars, November 2026** (the people)
+> Thank you, Jack. I appreciate you saying that about the crew. Josiah
+
+**Pierce F., 5 stars, November 2026**
+> Thank you, Pierce. I appreciate the recommendation. Josiah
+
+**Nico S., 5 stars, November 2026**
+> Thank you, Nico. I appreciate it. Josiah
+
+**graham c., 5 stars, November 2026** (stars only, no text)
+> Thank you, Graham. I appreciate the five stars. Josiah
+
 ## Templates for new reviews
 
 Fill the brackets with the real job. Change the wording each time.

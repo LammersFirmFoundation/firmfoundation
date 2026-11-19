@@ -18,7 +18,7 @@ const SITE_NAME = "Firm Foundation Property Services";
 // old card to everyone who has already shared the link. og-logo.jpg and
 // og-land-clearing.jpg stay in public/ so those old shares still resolve.
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-firm-foundation.jpg`;
-const DEFAULT_OG_ALT = "Firm Foundation Property Services: landscaping, hardscapes and excavation in Mount Pleasant and Charleston, SC";
+const DEFAULT_OG_ALT = "Firm Foundation Property Services: excavation, landscaping and hardscapes in Mount Pleasant and Charleston, SC";
 
 const SEO = ({
   title,

@@ -57,6 +57,9 @@ const formatDate = (iso?: string): string => {
   return d.toLocaleDateString("en-US", { month: "long", year: "numeric" });
 };
 
+/** Reviewers who are family, so not quoted (Will Lammers is Josiah's brother). */
+const NOT_CUSTOMERS = /^will lammers$/i;
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const token = process.env.APIFY_TOKEN;
   // Data source, in priority order:
@@ -126,6 +129,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const reviews: Review[] = rawReviews
       .filter((r) => typeof r.stars === "number" && r.stars >= 4 && (r.text ?? "").trim().length > 0)
+      // Family, not customers: they still count in Google's total (that is
+      // Google's figure), but the site never quotes them as a testimonial.
+      .filter((r) => !NOT_CUSTOMERS.test((r.reviewerName ?? r.name ?? "").trim()))
       .sort((a, b) => {
         const ad = a.publishedAtDate ? new Date(a.publishedAtDate).getTime() : 0;
         const bd = b.publishedAtDate ? new Date(b.publishedAtDate).getTime() : 0;

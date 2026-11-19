@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Link, useLoaderData } from "react-router-dom";
-import { Phone } from "lucide-react";
+import { ArrowRight, Phone } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import SEO from "@/components/SEO";
 import CtaSection from "@/components/CtaSection";
@@ -19,9 +20,7 @@ import OurStory from "@/components/OurStory";
 import { useReviews, type ApiResponse } from "@/lib/useReviews";
 import { useInstagram, type InstagramFeed } from "@/lib/useInstagram";
 import InstagramStrip from "@/components/InstagramStrip";
-import { FilmPlayer, FilmScenes, workFilmSchema } from "@/components/WorkFilm";
-import bandStill from "@/assets/work/bucket-of-fill.jpg";
-import bandStillSet from "@/assets/work/bucket-of-fill.jpg?w=960;1600;2400&format=webp&quality=66&as=srcset";
+import { workFilmSchema } from "@/components/WorkFilm";
 import { BUSINESS, howAJobRuns } from "@/data/business";
 import { localBusinessSchema, websiteSchema } from "@/lib/schema";
 
@@ -46,6 +45,28 @@ import { localBusinessSchema, websiteSchema } from "@/lib/schema";
  *   twice in two screens), the "send a photo" band (the CTA carries it), and a
  *   spaced-capitals label over every section, which read as a template.
  */
+/** The three kinds of caller the excavation work comes from. */
+const audiences = [
+  {
+    title: "Homeowners",
+    body: "Grading a yard that holds water, a pad for a shed or a drive, a lot cleared for a build, then the beds and patio on top.",
+    cta: "Get a free quote",
+    href: "/contact?service=excavation",
+  },
+  {
+    title: "Builders and remodelers",
+    body: "Site prep, cut and fill, pads and trenching to the grade the next trade needs, with the spoils hauled off.",
+    cta: "Send the plans",
+    href: "/contact?service=excavation",
+  },
+  {
+    title: "Pool builders",
+    body: "We dig to your layout and depths, get the dirt gone, and come back for backfill and final grade when the shell is in.",
+    cta: "Pool dig details",
+    href: "/services/pools-and-ponds",
+  },
+];
+
 const LandingPage = () => {
   const loaderData = useLoaderData() as (ApiResponse & { instagram?: InstagramFeed }) | undefined;
   // The loader returns an empty review list when only Instagram answered;
@@ -67,10 +88,10 @@ const LandingPage = () => {
       <Header transparent brandInHero />
 
       <SEO
-        title="Landscaping, Hardscapes &amp; Excavation, Mount Pleasant | Firm Foundation"
-        description="Family-run landscaping, hardscapes and excavation in Mount Pleasant and Charleston, SC: beds and sod, patios and walls, pool and pond prep, land clearing."
+        title="Excavation, Landscaping &amp; Hardscapes, Mount Pleasant | Firm Foundation"
+        description="Excavation and grading with our own Cat excavator in Mount Pleasant and Charleston, SC: site prep, pool digs, land clearing, plus landscaping and hardscapes."
         canonical="/"
-        keywords="landscaping Mount Pleasant SC, hardscapes Charleston SC, paver patio Mount Pleasant, landscape installation Charleston, excavation contractor Mount Pleasant, pool excavation, land clearing, grading, Lowcountry"
+        keywords="excavation contractor Mount Pleasant SC, grading contractor Charleston SC, site prep, pool excavation, land clearing Charleston, landscaping Mount Pleasant, hardscapes Charleston, Lowcountry"
         jsonLd={[localBusinessSchema, websiteSchema, workFilmSchema]}
       />
 
@@ -132,22 +153,22 @@ const LandingPage = () => {
                   sets "DIRT WORK DONE RIGHT." Everything else is sentence case. */}
               <h1 className="font-heading text-display uppercase text-foreground md:text-[3.75rem] lg:text-display">
                 <span className="hero-line">
-                  <span style={{ animationDelay: "40ms" }}>Landscaping,</span>
+                  <span style={{ animationDelay: "40ms" }}>Excavation,</span>
                 </span>{" "}
                 <span className="hero-line">
-                  <span style={{ animationDelay: "100ms" }}>Hardscapes &amp;</span>
+                  <span style={{ animationDelay: "100ms" }}>Landscaping &amp;</span>
                 </span>{" "}
                 <span className="hero-line">
-                  <span style={{ animationDelay: "160ms" }}>Excavation</span>
+                  <span style={{ animationDelay: "160ms" }}>Hardscapes</span>
                 </span>
               </h1>
               <p
                 className="text-subtitle text-foreground/70 mt-6 max-w-lg leading-relaxed hero-rise"
                 style={{ animationDelay: "220ms" }}
               >
-                New beds and lawns, patios and walls, pool and pond prep, and the
-                dirt work under all of it, done right. Family run, out of Mount
-                Pleasant.
+                Grading, site prep, pool digs and land clearing with our own Cat
+                excavator, then the beds, lawns and patios that go on top. Family
+                run, out of Mount Pleasant.
               </p>
 
               {/* Proof sits between the promise and the ask, so the first phone
@@ -196,41 +217,8 @@ const LandingPage = () => {
           <ReviewsGrid reviews={reviews} rating={aggregateRating} total={totalReviewCount} />
         </Section>
 
-        {/* ── The film, edge to edge ─────────────────────────────────────
-            The most striking thing Josiah has, so it gets the page's one
-            full-bleed frame, right after the reviews: proof from customers,
-            then proof of the work. Not the hero: it shows excavation only,
-            and the headline leads with landscaping (see CLAUDE.md). A silent
-            4.8-second clip plays once as it comes into view and rests on its
-            last frame; the film itself plays with sound on a press. */}
-        <section aria-labelledby="film-heading" className="on-forest bg-background pb-10 pt-14 text-foreground md:pb-14 md:pt-20">
-          <div className="container mx-auto max-w-content px-4 sm:px-6 lg:px-8">
-            <div className="mb-8 flex flex-col gap-3 md:mb-10 md:flex-row md:items-end md:justify-between md:gap-10">
-              <h2 id="film-heading" className="font-heading text-title text-foreground">
-                See the work
-              </h2>
-              <p className="max-w-md leading-relaxed text-muted-foreground md:text-right">
-                Josiah runs Firm Foundation&rsquo;s new Cat excavator himself. Half a minute of a job, start to finish.
-              </p>
-            </div>
-          </div>
-          <FilmPlayer
-            still={{
-              src: bandStill,
-              srcSet: bandStillSet,
-              alt: "Firm Foundation's Cat excavator lifting a full bucket of sandy fill among the pines",
-            }}
-            teaser={{ src: "/video/teaser-band.mp4", srcSmall: "/video/teaser-band-960.mp4" }}
-            sizes="100vw"
-            frameClassName="aspect-video w-full lg:aspect-[21/9] 2xl:aspect-[2.6/1]"
-          />
-          <div className="container mx-auto max-w-content px-4 sm:px-6 lg:px-8">
-            <FilmScenes className="mt-4" />
-          </div>
-        </section>
-
         {/* ── 3. Services ──────────────────────────────────────────────── */}
-        <Section>
+        <Section className="pt-0 md:pt-0">
           <SectionHeader
             title="From the dirt work to the finished yard"
             subtitle="Most jobs are more than one of these, and the same crew does all of it, so nothing gets handed off halfway."
@@ -238,6 +226,40 @@ const LandingPage = () => {
           <ServicesIndex />
         </Section>
 
+
+        {/* ── Who we work with ────────────────────────────────────────────
+            The bigger excavation work comes from three kinds of caller, so
+            each gets one line and its own way in (the pattern the strongest
+            site-work firms share: route visitors by who they are). Ruled
+            columns, not cards. */}
+        <Section className="pt-0 md:pt-0">
+          <SectionHeader
+            title="Who we work with"
+            subtitle="One machine, one owner in the seat, and the same crew from the dig to the final grade."
+          />
+          <ul className="grid grid-cols-1 border-t border-border md:grid-cols-3 md:border-t-0">
+            {audiences.map((a, i) => (
+              <li
+                key={a.title}
+                className={cn(
+                  "border-b border-border py-6 md:border-b-0 md:border-t md:py-7",
+                  i > 0 && "md:border-l md:pl-8",
+                  i < audiences.length - 1 && "md:pr-8",
+                )}
+              >
+                <h3 className="font-heading text-xl text-foreground md:text-2xl">{a.title}</h3>
+                <p className="mt-2 leading-relaxed text-muted-foreground">{a.body}</p>
+                <Link
+                  to={a.href}
+                  className="mt-4 inline-flex items-center gap-1.5 font-semibold text-foreground underline decoration-foreground/25 underline-offset-[5px] hover:decoration-foreground"
+                >
+                  {a.cta}
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Section>
 
         {/* ── 4. How it works ──────────────────────────────────────────── */}
         <Section variant="forest">

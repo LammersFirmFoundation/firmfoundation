@@ -12,7 +12,7 @@ import { businessRef, breadcrumbSchema } from "@/lib/schema";
 const faqs = [
   {
     question: "What does Firm Foundation do?",
-    answer: `Landscaping, hardscapes and the dirt work under them: new beds, planting and sod, patios, walkways and retaining walls, grading and site prep, pool and pond prep, and land clearing, across Mount Pleasant and greater Charleston. Tree and stump removal, drainage, forestry mulching and one-off builds too. Most jobs are more than one of these.`,
+    answer: `Excavation first: grading and site prep, pool and pond digs and land clearing, with our own Cat excavator. Then the landscaping and hardscapes that go on top: new beds, planting and sod, patios, walkways and retaining walls. All across Mount Pleasant and greater Charleston. Tree and stump removal, drainage, forestry mulching and one-off builds too. Most jobs are more than one of these.`,
   },
   {
     question: "Can you do the whole job, from the dirt work to the planting?",
@@ -55,9 +55,9 @@ const ServicesPage = () => {
       <main id="main" className="flex-1 pt-24">
         <SEO
           title="Our Services, Mount Pleasant & Charleston SC | Firm Foundation"
-          description="Landscaping, hardscapes, excavation and grading, pool and pond prep, and land clearing for homes across Mount Pleasant and greater Charleston, SC."
+          description="Excavation and grading, landscaping, hardscapes, pool and pond prep, and land clearing for homes and builders across Mount Pleasant and greater Charleston, SC."
           canonical="/services"
-          keywords="landscaping Mount Pleasant SC, hardscapes Charleston SC, paver patio, retaining wall, sod installation, excavation Mount Pleasant SC, grading, pool excavation, land clearing, stump removal, drainage, forestry mulching"
+          keywords="excavation Mount Pleasant SC, grading contractor Charleston SC, site prep, pool excavation, land clearing, landscaping Mount Pleasant SC, hardscapes Charleston SC, paver patio, retaining wall, sod installation, stump removal, drainage, forestry mulching"
           jsonLd={[
             {
               "@context": "https://schema.org",
@@ -107,8 +107,8 @@ const ServicesPage = () => {
               className="mt-6 max-w-2xl text-subtitle leading-relaxed text-muted-foreground text-pretty hero-rise md:mt-7"
               style={{ animationDelay: "160ms" }}
             >
-              Landscaping, hardscapes and the dirt work under them. Most jobs
-              are more than one of these, done by the same crew.
+              The dirt work first, then the landscaping and hardscapes on top.
+              Most jobs are more than one of these, done by the same crew.
             </p>
           </div>
         </section>

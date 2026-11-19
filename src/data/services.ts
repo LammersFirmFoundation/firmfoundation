@@ -42,8 +42,8 @@ export type ServiceItem = { label: string; detail: string };
 export type PlateId = "clearing" | "trees" | "grading" | "pools" | "drainage" | "beds" | "pavers" | "mulching";
 
 /**
- * `core` is the five services on Josiah's own flyer and business card
- * (2026-10-17): landscaping, hardscapes, excavation, pool and pond prep, land
+ * `core` is the five services on Josiah's own flyer and business card, in its
+ * order: excavation, landscaping, hardscapes, pool and pond prep, land
  * clearing. `more` is the rest of the work he takes on. Those pages are just as
  * real and indexed; they sit in the grid's sixth tile and the footer rather
  * than leading, and are never labelled "smaller" or "on request".
@@ -147,12 +147,82 @@ export type Service = {
  * adding or renaming a service can't leave one corner of the site
  * contradicting another.
  *
- * Order is the order it appears everywhere. Landscaping and hardscapes lead,
- * then the dirt work under them, matching the homepage H1 "Landscaping,
- * Hardscapes & Excavation" (2026-10-17). This replaced the 2026-09-29 order,
- * which led with land clearing.
+ * Order is the order it appears everywhere. Excavation leads (Will,
+ * 2026-11-19: "that is our main service ... what we want deals for", after
+ * Josiah bought his own Cat excavator), then landscaping and hardscapes: the
+ * order of Josiah's own flyer and card, and of the homepage H1 "Excavation,
+ * Landscaping & Hardscapes". This replaced the 2026-10-17 order, which led
+ * with landscaping.
  */
 export const services: Service[] = [
+  {
+    slug: "excavation",
+    tier: "core",
+    title: "Excavation & Grading",
+    navBlurb: "The dirt work under every patio, pool, bed and drive",
+    plate: "grading",
+    // Josiah's own machine. It was a stock photo of a Texas subdivision until
+    // 2026-10-17, so the hero's "Excavation" tile, which shows this machine,
+    // landed on a different one.
+    image: filmMachine,
+    imageSrcSet: filmMachineSet,
+    alt: "Josiah in the cab of Firm Foundation's new Cat excavator, its arm raised, working among tall pines",
+    imageCaption: "Josiah in Firm Foundation's new Cat excavator.",
+    film: "hero",
+    pageTitle: "Excavation & Grading, Mount Pleasant SC | Firm Foundation",
+    pageDescription:
+      "Grading, site prep, patio and walkway bases, pads, gravel drives, fill and trenching in Mount Pleasant and Charleston, SC. Utilities marked through SC811 first.",
+    pageKeywords:
+      "excavation Mount Pleasant SC, grading contractor Charleston SC, site prep, yard grading, patio base excavation, pool site prep, building pad, shed pad prep, gravel driveway, fill dirt Mount Pleasant, trenching, SC811",
+    summary:
+      "The dirt work under everything else: grading, site prep, bases for patios and walkways, pads and driveways, set so the ground sits level and water runs where it should.",
+    description1:
+      "Everything built outside sits on dirt that someone graded, or didn't. A patio on a soft base shifts. A pad that wasn't compacted settles. A driveway without a crown washes out. A yard that falls toward the house puts water against the foundation. Our excavation work is getting that ground right before anything goes on top of it.",
+    description2:
+      "This is the work Firm Foundation was built on, and it sits under nearly everything else we do: the base under a patio, the grade under a new bed, the dig for a pool. Josiah grew up running a tractor alongside his Uncle Donnie, and that same dirt work is what we bring to every job today. We locate utilities through SC811 before any digging starts.",
+    items: [
+      { label: "Yard Grading & Leveling", detail: "Low spots filled and slopes corrected so the yard drains and mows level" },
+      { label: "Site Prep", detail: "Ground cleared, cut and filled to the grade the next trade needs" },
+      { label: "Patio & Walkway Bases", detail: "Dug out and compacted so the stone or pavers on top stay where they're set" },
+      { label: "Bed & Planting Prep", detail: "Ground cut, shaped and graded before the beds and sod go in" },
+      { label: "Driveway Prep & Gravel Drives", detail: "Cut, crowned and based so the stone stays where it's put" },
+      { label: "Shed & Equipment Pads", detail: "Level, compacted pads that shed water instead of sitting in it" },
+      { label: "Trenching", detail: "Trenches for drain lines and conduit, backfilled and packed" },
+      { label: "Fill Dirt & Topsoil", detail: "Brought in, spread and graded" },
+      { label: "Haul-Off", detail: "Spoils loaded out so the site is clean when we leave" },
+    ],
+    priceFactors: [
+      { label: "How much dirt moves", detail: "The volume cut from the high spots and filled into the low ones." },
+      { label: "What comes in", detail: "Fill, stone or topsoil trucked to the site." },
+      { label: "What goes out", detail: "Spoils that have to be loaded and hauled away." },
+      { label: "Access", detail: "How easily a machine and a truck can reach the work." },
+      { label: "The finish", detail: "A rough grade, or a finish grade ready for sod or stone." },
+    ],
+    faqs: [
+      {
+        question: "Do you call 811 before digging?",
+        answer:
+          "Yes. South Carolina puts that on whoever does the digging: notice goes in 3 to 12 working days before work starts, and it is free (S.C. Code §58-36-60). 811 only marks public lines up to the meter, so tell us about anything private: irrigation, a gas line to a pool heater, power run out to a shed.",
+      },
+      {
+        question: "How much should the yard slope away from the house?",
+        answer:
+          "The residential building code's minimum is 6 inches of fall within the first 10 feet out from the foundation (IRC R401.3). Where the lot is too tight or too flat to get that, a swale or a drain has to carry the water away instead.",
+      },
+      {
+        question: "Do I need a permit to grade my lot?",
+        answer:
+          "In Mount Pleasant, clearing, excavating or filling a lot needs a zoning permit first (Zoning Code §156.1171), and unincorporated Charleston County requires a stormwater permit once land disturbance passes 5,000 square feet. Near the marsh, state stormwater rules can apply to jobs well under an acre.",
+      },
+      {
+        // Kept to one answer on purpose: Will, 2026-11-19, "that is another
+        // option, but I don't want that to get in the way of things."
+        question: "Can I rent your dump trailer?",
+        answer:
+          "Sometimes, when it isn't out on a job. Call or text Josiah with your dates and what you're hauling.",
+      },
+    ],
+  },
   {
     slug: "landscaping",
     tier: "core",
@@ -344,74 +414,6 @@ export const services: Service[] = [
         question: "Can a patio go under a big oak?",
         answer:
           "Carefully, and not always. Digging and compacting a base is exactly what hurts trees: Clemson Extension names soil compaction, grade changes and cut roots as the three main causes of tree death during construction, and advises keeping equipment out beyond the drip line. Near a tree worth keeping, the patio's footprint and base get planned around the roots, and an arborist's opinion is worth having first.",
-      },
-    ],
-  },
-  {
-    slug: "excavation",
-    tier: "core",
-    title: "Excavation & Grading",
-    navBlurb: "The dirt work under every patio, pool, bed and drive",
-    plate: "grading",
-    // Josiah's own machine. It was a stock photo of a Texas subdivision until
-    // 2026-10-17, so the hero's "Excavation" tile, which shows this machine,
-    // landed on a different one.
-    image: filmMachine,
-    imageSrcSet: filmMachineSet,
-    alt: "Josiah in the cab of Firm Foundation's new Cat excavator, its arm raised, working among tall pines",
-    imageCaption: "Josiah in Firm Foundation's new Cat excavator.",
-    film: "hero",
-    pageTitle: "Excavation & Grading, Mount Pleasant SC | Firm Foundation",
-    pageDescription:
-      "Grading, site prep, patio and walkway bases, pads, gravel drives, fill and trenching in Mount Pleasant and Charleston, SC. Utilities marked through SC811 first.",
-    pageKeywords:
-      "excavation Mount Pleasant SC, grading contractor Charleston SC, site prep, yard grading, patio base excavation, pool site prep, building pad, shed pad prep, gravel driveway, fill dirt Mount Pleasant, trenching, SC811",
-    summary:
-      "The dirt work under everything else: grading, site prep, bases for patios and walkways, pads and driveways, set so the ground sits level and water runs where it should.",
-    description1:
-      "Everything built outside sits on dirt that someone graded, or didn't. A patio on a soft base shifts. A pad that wasn't compacted settles. A driveway without a crown washes out. A yard that falls toward the house puts water against the foundation. Our excavation work is getting that ground right before anything goes on top of it.",
-    description2:
-      "This is the work Firm Foundation was built on, and it sits under nearly everything else we do: the base under a patio, the grade under a new bed, the dig for a pool. Josiah grew up running a tractor alongside his Uncle Donnie, and that same dirt work is what we bring to every job today. We locate utilities through SC811 before any digging starts.",
-    items: [
-      { label: "Yard Grading & Leveling", detail: "Low spots filled and slopes corrected so the yard drains and mows level" },
-      { label: "Site Prep", detail: "Ground cleared, cut and filled to the grade the next trade needs" },
-      { label: "Patio & Walkway Bases", detail: "Dug out and compacted so the stone or pavers on top stay where they're set" },
-      { label: "Bed & Planting Prep", detail: "Ground cut, shaped and graded before the beds and sod go in" },
-      { label: "Driveway Prep & Gravel Drives", detail: "Cut, crowned and based so the stone stays where it's put" },
-      { label: "Shed & Equipment Pads", detail: "Level, compacted pads that shed water instead of sitting in it" },
-      { label: "Trenching", detail: "Trenches for drain lines and conduit, backfilled and packed" },
-      { label: "Fill Dirt & Topsoil", detail: "Brought in, spread and graded" },
-      { label: "Haul-Off", detail: "Spoils loaded out so the site is clean when we leave" },
-    ],
-    priceFactors: [
-      { label: "How much dirt moves", detail: "The volume cut from the high spots and filled into the low ones." },
-      { label: "What comes in", detail: "Fill, stone or topsoil trucked to the site." },
-      { label: "What goes out", detail: "Spoils that have to be loaded and hauled away." },
-      { label: "Access", detail: "How easily a machine and a truck can reach the work." },
-      { label: "The finish", detail: "A rough grade, or a finish grade ready for sod or stone." },
-    ],
-    faqs: [
-      {
-        question: "Do you call 811 before digging?",
-        answer:
-          "Yes. South Carolina puts that on whoever does the digging: notice goes in 3 to 12 working days before work starts, and it is free (S.C. Code §58-36-60). 811 only marks public lines up to the meter, so tell us about anything private: irrigation, a gas line to a pool heater, power run out to a shed.",
-      },
-      {
-        question: "How much should the yard slope away from the house?",
-        answer:
-          "The residential building code's minimum is 6 inches of fall within the first 10 feet out from the foundation (IRC R401.3). Where the lot is too tight or too flat to get that, a swale or a drain has to carry the water away instead.",
-      },
-      {
-        question: "Do I need a permit to grade my lot?",
-        answer:
-          "In Mount Pleasant, clearing, excavating or filling a lot needs a zoning permit first (Zoning Code §156.1171), and unincorporated Charleston County requires a stormwater permit once land disturbance passes 5,000 square feet. Near the marsh, state stormwater rules can apply to jobs well under an acre.",
-      },
-      {
-        // Kept to one answer on purpose: Will, 2026-11-19, "that is another
-        // option, but I don't want that to get in the way of things."
-        question: "Can I rent your dump trailer?",
-        answer:
-          "Sometimes, when it isn't out on a job. Call or text Josiah with your dates and what you're hauling.",
       },
     ],
   },

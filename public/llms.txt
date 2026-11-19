@@ -1,9 +1,10 @@
 # Firm Foundation Property Services
 
-> Family-run landscaping, hardscapes and excavation in Mount Pleasant, South
-> Carolina, serving the greater Charleston area: landscape installs, sod and
-> planting, paver patios, walkways and retaining walls, grading and site prep,
-> pool and pond prep, and land clearing. Also tree and stump removal, drainage,
+> Family-run excavation, landscaping and hardscapes in Mount Pleasant, South
+> Carolina, serving the greater Charleston area: excavation, grading and site
+> prep with the company's own Cat excavator, pool and pond prep, land clearing,
+> landscape installs, sod and planting, paver patios, walkways and retaining
+> walls. Also tree and stump removal, drainage,
 > forestry mulching and custom projects.
 
 Owner: Josiah Lammers, who has operated excavators and forestry mulchers on a land-clearing crew
@@ -16,7 +17,7 @@ Quotes: free and on-site
 
 ## Pages
 
-- [Home](https://firmfoundationsc.com/): landscaping, hardscapes and excavation overview, how a job runs, reviews, service area
+- [Home](https://firmfoundationsc.com/): excavation, landscaping and hardscapes overview, how a job runs, reviews, service area
 - [Services](https://firmfoundationsc.com/services): all services, plus FAQs
 - [Landscaping](https://firmfoundationsc.com/services/landscaping): new landscape installs, planting, sod, mulch and bed work
 - [Hardscapes](https://firmfoundationsc.com/services/hardscapes): paver patios, stone walkways and retaining walls, built on an excavated, compacted base
