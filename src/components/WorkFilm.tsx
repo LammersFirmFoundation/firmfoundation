@@ -12,7 +12,7 @@ const FILM_POSTER = "/video/firm-foundation-poster.jpg";
  * part of the film a search engine can read.
  */
 export const FILM_SCENES = [
-  "Josiah climbs into the cab of Firm Foundation's new Cat excavator.",
+  "Josiah climbs into the cab of Firm Foundation's new Cat 305 CR mini excavator.",
   "The excavator clears brush and small trees in a stand of pines and moves a fallen log.",
   "It digs into a pile of sandy fill and lifts a full bucket.",
   "It carries dirt through the trees and dumps it.",
@@ -27,7 +27,7 @@ export const workFilmSchema = {
   "@context": "https://schema.org",
   "@type": "VideoObject",
   name: "Firm Foundation at work",
-  description: `Josiah Lammers of ${BUSINESS.name} running the company's new Cat excavator: clearing brush, moving a log, digging and hauling dirt. ${FILM_SCENES.length} scenes, 34 seconds.`,
+  description: `Josiah Lammers of ${BUSINESS.name} running the company's new Cat 305 CR mini excavator: clearing brush, moving a log, digging and hauling dirt. ${FILM_SCENES.length} scenes, 34 seconds.`,
   thumbnailUrl: `${BUSINESS.url}${FILM_POSTER}`,
   contentUrl: `${BUSINESS.url}${FILM}`,
   uploadDate: "2026-11-19",
@@ -101,7 +101,7 @@ export const FilmPlayer = ({ still, teaser, frameClassName, sizes, eager }: Film
           autoPlay
           playsInline
           poster={FILM_POSTER}
-          aria-label="Film: Josiah running Firm Foundation's new Cat excavator, 34 seconds, with music"
+          aria-label="Film: Josiah running Firm Foundation's new Cat 305 CR mini excavator, 34 seconds, with music"
         >
           <source src={FILM} type="video/mp4" />
         </video>

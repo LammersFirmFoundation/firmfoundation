@@ -79,7 +79,7 @@ const HeroFilm = () => {
         controls
         autoPlay
         playsInline
-        aria-label="Film: Josiah running Firm Foundation's new Cat excavator, 34 seconds, with music"
+        aria-label="Film: Josiah running Firm Foundation's new Cat 305 CR mini excavator, 34 seconds, with music"
       >
         <source src={FILM} type="video/mp4" />
       </video>
@@ -95,7 +95,7 @@ const HeroFilm = () => {
         src={filmStill}
         srcSet={filmStillSet}
         sizes="(min-width: 1024px) 42vw, 100vw"
-        alt="Josiah in the cab of Firm Foundation's new Cat excavator, working among tall pines"
+        alt="Josiah in the cab of Firm Foundation's new Cat 305 CR mini excavator, working among tall pines"
         width={1920}
         height={1080}
         loading="eager"

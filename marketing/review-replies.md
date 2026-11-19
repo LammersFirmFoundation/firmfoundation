@@ -56,7 +56,9 @@ Each one answers what that customer actually wrote.
 
 ## Replies to the reviews from November 2026
 
-Short reviews get short replies. Will's own review gets no reply (family).
+Not needed: Josiah had already replied to all 17 reviews by 2026-11-19 (checked in the review feed). Kept as examples of the tone.
+
+Short reviews get short replies.
 
 **Benjamin T., 5 stars, November 2026** (hard workers, detail focused)
 > Thank you, Benjamin. Paying attention to the details is how we try to do every job, and I appreciate you noticing. Josiah

@@ -149,7 +149,7 @@ export type Service = {
  *
  * Order is the order it appears everywhere. Excavation leads (Will,
  * 2026-11-19: "that is our main service ... what we want deals for", after
- * Josiah bought his own Cat excavator), then landscaping and hardscapes: the
+ * Josiah bought his own Cat 305 CR mini excavator), then landscaping and hardscapes: the
  * order of Josiah's own flyer and card, and of the homepage H1 "Excavation,
  * Landscaping & Hardscapes". This replaced the 2026-10-17 order, which led
  * with landscaping.
@@ -166,8 +166,8 @@ export const services: Service[] = [
     // landed on a different one.
     image: filmMachine,
     imageSrcSet: filmMachineSet,
-    alt: "Josiah in the cab of Firm Foundation's new Cat excavator, its arm raised, working among tall pines",
-    imageCaption: "Josiah in Firm Foundation's new Cat excavator.",
+    alt: "Josiah in the cab of Firm Foundation's new Cat 305 CR mini excavator, its arm raised, working among tall pines",
+    imageCaption: "Josiah in Firm Foundation's new Cat 305 CR mini excavator.",
     film: "hero",
     pageTitle: "Excavation & Grading, Mount Pleasant SC | Firm Foundation",
     pageDescription:
@@ -199,6 +199,12 @@ export const services: Service[] = [
       { label: "The finish", detail: "A rough grade, or a finish grade ready for sod or stone." },
     ],
     faqs: [
+      {
+        // Josiah, 2026-11-19: "a Cat 305 CR mini excavator, and it digs down to about 12 ft."
+        question: "What machine do you use, and how deep can it dig?",
+        answer:
+          "Our own Cat 305 CR mini excavator, run by Josiah. It digs down to about 12 feet. CR stands for compact radius: the back of the machine stays within its tracks as it turns, so it can work close to a house, a fence or a tree line without swinging into them.",
+      },
       {
         question: "Do you call 811 before digging?",
         answer:
@@ -506,8 +512,8 @@ export const services: Service[] = [
       "land clearing Mount Pleasant SC, lot clearing Charleston SC, backyard clearing, overgrown yard clearing, underbrush clearing, selective clearing, brush removal, clearing for a pool or shed, stump removal, debris haul-off",
     image: filmClearing,
     imageSrcSet: filmClearingSet,
-    alt: "Firm Foundation's Cat excavator reaching into the brush under a stand of pines",
-    imageCaption: "Josiah clearing brush with Firm Foundation's new Cat excavator.",
+    alt: "Firm Foundation's Cat 305 CR mini excavator reaching into the brush under a stand of pines",
+    imageCaption: "Josiah clearing brush with Firm Foundation's new Cat 305 CR mini excavator.",
     film: "section",
     summary:
       "Overgrown backyards, lots and fence lines cleared down to usable ground, with the trees worth keeping left standing and the brush hauled off or mulched in place.",

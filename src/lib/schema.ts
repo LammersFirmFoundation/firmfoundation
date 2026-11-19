@@ -31,7 +31,7 @@ export const localBusinessSchema = {
   "@id": ORG_ID,
   name: BUSINESS.name,
   description:
-    "Family-run excavation, landscaping and hardscapes in Mount Pleasant, SC: excavation, grading and site prep with the company's own Cat excavator, pool and pond prep and land clearing, then landscape installs, sod and planting, paver patios, walkways and retaining walls, across the greater Charleston area, plus tree and stump removal, drainage, forestry mulching and custom projects.",
+    "Family-run excavation, landscaping and hardscapes in Mount Pleasant, SC: excavation, grading and site prep with the company's own Cat 305 CR mini excavator, pool and pond prep and land clearing, then landscape installs, sod and planting, paver patios, walkways and retaining walls, across the greater Charleston area, plus tree and stump removal, drainage, forestry mulching and custom projects.",
   image: `${BUSINESS.url}/og-firm-foundation.jpg`,
   logo: `${BUSINESS.url}/logo-firm-foundation.png`,
   telephone: BUSINESS.phone,

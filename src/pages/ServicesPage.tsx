@@ -12,7 +12,7 @@ import { businessRef, breadcrumbSchema } from "@/lib/schema";
 const faqs = [
   {
     question: "What does Firm Foundation do?",
-    answer: `Excavation first: grading and site prep, pool and pond digs and land clearing, with our own Cat excavator. Then the landscaping and hardscapes that go on top: new beds, planting and sod, patios, walkways and retaining walls. All across Mount Pleasant and greater Charleston. Tree and stump removal, drainage, forestry mulching and one-off builds too. Most jobs are more than one of these.`,
+    answer: `Excavation first: grading and site prep, pool and pond digs and land clearing, with our own Cat 305 CR mini excavator. Then the landscaping and hardscapes that go on top: new beds, planting and sod, patios, walkways and retaining walls. All across Mount Pleasant and greater Charleston. Tree and stump removal, drainage, forestry mulching and one-off builds too. Most jobs are more than one of these.`,
   },
   {
     question: "Can you do the whole job, from the dirt work to the planting?",

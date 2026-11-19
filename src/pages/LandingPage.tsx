@@ -89,7 +89,7 @@ const LandingPage = () => {
 
       <SEO
         title="Excavation, Landscaping &amp; Hardscapes, Mount Pleasant | Firm Foundation"
-        description="Excavation and grading with our own Cat excavator in Mount Pleasant and Charleston, SC: site prep, pool digs, land clearing, plus landscaping and hardscapes."
+        description="Excavation and grading with our own Cat 305 CR mini excavator in Mount Pleasant and Charleston, SC: site prep, pool digs, land clearing, plus landscaping and hardscapes."
         canonical="/"
         keywords="excavation contractor Mount Pleasant SC, grading contractor Charleston SC, site prep, pool excavation, land clearing Charleston, landscaping Mount Pleasant, hardscapes Charleston, Lowcountry"
         jsonLd={[localBusinessSchema, websiteSchema, workFilmSchema]}
@@ -167,8 +167,8 @@ const LandingPage = () => {
                 style={{ animationDelay: "220ms" }}
               >
                 Grading, site prep, pool digs and land clearing with our own Cat
-                excavator, then the beds, lawns and patios that go on top. Family
-                run, out of Mount Pleasant.
+                305 CR mini excavator, then the beds, lawns and patios that go on
+                top. Family run, out of Mount Pleasant.
               </p>
 
               {/* Proof sits between the promise and the ask, so the first phone

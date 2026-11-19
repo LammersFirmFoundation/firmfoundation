@@ -454,10 +454,10 @@ const ServiceDetailPage = () => {
         {/* ── Josiah's film, on the pages whose work it shows ──────────── */}
         {service.film === "section" && service.image && service.imageSrcSet && (
           <Section variant="cream" className="pt-0 md:pt-0">
-            <SectionHeader title="See the work" subtitle="Half a minute of Josiah on Firm Foundation's new Cat excavator." />
+            <SectionHeader title="See the work" subtitle="Half a minute of Josiah on Firm Foundation's new Cat 305 CR mini excavator." />
             <div className="max-w-5xl">
               <FilmPlayer
-                still={{ src: FILM_STILL, srcSet: FILM_STILL_SET, alt: "Josiah in the cab of Firm Foundation's new Cat excavator, among tall pines" }}
+                still={{ src: FILM_STILL, srcSet: FILM_STILL_SET, alt: "Josiah in the cab of Firm Foundation's new Cat 305 CR mini excavator, among tall pines" }}
                 sizes="(min-width: 1024px) 64rem, 100vw"
                 frameClassName="aspect-video rounded-[3px]"
               />
