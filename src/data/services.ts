@@ -73,8 +73,12 @@ export type Service = {
    * Never set it on stock: a caption is the claim "this is his work".
    */
   imageCaption?: string;
-  /** Shows Josiah's film (WorkFilm) on this service's page. */
-  film?: boolean;
+  /**
+   * Josiah's film on this service's page: `hero` puts the player where the
+   * page photo goes (the photo becomes its still), `section` adds a "See the
+   * work" section lower down.
+   */
+  film?: "hero" | "section";
   /** A different photo for the service grid, when `image` would repeat something already on screen. */
   cardImage?: string;
   cardImageSrcSet?: string;
@@ -356,7 +360,7 @@ export const services: Service[] = [
     imageSrcSet: filmMachineSet,
     alt: "Josiah in the cab of Firm Foundation's new Cat excavator, its arm raised, working among tall pines",
     imageCaption: "Josiah in Firm Foundation's new Cat excavator.",
-    film: true,
+    film: "hero",
     pageTitle: "Excavation & Grading, Mount Pleasant SC | Firm Foundation",
     pageDescription:
       "Grading, site prep, patio and walkway bases, pads, gravel drives, fill and trenching in Mount Pleasant and Charleston, SC. Utilities marked through SC811 first.",
@@ -502,7 +506,7 @@ export const services: Service[] = [
     imageSrcSet: filmClearingSet,
     alt: "Firm Foundation's Cat excavator reaching into the brush under a stand of pines",
     imageCaption: "Josiah clearing brush with Firm Foundation's new Cat excavator.",
-    film: true,
+    film: "section",
     summary:
       "Overgrown backyards, lots and fence lines cleared down to usable ground, with the trees worth keeping left standing and the brush hauled off or mulched in place.",
     description1:

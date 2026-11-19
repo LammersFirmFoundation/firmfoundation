@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -22,6 +23,8 @@ type Tile = {
   box: string;
   /** When its turn comes in the opening sequence. */
   delay: number;
+  /** A silent clip under five seconds that ends on this photo's frame. */
+  clip?: string;
 };
 
 /**
@@ -80,8 +83,50 @@ const tiles: Tile[] = [
     sizes: "(min-width: 1024px) 20vw, 40vw",
     box: "right-0 top-[55%] w-[39%] h-[33%] lg:top-[61%] lg:w-[47%] lg:h-[35%]",
     delay: 480,
+    clip: "/video/teaser-tile.mp4",
   },
 ];
+
+/**
+ * The Excavation tile moves once: 2.8 seconds of the film at half speed, the
+ * arm swinging, ending on the very frame of the photo underneath, then it
+ * stays still. Under five seconds and never looped, so WCAG 2.2.2 needs no
+ * pause control. It is added after the page has loaded and gone idle, so it
+ * never competes with the Landscaping photo for LCP, and never under reduced
+ * motion or Save-Data. The server render is the photo alone.
+ */
+const TileClip = ({ src, position }: { src: string; position: string }) => {
+  const [on, setOn] = useState(false);
+  const [shown, setShown] = useState(false);
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if ((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData) return;
+    let timer = 0;
+    // After the photos' own reveal (about 1.2 s) has finished.
+    const start = () => { timer = window.setTimeout(() => setOn(true), 1400); };
+    if (document.readyState === "complete") start();
+    else window.addEventListener("load", start, { once: true });
+    return () => { window.clearTimeout(timer); window.removeEventListener("load", start); };
+  }, []);
+  if (!on) return null;
+  return (
+    <video
+      src={src}
+      muted
+      autoPlay
+      playsInline
+      preload="auto"
+      aria-hidden="true"
+      tabIndex={-1}
+      onPlaying={() => setShown(true)}
+      style={{ objectPosition: position }}
+      className={cn(
+        "pointer-events-none absolute inset-0 h-full w-full object-cover transition-opacity duration-300",
+        shown ? "opacity-100" : "opacity-0",
+      )}
+    />
+  );
+};
 
 const HeroMosaic = ({ className }: { className?: string }) => (
   <div className={className}>
@@ -117,6 +162,7 @@ const HeroMosaic = ({ className }: { className?: string }) => (
               style={{ objectPosition: t.position }}
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-editorial group-hover:scale-[1.035]"
             />
+            {t.clip && <TileClip src={t.clip} position={t.position} />}
           </span>
           {/* A caption under the picture, never a chip on it, with the arrow
               right beside the word: this goes to that page. */}

@@ -19,7 +19,9 @@ import OurStory from "@/components/OurStory";
 import { useReviews, type ApiResponse } from "@/lib/useReviews";
 import { useInstagram, type InstagramFeed } from "@/lib/useInstagram";
 import InstagramStrip from "@/components/InstagramStrip";
-import WorkFilm, { workFilmSchema } from "@/components/WorkFilm";
+import { FilmPlayer, FilmScenes, workFilmSchema } from "@/components/WorkFilm";
+import bandStill from "@/assets/work/bucket-of-fill.jpg";
+import bandStillSet from "@/assets/work/bucket-of-fill.jpg?w=960;1600;2400&format=webp&quality=66&as=srcset";
 import { BUSINESS, howAJobRuns } from "@/data/business";
 import { localBusinessSchema, websiteSchema } from "@/lib/schema";
 
@@ -194,8 +196,41 @@ const LandingPage = () => {
           <ReviewsGrid reviews={reviews} rating={aggregateRating} total={totalReviewCount} />
         </Section>
 
+        {/* ── The film, edge to edge ─────────────────────────────────────
+            The most striking thing Josiah has, so it gets the page's one
+            full-bleed frame, right after the reviews: proof from customers,
+            then proof of the work. Not the hero: it shows excavation only,
+            and the headline leads with landscaping (see CLAUDE.md). A silent
+            4.8-second clip plays once as it comes into view and rests on its
+            last frame; the film itself plays with sound on a press. */}
+        <section aria-labelledby="film-heading" className="on-forest bg-background pb-10 pt-14 text-foreground md:pb-14 md:pt-20">
+          <div className="container mx-auto max-w-content px-4 sm:px-6 lg:px-8">
+            <div className="mb-8 flex flex-col gap-3 md:mb-10 md:flex-row md:items-end md:justify-between md:gap-10">
+              <h2 id="film-heading" className="font-heading text-title text-foreground">
+                See the work
+              </h2>
+              <p className="max-w-md leading-relaxed text-muted-foreground md:text-right">
+                Josiah runs Firm Foundation&rsquo;s new Cat excavator himself. Half a minute of a job, start to finish.
+              </p>
+            </div>
+          </div>
+          <FilmPlayer
+            still={{
+              src: bandStill,
+              srcSet: bandStillSet,
+              alt: "Firm Foundation's Cat excavator lifting a full bucket of sandy fill among the pines",
+            }}
+            teaser={{ src: "/video/teaser-band.mp4", srcSmall: "/video/teaser-band-960.mp4" }}
+            sizes="100vw"
+            frameClassName="aspect-video w-full lg:aspect-[21/9] 2xl:aspect-[2.6/1]"
+          />
+          <div className="container mx-auto max-w-content px-4 sm:px-6 lg:px-8">
+            <FilmScenes className="mt-4" />
+          </div>
+        </section>
+
         {/* ── 3. Services ──────────────────────────────────────────────── */}
-        <Section className="pt-0 md:pt-0">
+        <Section>
           <SectionHeader
             title="From the dirt work to the finished yard"
             subtitle="Most jobs are more than one of these, and the same crew does all of it, so nothing gets handed off halfway."
@@ -203,16 +238,6 @@ const LandingPage = () => {
           <ServicesIndex />
         </Section>
 
-        {/* ── The film: Josiah on the machine. After the services, because it
-            answers the next question, "who actually does the work?", and
-            before the process, which assumes the visitor is already sold. */}
-        <Section className="pt-0 md:pt-0">
-          <SectionHeader
-            title="See the work"
-            subtitle="Josiah runs Firm Foundation's new Cat excavator himself. Press play for half a minute of a job."
-          />
-          <WorkFilm className="max-w-5xl" />
-        </Section>
 
         {/* ── 4. How it works ──────────────────────────────────────────── */}
         <Section variant="forest">

@@ -12,7 +12,9 @@ import ServicePlate, { plateDescriptions } from "@/components/ServicePlate";
 import FaqList, { type FaqEntry } from "@/components/FaqList";
 import SEO from "@/components/SEO";
 import CtaSection from "@/components/CtaSection";
-import WorkFilm, { workFilmSchema } from "@/components/WorkFilm";
+import { FilmPlayer, FilmScenes, workFilmSchema } from "@/components/WorkFilm";
+import FILM_STILL from "@/assets/work/machine-in-the-woods.jpg";
+import FILM_STILL_SET from "@/assets/work/machine-in-the-woods.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
 import NotFound from "@/pages/NotFound";
 import { coreServices, findService, type Service } from "@/data/services";
 import { problemsForService } from "@/data/yard-problems";
@@ -356,6 +358,21 @@ const ServiceDetailPage = () => {
                     One of Josiah&rsquo;s jobs in Mount Pleasant.
                   </figcaption>
                 </figure>
+              ) : service.film === "hero" && service.image && service.imageSrcSet ? (
+                // The film leads where it shows the page's own work. Until
+                // play it is the page photo, so nothing loads but the still.
+                <figure>
+                  <FilmPlayer
+                    still={{ src: service.image, srcSet: service.imageSrcSet, alt: service.alt ?? "" }}
+                    eager
+                    sizes="(min-width: 1024px) 46vw, 100vw"
+                    frameClassName="aspect-[4/3] rounded-[3px] md:aspect-[16/10] lg:aspect-[4/3]"
+                  />
+                  <figcaption className="mt-4 flex flex-col gap-2 border-t border-border pt-3 text-sm text-muted-foreground sm:flex-row sm:items-baseline sm:justify-between">
+                    <span>{service.imageCaption}</span>
+                    <FilmScenes className="sm:text-right" />
+                  </figcaption>
+                </figure>
               ) : service.imageCaption ? (
                 // A photo of Josiah at work says so, the same way the pair
                 // above does; stock photos never carry a caption.
@@ -435,10 +452,17 @@ const ServiceDetailPage = () => {
         </Section>
 
         {/* ── Josiah's film, on the pages whose work it shows ──────────── */}
-        {service.film && (
+        {service.film === "section" && service.image && service.imageSrcSet && (
           <Section variant="cream" className="pt-0 md:pt-0">
-            <SectionHeader title="See the work" subtitle="Half a minute of Josiah on the machine." />
-            <WorkFilm className="max-w-5xl" />
+            <SectionHeader title="See the work" subtitle="Half a minute of Josiah on Firm Foundation's new Cat excavator." />
+            <div className="max-w-5xl">
+              <FilmPlayer
+                still={{ src: FILM_STILL, srcSet: FILM_STILL_SET, alt: "Josiah in the cab of Firm Foundation's new Cat excavator, among tall pines" }}
+                sizes="(min-width: 1024px) 64rem, 100vw"
+                frameClassName="aspect-video rounded-[3px]"
+              />
+              <FilmScenes className="mt-3" />
+            </div>
           </Section>
         )}
 
