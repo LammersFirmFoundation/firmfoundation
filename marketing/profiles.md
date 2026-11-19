@@ -35,6 +35,11 @@ other suffix the Google profile doesn't have.
 
 ## Descriptions, by length
 
+**On the Google profile since 2026-11-19 (excavation first, 719 characters).** Use this on any platform that takes 750 characters, and trim the ones below to match its lead when you next edit them. Primary category on Google is now **Excavating contractor** (Josiah, 2026-11-19), with Landscaper, Paving contractor and Property maintenance as additional.
+
+> Firm Foundation is a family-run excavation, landscaping and hardscape company in Mount Pleasant, SC, owned and run by Josiah Lammers. With our own Cat 305 CR mini excavator we do grading and site prep, pads and driveways, trenching, pool and pond digs, and land clearing. Then we build what goes on top: new beds, shrubs, trees and sod, paver patios, walkways and retaining walls. We also do tree and stump removal, drainage and forestry mulching, for homeowners, builders and pool companies. Josiah walks the job with you and gives you a straight price before anything starts. Serving Mount Pleasant, Charleston, Daniel Island, Isle of Palms, Sullivan's Island, West Ashley, James Island, Johns Island and Folly Beach.
+
+
 Use the longest one each field allows.
 
 **Up to 101 characters** (Facebook bio). 97 characters:
