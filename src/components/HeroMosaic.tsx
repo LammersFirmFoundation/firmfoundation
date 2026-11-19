@@ -5,7 +5,7 @@ import landscaping from "@/assets/services/landscaping.jpg";
 import landscapingSet from "@/assets/services/landscaping.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
 import walkway from "@/assets/services/hardscapes.jpg";
 import walkwaySet from "@/assets/services/hardscapes.jpg?w=640;1024&format=webp&quality=68&as=srcset";
-// From Josiah's own film (2026-11-19): the machine and the man in one frame.
+// From Josiah's own film (2026-11-19): Josiah in Firm Foundation's new Cat.
 import machine from "@/assets/work/machine-in-the-woods.jpg";
 import machineSet from "@/assets/work/machine-in-the-woods.jpg?w=640;1024&format=webp&quality=68&as=srcset";
 
@@ -74,7 +74,7 @@ const tiles: Tile[] = [
     label: "Excavation",
     src: machine,
     srcSet: machineSet,
-    alt: "Josiah in the cab of a yellow Cat excavator, working among tall pines",
+    alt: "Josiah in the cab of Firm Foundation's new Cat excavator, working among tall pines",
     // The cab and Josiah sit right of centre; keep them in every tile shape.
     position: "68% 50%",
     sizes: "(min-width: 1024px) 20vw, 40vw",

@@ -381,6 +381,13 @@ const ContactUs = () => {
                   </dd>
                 </div>
                 <div className="grid grid-cols-1 gap-1 py-5 min-[360px]:grid-cols-[5.5rem_minmax(0,1fr)] min-[360px]:gap-4">
+                  <dt className="text-muted-foreground">Hours</dt>
+                  <dd className="min-w-0">
+                    <p className="text-foreground">{BUSINESS.hours.label}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{BUSINESS.hours.closedLabel}.</p>
+                  </dd>
+                </div>
+                <div className="grid grid-cols-1 gap-1 py-5 min-[360px]:grid-cols-[5.5rem_minmax(0,1fr)] min-[360px]:gap-4">
                   <dt className="text-muted-foreground">Based in</dt>
                   <dd className="min-w-0">
                     <p className="text-foreground">

@@ -19,6 +19,18 @@ export const BUSINESS = {
   /** Built from the same place_id api/reviews.ts pins; used in schema sameAs. */
   googleMapsUrl:
     "https://www.google.com/maps/place/?q=place_id:ChIJ5eaJLR-TCSgRcovM30Gs8yw",
+  /**
+   * Opening hours (Will, 2026-11-19: 6 a.m. to 7 p.m. every day except
+   * Sunday). Every listing must show these exactly, Google first: hours that
+   * differ between Google and the site are a NAP mismatch.
+   */
+  hours: {
+    days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    opens: "06:00",
+    closes: "19:00",
+    label: "Monday to Saturday, 6 a.m. to 7 p.m.",
+    closedLabel: "Closed Sunday",
+  },
   address: {
     locality: "Mount Pleasant",
     region: "SC",

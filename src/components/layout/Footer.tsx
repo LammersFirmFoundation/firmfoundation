@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Instagram } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, Clock } from "lucide-react";
 import { BUSINESS } from "@/data/business";
 import { coreServices, moreServices } from "@/data/services";
 import logoBadge from "@/assets/brand/logo-badge.svg";
@@ -109,6 +109,12 @@ const Footer = () => {
                 <span>
                   {BUSINESS.address.locality}, {BUSINESS.address.region}{" "}
                   {BUSINESS.address.postalCode}
+                </span>
+              </li>
+              <li className="flex items-start gap-3 min-w-0 break-words">
+                <Clock className="h-4 w-4 mt-0.5 shrink-0 text-primary" aria-hidden="true" />
+                <span>
+                  Mon to Sat, 6 a.m. to 7 p.m.
                 </span>
               </li>
               <li className="flex items-start gap-3 min-w-0 break-words">

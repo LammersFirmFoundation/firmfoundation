@@ -43,6 +43,12 @@ export const localBusinessSchema = {
   sameAs: [BUSINESS.instagram, BUSINESS.googleMapsUrl],
   areaServed: areaServedSchema,
   address: postalAddressSchema,
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: BUSINESS.hours.days,
+    opens: BUSINESS.hours.opens,
+    closes: BUSINESS.hours.closes,
+  },
   geo: {
     "@type": "GeoCoordinates",
     latitude: HQ.coords[0],

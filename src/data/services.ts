@@ -3,8 +3,8 @@
 import stumpRootBall from "@/assets/services/stump-root-ball.jpg";
 import stumpRootBallSet from "@/assets/services/stump-root-ball.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
 // Stills from Josiah's own film (2026-11-19), landscape and outside the cab:
-// what CLAUDE.md asked for. Captions say "Josiah" and "Firm Foundation's film",
-// not "his excavator", until Josiah confirms the machine is his own.
+// what CLAUDE.md asked for. The Cat in them is Firm Foundation's own new
+// excavator (Will confirmed, 2026-11-19).
 import filmMachine from "@/assets/work/machine-in-the-woods.jpg";
 import filmMachineSet from "@/assets/work/machine-in-the-woods.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
 import filmClearing from "@/assets/work/clearing-brush.jpg";
@@ -354,8 +354,8 @@ export const services: Service[] = [
     // landed on a different one.
     image: filmMachine,
     imageSrcSet: filmMachineSet,
-    alt: "Josiah in the cab of a yellow Cat excavator, its arm raised, working among tall pines",
-    imageCaption: "Josiah on the job, from Firm Foundation's film.",
+    alt: "Josiah in the cab of Firm Foundation's new Cat excavator, its arm raised, working among tall pines",
+    imageCaption: "Josiah in Firm Foundation's new Cat excavator.",
     film: true,
     pageTitle: "Excavation & Grading, Mount Pleasant SC | Firm Foundation",
     pageDescription:
@@ -401,6 +401,13 @@ export const services: Service[] = [
         question: "Do I need a permit to grade my lot?",
         answer:
           "In Mount Pleasant, clearing, excavating or filling a lot needs a zoning permit first (Zoning Code §156.1171), and unincorporated Charleston County requires a stormwater permit once land disturbance passes 5,000 square feet. Near the marsh, state stormwater rules can apply to jobs well under an acre.",
+      },
+      {
+        // Kept to one answer on purpose: Will, 2026-11-19, "that is another
+        // option, but I don't want that to get in the way of things."
+        question: "Can I rent your dump trailer?",
+        answer:
+          "Sometimes, when it isn't out on a job. Call or text Josiah with your dates and what you're hauling.",
       },
     ],
   },
@@ -493,8 +500,8 @@ export const services: Service[] = [
       "land clearing Mount Pleasant SC, lot clearing Charleston SC, backyard clearing, overgrown yard clearing, underbrush clearing, selective clearing, brush removal, clearing for a pool or shed, stump removal, debris haul-off",
     image: filmClearing,
     imageSrcSet: filmClearingSet,
-    alt: "A yellow Cat excavator reaching into the brush under a stand of pines",
-    imageCaption: "Josiah clearing brush, from Firm Foundation's film.",
+    alt: "Firm Foundation's Cat excavator reaching into the brush under a stand of pines",
+    imageCaption: "Josiah clearing brush with Firm Foundation's new Cat excavator.",
     film: true,
     summary:
       "Overgrown backyards, lots and fence lines cleared down to usable ground, with the trees worth keeping left standing and the brush hauled off or mulched in place.",

@@ -20,7 +20,7 @@ things in and the outreach drafts is Will's private setup page (see hq,
 | Email | josiahlammers1@gmail.com |
 | Address | The same street address the Google profile uses, set to **hidden**. Mount Pleasant, SC 29466 shows publicly. Josiah works at the customer's property, so every platform should list it as a service-area business. |
 | Service area | Mount Pleasant, Isle of Palms, Sullivan's Island, Daniel Island, Charleston, West Ashley, James Island, Johns Island, Folly Beach |
-| Hours | Copy them from the Google profile exactly. Don't invent new ones. |
+| Hours | Monday to Saturday, 6:00 AM to 7:00 PM. Closed Sunday. (Will, 2026-11-19; the website shows the same. Set Google first, then Yelp, Bing, Apple, Facebook and Nextdoor to match exactly.) |
 | Owner | Josiah Lammers |
 | Instagram | https://www.instagram.com/firmfoundation_sc (the old @firmfoundation_chs no longer exists) |
 | Google reviews link | https://firmfoundationsc.com/review |

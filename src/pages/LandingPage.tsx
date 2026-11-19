@@ -209,7 +209,7 @@ const LandingPage = () => {
         <Section className="pt-0 md:pt-0">
           <SectionHeader
             title="See the work"
-            subtitle="Josiah runs the machine himself. Press play for half a minute of a job, start to finish."
+            subtitle="Josiah runs Firm Foundation's new Cat excavator himself. Press play for half a minute of a job."
           />
           <WorkFilm className="max-w-5xl" />
         </Section>
