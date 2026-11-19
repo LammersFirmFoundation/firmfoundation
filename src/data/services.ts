@@ -1,11 +1,14 @@
-import landClearing from "@/assets/services/excavation.jpg";
-import landClearingSet from "@/assets/services/excavation.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
-// Josiah's own photos, sent 2026-10-09. They replaced the stock pictures these
-// two slots used to carry.
-import clearingCard from "@/assets/services/land-clearing-from-the-cab.jpg";
-import clearingCardSet from "@/assets/services/land-clearing-from-the-cab.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
+// Josiah's own photo, sent 2026-10-09. (The Cat 305 and from-the-cab shots
+// that led excavation and land clearing until 2026-11-19 are in the Gallery.)
 import stumpRootBall from "@/assets/services/stump-root-ball.jpg";
 import stumpRootBallSet from "@/assets/services/stump-root-ball.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
+// Stills from Josiah's own film (2026-11-19), landscape and outside the cab:
+// what CLAUDE.md asked for. Captions say "Josiah" and "Firm Foundation's film",
+// not "his excavator", until Josiah confirms the machine is his own.
+import filmMachine from "@/assets/work/machine-in-the-woods.jpg";
+import filmMachineSet from "@/assets/work/machine-in-the-woods.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
+import filmClearing from "@/assets/work/clearing-brush.jpg";
+import filmClearingSet from "@/assets/work/clearing-brush.jpg?w=640;1024;1600&format=webp&quality=68&as=srcset";
 // Stock photography: licenses and the rules for using it are in
 // src/assets/stock/CREDITS.md. None of these are Firm Foundation jobs; each is
 // a placeholder for one of Josiah's own photos.
@@ -70,6 +73,8 @@ export type Service = {
    * Never set it on stock: a caption is the claim "this is his work".
    */
   imageCaption?: string;
+  /** Shows Josiah's film (WorkFilm) on this service's page. */
+  film?: boolean;
   /** A different photo for the service grid, when `image` would repeat something already on screen. */
   cardImage?: string;
   cardImageSrcSet?: string;
@@ -347,10 +352,11 @@ export const services: Service[] = [
     // Josiah's own machine. It was a stock photo of a Texas subdivision until
     // 2026-10-17, so the hero's "Excavation" tile, which shows this machine,
     // landed on a different one.
-    image: landClearing,
-    imageSrcSet: landClearingSet,
-    alt: "A Cat 305 excavator operated by Josiah, at work on a Lowcountry clearing site with felled timber behind it",
-    imageCaption: "Josiah operating a Cat 305 on a land-clearing job.",
+    image: filmMachine,
+    imageSrcSet: filmMachineSet,
+    alt: "Josiah in the cab of a yellow Cat excavator, its arm raised, working among tall pines",
+    imageCaption: "Josiah on the job, from Firm Foundation's film.",
+    film: true,
     pageTitle: "Excavation & Grading, Mount Pleasant SC | Firm Foundation",
     pageDescription:
       "Grading, site prep, patio and walkway bases, pads, gravel drives, fill and trenching in Mount Pleasant and Charleston, SC. Utilities marked through SC811 first.",
@@ -485,10 +491,11 @@ export const services: Service[] = [
       "Backyard, lot and underbrush clearing in Mount Pleasant and Charleston, SC. The good trees stay, stumps come out, and debris is hauled off or mulched in place.",
     pageKeywords:
       "land clearing Mount Pleasant SC, lot clearing Charleston SC, backyard clearing, overgrown yard clearing, underbrush clearing, selective clearing, brush removal, clearing for a pool or shed, stump removal, debris haul-off",
-    image: clearingCard,
-    imageSrcSet: clearingCardSet,
-    alt: "From Josiah's seat in the excavator cab: the bucket working a pile of roots and brush across a cleared tract",
-    imageCaption: "The view from Josiah's cab on a land-clearing job.",
+    image: filmClearing,
+    imageSrcSet: filmClearingSet,
+    alt: "A yellow Cat excavator reaching into the brush under a stand of pines",
+    imageCaption: "Josiah clearing brush, from Firm Foundation's film.",
+    film: true,
     summary:
       "Overgrown backyards, lots and fence lines cleared down to usable ground, with the trees worth keeping left standing and the brush hauled off or mulched in place.",
     description1:

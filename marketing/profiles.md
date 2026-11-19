@@ -18,7 +18,7 @@ things in and the outreach drafts is Will's private setup page (see hq,
 | Phone | (843) 998-5593 |
 | Website | https://firmfoundationsc.com |
 | Email | josiahlammers1@gmail.com |
-| Address | The same street address the Google profile uses, set to **hidden**. Mount Pleasant, SC 29464 shows publicly. Josiah works at the customer's property, so every platform should list it as a service-area business. |
+| Address | The same street address the Google profile uses, set to **hidden**. Mount Pleasant, SC 29466 shows publicly. Josiah works at the customer's property, so every platform should list it as a service-area business. |
 | Service area | Mount Pleasant, Isle of Palms, Sullivan's Island, Daniel Island, Charleston, West Ashley, James Island, Johns Island, Folly Beach |
 | Hours | Copy them from the Google profile exactly. Don't invent new ones. |
 | Owner | Josiah Lammers |

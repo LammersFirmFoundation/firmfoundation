@@ -12,6 +12,7 @@ import ServicePlate, { plateDescriptions } from "@/components/ServicePlate";
 import FaqList, { type FaqEntry } from "@/components/FaqList";
 import SEO from "@/components/SEO";
 import CtaSection from "@/components/CtaSection";
+import WorkFilm, { workFilmSchema } from "@/components/WorkFilm";
 import NotFound from "@/pages/NotFound";
 import { coreServices, findService, type Service } from "@/data/services";
 import { problemsForService } from "@/data/yard-problems";
@@ -274,6 +275,7 @@ const ServiceDetailPage = () => {
                   },
                 ]
               : []),
+            ...(service.film ? [workFilmSchema] : []),
           ]}
         />
 
@@ -431,6 +433,14 @@ const ServiceDetailPage = () => {
             </FadeInView>
           </div>
         </Section>
+
+        {/* ── Josiah's film, on the pages whose work it shows ──────────── */}
+        {service.film && (
+          <Section variant="cream" className="pt-0 md:pt-0">
+            <SectionHeader title="See the work" subtitle="Half a minute of Josiah on the machine." />
+            <WorkFilm className="max-w-5xl" />
+          </Section>
+        )}
 
         {/* ── The choice most people don't know they have ─────────────────
             The drawing and its notes side by side, as on a detail sheet. The

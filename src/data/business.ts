@@ -22,7 +22,7 @@ export const BUSINESS = {
   address: {
     locality: "Mount Pleasant",
     region: "SC",
-    postalCode: "29464",
+    postalCode: "29466",
     country: "US",
   },
 } as const;

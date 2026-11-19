@@ -19,6 +19,7 @@ import OurStory from "@/components/OurStory";
 import { useReviews, type ApiResponse } from "@/lib/useReviews";
 import { useInstagram, type InstagramFeed } from "@/lib/useInstagram";
 import InstagramStrip from "@/components/InstagramStrip";
+import WorkFilm, { workFilmSchema } from "@/components/WorkFilm";
 import { BUSINESS, howAJobRuns } from "@/data/business";
 import { localBusinessSchema, websiteSchema } from "@/lib/schema";
 
@@ -68,7 +69,7 @@ const LandingPage = () => {
         description="Family-run landscaping, hardscapes and excavation in Mount Pleasant and Charleston, SC: beds and sod, patios and walls, pool and pond prep, land clearing."
         canonical="/"
         keywords="landscaping Mount Pleasant SC, hardscapes Charleston SC, paver patio Mount Pleasant, landscape installation Charleston, excavation contractor Mount Pleasant, pool excavation, land clearing, grading, Lowcountry"
-        jsonLd={[localBusinessSchema, websiteSchema]}
+        jsonLd={[localBusinessSchema, websiteSchema, workFilmSchema]}
       />
 
       <main id="main" className="flex-1">
@@ -200,6 +201,17 @@ const LandingPage = () => {
             subtitle="Most jobs are more than one of these, and the same crew does all of it, so nothing gets handed off halfway."
           />
           <ServicesIndex />
+        </Section>
+
+        {/* ── The film: Josiah on the machine. After the services, because it
+            answers the next question, "who actually does the work?", and
+            before the process, which assumes the visitor is already sold. */}
+        <Section className="pt-0 md:pt-0">
+          <SectionHeader
+            title="See the work"
+            subtitle="Josiah runs the machine himself. Press play for half a minute of a job, start to finish."
+          />
+          <WorkFilm className="max-w-5xl" />
         </Section>
 
         {/* ── 4. How it works ──────────────────────────────────────────── */}
