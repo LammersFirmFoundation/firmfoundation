@@ -261,7 +261,13 @@
   animation: tile-curtain 0.95s cubic-bezier(0.76, 0, 0.24, 1) both;
   animation-delay: inherit;
 }
-.tile-reveal > img {
+/* The image may sit inside a <picture> (and the film's wrapper span), so the
+   delay is passed down through them. */
+.tile-reveal picture,
+.tile-reveal > span {
+  animation-delay: inherit;
+}
+.tile-reveal img {
   animation: tile-settle 1.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
   animation-delay: inherit;
 }
@@ -275,7 +281,7 @@
 @media (prefers-reduced-motion: reduce) {
   .hero-line > span,
   .hero-rise,
-  .tile-reveal > img {
+  .tile-reveal img {
     animation: none;
   }
   .tile-reveal::after {

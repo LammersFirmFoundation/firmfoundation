@@ -1,8 +1,9 @@
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link, useLoaderData } from "react-router-dom";
 import { ArrowRight, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import SEO from "@/components/SEO";
 import CtaSection from "@/components/CtaSection";
 import Header from "@/components/layout/Header";
@@ -75,7 +76,19 @@ const LandingPage = () => {
     loaderData?.reviews?.length ? loaderData : undefined,
   );
   const instagramPosts = useInstagram(loaderData?.instagram);
-  const shouldReduceMotion = useReducedMotion();
+  // The hero copy drifts and fades as the page scrolls, on a desktop only,
+  // where it sits at the top of the first screen. On a phone it sits under
+  // the film, so the fade emptied it right as a visitor reached it (Will's
+  // iPhone, 2026-11-19). Decided after mount, so the prerender and the first
+  // client render match.
+  const [fadeHero, setFadeHero] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px) and (prefers-reduced-motion: no-preference)");
+    const set = () => setFadeHero(mq.matches);
+    set();
+    mq.addEventListener("change", set);
+    return () => mq.removeEventListener("change", set);
+  }, []);
 
   // Hero copy drifts up and dissolves as the page moves off it, so the hero
   // hands over to the next section instead of just scrolling away.
@@ -123,7 +136,12 @@ const LandingPage = () => {
 
           {/* The mosaic's right edge is the frame's right edge (the same line as
               the header's quote button and every section), never its own. */}
-          <HeroMosaic className="px-5 pt-5 sm:px-6 sm:pt-8 md:px-10 lg:absolute lg:bottom-8 lg:left-[54%] lg:right-[max(2.5rem,calc((100vw-1280px)/2))] lg:top-28 lg:flex lg:items-center lg:justify-end lg:px-0 lg:pt-0" />
+          {/* Phones and tablets: the film comes right after the logo, the
+              headline and buttons follow it, and the two photos come after
+              those, so the first screen says what the company does. */}
+          <HeroMosaic part="film" className="px-5 pt-5 sm:px-6 sm:pt-8 md:px-10 lg:hidden" />
+          {/* Desktop: one composition beside the copy. */}
+          <HeroMosaic part="desktop" className="hidden lg:absolute lg:bottom-8 lg:left-[54%] lg:right-[max(2.5rem,calc((100vw-1280px)/2))] lg:top-28 lg:flex lg:items-center lg:justify-end" />
 
           {/* On a desktop this frame spans the whole hero, photos included, and
               sits above them, so it must not take the clicks: until 2026-10-17
@@ -131,8 +149,8 @@ const LandingPage = () => {
               copy column takes pointer events. */}
           <div className="frame pointer-events-none relative z-10 flex items-center lg:min-h-[100svh]">
             <motion.div
-              style={shouldReduceMotion ? undefined : { opacity: heroOpacity, y: heroLift }}
-              className="pointer-events-auto w-full pb-12 pt-8 will-change-transform sm:pt-12 lg:w-[50%] lg:py-28 lg:pr-12"
+              style={fadeHero ? { opacity: heroOpacity, y: heroLift } : undefined}
+              className="pointer-events-auto w-full pb-8 pt-6 sm:pt-10 lg:w-[50%] lg:will-change-transform lg:py-28 lg:pr-12"
             >
               <img
                 data-hero-brand
@@ -206,6 +224,7 @@ const LandingPage = () => {
               </div>
             </motion.div>
           </div>
+          <HeroMosaic part="tiles" className="px-5 pb-12 sm:px-6 md:px-10 lg:hidden" />
         </section>
 
         {/* Reviews directly under the hero: NN/g measures ~65% of viewing time
