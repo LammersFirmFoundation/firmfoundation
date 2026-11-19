@@ -154,7 +154,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     res.setHeader(
       "Cache-Control",
-      "public, s-maxage=86400, stale-while-revalidate=604800"
+      "public, s-maxage=21600, stale-while-revalidate=604800"
     );
     res.status(200).json(body);
   } catch (err) {

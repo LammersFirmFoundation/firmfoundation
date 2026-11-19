@@ -30,7 +30,7 @@ export function useReviews(initialData?: ApiResponse): UseReviewsResult {
       if (!res.ok) throw new Error(`Reviews API returned ${res.status}`);
       return res.json();
     },
-    staleTime: 1000 * 60 * 60, // 1h — edge cache is already 24h
+    staleTime: 1000 * 60 * 60, // 1h; the edge cache holds 6h
     retry: 1,
     initialData,
     initialDataUpdatedAt: initialData ? 0 : undefined,
